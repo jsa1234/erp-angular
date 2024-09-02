@@ -1,0 +1,16 @@
+.mat-mini-fab .mat-button-wrapper {
+    padding: 0px 0px 6px 0px !important;
+    transition: transform .2s;
+  }
+  .add-button-modal button:hover {
+    transform: scale(.8);
+  }
+  .action-button button:hover {
+    transform: scale(.8);
+  }
+  td.action-button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  

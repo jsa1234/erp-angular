@@ -1,0 +1,22 @@
+<ng-container *ngIf="isShowLabel">
+  <label>{{label | translate}}</label> <span *ngIf="isMandatory" class="text-danger">*</span>
+</ng-container>
+<div class="datepicker">
+<mat-form-field color="accent" [formGroup]="group">
+  <input class="form-control" [formControlName]="controlName" matInput [matDatepicker]="dp3"  [min]="minDate" [max]="maxDate" > 
+  <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+  <mat-datepicker #dp3 [disabled]="isDatePickerDisabled"></mat-datepicker>
+
+<div *ngIf="group.get(controlNameLabel).touched && group.get(controlNameLabel).errors">
+  <div class="text-danger" *ngIf="group.get(controlNameLabel).errors?.required">
+      {{validationMessage | translate}}
+  </div>
+  <div class="text-danger" *ngIf="group.get(controlNameLabel).errors?.matDatepickerMin">
+    Please select a date on or after {{group.get(controlNameLabel)?.errors?.matDatepickerMin?.min | customDate}}.
+  </div>
+  <div class="text-danger" *ngIf="group.get(controlNameLabel).errors?.matDatepickerMax">
+    Please select a date on or before {{group.get(controlNameLabel)?.errors?.matDatepickerMax?.max | customDate}}.
+  </div>
+</div>
+</mat-form-field>
+</div>

@@ -1,0 +1,88 @@
+
+
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="VATReport">
+            <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+                <div style="position: relative;z-index: 4;background-color: #FFF;">
+                    <div style="padding: 20px;">
+                        <header style="margin-bottom: 20px;">
+                                 <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                                <div style="display: grid;grid-template-columns: auto auto;">
+                                    <div
+                                        style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                        Mothly VAT Report Summary December 2022</div>
+                                    <div
+                                        style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                        ملخص تقرير ضريبة القيمة المضافة الشهرية ديسمبر 2022</div>
+                                </div>
+                        </header>
+        
+        
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th  [attr.colspan]="taxSummary?.taxSlabs?.length+2" style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Purchase <br> <span style="font-size: 14px;">مبيعات</span></th>
+                                    <th [attr.colspan]="taxSummary?.taxSlabs?.length+1" style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Sales <br> <span style="font-size: 14px;">شراء</span></th>
+                                </tr>
+                                <tr>
+                                    <th style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;"></th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;" *ngFor="let item of taxSummary?.taxSlabs">{{item}}%</th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
+                                        Input Tax (Through Purchase)</th>
+                                        <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;"*ngFor="let item of taxSummary?.taxSlabs">{{item}}%</th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
+                                        Output Tax (Collected)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of taxSummary?.taxData">
+                                    <th style="border: 1px solid #b5b5b5;text-align: left;font-size:14px;padding: 8px 12px;">TAX</th>
+        
+                                    <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" *ngFor="let tax of taxSummary?.taxSlabs">
+                                        <span [innerHTML]="(item?.inputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                                    </th>
+        
+                                    <th style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;" [innerHTML]="item.inputTaxSum | customCurrency"></th>
+        
+                                    <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" *ngFor="let tax of taxSummary?.taxSlabs">
+                                        <span [innerHTML]="(item?.outputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                                    </th>
+        
+                                    <th style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;" [innerHTML]="item.outputTaxSum | customCurrency"></th>
+                                </tr>
+                                <tr *ngFor="let item of taxSummary?.taxData">
+                                    <th style="border: 1px solid #b5b5b5;text-align: left;font-size:14px;padding: 8px 12px;">TOTAL</th>
+                                    <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" *ngFor="let tax of taxSummary?.taxSlabs">
+                                        <span [innerHTML]="(item?.inputTaxes | vatFilter:tax:'taxableAmount') | customCurrency"></span>
+                                    </th>
+                                    <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;"></th>
+        
+                                    <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" *ngFor="let tax of taxSummary?.taxSlabs">
+                                        <span [innerHTML]="(item?.outputTaxes | vatFilter:tax:'taxableAmount') | customCurrency"></span>
+                                    </th>
+                                    <th style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;"></th>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 8px 12px;"
+                                        [attr.colspan]="(taxSummary?.taxSlabs?.length+2)/2"><b>Total VAT Payable This Month</b></td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 8px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        [attr.colspan]="(taxSummary?.taxSlabs?.length+2)/2"><b>إجمالي ضريبة القيمة المضافة المستحقة الدفع هذا الشهر</b></td>
+                                    <td
+                                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 8px 12px;" [attr.colspan]="taxSummary?.taxSlabs?.length+2">
+                                        <b [innerHTML]="taxSummary?.taxAmountPayable | customCurrency"></b></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

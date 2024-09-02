@@ -1,0 +1,10 @@
+{
+    "/api": {
+      "target": "https://devibmsapi.aspiromit.com/api",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }

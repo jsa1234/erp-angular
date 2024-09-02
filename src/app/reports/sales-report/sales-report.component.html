@@ -1,0 +1,31 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-md-auto col-sm-auto">
+        <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+          <h1><i class="icon25"></i> <span>{{'SIDEBAR.SALES_REPORT' | translate}}</span></h1>
+        </div>
+      </div>
+    </div>
+    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+      <div class="crumbs-sec">
+        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.SALES_REPORT' | translate}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="loading-shade" *ngIf="isLoading$">
+    <mat-spinner></mat-spinner>
+  </div>
+  <mat-tab-group animationDuration="0ms">
+    <!-- <mat-tab label="{{'REPORTS.PRODUCT_WISE' | translate}}" *hasClaim="'report_sale_report_product_wise_sale_report'">
+    <app-product-wise-sales-report></app-product-wise-sales-report>
+    </mat-tab>
+    <mat-tab label="{{'REPORTS.CUSTOMER_WISE' | translate}}" *hasClaim="'report_sale_report_customer_wise_sale_report'">
+     <app-customer-wise-sales-report></app-customer-wise-sales-report>
+    </mat-tab> -->
+    <mat-tab label="{{'REPORTS.BILL_WISE' | translate}}" *hasClaim="'report_sale_report_bill_wise_sale_report'">
+     <app-bill-wise-sales-report></app-bill-wise-sales-report>
+    </mat-tab>
+    <mat-tab label="{{'REPORTS.DETAILED' | translate}}" *hasClaim="'report_sale_report_detailed_sale_report'">
+     <app-detailed-sales-report></app-detailed-sales-report>
+    </mat-tab>
+  </mat-tab-group>

@@ -1,0 +1,214 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>Sale Order Detail</h1>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrump-pages">
+        <div class="crumbs-sec">
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+          <a [routerLink]="['/sale-order/list']">Sales Order</a> /
+          <span>Sales Order Detail</span>
+        </div>
+      </div>
+</div>
+<br>
+
+<app-comapny-profile-heading [ProfileType]="4" [branchUUID]="saleOrder.branchUUID"></app-comapny-profile-heading>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="invoice-detatable table-responsive" >
+                <table>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.DOC_DATE' | translate}}</th>
+                        <td>{{saleOrder.docNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.DOC_NO' | translate}}</th>
+                        <td>{{saleOrder.docDate | customDate}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.REMARKS' | translate}}</th>
+                        <td>{{saleOrder.remarks}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="invoice-detatable table-responsive">
+                <table>
+
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.REF_BILL_NO' | translate}}</th>
+                        <td>{{saleOrder.refInvNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.REF_BILL_DATE' | translate}}</th>
+                        <td>{{saleOrder.refInvDate | customDate }} </td>
+                    </tr>
+                    <!-- <tr>
+                        <th>{{'PURCHASE_INVOICE.TRANSACTION_MODE' | translate}}</th>
+                        <td>{{saleOrder.transactionModeText}} </td>
+                    </tr> -->
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+    <div class="invoice-detatables table-responsive" >
+        <table>
+            <tr>
+                <th style="font-size: 16px;">Customer Detail</th>
+            </tr>
+            <tr>
+                <th>{{customer.nameEnglish}}</th>
+            </tr>
+            <tr *ngIf="customer.addressEnglish">
+                <td>{{customer.addressEnglish}}</td>
+            </tr>
+            <tr *ngIf="customer.phoneNumber">
+                <td>Phone: {{customer.phoneNumber}}</td>
+            </tr>
+            <tr *ngIf="customer.mobileNumber">
+                <td>Mobile: {{customer.mobileNumber}}</td>                
+            </tr>
+            <tr *ngIf="customer.email">
+                <td>
+                    Email: <a href="mailto:{{customer.email}}">{{customer.email}}</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    </div>
+
+    <ng-container *hasClaim="'sale_sale_order_list_sale_order_items'">
+    <div class="content-header">
+        <h1>{{'COMMON.LINE_ITEMS' | translate}}</h1>
+      </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="head">
+                <tr>
+                    <th style="width:1%">{{'COMMON.#' |translate}}</th>
+                    <th style="width:20%">{{'COMMON.PRODUCT_NAME' | translate}}</th>
+                    <th>{{'COMMON.UNIT' |translate}}</th>
+                    <th>{{'PRODUCT.UNIT_COST' |translate}}</th>
+                    <th >{{'PRODUCT.QUANTITY' | translate}}</th>
+                    <th>{{'DISCOUNT' | translate}}</th>
+                    <th >{{'CGST AMOUNT' | translate}}</th>
+                    <th >{{'IGST AMOUNT' | translate}}</th>
+                    <th >{{'SGST AMOUNT' | translate}}</th>
+                    <th >{{'CESS AMOUNT' | translate}}</th>
+                    <th >{{'ADDITIONAL CESS AMOUNT' | translate}}  </th>
+                    <!-- <th > {{'MANUFACTURE_DATE' | translate}} </th>
+                    <th > {{'EXPIRY_DATE' | translate}} </th> -->
+                    <th >{{'TOTAL' | translate}}</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let saleOrder of saleOrderItems;let i=index">
+                        <td style="text-align: center;">{{i+1}}</td>
+                        <td>{{saleOrder?.productObject?.nameEnglish}}</td>
+                        <td > {{saleOrder?.unitObject?.nameEnglish}}</td>
+                        <td  [innerHTML]="saleOrder?.unitPrice | customCurrency"></td>
+                        <td >{{saleOrder?.quantity}}</td>
+                        <td  [innerHTML]="saleOrder.discountAmount | customCurrency"></td>
+                        <td [innerHTML]="saleOrder.cgstAmount | customCurrency"></td>
+                        <td [innerHTML]="saleOrder.sgstAmount | customCurrency"></td>
+                        <td [innerHTML]="saleOrder.igstAmount | customCurrency"></td>
+                        <td [innerHTML]="saleOrder.cessAmount | customCurrency"></td>
+                        <td [innerHTML]="saleOrder.addnlCessAmount | customCurrency"></td>
+                        <!-- <td>{{saleOrder.manufactureDate  | customDate}}</td>
+                        <td >{{saleOrder.expiryDate | customDate}}</td> -->
+                        <td [innerHTML]="saleOrder.itemTotalAmount | customCurrency"></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+            <tbody>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Sub Total</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.subTotal | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.TOTAL_DISCOUNT' | translate}}</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.discountAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Taxable Amount</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.grossAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.CGST' | translate}}</b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.cgstAmount | customCurrency"></b></td>
+                </tr>                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.SGST' | translate}} </b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.sgstAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b> {{'PURCHASE_INVOICE.IGST' | translate}} </b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.igstAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.CESS' | translate}}</b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.cessAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.ADDITIONAL_CESS' | translate}}</b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.addnlCessAmount | customCurrency"></b></td>
+                </tr>
+
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b> {{'PURCHASE_INVOICE.TOTAL_EXPENSES' | translate}}</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="(saleOrder.transExpense + saleOrder.otherExpense) | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Round Off</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder?.roundOff | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Net Total</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="saleOrder.roundedNetTotalAmount | customCurrency"></b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+
+
+

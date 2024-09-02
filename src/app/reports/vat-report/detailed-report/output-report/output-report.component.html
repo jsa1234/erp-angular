@@ -1,0 +1,89 @@
+<vat-report-filter (searchActionHandler)="onSearch($event)" (excelActionHandler)="generateExcel()"
+  (pdfActionHandler)="generatePdf()" (clearActionHandler)="clear()" [outputData]="detailedTax"></vat-report-filter>
+<div class="stock-rport-table table-responsive table-scrolls">
+
+  
+  <ng-container *ngIf="reportType == '0'">
+  <table class="table report-varient-table table-striped table-hover" id="vat-report">
+    <thead>
+      <tr>
+        <th rowspan="2">{{'REPORTS.TAX_REPORT.DOC_NO' | translate}}</th>
+        <th rowspan="2" class="text-center">{{'REPORTS.TAX_REPORT.DOC_DATE' | translate}}</th>
+        <th colspan="2" class="text-center" *ngFor="let item of detailedTax?.taxSlabs">{{'REPORTS.TAX_REPORT.VAT' | translate}} {{item}} %</th>
+        <th rowspan="2" class="text-right">{{'REPORTS.TAX_REPORT.TOTAL' | translate}}</th>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let item of detailedTax?.taxSlabs">
+          <th class="text-center">{{'REPORTS.TAX_REPORT.TAXABLE_AMOUNT' | translate}}</th>
+          <th class="text-center">{{'REPORTS.TAX_REPORT.TAX_AMOUNT' | translate}}</th>
+          </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of detailedTax?.taxes">
+        <td>{{item.invoiceNumber}}</td>
+        <td class="text-center">{{item.transactionDate | customDate}}</td>
+        <ng-container *ngFor="let tax of detailedTax?.taxSlabs">
+        <td class="text-center"  [innerHTML]="(item?.taxDetails | vatFilter:tax:'taxableAmount') | customCurrency"></td>
+        <td class="text-center"  [innerHTML]="(item?.taxDetails | vatFilter:tax:'taxAmount') | customCurrency"></td>
+      </ng-container>
+        <td class="text-right" [innerHTML]="item?.totalAmount | customCurrency"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="2">{{'REPORTS.TAX_REPORT.TOTAL' | translate}}</th>
+        <ng-container *ngFor="let tax of detailedTax?.taxSlabs">
+        <th class="text-center" [innerHTML]="(detailedTax?.taxTotals | vatFilter:tax:'totalTaxableAmount') | customCurrency"  ></th>
+        <th class="text-center" [innerHTML]="(detailedTax?.taxTotals | vatFilter:tax:'totalTaxAmount') | customCurrency" ></th>
+        </ng-container>
+        <th class="text-right" [innerHTML]="detailedTax?.netTotalAmount | customCurrency"></th>
+      </tr>
+    </tfoot>
+  </table>
+</ng-container>
+
+
+<ng-container *ngIf="reportType != '0'" >
+  <table class="table report-varient-table table-striped table-hover" id="vat-report">
+    <thead>
+      <tr>
+        <th rowspan="2">{{'REPORTS.TAX_REPORT.MONTH' | translate}}</th>
+        <th colspan="2" class="text-center" *ngFor="let item of detailedTax?.taxSlabs">{{'REPORTS.TAX_REPORT.VAT' | translate}} {{item}} %</th>
+        <th rowspan="2" class="text-right">{{'REPORTS.TAX_REPORT.TOTAL' | translate}}</th>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let item of detailedTax?.taxSlabs">
+          <th class="text-center" >{{'REPORTS.TAX_REPORT.TAXABLE_AMOUNT' | translate}}</th>
+          <th class="text-center">{{'REPORTS.TAX_REPORT.TAX_AMOUNT' | translate}}</th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of detailedTax?.taxDetails">
+        <td style="color: #F00;">{{item?.month}}</td>
+        <ng-container *ngFor="let tax of detailedTax?.taxSlabs">
+          <td class="text-center" [innerHTML]="(item?.taxes | vatFilter:tax:'taxableAmount') | customCurrency"></td>
+          <td class="text-center" [innerHTML]="(item?.taxes | vatFilter:tax:'taxAmount') | customCurrency"></td>
+        </ng-container>
+        <td class="text-right" [innerHTML]="item?.totalTaxableAmount | customCurrency"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>{{'REPORTS.TAX_REPORT.TOTAL' | translate}}</th>
+        <ng-container *ngFor="let tax of detailedTax?.taxSlabs">
+        <th class="text-center" [innerHTML]="(detailedTax?.taxTotal | vatFilter:tax:'totalTaxableAmount') | customCurrency"  ></th>
+        <th class="text-center" [innerHTML]="(detailedTax?.taxTotal | vatFilter:tax:'totalTaxAmount') | customCurrency"  ></th>
+      </ng-container>
+        <th class="text-right" [innerHTML]="detailedTax?.totalTaxableAmount | customCurrency"></th>
+      </tr>
+    </tfoot>
+  </table>
+  </ng-container>
+</div>
+
+<ng-container  *ngIf="vatDetailedReport">
+  <app-output-monthly-pdf *ngIf="vatDetailedReportType == '0'" [detailedVatRepot]="vatDetailedReport"></app-output-monthly-pdf>
+  <app-output-yearly-quarterly-pdf *ngIf="vatDetailedReportType != '0'" [detailedVatRepot]="vatDetailedReport"></app-output-yearly-quarterly-pdf>
+</ng-container>

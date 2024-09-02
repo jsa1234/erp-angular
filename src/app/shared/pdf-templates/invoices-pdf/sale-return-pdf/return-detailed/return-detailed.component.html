@@ -1,0 +1,596 @@
+
+
+<div style="position:absolute;left:-15420px">
+	<div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id ="detailed">
+            <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+                <div style="position: relative;z-index: 4;background-color: #FFF;">
+                    <div style="padding: 20px;">
+                        <header style="margin-bottom: 20px;">
+                            <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                                <div style="display: grid;grid-template-columns: auto auto;">
+                                    <div
+                                        style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                        Sales Invoice</div>
+                                    <div
+                                        style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                        فاتورة المبيعات</div>
+                                </div>
+                        </header>
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div style="padding: 2px;">
+                                <table
+                                    style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;border-collapse: collapse;">
+                                    <tbody>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                                Invoice No</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                                {{salesReturn.docNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                                رقم الفاتورة</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                                Invoice Date</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                                {{salesReturn.docDate | customDate }}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                                Reference Invoice Date</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                                {{salesReturn.refInvDate | customDate }}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="padding: 2px;">
+                                <table
+                                    style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                                    <tbody>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">
+                                                P.O Number</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
+                                                {{salesReturn.poNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;font-family: 'Noto Kufi Arabic', sans-serif;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">
+                                                PO عدد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;">
+                                                D.R Number</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border: 1px solid #c9c6c6;">
+                                                {{salesReturn.drNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;font-family: 'Noto Kufi Arabic', sans-serif;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;">
+                                                رقم D.R</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">
+                                                Transaction Mode</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
+                                                {{salesReturn.transactionModeText}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                وضع الدفع</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div style="padding: 2px;">
+                                <table
+                                    style="border: 1px solid #f2f2f2; width: 100%;margin: 0;font-family: 'Inter', sans-serif;border-collapse: collapse;border-top: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;">
+                                    <tbody>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;border-bottom: 0;background-color: #f2f2f2;color: #535b61;">
+                                                Seller</th>
+                                            <th
+                                                style="text-align: right;padding: 6px 12px;border-left: 0;border-bottom: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاجر</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="text-align: left;padding: 0px 12px;font-size:14px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Name</th>
+                                            <th
+                                                style="text-align: right;padding: 0px 12px;font-size:14px;border-left: 0;border-bottom: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                اسم</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th colspan="2"
+                                                style="font-size:14px;text-align: center;padding: 5px 12px 12px 12px;font-size:18px;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                {{translationService.getSelectedLanguage()=='en'?companyProfile.nameEnglish:companyProfile.nameSecondLanguage}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table
+                                    style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;font-family: 'Inter', sans-serif;border-collapse: collapse;border-bottom: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;">
+                                    <tbody>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Building No.</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?companyProfile.buildingNoEnglish:companyProfile.buildingNoSecondLanguage}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                رقم الفاتورة</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Street Name</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?companyProfile.streetEnglish:companyProfile.streetSecondLanguage}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                District</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?companyProfile.districtEnglish:companyProfile.districtSecondLanguage}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                City</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?companyProfile.placeEnglish:companyProfile.placeSecondLanguage}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Postal Code</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?companyProfile.zipCodeEnglish:companyProfile.zipCodeSecondLanguage}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Additional No.</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{companyProfile.additionalNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                VAT No.</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{companyProfile.vatRegNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Telephone</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{companyProfile.phoneNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;color: #535b61;">
+                                                Mobile</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-left: 0;">
+                                                {{companyProfile.mobileNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div style="padding: 2px;">
+                                <table
+                                    style="border: 1px solid #f2f2f2; width: 100%;margin: 0;font-family: 'Inter', sans-serif;border-collapse: collapse;border-top: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;">
+                                    <tbody>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">
+                                                Buyer</th>
+                                            <th
+                                                style="text-align: right;padding: 6px 12px;border-left: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                مشتر</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="text-align: left;padding: 0px 12px;font-size:14px;border-right: 0;border-bottom: 0;color: #535b61;">
+                                                Name</th>
+                                            <th
+                                                style="text-align: right;padding: 0px 12px;font-size:14px;border-left: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                اسم</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th colspan="2"
+                                                style="text-align: center;padding: 5px 12px 12px 12px;font-size:18px;border-top: 0;color: #535b61;">
+                                                {{translationService.getSelectedLanguage()=='en'?client.nameEnglish:client.nameSecondLanguage}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table
+                                    style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;font-family: 'Inter', sans-serif;border-collapse: collapse;border-bottom: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;">
+                                    <tbody>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Building No.</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?client.buildingNoEnglish:client.buildingNoArabic}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                رقم الفاتورة</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Street Name</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?client.streetEnglish:client.streetArabic}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                District</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?client.district:client.districtArabic}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                City</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{translationService.getSelectedLanguage()=='en'?client.placeEnglish:client.placeArabic}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Postal Code</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{client.zipCode}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Additional No.</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{client.addRegNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                VAT No.</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{client.gstVatNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
+                                                Cr No</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
+                                                {{client.regCrNo}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ الفاتورة
+                                            </th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;color: #535b61;">
+                                                Telephone</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-left: 0;">
+                                                {{client.phoneNumber}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                        <tr style="border: none;">
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;color: #535b61;">
+                                                Mobile</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-left: 0;">
+                                                {{client.mobileNumber}}</td>
+                                            <th
+                                                style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                                تاريخ التوريد</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div
+                                style="font-family: 'Inter', sans-serif;text-align: left;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;">
+                                Line Items</div>
+                            <div
+                                style="text-align: right;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;line-height: 25px;">
+                                قائمة المواد</div>
+                        </div>
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr style="border: none;">
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        SI.NO</th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;    line-height: 16px;">
+                                        Nature of Goods Or Services <br> <span style="font-size: 12px;">منتج</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Unit Price <br> <span style="font-size: 12px;">سعر الوحدة</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Quantity <br> <span style="font-size: 12px;">كمية</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Return Quantity <br> <span style="font-size: 12px;">عودة كمية</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Discount <br> <span style="font-size: 12px;">تخفيض</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Taxable Amount <br> <span style="font-size: 12px;">تخفيض</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Tax Rate <br> <span style="font-size: 12px;">معدل</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Tax Amt<br> <span style="font-size: 12px;">معدل</span></th>
+                                    <th
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
+                                        Item Sub Total <br> <span style="font-size: 12px;">المبلغ الإجمالي</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border: none;" *ngFor="let saleInvoice of salesReturnList;let i=index">
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{i+1}}</td>
+                                    <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{translationService.getSelectedLanguage()=='en'?saleInvoice.productObject?.nameEnglish:saleInvoice.productObject?.nameSecondLanguage}}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="saleInvoice?.unitPrice | customCurrency"></td>
+
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{saleInvoice?.quantity}} </td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{saleInvoice?.returnQuantity}} </td>
+
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;"   [innerHTML]="saleInvoice?.discountAmount | customCurrency"></td>
+
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;"   [innerHTML]="(saleInvoice?.itemTotalAmount - saleInvoice?.vatAmount) | customCurrency"></td>
+
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;" > {{saleInvoice?.vatRate}} %</td>
+
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="saleInvoice?.vatAmount | customCurrency"></td>
+
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;" [innerHTML]="saleInvoice?.itemTotalAmount | customCurrency"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <tbody>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4"><b>Total Qty</b></td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4"><b>إجمالي الكمية</b></td>
+                                    <td
+                                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn.totalQuantity | customCurrency"></b></td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4">
+                                        <b>
+                                            Total (Excluding VAT)
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4">
+                                        <b>
+                                            الإجمالي (باستثناء ضريبة القيمة المضافة)
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn?.subTotal | customCurrency"></b>
+                                    </td>
+                                </tr>
+
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4">
+                                        <b>Discount</b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4">
+                                        <b>تخفيض</b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn?.totalDiscount | customCurrency"></b>
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4">
+                                        <b>
+                                            Total Taxable Amt (Excluding VAT)
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4">
+                                        <b>
+                                            إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn?.totalTaxableAmount | customCurrency"></b>
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4">
+                                        <b>Total VAT</b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4">
+                                        <b>
+                                            إجمالي ضريبة القيمة المضافة
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn?.totalTax | customCurrency"></b>
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4">
+                                        <b>Total Expenses</b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4">
+                                        <b>
+                                            إجمالي ضريبة القيمة المضافة
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn.totalExpenses | customCurrency"></b>
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4">
+                                        <b>Round Off</b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4">
+                                        <b>
+                                            إجمالي المبلغ المستحق
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn?.roundOff | customCurrency"></b>
+                                    </td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="4">
+                                        <b>Total Amount</b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4">
+                                        <b>
+                                            إجمالي المبلغ المستحق
+                                        </b>
+                                    </td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                        <b [innerHTML]="salesReturn?.totalAmount | customCurrency"></b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div style="display: grid;grid-template-columns: auto auto;font-family: 'Inter', sans-serif;">
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: left;">
+                                <b>Receieved By</b></p>
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: right;">
+                                <b>{{translationService.getSelectedLanguage()=='en'? salesReturn?.salesMan?.nameEnglish :salesReturn?.salesMan?.nameSecondLanguage}}</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,12 @@
+export enum DocumentTypeEnum{
+    PURCHASE,
+    SALE,
+    OPENSTOCK,
+    PURCRETURN,
+    SALERETURN,
+    RECEIPTVOUCH,
+    PAYMENTVOUCH,
+    JOURNAL,
+    DAMAGE,
+    STOCKTRANSFER
+}

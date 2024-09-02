@@ -1,0 +1,31 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons"
+        [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon3"></i> <span>{{'DEVICE.CONFIGURATION' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+      <a [routerLink]="['/device']">{{'SIDEBAR.DEVICE' | translate}}</a> / <span>{{'DEVICE.CONFIGURATION' | translate}}</span>
+      
+    </div>
+  </div>
+</div>
+
+<div class="loading-shade" *ngIf="isLoading$">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+
+<app-system-flag-configurations [systemFlagConfigurations]="deviceConfig" (saveConfig)="save($event)"></app-system-flag-configurations>
+
+
+
+
+
+

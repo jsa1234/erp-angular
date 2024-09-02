@@ -1,0 +1,151 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+                <h1><i class="icon13"></i> <span>{{'SIDEBAR.ACCOUNT_HEAD' | translate}}</span></h1>
+            </div>
+        </div>
+        <div class="col-md-auto col-sm-auto col-auto">
+            <button *hasClaim="'account_account_head_view_account_head'" class="btn blue-btn btn-sm m-right-10" routerLink="/accountHead/add">
+                <!-- (click)="manageUnit({}) -->
+                <i class="fas fa-plus"></i>
+                {{'ACCOUNTS.ACCOUNT_HEAD.ADD_ACCOUNT_HEAD' | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+      <div class="crumbs-sec">
+        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.ACCOUNT_HEAD' | translate}}</span>
+      </div>
+    </div>
+</div>
+<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+</div>
+
+<form autocomplete="off" (ngSubmit)="onSearch()" [formGroup]="searchForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+  <div class="filter-sec mb-4">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>{{'ACCOUNTS.GROUP' | translate}}</label>
+              <mat-select placeholder="" formControlName="group" (selectionChange)="getAllLedger($event.value)"  class="w-100 form-control">
+                <mat-option *ngFor="let item of groupList" [value]="item.accountUUID"> {{translationService.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>{{'ACCOUNTS.LEDGER' | translate}}</label>
+              <mat-select placeholder="" formControlName="ledger" (selectionChange)="getAllSubLedger($event.value)" class="w-100 form-control">
+                <mat-option *ngFor="let item of ledgerList" [value]="item.accountUUID">{{translationService.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>{{'ACCOUNTS.SUB_LEDGER' | translate}}</label>
+              <mat-select placeholder="" formControlName="subledger" class="w-100 form-control">
+                <mat-option *ngFor="let item of subledgerList" [value]="item.accountUUID">{{translationService.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="filter-search">
+          <button type="submit" class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' 
+            | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+    <div class="col-sm-12">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows
+          class="table table-bordered table-hover grid-height" matSort matSortActive="nameEnglish">
+          <ng-container matColumnDef="accountCode">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'COMMON.ACCOUNT_CODE' | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let element"> {{element.accountCode}} </td>
+          </ng-container>
+          <ng-container matColumnDef="nameEnglish">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.ACCOUNT_HEAD.NAME_ENGLISH' | translate}}</th>
+            <td class="table-column-150" mat-cell *matCellDef="let element">
+              {{element.nameEnglish}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="nameSecondLanguage">
+            <th class="table-column-150 text-right" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.ACCOUNT_HEAD.NAME_ARABIC' | translate}}</th>
+            <td class="table-column-150 text-right" mat-cell *matCellDef="let element">
+             {{element.nameSecondLanguage}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="acoountDetailType">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.GROUP' | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let element">
+              <span *ngIf="element.accGroup == enum.ASSET">{{'ACCOUNTS.ASSET' | translate}}</span>
+              <span *ngIf="element.accGroup == enum.LIABILITY">{{'ACCOUNTS.LIABILITY' | translate}}</span>
+              <span *ngIf="element.accGroup == enum.INCOME">{{'ACCOUNTS.INCOME' | translate}}</span>
+              <span *ngIf="element.accGroup == enum.EXPENSE">{{'ACCOUNTS.EXPENSE' | translate}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="code-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <input class="form-control" id=""   placeholder="" [(ngModel)]="AccountCodeFilter">
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="nameEnglish-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <input placeholder="" type="text" class="form-control w-90" [(ngModel)]="NameEnglishFilter">
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="nameSecondLanguage-search">
+            <th mat-header-cell *matHeaderCellDef>
+            <input placeholder="" type="text" class="form-control w-90" [(ngModel)]="NameArabicFilter">
+          </th>
+          </ng-container>
+          <ng-container matColumnDef="group-search">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <input placeholder="" type="text" class="form-control w-90" >
+          </ng-container>
+          <ng-container matColumnDef="footer">
+            <td mat-footer-cell colspan="12" *matFooterCellDef>
+              <mat-paginator [length]="accountHeadResource.totalCount" [pageSize]="accountHeadResource.pageSize"
+                [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons>
+              </mat-paginator>
+            </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let soObject" [attr.colspan]="displayedColumns.length">
+              <ng-container *ngIf="soObject == expandedElement">
+                <div class="example-element-detail"
+                  [@detailExpand]="soObject == expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="inner-table mat-elevation-z8">
+                    <app-journal-item [salesOrder]="soObject">
+                    </app-journal-item>
+                  </div>
+                </div>
+              </ng-container>
+            </td>
+          </ng-container> -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.bg-warning]="row.status===1"></tr>
+          <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true">
+          <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+          <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> -->
+        </table>
+        <ng-container *ngIf="dataSource.count === 0">
+          <div class="row">
+            <div class="col-sm-12 ml-4 mt-3 text-center">
+              <label class="font-weight-bold"> {{'COMMON.NO_DATA_FOUND' | translate}}</label>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>

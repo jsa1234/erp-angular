@@ -1,0 +1,48 @@
+.mat-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+  @for $index from 0 through 300 {
+    $size: $index * 2;
+    .table-column-#{$size} {
+      // flex: 0 1 #{$size}#{"px"};
+      min-width: #{$size}#{"px"};
+    }
+  }
+
+  tr.example-detail-row {
+    height: 0 !important;
+  }
+
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+
+  .example-element-detail {
+    overflow: hidden;
+    display : flex;
+  }
+
+  .inner-table {
+    margin: 1em;
+    padding: 1em;
+    width: 100% !important;
+  }
+  table.mat-table {
+    border-spacing: 0;
+    display: table !important;
+    width: 100% !important;
+}
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+.content-header h1 i {
+  display: list-item;
+  position: absolute;
+  padding-right: 18px;
+  background-color: #f58220 !important;
+}
+.content-header h1 span {
+  margin-left: 35px;
+}

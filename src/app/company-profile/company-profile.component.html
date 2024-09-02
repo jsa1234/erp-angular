@@ -1,0 +1,271 @@
+<div class="page-header-main mt-2">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons"
+        [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon45"></i> <span>{{'SIDEBAR.COMPANY_PROFILE' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.COMPANY_PROFILE' |
+        translate}}</span>
+    </div>
+  </div>
+</div>
+<form [formGroup]="companyProfileForm" (ngSubmit)="saveCompanyProfile()"
+  [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.NAME_ENGLISH'|translate}}<span class="text-danger">*</span></label>
+              <input formControlName="nameEnglish" class="form-control w-100" type="text">
+              <div *ngIf="companyProfileForm.get('nameEnglish').touched && companyProfileForm.get('nameEnglish').errors">
+                <div class="text-danger" *ngIf="companyProfileForm.get('nameEnglish').errors?.required">
+                  Company Name is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.COMPANY_CODE'|translate}} <span class="text-danger">*</span></label>
+              <input formControlName="companyCode" class="form-control w-100" type="text">
+              <div *ngIf="companyProfileForm.get('companyCode').touched && companyProfileForm.get('companyCode').errors">
+                <div class="text-danger" *ngIf="companyProfileForm.get('companyCode').errors?.required">
+                  Company Code is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label >Country Code</label>
+              <input formControlName="mobileCountryCode" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.MOBILE_NO'|translate}}</label>
+              <input formControlName="mobileNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label >Country Code</label>
+              <input formControlName="phoneCountryCode" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.PHONE_NO'|translate}}</label>
+              <input formControlName="phoneNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.EMAIL'|translate}}</label>
+              <input formControlName="email" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.WEBSITE'|translate}}</label>
+              <input formControlName="website" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label > {{'COMPANY_PROFILE.GST_NO'|translate}}</label>
+              <input formControlName="gstVatNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label >TIN No</label>
+              <input formControlName="registrationNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > PIN No</label>
+              <input formControlName="additionalNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > FSSAI No</label>
+              <input formControlName="fssaiNumber" class="form-control w-100" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.BUILDING_NO_ENGLISH'|translate}}</label>
+              <input formControlName="buildingNoEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.STREET_ENGLISH'|translate}}</label>
+              <input formControlName="streetEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label > {{'COMPANY_PROFILE.PLACE_ENGLISH'|translate}}</label>
+              <input formControlName="placeEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.DISTRICT_ENGLISH'|translate}}</label>
+              <input formControlName="districtEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.STATE_ENGLISH'|translate}}</label>
+              <input formControlName="stateEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.COUNTRY_ENGLISH'|translate}}</label>
+              <input formControlName="countryEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.ZIP_CODE_ENGLISH'|translate}}</label>
+              <input formControlName="zipCodeEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.GOOGLE_MAP_URL'|translate}}</label>
+              <input formControlName="googleMapUrl" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.LATITUDE'|translate}}</label>
+              <input formControlName="latitude" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label >{{'COMPANY_PROFILE.LONGITUDE'|translate}}</label>
+              <input formControlName="longitude" class="form-control w-100" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > Facebook Url</label>
+              <input formControlName="facebookUrl" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > Instagram Url</label>
+              <input formControlName="instagramUrl" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > Whatsapp No</label>
+              <input formControlName="whatsappNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > Telegram Url</label>
+              <input formControlName="telegramUrl" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > Linkdin Url</label>
+              <input formControlName="linkedUrl" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label > Twitter Url</label>
+              <input formControlName="twiterUrl" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <date-input [group]="companyProfileForm" [controlName]="'startDate'" [label]="'COMPANY_PROFILE.START_DATE'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_START_DATE'" [isMandatory]="true"  [isCustomRange]="true" [isDefaultDate]="false" [defaultDate]="company?.startDate"></date-input>
+          </div>
+          <div class="col-md-4">
+            <date-input [group]="companyProfileForm" [controlName]="'installationDate'" [label]="'COMPANY_PROFILE.INSTALLATION_DATE'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_INSTALLATION_DATE'" [isMandatory]="true" [isCustomRange]="true" [isDefaultDate]="false" [defaultDate]="company?.installationDate"></date-input>
+          </div>
+          <div class="col-md-4">
+            <date-input [group]="companyProfileForm" [controlName]="'renewalDate'" [label]="'COMPANY_PROFILE.RENEWAL_DATE'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_RENEWAL_DATE'" [isMandatory]="true" [isCustomRange]="true" [isDefaultDate]="false" [defaultDate]="company?.renewalDate"></date-input>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Color Logo</label>
+            <mat-card class="cus-mat-card upload-complogo">
+              <input hidden (change)="onFileSelect(logoType.POLYCHROME,$event)" #polychrome  type="file" name="polychrome"
+                fxFlex="30">
+              <img *ngIf="polyChromeSrc" class="full-width" [src]="polyChromeSrc" />
+              <img *ngIf="!polyChromeSrc" class="full-width" src="../../assets/images/dummy.jpg" />
+              <mat-card-actions>
+                <button type="button" class="btn btn-success btn-sm mb-2" (click)="polychrome.click()">
+                  <i class="far fa-image"></i> {{'COMMON.CHANGE_LOGO' | translate}}</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+          <div class="col-md-6">
+            <label>Monochrome Logo</label>
+            <mat-card class="cus-mat-card upload-complogo">
+              <input hidden (change)="onFileSelect(logoType.MONOCHROME,$event)" #monochrome  type="file" name="monochrome"
+                fxFlex="30">
+              <img *ngIf="monoChromeSrc" class="full-width" [src]="monoChromeSrc" />
+              <img *ngIf="!monoChromeSrc" class="full-width" src="../../assets/images/dummy.jpg" />
+              <mat-card-actions>
+                <button type="button" class="btn btn-success btn-sm mb-2" (click)="monochrome.click()">
+                  <i class="far fa-image"></i> {{'COMMON.CHANGE_LOGO' | translate}}</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 m-bottom-40 text-center">
+      <button *hasClaim="'profile_business_update_business_profile'" type="submit"
+        class="btn btn-success btn-sm mr-2 m-left-10">
+        <i class="fas fa-save"></i> {{'COMMON.SAVE' | translate}}
+      </button>
+      <button [routerLink]="['/dashboard']" type="button" class="btn btn-danger btn-sm">
+        <i class="fas fa-times-circle"></i> {{'COMMON.CANCEL' | translate}}
+      </button>
+    </div>
+  </div>
+</form>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>

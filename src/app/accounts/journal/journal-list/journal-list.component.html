@@ -1,0 +1,177 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+                <h1><i class="icon16"></i> <span>{{'SIDEBAR.JOURNAL' | translate}}</span></h1>
+            </div>
+        </div>
+        <div class="col-md-auto col-sm-auto">
+          <button *hasClaim="'account_journal_create_journal'" class="btn blue-btn btn-sm m-right-10"
+            [routerLink]="['/journal/manage/add']">
+            <i class="fas fa-plus"></i> {{'ACCOUNTS.JOURNAL.ADD_JOURNAL' | translate}}
+          </button>
+        </div>
+    </div>
+    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+      <div class="crumbs-sec">
+        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.JOURNAL' | translate}}</span>
+      </div>
+    </div>
+</div>
+
+<div class="loading-shade" *ngIf="(dataSource.loading$ | async) ||isLoading$">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+<div class="filter-sec mb-4">
+  <div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-3">
+          <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+       </div>
+       <div class="col-md-3">
+          <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"></app-device-dropdown>
+       </div>
+        <div class="col-md-3">
+          <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+        </div>
+        <div class="col-md-3">
+          <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="filter-search">
+      <button type="submit"  class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<div class="row">
+    <div class="col-sm-12">
+      <div class="table-responsive">
+
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows
+          class="table table-bordered table-hover grid-height" matSort matSortActive="docNo">
+          <ng-container matColumnDef="action">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>
+            </th>
+            <td class="table-column-150" mat-cell *matCellDef="let so">
+              <ng-container *hasClaim="'account_journal_list_journal_items'">
+              <i  class="fas fa-chevron-right btn" *ngIf="so != expandedElement" (click)="toggleRow(so)"></i>
+              <i  class="fas fa-chevron-down btn" *ngIf="so == expandedElement" (click)="toggleRow(so)"></i>
+            </ng-container>
+                  <button *hasClaim="['account_journal_view_journal','account_journal_edit_journal','account_journal_delete_journal']" class="ml-4"
+                mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button *hasClaim="'account_journal_view_journal'"  mat-menu-item
+                  [routerLink]="['/journal/detail/', so.journalUUID]">
+                  <mat-icon>info</mat-icon>
+                  <span>{{'COMMON.DETAIL' | translate}}</span>
+                </button>
+                <button *hasClaim="'account_journal_edit_journal'"  mat-menu-item
+                [routerLink]="['/journal/manage/', so.journalUUID]">
+                <mat-icon>edit</mat-icon>
+                <span>{{'COMMON.EDIT' | translate}}</span>
+              </button>
+                <button  *hasClaim="'account_journal_delete_journal'" mat-menu-item (click)="deleteJournal(so)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{'COMMON.DELETE' | translate}}</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="docNo">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.JOURNAL.JOURNAL_NO'  | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.journalNo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="docDate">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.JOURNAL.JOURNAL_DATE'  | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let so">
+             {{so.journalDate  | customDate}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalCrAmount">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.JOURNAL.TOTAL_CR_AMOUNT'  | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.totalCrAmount}} </td>
+          </ng-container>
+          <ng-container matColumnDef="totalDrAmount">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'ACCOUNTS.JOURNAL.TOTAL_DR_AMOUNT'  | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.totalDrAmount}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action-search">
+            <th mat-header-cell *matHeaderCellDef> </th>
+          </ng-container>
+          <form [formGroup]="filterForm">
+          <ng-container matColumnDef="journalNo-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <input class="form-control" placeholder="Journal No" formControlName="journalNo">
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="journalDate-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="filterDate col-md-12">
+                <date-input [group]="filterForm" [controlName]="'journalDate'" [label]="''" [isShowLabel]="false" [isDefaultDate]="false"></date-input>
+              </div>
+              <button class="dateRemove" mat-icon-button color="warn" (click)="removeDate()" *ngIf ="filterForm.get('journalDate').value">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </th>
+          </ng-container>
+        </form>
+
+          <ng-container matColumnDef="totalCrAmount-search">
+            <th mat-header-cell *matHeaderCellDef></th>
+          </ng-container>
+          <ng-container matColumnDef="totalDrAmount-search">
+            <th mat-header-cell *matHeaderCellDef></th>
+          </ng-container>
+
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+                {{'COMMON.NO_DATA_FOUND' | translate}}
+            </td>
+          </tr>
+
+          <ng-container matColumnDef="footer">
+            <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>
+              <mat-paginator [length]="journalResource.totalCount" [pageSize]="journalResource.pageSize"
+                [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+              </mat-paginator>
+            </td>
+          </ng-container>
+          <ng-container *hasClaim="'account_journal_list_journal_items'" >
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let soObject" [attr.colspan]="displayedColumns.length">
+              <ng-container *ngIf="soObject == expandedElement">
+                <div class="example-element-detail"
+                  [@detailExpand]="soObject == expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="inner-table mat-elevation-z8">
+                    <app-journal-item [journalId]="soObject.journalUUID">
+                    </app-journal-item>
+                  </div>
+                </div>
+              </ng-container>
+            </td>
+          </ng-container>
+        </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true">
+          <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+          <ng-container *hasClaim="'account_journal_list_journal_items'">
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </ng-container>
+        </table>
+      </div>
+    </div>
+  </div>

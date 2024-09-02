@@ -1,0 +1,33 @@
+.w-100 {
+    width: 100%;
+  }
+  ::ng-deep .k-textbox-container,
+  .k-floating-label-container {
+    width: 100%;
+  }
+  .chem-img {
+    width: 150px;
+    height: 150px;
+  }
+  .display-none{
+    display: none;;
+  }
+  .mt-10{
+    margin-top: 10px;
+  }
+  .content-header h1 i {
+    display: list-item;
+    position: absolute;
+    padding-right: 18px;
+    background-color: #f58220 !important;
+  }
+  .content-header h1 span {
+    margin-left: 35px;
+  }
+  .mat-focus-indicator img {
+    height: 160px;
+    object-fit: fill;
+  }
+  .section-boxed mat-card {
+    height: 220px;
+}

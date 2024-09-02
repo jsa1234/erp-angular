@@ -1,0 +1,239 @@
+[
+    {
+        "profileId": 1,
+        "profileName": "Profile 1",
+        "configurations": [
+            {
+                "label": "Show Company Details",
+                "value": true,
+                "key": "company",
+                "isShow": true
+            },
+
+            {
+                "label": "Show Barcode Label",
+                "value": true,
+                "key": "barcode",
+                "isShow": true
+            },
+            {
+                "label": "Show Product Name",
+                "value": true,
+                "key": "product",
+                "isShow": true
+            },
+            {
+                "label": "Show MRP",
+                "value": true,
+                "key": "mrp",
+                "isShow": true
+            },
+            {
+                "label": "Show Selling Price",
+                "value": true,
+                "key": "sellingPrice",
+                "isShow": true
+            },
+            {
+                "label": "Show Wholesale Rate",
+                "value": false,
+                "key": "wholesaleRate",
+                "isShow": true
+            },
+            {
+                "label": "Show Unit",
+                "value": true,
+                "key": "unit",
+                "isShow": true
+            },
+            {
+                "label": "Show EXP",
+                "value": true,
+                "key": "exp",
+                "isShow": true
+            },
+            {
+                "label": "Show MFG",
+                "value": true,
+                "key": "mfg",
+                "isShow": true
+            },
+            {
+                "label": "Show Unit Price",
+                "value": false,
+                "key": "unitPrice",
+                "isShow": false
+            },
+            {
+                "label": "Show FSSAI",
+                "value": true,
+                "key": "fssai",
+                "isShow": true
+            },
+            {
+                "label": "Show Inclusive Of All Taxes",
+                "value": true,
+                "key": "inclusiveOfTaxes",
+                "isShow": true
+            }
+        ]
+    },
+    {
+        "profileId": 2,
+        "profileName": "Profile 2",
+        "configurations": [
+            {
+                "label": "Show Company Details",
+                "value": true,
+                "key": "company",
+                "isShow": true
+            },
+
+            {
+                "label": "Show Barcode Label",
+                "value": true,
+                "key": "barcode",
+                "isShow": true
+            },
+            {
+                "label": "Show Product Name",
+                "value": true,
+                "key": "product",
+                "isShow": true
+            },
+            {
+                "label": "Show MRP",
+                "value": true,
+                "key": "mrp",
+                "isShow": true
+            },
+            {
+                "label": "Show Selling Price",
+                "value": true,
+                "key": "sellingPrice",
+                "isShow": true
+            },
+            {
+                "label": "Show Wholesale Rate",
+                "value": false,
+                "key": "wholesaleRate",
+                "isShow": true
+            },
+            {
+                "label": "Show Unit",
+                "value": true,
+                "key": "unit",
+                "isShow": true
+            },
+            {
+                "label": "Show EXP",
+                "value": true,
+                "key": "exp",
+                "isShow": true
+            },
+            {
+                "label": "Show MFG",
+                "value": true,
+                "key": "mfg",
+                "isShow": true
+            },
+            {
+                "label": "Show Unit Price",
+                "value": false,
+                "key": "unitPrice",
+                "isShow": false
+            },
+            {
+                "label": "Show FSSAI",
+                "value": true,
+                "key": "fssai",
+                "isShow": true
+            },
+            {
+                "label": "Show Inclusive Of All Taxes",
+                "value": true,
+                "key": "inclusiveOfTaxes",
+                "isShow": true
+            }
+        ]
+    },
+    {
+        "profileId": 3,
+        "profileName": "Profile 3",
+        "configurations": [
+            {
+                "label": "Show Company Details",
+                "value": true,
+                "key": "company",
+                "isShow": true
+            },
+
+            {
+                "label": "Show Barcode Label",
+                "value": true,
+                "key": "barcode",
+                "isShow": true
+            },
+            {
+                "label": "Show Product Name",
+                "value": true,
+                "key": "product",
+                "isShow": true
+            },
+            {
+                "label": "Show MRP",
+                "value": true,
+                "key": "mrp",
+                "isShow": true
+            },
+            {
+                "label": "Show Selling Price",
+                "value": true,
+                "key": "sellingPrice",
+                "isShow": true
+            },
+            {
+                "label": "Show Wholesale Rate",
+                "value": false,
+                "key": "wholesaleRate",
+                "isShow": true
+            },
+            {
+                "label": "Show Unit",
+                "value": true,
+                "key": "unit",
+                "isShow": true
+            },
+            {
+                "label": "Show EXP",
+                "value": true,
+                "key": "exp",
+                "isShow": true
+            },
+            {
+                "label": "Show MFG",
+                "value": true,
+                "key": "mfg",
+                "isShow": true
+            },
+            {
+                "label": "Show Unit Price",
+                "value": false,
+                "key": "unitPrice",
+                "isShow": false
+            },
+            {
+                "label": "Show FSSAI",
+                "value": true,
+                "key": "fssai",
+                "isShow": true
+            },
+            {
+                "label": "Show Inclusive Of All Taxes",
+                "value": true,
+                "key": "inclusiveOfTaxes",
+                "isShow": true
+            }
+        ]
+    }
+]

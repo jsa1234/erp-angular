@@ -1,0 +1,418 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons"
+        [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon3"></i> <span>{{'PRODUCT.MANAGE_PRODUCT' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+      <a [routerLink]="['/product']">{{'SIDEBAR.PRODUCT' | translate}}</a> / <span>{{'PRODUCT.MANAGE_PRODUCT' | translate}}</span>
+    </div>
+  </div>
+</div>
+<form autocomplete="off" [formGroup]="productForm" 
+  [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+  <div class="row">
+    <div class="col-md-8 col-12">
+      <div class="section-boxed">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <label>{{'PRODUCT.CODE' | translate}}<span class="text-danger">*</span></label>
+            <input formControlName="productCode" class="form-control w-100" type="text">
+            <div *ngIf="productForm.get('productCode').touched && productForm.get('productCode').errors">
+              <div class="text-danger" *ngIf="productForm.get('productCode').errors?.required">
+                Product Code Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <label>{{'PRODUCT.NAME_ENGLISH' | translate}} <span class="text-danger">*</span></label>
+            <input formControlName="nameEnglish" class="form-control w-100" type="text">
+            <div *ngIf="productForm.get('nameEnglish').touched && productForm.get('nameEnglish').errors">
+              <div class="text-danger" *ngIf="productForm.get('nameEnglish').errors?.required">
+                Product Name In English Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <label>{{'PRODUCT.NAME_ARABIC' | translate}}</label>
+            <input formControlName="nameSecondLanguage" class="form-control w-100 text-arabics" type="text">
+          </div>
+        </div> -->
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <!-- <label>{{'COMMON.CATEGORY' | translate}}<span class="text-danger">*</span></label>
+            <mat-select placeholder="" class="w-100 form-control" formControlName="category" (selectionChange)="getSubcategory($event.value)">
+              <mat-option *ngFor="let category of category" [value]="category.categoryUUID">
+                {{category.nameEnglish}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="productForm.get('category').touched && productForm.get('category').errors">
+              <div class="text-danger" *ngIf="productForm.get('category').errors?.required">
+                Product Category Required
+              </div>
+            </div> -->
+            <app-category-dropdown [group]="productForm" [controlName]="'category'" [isMandatory]="true" (categoryUUID)="parentCategoryHandlerFunction($event)"></app-category-dropdown>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <!-- <label>{{'COMMON.SUBCATEGORY' | translate}}<span class="text-danger">*</span></label>
+            <mat-select placeholder="" class="w-100 form-control" formControlName="subCategory" (selectionChange)="updateStockValues($event.value)">
+              <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.subCategoryUUID">
+                {{subcategory.nameEnglish}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="productForm.get('subCategory').touched && productForm.get('subCategory').errors">
+              <div class="text-danger" *ngIf="productForm.get('subCategory').errors?.required">
+                Product Sub Categories Required
+              </div>
+            </div> -->
+            <app-subcategory-dropdown [group]="productForm" [controlName]="'subCategory'" [isMandatory]="true" [id]="categoryUUID"></app-subcategory-dropdown>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <!-- <label>{{'COMMON.BRAND' | translate}}<span class="text-danger">*</span></label>
+            <mat-select placeholder="" class="w-100 form-control" formControlName="brand">
+              <mat-option *ngFor="let brand of brands" [value]="brand.brandUUID">
+                {{brand.nameEnglish}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="productForm.get('brand').touched && productForm.get('brand').errors">
+              <div class="text-danger" *ngIf="productForm.get('brand').errors?.required">
+                Brand Required
+              </div>
+            </div> -->
+            
+            <app-brand-dropdown [group]="productForm" [controlName]="'brand'" [isMandatory]="true"></app-brand-dropdown>
+
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <label>{{'PRODUCT.HSN_CODE' | translate}}</label>
+            <input formControlName="hsnCode" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="form-group">
+            <label>{{'PRODUCT.PART_NO' | translate}}</label>
+            <input formControlName="partNo" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'PRODUCT.GST_RATE' | translate}}<span class="text-danger">*</span></label>
+            <mat-select placeholder="" class="w-100 form-control" formControlName="tax">
+              <mat-option *ngFor="let tax of taxes" [value]="tax.taxUUID">
+                {{tax.nameEnglish}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="productForm.get('tax').touched && productForm.get('tax').errors">
+              <div class="text-danger" *ngIf="productForm.get('tax').errors?.required">
+                Gst Rate Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'PRODUCT.CESS_RATE' | translate}}</label>
+            <mat-select placeholder="" class="w-100 form-control" formControlName="cessUUID">
+              <mat-option *ngFor="let tax of cessRate" [value]="tax.taxUUID">
+                {{tax.nameEnglish}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'PRODUCT.ADDITIONAL_CESS_RATE' | translate}}</label>
+            <mat-select placeholder="" class="w-100 form-control" formControlName="addnlCessUUID">
+              <mat-option *ngFor="let tax of cessRate" [value]="tax.taxUUID">
+                {{tax.nameEnglish}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'PRODUCT.MAXIMUM_STOCK_LEVEL' | translate}}</label>
+            <input formControlName="maxStockLevel" class="form-control w-100" type="text" appDecimalOnly>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>{{'PRODUCT.REORDER_LEVEL' | translate}}</label>
+            <input formControlName="reorderLevel" class="form-control w-100" type="text" appDecimalOnly>
+            <div class="text-danger">
+              <!-- <div *ngIf="productForm.errors?.missingFields">Please fill in Maximum stock level</div> -->
+      <div *ngIf="productForm.errors?.reorderMaxError ">Reorder level must be less than max stock level</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" >
+            <label for="unitName">AllowNonStock </label>
+            <mat-slide-toggle formControlName="allowNonStock" class="active-togle">{{ (allowNonStock ? 'COMMON.YES' : 'COMMON.NO') | translate }}</mat-slide-toggle>
+        </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="unitName">AllowZeroPrice </label>
+            <mat-slide-toggle formControlName="allowZeroPrice" class="active-togle">{{ (allowZeroPrice ? 'COMMON.YES' : 'COMMON.NO') | translate }}</mat-slide-toggle>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="col-md-4 col-12">
+      <div class="row">
+        <div class="col-md-12 col-md-3">
+          <mat-card class="cus-mat-card text-center">
+            <input hidden (change)="onFileSelect($event)" #fileInput name="logo" type="file" name="Profile Photo"
+              fxFlex="30">
+            <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" />
+            <img *ngIf="!imgSrc" class="full-width" src="../../../assets/images/dummy.jpg" />
+            <mat-card-actions>
+              <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm m-right-10"
+                (click)="fileInput.click()">
+                <i class="far fa-image"></i> {{'COMMON.ADD_IMAGE' | translate}}</button>
+              <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm m-right-10"
+                (click)="fileInput.click()">
+                <i class="far fa-image"></i> {{'COMMON.CHANGE_IMAGE' | translate}}</button>
+              <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash-alt"></i> {{'COMMON.REMOVE_IMAGE' | translate}}</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="addvariant-btn mb-3">
+        <button *hasClaim="'product_product_add_product_variants'" data-toggle="modal" data-target="#exampleModal"  type="button" (click)="clearVariantForm()"
+          class="btn btn-success btn-sm" >
+          <i class="fa fa-plus" aria-hidden="true" ></i>
+          {{'PRODUCT.ADD_VARIANT' | translate}}
+        </button>
+      </div>
+      <div *hasClaim="'product_product_list_product_variants'" class="varient-table table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>{{'PRODUCT.BARCODE' | translate}}</th>
+              <th>{{'COMMON.UNIT' | translate}}</th>
+              <th>{{'PRODUCT.UNIT_COST' | translate}}</th>
+              <th>{{'PRODUCT.AVERAGE_COST' | translate}}</th>
+              <th>{{'PRODUCT.SELLING_PRICE' | translate}}</th>
+              <th>{{'PRODUCT.WHOLESALE_RATE' | translate}}</th>
+              <th>{{'PRODUCT.MRP' | translate}}</th>
+              <th style="width: 20px;">{{'PRODUCT.QUANTITY_CONVERSION' | translate}}</th>
+              <th> {{'COMMON.IS_BASE_UNIT' | translate}}</th>
+              <th>{{'COMMON.IS_ACTIVE' | translate}}</th>
+              <th *hasClaim="['product_product_edit_product_variants','product_product_delete_product_variants']">{{'COMMON.ACTION' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let varient of productVarient; let i=index">
+              <td><b>{{varient.barcode}}</b></td>
+              <td><b>
+                <span *ngIf="varient.nameEnglish">{{varient.nameEnglish}}</span>
+                <span *ngIf="!varient.nameEnglish">{{varient.unit.nameEnglish}}</span></b>
+              </td>
+              <td [innerHTML]="varient.unitCost | customCurrency"></td>
+              <td [innerHTML]="varient.averageCost | customCurrency"></td>
+              <td [innerHTML]="varient.sellingPrice | customCurrency"></td>
+              <td [innerHTML]="varient.wholeSaleRate | customCurrency"></td>
+              <td [innerHTML]="varient.mrp | customCurrency"></td>
+              <td>{{varient.qtyConversion}}</td>
+              <td class="isbase-flag"><b><span class="badge" [ngClass]="varient.isBaseUnit? ' badge-success' : ' badge-danger'">{{(varient.isBaseUnit?'COMMON.YES':'COMMON.NO') | translate}}</span></b></td>
+              <td class="isbase-flag"><b><span class="badge" [ngClass]="varient.isActive? ' badge-success' : ' badge-danger'">{{(varient.isActive?'COMMON.YES':'COMMON.NO') | translate}}</span></b></td>
+              <td class="variant-actions" *hasClaim="['product_product_edit_product_variants','product_product_delete_product_variants']">
+                <a *hasClaim="'product_product_edit_product_variants'"><i class="fas fa-pencil-alt " (click)="editVariant(i)" data-toggle="modal" data-target="#exampleModal"></i></a>
+                <a *hasClaim="'product_product_delete_product_variants'">
+                  <i class="fa fa-trash" aria-hidden="true" (click)="deleteVarient(i)"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 m-bottom-40 tmt-2 text-center">
+      <button type="button" class="btn btn-success btn-sm m-right-10 m-left-10" (click)="onProductSave()"><i class="fas fa-save"></i> {{'COMMON.SAVE' |
+                translate}}</button>
+      <button type="button" class="btn btn-danger btn-sm" (click)="onProductList()">
+        <i class="fas fa-times-circle"></i>
+        {{'COMMON.CANCEL' | translate}}
+      </button>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="exampleModal"role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header addvariants-header">
+        <h5 class="modal-title content-header" id="exampleModalLabel">{{'PRODUCT.PRODUCT_VARIANTS' | translate}}</h5>
+        <button type="button" class="close" id="closeModel" data-dismiss="modal" aria-label="Close" #closeModalRef>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="">
+          <div class="vari">
+            <div class="row" [formGroup]="productPricesForm">
+              <div class="col-md-4 align-items-center">
+                <div class="form-group supplier-active">
+                  <label>{{'COMMON.IS_BASE_UNIT' | translate}} <span class="text-danger">*</span></label>
+                  <mat-slide-toggle formControlName="isBaseUnit" (change)="onToggle($event)"></mat-slide-toggle>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>{{'COMMON.UNIT' | translate}}<span class="text-danger">*</span></label>
+                  <mat-select placeholder="" class="w-100 form-control" formControlName="unitUUID">
+                    <mat-option *ngFor="let unit of units" [value]="unit.unitUUID" [disabled]="selectedUnits.includes(unit.unitUUID)">
+                      {{unit.nameEnglish}}
+                    </mat-option>
+                  </mat-select>
+                  <div
+                    *ngIf="productPricesForm.get('unitUUID').errors && productPricesForm.get('unitUUID').touched">
+                    <small class="text-danger" *ngIf="productPricesForm.get('unitUUID').errors?.required">
+                      {{'VALIDATIONS.UNIT_IS_REQUIRED' | translate}}
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>{{'PRODUCT.QUANTITY_CONVERSION' | translate}}<span class="text-danger">*</span></label>
+                  <input formControlName="qtyConversion" class="form-control w-100" type="number" appDecimalOnly>
+                  <div
+                  *ngIf="productPricesForm.get('qtyConversion').errors && productPricesForm.get('qtyConversion').touched">
+                  <small class="text-danger" *ngIf="productPricesForm.get('qtyConversion').errors?.required">
+                    {{'VALIDATIONS.QUANTITY_CONVERSION_IS_REQUIRED' | translate}}
+                  </small>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label >{{'PRODUCT.UNIT_COST' | translate}} <small>{{'COMMON.EXCL_VAT' | translate}}</small><span class="text-danger">*</span></label>
+                  <input formControlName="unitCost" class="form-control w-100" type="number" appDecimalOnly>
+                  <div
+                  *ngIf="productPricesForm.get('unitCost').errors && productPricesForm.get('unitCost').touched">
+                  <small class="text-danger" *ngIf="productPricesForm.get('unitCost').errors?.required">
+                    {{'VALIDATIONS.UNIT_COST_IS_REQUIRED' | translate}}
+                  </small>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-4" *ngIf="product?.isUpdate && isEdit">
+                <div class="form-group">
+                  <label>{{'PRODUCT.AVERAGE_COST' | translate}}</label>
+                  <input formControlName="averageCost" class="form-control w-100" type="text">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>{{'PRODUCT.SELLING_PRICE' | translate}} <small>{{'COMMON.INCL_VAT' | translate}}</small><span class="text-danger">*</span></label>
+                  <input formControlName="sellingPrice" class="form-control w-100" type="number" appDecimalOnly>
+                                    <div
+                  *ngIf="productPricesForm.get('sellingPrice').errors && productPricesForm.get('sellingPrice').touched">
+                  <small class="text-danger" *ngIf="productPricesForm.get('sellingPrice').errors?.required">
+                    {{'VALIDATIONS.SELLING_PRICE_IS_REQUIRED' | translate}}
+                  </small>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>{{'PRODUCT.WHOLESALE_RATE' | translate}}<small>{{'COMMON.INCL_VAT' | translate}}</small><span class="text-danger">*</span></label>
+                  <input formControlName="wholeSaleRate" class="form-control w-100" type="number" appDecimalOnly>
+                                    <div
+                  *ngIf="productPricesForm.get('wholeSaleRate').errors && productPricesForm.get('wholeSaleRate').touched">
+                  <small class="text-danger" *ngIf="productPricesForm.get('wholeSaleRate').errors?.required">
+                    {{'VALIDATIONS.WHOLESALE_RATE_IS_REQUIRED' | translate}}
+                  </small>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>{{'PRODUCT.MRP' | translate}} <small>{{'COMMON.INCL_VAT' | translate}}</small><span class="text-danger">*</span></label>
+                  <input formControlName="mrp" class="form-control w-100" type="number" appDecimalOnly>
+                                    <div
+                  *ngIf="productPricesForm.get('mrp').errors && productPricesForm.get('mrp').touched">
+                  <small class="text-danger" *ngIf="productPricesForm.get('mrp').errors?.required">
+                    {{'VALIDATIONS.MRP_IS_REQUIRED' | translate}}
+                  </small>
+                </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>{{'PRODUCT.BARCODE' | translate}}<span class="text-danger">*</span></label>
+                  <input formControlName="barcode" class="form-control w-100" type="text">
+                                    <div
+                  *ngIf="productPricesForm.get('barcode').errors && productPricesForm.get('barcode').touched">
+                  <small class="text-danger" *ngIf="productPricesForm.get('barcode').errors?.required">
+                    {{'VALIDATIONS.PRINTED_BARCODE_IS_REQUIRED' | translate}}
+                  </small>
+                </div>
+                </div>
+              </div>
+              <div  class="col-md-4">
+                <div class="form-group">
+                  <label>{{'COMMON.IS_ACTIVE' | translate}}<span class="text-danger">*</span></label>
+                  <mat-slide-toggle formControlName="isActive" class="active-togle">{{(isActive?'COMMON.ACTIVE':'COMMON.INACTIVE') | translate}}</mat-slide-toggle>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-12 mt-2 text-center">
+          <button *ngIf="!isEdit" type="button" class="btn btn-warning btn-sm m-right-10 m-left-10"
+          (click)="addVarient(true)">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          {{'COMMON.ADD' | translate}}
+        </button>
+          <button *ngIf="!isEdit" type="button" class="btn btn-warning btn-sm m-right-10 m-left-10"
+            (click)="addVarient(false)">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            {{'COMMON.ADD_NEXT' | translate}}
+          </button>
+          <button *ngIf="isEdit" type="button" class="btn btn-warning btn-sm m-right-10 m-left-10"
+            (click)="updateVariant()">
+            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+            {{'COMMON.UPDATE' | translate}}
+          </button>
+          <button *ngIf="!isEdit" type="button" class="btn btn-danger btn-sm " (click)="clearVarient()">
+            <i class="fas fa-times-circle"></i>
+            {{'COMMON.CLEAR' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>

@@ -1,0 +1,54 @@
+<div class="page-header-main mt-2">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon"></i> <span>{{'SIDEBAR.DASHBOARD' | translate }}</span></h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dashbord-carddgns">
+  <form [formGroup]="dashboardFilterForm">
+  <div class="row filter-dsh" *hasClaim="['dashboard_dashboard_view_total_sales','dashboard_dashboard_view_total_purchase','dashboard_dashboard_view_sale_discount','dashboard_dashboard_view_receivable','dashboard_dashboard_view_stock_values','dashboard_dashboard_view_cash_in_hand','dashboard_dashboard_view_customer_graph',  'dashboard_dashboard_view_product_graph','dashboard_dashboard_view_expense_graph','dashboard_dashboard_view_user_graph']">
+    <div class="col-md-3">
+      <app-branch-dropdown [group]="dashboardFilterForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+   </div>
+   <div class="col-md-3">
+      <app-device-dropdown [branch]="branchUUID" [group]="dashboardFilterForm" [controlName]="'device'"></app-device-dropdown>
+   </div>
+    <div class="col-md-2 content-flex">
+      <div class="click-date text-right">
+        <span>{{resourceParameter.fromDate | customDate}} - {{resourceParameter.toDate | customDate}}</span>
+      </div>
+    </div>
+    <div class="col-md-4 text-right content-flex">
+      <div class="filterbtns">
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="dateScope" >
+          <ng-container *ngFor="let option of filterOptions">
+          <mat-button-toggle  [value]="option?.key" [disabled]="disabledFilterOptions.includes(option?.key)">{{ translate.getSelectedLanguage()=='en'?option.valueEnglish:option.valueArabic }}</mat-button-toggle>
+        </ng-container>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+</form>
+<app-inventory-overview [financialSummaryCounts]="finacialSummaryCounts" *hasClaim="['dashboard_dashboard_view_total_sales','dashboard_dashboard_view_total_purchase','dashboard_dashboard_view_sale_discount','dashboard_dashboard_view_receivable','dashboard_dashboard_view_stock_values','dashboard_dashboard_view_cash_in_hand']"></app-inventory-overview>
+</div>
+
+<div class="dashbord-charts" *hasClaim="['dashboard_dashboard_view_customer_graph',  'dashboard_dashboard_view_product_graph','dashboard_dashboard_view_expense_graph','dashboard_dashboard_view_user_graph']">
+  <div class="row">
+    <div class="col-md-6" *hasClaim="'dashboard_dashboard_view_customer_graph'">
+      <app-top-customers  [topCustomersList]="topCustomers"></app-top-customers>
+    </div>
+    <div class="col-md-6" *hasClaim="'dashboard_dashboard_view_user_graph'">
+      <app-top-users [topUsersList]="topUsers"></app-top-users>
+    </div>
+    <div class="col-md-6" *hasClaim="'dashboard_dashboard_view_product_graph'">
+      <app-top-selling-products [topSellingProductsList]="topProducts"></app-top-selling-products>
+    </div>
+    <div class="col-md-6" *hasClaim="'dashboard_dashboard_view_expense_graph'">
+      <app-financial-insights-chart [financialInsightDataList]="financialData"></app-financial-insights-chart>
+    </div>
+  </div>
+</div>
+

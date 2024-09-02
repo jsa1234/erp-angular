@@ -1,0 +1,332 @@
+
+<div style="position:absolute;left:-15420px">
+	<div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap"
+        id="simplified">
+        <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+            <div style="position: relative;z-index: 4;background-color: #FFF;">
+                <div style="padding: 20px;">
+                    <header style="margin-bottom: 20px;">
+                        <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                Simplified Tax Invoice
+                            </div>
+                            <div style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">فاتورة ضريبية مبسطة</div>
+                        </div>
+                    </header>
+                    <div style="display: grid;grid-template-columns: auto auto;">
+                        <div style="padding: 2px;">
+                            <table style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;border-collapse: collapse;">
+                                <tbody>
+                                    <tr style="border: none;">
+                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">Invoice No</th>
+                                        <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                            {{salesInvoice.invoiceNumber}}
+                                        </td>
+                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">رقم الفاتورة</th>
+                                    </tr>
+                                    <tr style="border: none;">
+                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">Invoice Date</th>
+                                        <td style="font-size:14px;text-align: center;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                            {{salesInvoice.invoiceDate | customDate }}
+                                        </td>
+                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">تاريخ الفاتورة</th>
+                                    </tr>
+                                    <tr style="border: none;">
+                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">Date Of Supply</th>
+                                        <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                            {{salesInvoice?.dateOfSupply | customDate }}
+                                        </td>
+                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">تاريخ التوريد</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="padding: 2px;">
+                            <table style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                                <tbody>
+                                    <tr style="border: none;">
+                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">P.O Number</th>
+                                        <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
+                                            {{salesInvoice.poNo}}
+                                        </td>
+                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">PO عدد</th>
+                                    </tr>
+                                    <tr style="border: none;">
+                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;">D.R Number</th>
+                                        <td style="font-size:14px;text-align: center;padding: 8px 12px;border: 1px solid #c9c6c6;">
+                                            {{salesInvoice.drNo}}
+                                        </td>
+                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">رقم D.R</th>
+                                    </tr>
+                                    <tr style="border: none;">
+                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">Transaction Mode</th>
+                                        <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
+                                            {{salesInvoice.transactionModeText}}
+                                        </td>
+                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">وضع الدفع</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div style="padding: 2px;margin-bottom: 20px;">
+                        <table style="border: 1px solid #f2f2f2; width: 100%;margin: 0;font-family: 'Inter', sans-serif;border-collapse: collapse;border-top: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;border-bottom: 1px solid #c9c6c6;">
+                            <tbody>
+                                <tr style="border: none;">
+                                    <th style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">Buyer</th>
+                                    <th style="text-align: right;padding: 6px 12px;border-left: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">مشتر</th>
+                                </tr>
+                                <tr style="border: none;">
+                                    <th style="text-align: left;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                        {{salesInvoice?.clientObject?.nameEnglish}}
+                                    </th>
+                                    <th style="text-align: right;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                        {{salesInvoice?.clientObject?.nameSecondLanguage}}
+                                    </th>
+                                </tr>
+                                <!-- <tr style="border: none;">
+                                    <td style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                        {{salesInvoice?.clientObject?.buildingNoEnglish}}, {{salesInvoice?.clientObject?.streetEnglish}},{{salesInvoice?.clientObject?.placeEnglish}},<br>
+                                        {{salesInvoice?.clientObject?.districtObject?.nameEnglish}},
+                                        {{salesInvoice?.clientObject?.stateObject?.nameEnglish}},
+                                        {{salesInvoice?.clientObject?.countryObject?.nameEnglish}},<br>
+                                        {{salesInvoice?.clientObject?.zipCode}},
+                                    </td>
+                                    <td style="text-align: right;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">عنوان عنوان</td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <td style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">   {{salesInvoice?.clientObject?.phoneCountryCode}} -    {{salesInvoice?.clientObject?.phone}},</td>
+                                    <td style="text-align: right;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">   {{salesInvoice?.clientObject?.mobileCountryCode}} -    {{salesInvoice?.clientObject?.mobile}},</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="display: grid;grid-template-columns: auto auto;">
+                        <div style="font-family: 'Inter', sans-serif;text-align: left;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;">Line Items</div>
+                        <div style="line-height: 25px;text-align: right;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">قائمة المواد</div>
+                    </div>
+                    <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                        <thead>
+                            <tr style="border: none;">
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">SI.NO</th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                    Nature of Goods Or Services
+                                    <br>
+                                    <span style="font-size: 12px;">
+                                        طبيعة البضائع أو الخدمات
+                                    </span>
+                                </th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                    Unit Price
+                                    <br>
+                                    <span style="font-size: 12px;">سعر الوحدة</span>
+                                </th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                    Quantity
+                                    <br>
+                                    <span style="font-size: 12px;">كمية</span>
+                                </th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                    Taxable Amt
+                                    <br>
+                                    <span style="font-size: 12px;">
+                                        المبلغ الخاضع للضريبة
+                                    </span>
+                                </th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                    Discount
+                                    <br>
+                                    <span style="font-size: 12px;">تخفيض</span>
+                                </th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                    Tax Rate
+                                    <br>
+                                    <span style="font-size: 12px;">معدل الضريبة</span>
+                                </th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                    Tax Amt
+                                    <br>
+                                    <span style="font-size: 12px;">قيمة الضريبة</span>
+                                </th>
+                                <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
+                                    Item Sub Total (Incl. VAT)
+                                    <br>
+                                    <span style="font-size: 12px;">
+                                        المجموع الفرعي للبند
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of salesInvoiceList;let i=index"
+                                style="border: none;">
+                                <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{i+1}}</td>
+                                <td style="text-align: left;font-size:14px;padding: 8px 12px;">
+                                    {{ translate.getSelectedLanguage()=='en'?item?.productObject?.nameEnglish:item?.productObject?.nameSecondLanguage}}
+                                </td>
+                                <td [innerHTML]="item?.unitPrice |customCurrency"
+                                    style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.quantity}} {{translate.getSelectedLanguage()=='en'?item.unitObject.nameEnglish:item.unitObject.nameSecondLanguage}}
+                                </td>
+                                <td [innerHTML]="item?.discountAmount |customCurrency"
+                                    style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                <td [innerHTML]="(item?.itemTotalAmount-item?.vatAmount) |customCurrency"
+                                    style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.vatRate}} %</td>
+                                <td [innerHTML]="item?.vatAmount |customCurrency"
+                                    style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                <td [innerHTML]="item?.itemTotalAmount |customCurrency"
+                                    style="text-align: right;font-size:14px;padding: 8px 12px;"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                        <tbody>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                    colspan="4"><b>Total Qty</b></td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4"><b>إجمالي الكمية</b></td>
+                                <td
+                                    style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice.totalQuantity"></b></td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                    colspan="4">
+                                    <b>
+                                        Total (Excluding VAT)
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4">
+                                    <b>
+                                        الإجمالي (باستثناء ضريبة القيمة المضافة)
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice.subTotal | customCurrency"></b>
+                                </td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                    colspan="4">
+                                    <b>Discount</b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4">
+                                    <b>تخفيض</b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice.totalDiscount | customCurrency"></b>
+                                </td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                    colspan="4">
+                                    <b>
+                                        Total Taxable Amt (Excluding VAT)
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4">
+                                    <b>
+                                        إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice.totalTaxableAmount | customCurrency"></b>
+                                </td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                    colspan="4">
+                                    <b>Total VAT</b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4">
+                                    <b>
+                                        إجمالي ضريبة القيمة المضافة
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice.totalTax | customCurrency"></b>
+                                </td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                    colspan="4">
+                                    <b>Total Expenses</b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4">
+                                    <b>
+                                        إجمالي ضريبة القيمة المضافة
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice.totalExpenses | customCurrency"></b>
+                                </td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                                    <b>Round Off</b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4">
+                                    <b>
+                                      نهاية الجولة
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice.roundOff | customCurrency"></b>
+                                </td>
+                            </tr>
+                            <tr style="border: none;">
+                                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                    colspan="4">
+                                    <b>Total Amount</b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                    colspan="4">
+                                    <b>
+                                        إجمالي المبلغ المستحق
+                                    </b>
+                                </td>
+                                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                    <b [innerHTML]="salesInvoice?.totalAmount | customCurrency"></b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="width: 100%;margin-top:20px;font-family: 'Inter', sans-serif;">
+                        <tbody>
+                            <tr style="border: none;">
+                                <td style="padding: 8px 12px;"
+                                    rowspan="3">
+                                    <img [src]="qrCodeImage" alt="">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="display: grid;grid-template-columns: auto auto;font-family: 'Inter', sans-serif;">
+                        <p style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: left;">
+                            <b>Receieved By</b>
+                        </p>
+                        <p style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: right;">
+                            <b>{{translate.getSelectedLanguage()=='en'? salesInvoice?.salesMan?.nameEnglish :salesInvoice?.salesMan?.nameSecondLanguage}}</b>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

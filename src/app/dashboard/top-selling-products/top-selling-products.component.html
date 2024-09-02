@@ -1,0 +1,18 @@
+<div class="topcustomer-chart">
+    <h3>{{'DASHBOARD.TOP_SELLING_PRODUCTS' |translate}}</h3>
+    <ng-container *ngIf="isLoading$">
+      <app-dashboard-loader></app-dashboard-loader>
+      </ng-container>
+      <ng-container *ngIf="!isLoading$">
+    <canvas *ngIf="topSellingProductsList?.length>0" baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [colors]="barChartColors"
+    [legend]="barChartLegend"
+    [chartType]="barChartType"></canvas>
+    <div *ngIf="topSellingProductsList?.length<=0" class="dummyChart">
+      <label >{{'COMMON.NO_DATA_FOUND' | translate}}</label>
+    </div>
+  </ng-container>
+  </div>

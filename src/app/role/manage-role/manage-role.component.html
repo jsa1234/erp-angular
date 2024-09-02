@@ -1,0 +1,3 @@
+<app-manage-role-presentation [pages]="pages$ | async" [actions]="actions$ | async"
+    [pageActions]="pageActions$ | async" [loading]="loading$ | async" [showPermission]="showPermission | async" [role]="role" (onManageRoleAction)="manageRole($event)" (getRoleClaims)="showRoleClaims($event)">
+</app-manage-role-presentation>

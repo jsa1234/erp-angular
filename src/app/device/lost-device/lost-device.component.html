@@ -1,0 +1,81 @@
+<div class="modal-content1">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-9 col">
+                <h4 class="modal-title">
+                    {{'DEVICE.LOST_DEVICE' | translate}}
+                </h4>
+            </div>
+            <div class="col-sm-auto col-auto ml-auto">
+                <button type="button" class="close" (click)="onCancel(false)" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body-condevice">
+        <div class="table-responsive">
+            <form [formGroup]="deviceTransferForm" (ngSubmit)="update()">
+            <table>
+                <tr>
+                    <td>{{'DEVICE.NAME_ENGLISH' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.nameEnglish}}</th>
+                    <!-- <td>{{'DEVICE.NAME_ARABIC' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.nameSecondLanguage}}</th> -->
+                </tr>
+                <tr>
+                    <td>{{'DEVICE.DEVICE_TYPE' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.deviceTypeText}}</th>
+                    <td>{{'DEVICE.DEVICE_CODE' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.deviceCode}}</th>
+                </tr>
+                <tr>
+                    <td>{{'DEVICE.DEVICE_IDENTIFIER' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.deviceIdentifier}}</th>
+                    <td>{{'DEVICE.MODEL_NUMBER' | translate}} </td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.modelNo}}</th>
+                </tr>
+                <tr>
+                    <td>{{'DEVICE.INSTALLATION_DATE' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.installationDate| date:'dd-MM-yyyy, h:mm:ss a zzzz'}}</th>
+                    <td>{{'DEVICE.DEVICE_STATUS' | translate}}</td>
+                    <td>:</td>
+                    <th class="badge text-light" 
+                    [ngClass]="{'badge-success':deviceDetails.actStatus===deviceActivationStatus.ACTIVATED,
+                                'badge-warning':deviceDetails.actStatus===deviceActivationStatus.PENDING,
+                                'badge-danger':deviceDetails.actStatus===deviceActivationStatus.DEACTIVATED,
+                                'badge-primary':deviceDetails.actStatus===deviceActivationStatus.READYFORACTIVATE}">
+                      {{deviceDetails.deviceStatusText}}
+                </th>
+                </tr>
+                <tr>
+                  <td>{{'DEVICE.ASSIGN_DEVICE' | translate}}</td>
+                  <td>:</td>
+                  <th>
+                        <mat-select class="form-control" formControlName="newDeviceUUID">
+                          <input class="form-control w-100"  focused="'true'" type="text"
+                          autocomplete="off" placeholder="search device">
+                          <mat-option *ngFor="let device of devices" [value]="device.deviceUUID">
+                            {{device.deviceCode}} - {{device.nameEnglish}}
+                          </mat-option>
+                        </mat-select>
+                        <div *ngIf="newDevice.touched && newDevice.errors">
+                          <div class="text-danger" *ngIf="newDevice.errors?.required">
+                              {{'VALIDATIONS.PLEASE_CHOOSE_DEVICE' | translate}}
+                          </div>
+                      </div>
+                </th>
+                  <th colspan="3" class="text-center"><button type="submit" class="lost-dce-btn">{{'COMMON.UPDATE' |translate}}</button></th>
+              </tr>
+            </table>
+        </form>
+        </div>
+</div>

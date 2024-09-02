@@ -1,0 +1,14 @@
+<!-- Main Footer -->
+<footer class="main-footer" [ngClass]="{'main-footer-ar':translationService.getSelectedLanguage()=='ar'}">
+  <div class="copy-right">
+  Copyright &copy; <a>Aspirom Technologies Pvt. Ltd.</a>
+  All rights reserved.</div>
+  <div class="financial-yr">FY : &nbsp; <span>{{currentFinancialYear?.startDate | customDate}} -
+    {{currentFinancialYear?.endDate | customDate}}</span></div>
+  <div class="time-date">
+  <digital-clock></digital-clock>
+  </div>
+  <div class="version">
+    <b>Version</b> 1.4.4
+  </div>
+</footer>

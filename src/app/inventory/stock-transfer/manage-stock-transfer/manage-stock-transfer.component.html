@@ -1,0 +1,202 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon19"></i> <span>{{'INVENTORY.STOCK_TRANSFER.MANAGE_STOCK_TRANSFER' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
+        [routerLink]="['/inventory/stock-transfer']">{{'SIDEBAR.STOCK_TRANSFER' | translate}}</a> /
+      <span>{{'INVENTORY.STOCK_TRANSFER.MANAGE_STOCK_TRANSFER' | translate}}</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<form [formGroup]="stockTransferForm">
+  <div class="row">
+
+    <div class="col-md-12 col-12">
+
+      <div class="section-boxed">
+
+        <div class="row">
+
+          <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+              <label>{{'INVENTORY.STOCK_TRANSFER.DOC_NO' | translate}}<span class="text-danger">*</span></label>
+              <input formControlName="docNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+              <date-input [group]="stockTransferForm" [controlName]="'docDate'"
+                [label]="'INVENTORY.STOCK_TRANSFER.DOC_DATE'"
+                [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true" ></date-input>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+              <label>{{'INVENTORY.STOCK_TRANSFER.REF_INVOICE_NO' | translate}}</label>
+              <input formControlName="refInvNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+              <date-input [group]="stockTransferForm" [controlName]="'refInvDate'"
+                [label]="'INVENTORY.STOCK_TRANSFER.REF_INVOICE_DATE'"
+                [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="false" [isDefaultDate]="false"> </date-input>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'INVENTORY.STOCK_TRANSFER.REMARKS' | translate}}</label>
+              <textarea class="form-control w-100" formControlName="remarks" name="" id="" cols="50"
+                rows="2"> </textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-12 col-12">
+
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <h5>Transfer Products</h5>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <app-branch-dropdown [group]="stockTransferForm" [controlName]="'sourceBranchUUID'" [isAddAll]="false"
+                [label]="'INVENTORY.STOCK_TRANSFER.SOURCE_BRANCH'" [isMandatory]="true" [isDefault]="false"></app-branch-dropdown>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <app-branch-dropdown [group]="stockTransferForm" [controlName]="'destinationBranchUUID'"
+                [isAddAll]="false" [label]="'INVENTORY.STOCK_TRANSFER.DESTINATION_BRANCH'" [isMandatory]="true"  [isDefault]="false"></app-branch-dropdown>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <label>{{'INVENTORY.STOCK_TRANSFER.CREATED_USER' | translate}}</label>
+              <mat-select class="form-control" formControlName="userUUID">
+                <mat-option *ngFor="let item of users" [value]="item.id">{{item.firstName}}
+                  {{item.lastName}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-md-12 col-12">
+    <div class="section-boxed">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            Scan Barcode: <input class="form-control w-50" type="text" [(ngModel)]="barcodeValue" #barcodeInput>
+          </div>
+        </div>
+        <div class="col-md-6 text-right purchanse-managed-button">
+          <button mat-raised-button color="warn" (click)="openProductDialog()">
+            <mat-icon>search</mat-icon>
+            Search Product
+          </button>
+        </div>
+      </div>
+
+
+      <div class="purchanse-managed-table table-responsive">
+        <table class="table table-striped" #stockTransferTable>
+          <thead class="thead-dark">
+            <tr>
+              <th>Sl No</th>
+              <th>BARCODE</th>
+              <th>PRODUCT NAME</th>
+              <th>PRODUCT CODE</th>
+              <th>UNIT</th>
+              <th>QUANTITY</th>
+              <th>UNIT PRICE</th>
+              <th>AMOUNT</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="selectedVariants.length>0">
+              <tr *ngFor="let item of selectedVariants;let last = last; let i =index;">
+                <td class="text-center">{{i+1}}</td>
+                <td>{{item.productPrice.barcode}}</td>
+                <td>{{item.product.nameEnglish}}</td>
+                <td>{{item.product.productCode}}</td>
+                <td>{{item.unit.nameEnglish}}</td>
+                <td>
+                  <input class="form-control w-50" type="number" #quantityInput [(ngModel)]="item.quantity"
+                    name="quantity" id="{{item.quantity}}" (ngModelChange)="updateAmount(item)">
+                </td>
+                <td>
+                  <input class="form-control w-50" type="number" [(ngModel)]="item.unitPrice"
+                  name="unitPrice" id="{{item.unitPrice}}" (ngModelChange)="updateAmount(item)">
+                </td>
+                <td class="text-right">{{item.netTotalAmount | number:'1.2-2'}}</td>
+                <td class="text-center">
+                  <button mat-icon-button color="warn" (click)="deleteRow(item.productPriceUUID)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="selectedVariants.length<=0">
+              <tr class="text-center">
+                <td colspan="9">
+                  NO DATA FOUND
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td  class="text-right" colspan="7">
+                Total
+              </td>
+              <td  class="text-right" >
+                {{subTotal | customCurrency}}
+              </td>
+              <td></td>
+            </tr>
+          </tfoot>
+
+        </table>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-success btn-sm mr-2 m-left-10 mt-2" (click)="save()">submit</button>
+      </div>
+    </div>
+  </div>
+</div>

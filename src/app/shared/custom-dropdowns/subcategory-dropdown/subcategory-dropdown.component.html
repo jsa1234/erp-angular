@@ -1,0 +1,31 @@
+
+
+  <label>{{'COMMON.SUBCATEGORY' | translate}}  <span class="text-danger" *ngIf="isMandatory">*</span></label>
+  <div class="">
+    <mat-form-field [formGroup]="group">
+      <mat-select class="form-control" [formControlName]="controlName" (valueChange)="getSubcategoryId($event)">
+        <div class="serch-item-options">
+        <div class="select-item-in" style="position: sticky; top: 0; z-index: 1;">
+        <input class="form-control w-100"  (keydown.space)="$event.stopPropagation()"  type="text"
+        autocomplete="off" placeholder="search by name" [formControl]="searchControl">
+      </div>
+<!--
+        <mat-option *ngIf="isShowAll"  [value]="''">
+          {{'COMMON.ALL' | translate}}
+         </mat-option> -->
+         <!-- <ng-container *ngIf="!isShowAll"> -->
+          <div class="select-item-op">
+        <mat-option  *ngFor="let subcategory of subcategories" [value]="subcategory.subCategoryUUID" >
+          {{subcategory.code}} -  {{subcategory.nameEnglish}}
+        </mat-option>
+      </div>
+    </div>
+      <!-- </ng-container> -->
+      </mat-select>
+      <div *ngIf="group.get(controlNameLabel).touched && group.get(controlNameLabel).errors">
+        <div class="text-danger" *ngIf="group.get(controlNameLabel).errors?.required">
+            Please choose Subcategory
+        </div>
+    </div>
+    </mat-form-field>
+    </div>

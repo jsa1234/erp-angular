@@ -1,0 +1,221 @@
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+<div class="invoice-container-wrap" id="purchaseReturn">
+    <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+        <div style="position: relative;z-index: 4;background-color: #FFF;">
+            <div style="padding: 20px;">
+                <header style="margin-bottom: 20px;">
+                    <app-comapny-profile-heading [ProfileType]="3" [branchUUID]="purchaseReturnDetail?.branchUUID"></app-comapny-profile-heading>
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div
+                                style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                Purchase Return</div>
+                        </div>
+                </header>
+                <div style="display: grid;grid-template-columns: auto auto;">
+                    <div style="padding: 2px;">
+                        <table
+                            style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;border-collapse: collapse;">
+                            <tbody>
+                                <tr style="border: none;">
+                                    <th
+                                        style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                        Invoice No</th>
+                                    <td
+                                        style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                        {{purchaseReturnDetail?.invoiceNumber}}</td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <th
+                                        style="font-size:14px;text-align: left;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                        Invoice Date</th>
+                                    <td
+                                        style="font-size:14px;text-align: center;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                        {{purchaseReturnDetail?.invoiceDate | customDate}} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="padding: 2px;">
+                        <table
+                            style="border: 1px solid #f2f2f2; width: 100%;margin: 0 0 1.5em;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <tbody>
+                                <tr style="border: none;">
+                                    <th
+                                        style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">
+                                        Transaction Mode</th>
+                                    <td
+                                        style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
+                                        {{purchaseReturnDetail?.transactionModeText}}</td>
+                                </tr>
+                                <tr style="border: none;">
+                                    <th
+                                        style="font-size:14px;text-align: left;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;">
+                                        Ref.Bill No</th>
+                                    <td
+                                        style="font-size:14px;text-align: center;padding: 8px 12px;border: 1px solid #c9c6c6;">
+                                        {{purchaseReturnDetail?.refInvNo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div style="padding: 2px;margin-bottom: 20px;">
+                    <table
+                    style="border: 1px solid #f2f2f2; width: 100%;margin: 0;font-family: 'Inter', sans-serif;border-collapse: collapse;border-top: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;border-bottom: 1px solid #c9c6c6;">
+                    <tbody>
+                        <tr style="border: none;">
+                            <th
+                                style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">
+                                Supplier Details</th>
+                        </tr>
+                        <tr style="border: none;">
+                            <th
+                                style="text-align: left;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                {{supplier.nameEnglish}}</th>
+                        </tr>
+                        <tr style="border: none;">
+                            <td
+                                style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                {{supplier.addressEnglish}}</td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td
+                                style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                Phone: {{supplier.phoneNo}}<br>
+                                Mobile: {{supplier.mobileNo}}<br>
+                                Email: <a href="mailto:{{supplier.email}}">{{supplier.email}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+
+
+                <div style="display: grid;grid-template-columns: auto auto;">
+                    <div
+                        style="font-family: 'Inter', sans-serif;text-align: left;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;">
+                        Line Items</div>
+                </div>
+                <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                    <thead>
+                        <tr style="border: none;">
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                SI.NO</th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;    line-height: 16px;">
+                                Product </th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                Unit </th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                Unit Price </th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                Quantity </th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                Return Quantity </th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                Discount </th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                Tax </th>
+                            <th
+                                style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
+                                Total Amount </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let purchaseItem of purchaseReturnList;let i=index" style="border: none;">
+                            <ng-container>
+                                <td  style="text-align: center;font-size:14px;padding: 8px 12px;">{{i+1}}</td>
+                                <td  style="text-align: left;font-size:14px;padding: 8px 12px;">{{purchaseItem?.productObject?.nameEnglish}}
+                                    {{purchaseItem?.productObject?.nameSecondLanguage}}</td>
+                                    <td  style="text-align: center;font-size:14px;padding: 8px 12px;">{{purchaseItem?.unitObject?.nameEnglish}}
+                                        {{purchaseItem?.unitObject?.nameSecondLanguage}}</td>
+                                <td style="text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="purchaseItem?.unitPrice | customCurrency"></td>
+                                <td  style="text-align: center;font-size:14px;padding: 8px 12px;">{{purchaseItem?.quantity}}</td>
+                                <td  style="text-align: center;font-size:14px;padding: 8px 12px;">{{purchaseItem?.returnQuantity}}</td>
+                                <td  style="text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="purchaseItem?.discountAmount | customCurrency"></td>
+                                <td  style="text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="purchaseItem?.vatAmount | customCurrency">
+                                </td>
+                                <td  style="text-align: right;font-size:14px;padding: 8px 12px;" [innerHTML]="purchaseItem?.itemTotalAmount | customCurrency">
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                    <tbody>
+                        <tr style="border: none;">
+                            <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                colspan="4"><b>Sub Total</b></td>
+                            <td
+                                style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b [innerHTML]="purchaseReturnDetail?.subTotal | customCurrency"></b></td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                colspan="4"><b>Discount</b></td>
+                            <td
+                                style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b [innerHTML]="purchaseReturnDetail?.totalDiscount | customCurrency"></b></td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                colspan="4"><b>Taxable Amount</b></td>
+                            <td
+                                style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b [innerHTML]="purchaseReturnDetail.taxableAmount | customCurrency"></b>
+                            </td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                colspan="4"><b>Total VAT</b></td>
+                            <td
+                                style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b [innerHTML]="purchaseReturnDetail?.totalVat | customCurrency"></b></td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                colspan="4"><b>Total Expenses</b></td>
+                            <td
+                                style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b [innerHTML]="purchaseReturnDetail?.totalExpenses | customCurrency"></b></td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                colspan="4"><b>Round Off</b></td>
+                            <td
+                                style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b [innerHTML]="purchaseReturnDetail?.roundOff | customCurrency"></b></td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                colspan="4"><b>Net Total</b></td>
+                            <td
+                                style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b [innerHTML]="purchaseReturnDetail?.netTotal | customCurrency"></b></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="display: grid;grid-template-columns: auto auto;font-family: 'Inter', sans-serif;">
+                    <p
+                        style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: left;">
+                        <b>Prepared By</b></p>
+                    <p
+                        style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: right;">
+                        <b>{{createdUser?.name}}</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

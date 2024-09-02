@@ -1,0 +1,54 @@
+<div class="modal-content1">
+  <div class="modal-header">
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <div class="col-md-8">
+        <h4 class="modal-title">
+          {{'DOCUMENT_NUMBERS.MANAGE_DOCUMENT_NUMBERS' | translate}}
+        </h4>
+      </div>
+      <div class="col-sm-auto ml-auto">
+        <button type="button" class="close" (click)="onDocumentCancel()" data-dismiss="modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="documentForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label>{{ 'DOCUMENT_NUMBERS.DOC_PREFIX' | translate }}<span class="text-danger">*</span></label>
+            <input formControlName="docPrefix" class="form-control text-uppercase" type="text">
+            <div *ngIf="form.docPrefix?.touched && form.docPrefix?.errors">
+              <small class="text-danger" *ngIf="form.docPrefix?.errors?.required">
+                {{ 'DOC_PREFIX_REQUIRED' | translate }}
+              </small>
+              <small class="text-danger" *ngIf="form.docPrefix?.errors?.maxlength">
+                {{ 'DOC_PREFIX_MAX_LENGTH' | translate }} 
+              </small>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div class="col-sm-12">
+          <div class="form-group ">
+            <label  >{{'DOCUMENT_NUMBERS.LAST_DOC_NO' | translate}} <span class="text-danger" >*</span></label>
+            <input formControlName="lastDocNo" class="form-control" type="text">
+            <div *ngIf="form.lastDocNo?.touched && form.lastDocNo?.errors">
+              <small class="text-danger" *ngIf="form.lastDocNo?.errors?.required">
+                {{'LAST_DOC_NO_REQUIRED' | translate}}
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="m-top-10 col-md-12">
+          <button class="btn btn-success btn-sm m-right-10" (click)="SaveDocument()" cdkFocusInitial>
+            <i class="las la-save"></i> {{'SAVE' | translate}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

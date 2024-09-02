@@ -1,0 +1,202 @@
+
+
+
+<div style="position:absolute;left:-15420px">
+  <div style="width:100%;display:flex;">
+
+    <div class="invoice-container-wrap" id="itemwiseReport">
+      <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+          <div style="position: relative;z-index: 4;background-color: #FFF;">
+              <div style="padding: 20px;">
+                  <header style="margin-bottom: 20px;">
+                    <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                      <div style="display: grid;grid-template-columns: auto auto;">
+                          <div
+                              style="text-align: left;font-size:18px;font-weight:500;font-family: 'Inter', sans-serif;color: #535b61;">
+                              PRODUCT WISE STOCK REPORT FOR THE PERIOD <b>{{stockitemReportDetails?.fromDate | customDate}}</b> TO <b>{{stockitemReportDetails?.toDate | customDate}}</b></div>
+                      </div>
+                  </header>
+
+                  <div style="padding: 2px;margin-bottom: 20px;">
+                      <table
+                          style="border: 1px solid #f2f2f2; width: 100%;margin: 0;font-family: 'Inter', sans-serif;border-collapse: collapse;border-top: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;border-bottom: 1px solid #c9c6c6;">
+                          <tbody>
+                              <tr>
+                                  <th
+                                      style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">
+                                      Item Details</th>
+                              </tr>
+                              <tr>
+                                  <th
+                                      style="text-align: left;padding: 0px 12px;font-size:14px;border-right: 0;border-bottom: 0;color: #535b61;">
+                                      {{stockitemReportDetails?.product?.nameEnglish}}</th>
+                                
+                              </tr>
+                              <tr>
+                                  <td
+                                      style="text-align: left;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                      <span>Category</span>, <span>Sub Category</span> </td>
+
+                              </tr>
+                              <tr>
+                                  <td
+                                      style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                      Brand</td>
+
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+
+                  <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                      <thead>
+                          <tr>
+                              <th rowspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.DATE' | translate}} <br> </th>
+                              <th rowspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.BILL_NO' | translate}} <br></th>
+                              <th colspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.PURCHASE' | translate}} <br> </th>
+                              <th colspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.SALES' | translate}} <br> </th>
+                              <th colspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.PURCHASE_RETURN' | translate}}<br> </th>
+                              <th colspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.SALES_RETURN' | translate}} <br> </th>
+                              <th colspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.DAMAGE' | translate}} <br> </th>
+                              <th colspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.STOCK_IN' | translate}} <br> </th>
+                              <th colspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.STOCK_OUT' | translate}} <br> </th>
+                              <th rowspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.UNIT_RATE' | translate}} <br> </th>
+                              <th rowspan="2"
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3">
+                                  {{'REPORTS.STOCK_REPORT.BALANCE' | translate}} <br> </th>
+                          </tr>
+                          <tr>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+                              <th
+                                  style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;border: 1px solid #b3b3b3;">
+                                  {{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr  *ngIf="stockItemList?.length>0">
+                            <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;"></td>
+                            <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">Opening Stock</td>
+                            <td style="text-align: right;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;" colspan="16">{{stockitemReportDetails?.openingStockQuantity}}</td>
+                          </tr>
+                          <tr *ngFor="let item of stockItemList">
+                             
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.transactionDate | customDate}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.transactionNo}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.purchaseOuantity >0?item.purchaseOuantity:''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.purchaseOuantity >0 ?(translationService?.getSelectedLanguage() === 'en' ?
+                                item.unit.nameEnglish : item.unit.nameSecondLanguage) :''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.saleQuantity >0?item.saleQuantity:''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.saleQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+                                item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+                              </td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.purchaseReturnOuantity >0?item.purchaseReturnOuantity:''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.purchaseReturnOuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+                                item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+                              </td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.saleReturnQuantity >0?item.saleReturnQuantity:''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.saleReturnQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+                                item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+                              </td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.damageQuantity >0?item.damageQuantity:''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.damageQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+                                item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+                              </td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.stockInQuantity >0?item.stockInQuantity:''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.stockInQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+                                item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+                              </td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.stockOutQuantity >0?item.stockOutQuantity:''}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.stockOutQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+                                item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+                              </td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.rate}}</td>
+                              <td style="text-align: center;font-size:14px;padding: 8px 12px;border: 1px solid #b3b3b3;">{{item.balance}}</td>
+                          </tr>
+
+                      </tbody>
+                      <tfoot>
+                          <tr>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;" colspan="2">Total </th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalQuantityPurchase}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalQuantitySales}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalQuantityPurchaseReturn}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalQuantitySalesReturn}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalQuantityDamage}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalQuantityStockIn}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalQuantityStockOut}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;">{{stockitemReportDetails?.totalRate}}</th>
+                              <th style="font-size:14px;background-color: #f2f2f2;padding: 10px 12px;text-align: left;color: #535b61;border: 1px solid #b3b3b3;"></th>
+                          </tr>
+                      </tfoot>
+                  </table>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+</div>

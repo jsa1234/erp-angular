@@ -1,0 +1,75 @@
+<div style="position:absolute;left:-15420px">
+  <div style="width:100%;display:flex;">
+<div class="invoice-container-wrap"  id="generalReport">
+  <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+      <div style="position: relative;z-index: 4;background-color: #FFF;">
+          <div style="padding: 20px;">
+              <header style="margin-bottom: 20px;">
+                <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                  <div style="display: grid;grid-template-columns: auto auto;">
+                      <div
+                          style="text-align: left;font-size:18px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                          Stock Register For The Period <b>{{generalReportDetails?.fromDate | customDate}}</b> TO <b>{{generalReportDetails?.toDate | customDate}}</b></div>
+                  </div>
+              </header>
+
+              <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                  <thead>
+                      <tr >
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              SI.No</th>
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              Product ID</th>
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              Item Name</th>
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              Opening Stock</th>
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              Opening Stock Value</th>
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              Current Stock</th>
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              Current Stock Cost</th>
+                          <th
+                              style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                              Stock Value</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let item of stockGeneralReportList let i=index" >
+                          <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{i+1}}</td>
+                          <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{item?.product?.productCode}}</td>
+                          <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.product?.nameEnglish}}</td>
+                          <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.openingStockQuantity}}</td>
+                          <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.openingStockValue}}</td>
+                          <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.currentStock}}</td>
+                          <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.currentCost}}</td>
+                          <td style="text-align: right;font-size:14px;padding: 8px 12px;">{{item?.stockValue}}</td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;">Total</th>
+                          <th colspan="5" style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;"></th>
+                          <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;">{{generalReportDetails?.subtotal}}</th>
+                          <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;"></th>
+                      </tr>
+                  </tfoot>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+

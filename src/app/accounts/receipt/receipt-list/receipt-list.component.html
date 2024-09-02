@@ -1,0 +1,186 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto col">
+            <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+                <h1><i class="icon15"></i> <span>{{'SIDEBAR.RECEIPT_VOUCHER' | translate}}</span></h1>
+            </div>
+        </div>
+        <div class="col-md-auto col-sm-auto">
+          <button *hasClaim="'account_receipt_voucher_create_receipt_voucher'" class="btn blue-btn btn-sm m-right-10"
+            [routerLink]="['/receiptVoucher/manage/add']">
+            <i class="fas fa-plus"></i> {{'ACCOUNTS.RECEIPT_VOUCHER.ADD_RECEIPT_VOUCHER' | translate}}
+          </button>
+        </div>
+    </div>
+    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+      <div class="crumbs-sec">
+        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.RECEIPT_VOUCHER' | translate}}</span>
+      </div>
+    </div>
+</div>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+<div class="filter-sec mb-4">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+        <div class="col-md-3">
+          <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+       </div>
+       <div class="col-md-3">
+          <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"></app-device-dropdown>
+       </div>
+        <div class="col-md-3">
+          <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+        </div>
+        <div class="col-md-3">
+          <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="filter-search">
+      <button type="submit"  class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}} </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<div class="loading-shade" *ngIf="(dataSource.loading$ | async) ||isLoading$">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows
+          class="table table-bordered table-hover grid-height" matSort matSortActive="docNo">
+          <ng-container matColumnDef="action">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>
+            </th>
+            <td class="table-column-150" mat-cell *matCellDef="let so">
+              <ng-container *hasClaim="'account_receipt_voucher_list_receipt_voucher_items'">
+              <i class="fas fa-chevron-right btn" *ngIf="so != expandedElement" (click)="toggleRow(so)"></i>
+              <i class="fas fa-chevron-down btn" *ngIf="so == expandedElement" (click)="toggleRow(so)"></i>
+            </ng-container>
+
+              <button *hasClaim="['account_receipt_voucher_view_receipt_voucher','account_receipt_voucher_edit_receipt_voucher','account_receipt_voucher_delete_receipt_voucher']" class="ml-4"
+
+                mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
+                <mat-icon>more_vert</mat-icon>
+                </button>
+              <mat-menu #menu="matMenu">
+                <button *hasClaim="'account_receipt_voucher_view_receipt_voucher'"  mat-menu-item
+                  [routerLink]="['/receiptVoucher/detail/', so.accountVoucherUUID]">
+                  <mat-icon>info</mat-icon>
+                  <span>{{'COMMON.DETAIL' | translate}}</span>
+                </button>
+
+                <button  *hasClaim="'account_receipt_voucher_edit_receipt_voucher'"  mat-menu-item
+                [routerLink]="['/receiptVoucher/manage/', so.accountVoucherUUID]">
+                <mat-icon>edit</mat-icon>
+                <span>{{'COMMON.EDIT' | translate}}</span>
+              </button>
+
+                <button  *hasClaim="'account_receipt_voucher_delete_receipt_voucher'"  mat-menu-item (click)="deleteReceipt(so)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{'COMMON.DELETE' | translate}}</span>
+                </button>
+
+              </mat-menu>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="docNo">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.RECEIPT_VOUCHER.RECEIPT_VOUCHER_NO'  | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.docNo}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="docDate">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.RECEIPT_VOUCHER.RECEIPT_VOUCHER_DATE'  | translate}}</th>
+            <td class="table-column-150" mat-cell *matCellDef="let so">
+              {{so.docDate | customDate}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Amount">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>{{'COMMON.AMOUNT' | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let so" [innerHTML]="so.totalAmount | customCurrency">  </td>
+          </ng-container>
+
+          <ng-container matColumnDef="User">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>{{'COMMON.USER' | translate}}</th>
+            <td class="table-column-100" mat-cell *matCellDef="let so">{{so.createdBy}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action-search">
+            <th mat-header-cell *matHeaderCellDef> </th>
+          </ng-container>
+
+          <form [formGroup]="filterForm">
+          <ng-container matColumnDef="ReceptNo-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <input placeholder="Receipt No" type="text" class="form-control w-90"
+                formControlName="voucherNo">
+            </th>
+          </ng-container>
+
+          <ng-container matColumnDef="ReceptDate-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <div class="filterDate col-md-12">
+                <date-input [group]="filterForm" [controlName]="'voucherDate'" [label]="''" [isShowLabel]="false" [isDefaultDate]="false"></date-input>
+              </div>
+              <button class="dateRemove" mat-icon-button color="warn" (click)="removeDate()" *ngIf ="filterForm.get('voucherDate').value">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </th>
+          </ng-container>
+        </form>
+
+          <ng-container matColumnDef="Amount-search">
+            <th mat-header-cell *matHeaderCellDef></th>
+          </ng-container>
+          <ng-container matColumnDef="User-search">
+            <th mat-header-cell *matHeaderCellDef></th>
+          </ng-container>
+
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+                {{'COMMON.NO_DATA_FOUND' | translate}}
+            </td>
+          </tr>
+
+          <ng-container matColumnDef="footer">
+            <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>
+              <mat-paginator [length]="receiptResource.totalCount" [pageSize]="receiptResource.pageSize"
+                [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+              </mat-paginator>
+            </td>
+          </ng-container>
+<ng-container *hasClaim="'account_receipt_voucher_list_receipt_voucher_items'">
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let soObject" [attr.colspan]="displayedColumns.length">
+              <ng-container *ngIf="soObject == expandedElement">
+                <div class="example-element-detail"
+                  [@detailExpand]="soObject == expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="inner-table mat-elevation-z8">
+                    <app-payment-receipt-item [receiptId]="soObject.accountVoucherUUID">
+                    </app-payment-receipt-item>
+                  </div>
+                </div>
+              </ng-container>
+            </td>
+          </ng-container>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.bg-warning]="row.status===1"></tr>
+          <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true">
+          <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+          <ng-container *hasClaim="'account_receipt_voucher_list_receipt_voucher_items'">
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </ng-container>
+        </table>
+      </div>
+    </div>
+  </div>

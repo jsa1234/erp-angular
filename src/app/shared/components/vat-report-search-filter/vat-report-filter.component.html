@@ -1,0 +1,71 @@
+<form [formGroup]="searchForm">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+        <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+        </div>
+     </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"> </app-device-dropdown>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>{{'REPORTS.TAX_REPORT.REPORT_TYPE' | translate}} <span class="text-danger">*</span></label>
+                <mat-select class="form-control" formControlName="reportType" (valueChange)="getMonths($event)">
+                    <input class="form-control w-100"  focused="'true'" type="text"
+                    autocomplete="off" placeholder="search Report Type">
+                    <mat-option *ngFor="let item of reportType | keys" [value]="item.key">
+                      {{item.value}}
+                    </mat-option>
+                  </mat-select>
+                  <div *ngIf="reportTypes.touched && reportTypes.errors">
+                    <div class="text-danger" *ngIf="reportTypes.errors?.required">
+                      Please choose Report Type
+                    </div>
+                  </div>
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>{{'REPORTS.TAX_REPORT.SELECT_MONTH' | translate}}<span class="text-danger">*</span></label>
+                <mat-select class="form-control" formControlName="selectMonth">
+                    <input class="form-control w-100"  focused="'true'" type="text"
+                    autocomplete="off" placeholder="search Month">
+                    <ng-container>
+                    <mat-option  *ngFor="let item of monthsArray " [value]="item">
+                      {{item}}
+                    </mat-option>
+                </ng-container>
+                  </mat-select>
+                  <div *ngIf="selectMonth.touched && selectMonth.errors">
+                    <div class="text-danger" *ngIf="selectMonth.errors?.required">
+                      Please choose Month/Financial Year
+                    </div>
+                  </div>
+            </div>
+        </div>
+    
+        <div class="col-md-4 report-tool-bar">
+            <button type="submit" class="btn btn-primary btn-sm m-right-10" (click)="onSearch()">
+              <i class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
+            </button>
+            <button type="submit" class="btn btn-danger btn-sm m-right-10" (click)="clear()">
+              <i class="fas fa-eraser"></i>{{'COMMON.CLEAR' | translate}}
+            </button>
+
+            <ng-container *ngIf="summaryShow || inputShow > 0 || outputShow > 0">
+
+              <button *hasClaim="'report_vat_report_excel_vat_report'" type="submit" class="btn btn-green btn-sm m-right-10" (click)="generateExcel()"><i
+                  class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+              </button>
+
+              <button *hasClaim="'report_vat_report_print_vat_report'" type="submit" class="btn btn-warning btn-sm m-right-10" (click)="generatePdf()">
+                <i class="fas fa-print"></i>{{'COMMON.PRINT' | translate}}
+              </button>
+            </ng-container>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,207 @@
+<div class="page-header-main mt-2">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons"
+        [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon45"></i> <span>{{'BRANCH.MANAGE_BRANCH' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/branch']">{{'SIDEBAR.BRANCH'
+        | translate}}</a> / <span>{{'BRANCH.MANAGE_BRANCH' | translate}}</span>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="branchForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.BRANCH_TYPE'|translate}} <span class="text-danger">*</span> </label>
+              <mat-select placeholder="" formControlName="branchType" class="form-control w-100">
+                <mat-option *ngFor="let item of branchTypeList" [value]="item.key">{{item.valueEnglish}}</mat-option>
+              </mat-select>
+              <div *ngIf="branchForm.get('branchType').errors && branchForm.get('branchType').touched">
+                <div class="text-danger" *ngIf="branchForm.get('branchType').errors?.required">
+                  Branch Type is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ">
+              <label for="isHeadoffice">{{'BRANCH.HEAD_OFFICE' | translate}}</label>
+            <div class="form-group">
+              <mat-slide-toggle formControlName="isHeadOffice" class="active-togle">{{ (isHeadOffice ? 'BRANCH.YES' :
+                'BRANCH.NO') | translate }}</mat-slide-toggle>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.NAME_ENGLISH'|translate}}<span class="text-danger">*</span></label>
+              <input formControlName="nameEnglish" class="form-control w-100" type="text">
+              <div *ngIf="branchForm.get('nameEnglish').errors && branchForm.get('nameEnglish').touched">
+                <div class="text-danger" *ngIf="branchForm.get('nameEnglish').errors?.required">
+                  Branch Name is Required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.MOBILE_COUNTRY_CODE'|translate}}</label>
+              <input formControlName="mobileCountryCode" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.MOBILE_NO'|translate}}</label>
+              <input formControlName="mobileNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.PHONE_COUNTRY_CODE'|translate}}</label>
+              <input formControlName="phoneCountryCode" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.PHONE_NO'|translate}}</label>
+              <input formControlName="phoneNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.EMAIL'|translate}}</label>
+              <input formControlName="email" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.WEBSITE'|translate}}</label>
+              <input formControlName="website" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark">{{'BRANCH.BUILDING_NO_ENGLISH'|translate}}</label>
+              <input formControlName="buildingNoEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="text-dark"> {{'BRANCH.GST_NO'|translate}}</label>
+              <input formControlName="gstVatNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">{{'BRANCH.STREET_ENGLISH'|translate}}</label>
+            <input formControlName="streetEnglish" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark"> {{'BRANCH.PLACE_ENGLISH'|translate}}</label>
+            <input formControlName="placeEnglish" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">{{'BRANCH.DISTRICT_ENGLISH'|translate}}</label>
+            <input formControlName="districtEnglish" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">{{'BRANCH.STATE_ENGLISH'|translate}}</label>
+            <input formControlName="stateEnglish" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">{{'BRANCH.COUNTRY_ENGLISH'|translate}}</label>
+            <input formControlName="countryEnglish" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">{{'BRANCH.ZIP_CODE_ENGLISH'|translate}}</label>
+            <input formControlName="zipCodeEnglish" class="form-control w-100" type="text">
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">TIN No</label>
+            <input formControlName="registrationNo" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">PIN No</label>
+            <input formControlName="additionalNo" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="text-dark">FSSAI No</label>
+            <input formControlName="fssaiNumber" class="form-control w-100" type="text">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <date-input [group]="branchForm" [controlName]="'startDate'" [label]="'BRANCH.START_DATE'"
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_START_DATE'" [isMandatory]="true"  [isCustomRange]="true"  [isDefaultDate]="!isUpdate" [defaultDate]="branch?.startDate"></date-input>
+        </div>
+        <div class="col-md-4">
+          <date-input [group]="branchForm" [controlName]="'installationDate'" [label]="'BRANCH.INSTALLATION_DATE'"
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_INSTALLATION_DATE'" [isMandatory]="true" [isCustomRange]="true" [isDefaultDate]="!isUpdate" [defaultDate]="branch?.renewalDate"></date-input>
+        </div>
+        <div class="col-md-4">
+          <date-input [group]="branchForm" [controlName]="'renewalDate'" [label]="'BRANCH.RENEWAL_DATE'"
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_RENEWAL_DATE'" [isMandatory]="true" [isCustomRange]="true" [isDefaultDate]="!isUpdate" [defaultDate]="branch?.installationDate"></date-input>
+        </div>
+
+
+      </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="section-boxed branch-section-boxed">
+        <mat-card class="cus-mat-card upload-complogo text-center">
+          <input hidden (change)="onFileSelect($event)" #fileInput name="logo" type="file" name="Profile Photo"
+            fxFlex="30">
+          <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" draggable="false" />
+          <img *ngIf="!imgSrc" class="full-width" src="../../assets/images/dummy.jpg" draggable="false" />
+          <mat-card-actions>
+            <button type="button" class="btn btn-success btn-sm mb-2" (click)="fileInput.click()">
+              <i class="far fa-image"></i> {{'COMMON.CHANGE_LOGO' | translate}}</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="componentId != 'detail'">
+    <div class="row">
+      <div class="col-md-12 m-bottom-40 text-center">
+        <button *hasClaim="['branch_branch_create_branch','branch_branch_edit_branch']" type="submit"
+          class="btn btn-success btn-sm mr-2 m-left-10" (click)="saveBranch()">
+          <i class="fas fa-save"></i> {{'COMMON.SAVE' | translate}}
+        </button>      
+        <button type="button" class="btn btn-danger btn-sm" (click)="cancel()">
+          <i class="fas fa-times-circle"></i>
+          {{'COMMON.CANCEL' | translate}}
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</form>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>

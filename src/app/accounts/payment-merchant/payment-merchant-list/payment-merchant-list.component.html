@@ -1,0 +1,90 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons">
+        <h1><i class="icon58"></i> <span>POS Merchant Account</span> </h1>
+      </div>
+    </div>
+    <div class="col-md-auto col-sm-auto">
+      <button  class="btn blue-btn btn-sm m-right-10"
+        [routerLink]="['/payment-merchant/manage/add']">
+        <i class="fas fa-plus"></i> Manage POS Merchant Account
+      </button>
+    </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']" >Dashboard</a> / <span>POS Merchant Account</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="table-responsive">
+  <table mat-table [dataSource]="dataSource" class="table table-bordered table-hover grid-height" matSort
+  multiTemplateDataRows  matSortActive="nameEnglish">
+
+
+    <ng-container matColumnDef="action">
+      <th class="pr-5" mat-header-cell *matHeaderCellDef>
+      </th>
+      <td mat-cell *matCellDef="let merchantAccount" class="table-column-130">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item  [routerLink]="['/payment-merchant/detail/', merchantAccount.posMerchantUUID]">
+            <mat-icon>info</mat-icon>
+            <span>Detail</span>
+          </button>
+          <button mat-menu-item [routerLink]="['/payment-merchant/manage/', merchantAccount.posMerchantUUID]">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteMerchantAccount(merchantAccount)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="merchantName" >
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>Merchant Name </th>
+      <td class="table-column-100" mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.nameEnglish}} </td>
+    </ng-container>
+    <ng-container matColumnDef="merchantType" >
+      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Type </th>
+      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.posMerchantType}} </td>
+    </ng-container>
+    <ng-container matColumnDef="deviceCount" >
+      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header> 
+      Device Count  
+      </th>
+      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.deviceCount}} </td>
+    </ng-container>
+    <ng-container matColumnDef="merchantIdNo" >
+      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header> 
+        Mercchant Identification Number
+      </th>
+      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.merchantIdentificationnumber}} </td>
+    </ng-container>
+    <ng-container matColumnDef="terminalIdNo" >
+      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header>Terminal Identification Number </th>
+      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.terminalIdentificationNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="footer">
+      <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>
+        <mat-paginator [length]="posMerchantAccountResource.totalCount" [pageSize]="posMerchantAccountResource.pageSize"
+          [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+        </mat-paginator>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+
+  </table>
+</div>

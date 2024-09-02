@@ -1,0 +1,152 @@
+.barcode-profile-det h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .barcode-profile-det .form-group.row {
+    margin: 0 0px 0px -5px !important;
+  }
+  .generate-barcodes label {
+    font-weight: 600;
+  }
+  .bar-img img {
+    width: 100%;
+  }
+  .barcode-btn button.btn {
+    background-color: #f58220;
+    color: #FFF;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .barcode-list-head h2 {
+    font-size: 22px;
+    margin-bottom: 0px;
+    font-weight: 600;
+  }
+  .barpreview-btn button.btn {
+    background-color: #F00;
+    margin-bottom: 0;
+    color: #FFF;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .barcode-img {
+    position: relative;
+    margin-bottom: 18px;
+  }
+  .barcode-img img {
+    width: 100%;
+  }
+  .barcode-img span mat-icon {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    background-color: #F00;
+    color: #FFF;
+    border-radius: 50%;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  .barcode-list-box {
+    height: 670px;
+    overflow-y: scroll;
+  }
+
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .barcode p {
+    margin-bottom: 0;
+    font-size: 10px;
+  }
+  .barcode img {
+    width: 100%;
+  }
+  .barcode .row {
+    margin: 0;
+  }
+  .barcode .bar-companyname {
+    font-size: 13px !important;
+  }
+  .barcode p span {
+    font-weight: bold;
+    font-size: 13px;
+    padding-left: 5px;
+  }
+  .barcode .bar-rate {
+    padding-right: 10px !important;
+  }
+  .barcode-profile-det .row {
+    margin: 0;
+  }
+  .barcode-profile-det h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .barcode {
+    box-shadow: 0px 0px 1px 2px #ebebebb3;
+    position: relative;
+  }
+  .barcode mat-icon {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 2px;
+    background-color: #F00;
+    border-radius: 50%;
+    color: #FFF;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+  }
+  .barcode-img {
+    position: relative;
+    margin-bottom: 18px;
+  }
+  .barcode-img img {
+    width: 100%;
+  }
+
+  @media print {
+    .barcode-container {
+      page-break-before: always;
+    }
+  }
+
+
+  /* Add this CSS to your styles.css or a component-specific CSS file */
+.barcode:hover .delete-button {
+  display: block;
+}
+
+.delete-button {
+  display: none;
+}
+
+
+table.barcode-profile-preview-table {
+  box-shadow: 0px 0px 1px 0px #535353;
+}
+
+.barcode-profile-preview-table th, .barcode-profile-preview-table td {
+  padding: 0 4px;
+}
+.barcode-profile-preview-table tr {
+  height: auto !important;
+}
+
+.mat-datepicker-toggle, .mat-datepicker-content .mat-calendar-next-button, .mat-datepicker-content .mat-calendar-previous-button {
+  color: rgba(0, 0, 0, 0.54);
+  position: absolute !important;
+  top: -3px !important;
+  right: 4px !important;
+}

@@ -1,0 +1,62 @@
+
+
+<table mat-table [dataSource]="dataSource" class="table table-bordered table-hover grid-height">
+    <ng-container matColumnDef="#">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>{{'COMMON.#' | translate}}</th>
+      <td class="text-center" mat-cell *matCellDef="let syncLogs; let i=index">{{i+1+syncLogResource.skip}} </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.DATE' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncLogs">{{syncLogs.syncTime | customDate}} </td>
+    </ng-container>
+    <ng-container matColumnDef="time">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.TIME' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncLogs">{{syncLogs.syncTime | date:'fullTime'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="session">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.TYPE' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncLogs"> {{syncLogs.logTypeName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="table">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.MODULE' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncLogs"> {{syncLogs.moduleName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.TABLE' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncLogs"> {{syncLogs.tableName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.STATUS' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncLogs">  {{syncLogs.syncActStatusName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="logDescription">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.LOG_DESCRIPTION' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncLogs">  {{syncLogs.logDescription}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="footer">
+      <td mat-footer-cell colspan="8" *matFooterCellDef>
+        <mat-paginator [length]="syncLogResource.totalCount" [pageSize]="syncLogResource.pageSize"
+          [pageSizeOptions]="[10, 25, 50,100]">
+        </mat-paginator>
+      </td>
+    </ng-container>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+          {{'COMMON.NO_DATA_FOUND' | translate}}
+      </td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+    <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+  </table>
+
+  <div class="loading-shade" *ngIf="dataSource?.loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>

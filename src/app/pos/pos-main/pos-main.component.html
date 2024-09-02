@@ -1,0 +1,33 @@
+<section>
+  <div class="example-button-row">
+    <div class="example-flex-container">
+      <div class="example-button-container">
+        <button mat-fab color="warn" aria-label="Example icon button with a bookmark icon" (click)="closePos()">
+          <mat-icon>power_settings_new</mat-icon>
+        </button>
+        <span class="pos-head">OloPOS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container-fluid">
+  <mat-tab-group #tabGroup>
+    <ng-container *ngFor="let tab of tabs">
+      <mat-tab >
+        <ng-template mat-tab-label>
+          <div>{{tab}}</div>
+          <ng-container *ngIf="tabs.length>1">
+        <button mat-icon-button color="warn" (click)="removeTab(tab)" aria-label="Example icon button with a heart icon">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </ng-container>
+      </ng-template>
+
+      <app-pos-tab  (createTab)="addTab()"></app-pos-tab>
+    </mat-tab>
+    </ng-container>
+  </mat-tab-group>
+</div>
+<!-- pos.component.html -->
+

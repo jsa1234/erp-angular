@@ -1,0 +1,19 @@
+<div class="topcustomer-chart">
+  <h3>{{'DASHBOARD.PURCHASE_SALES_OTHER_EXPENSE_OTHER_INCOME' |translate}}</h3>
+  <ng-container *ngIf="isLoading$">
+    <app-dashboard-loader></app-dashboard-loader>
+    </ng-container>
+    <ng-container *ngIf="!isLoading$">
+  <canvas *ngIf="financialInsightDataList?.length>0" baseChart 
+    [data]="chartData" 
+    [labels]="chartLabels" 
+    [chartType]="pieChartType"
+    [options]="pieChartOptions" 
+    [colors]="pieChartColors" 
+    [legend]="pieChartLegend">
+  </canvas>
+      <div *ngIf="financialInsightDataList?.length<=0" class="dummyChart">
+      <label >{{'COMMON.NO_DATA_FOUND' | translate}}</label>
+    </div>
+  </ng-container>
+</div>

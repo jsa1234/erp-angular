@@ -1,0 +1,68 @@
+
+
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="VATReport">
+    <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+        <div style="position: relative;z-index: 4;background-color: #FFF;">
+            <div style="padding: 20px;">
+                <header style="margin-bottom: 20px;">
+                    <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div
+                                style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                Input Tax Statement (Purchase) For The Month JUNE 2023</div>
+                            <div
+                                style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                شراء بيان ضريبة المدخلات) لـ
+الشهر يونيو 2023</div>
+                        </div>
+                </header>
+
+
+                <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Bill No <br> <span style="font-size: 14px;">مشروع قانون لا</span></th>
+                            <th rowspan="2" style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Date <br> <span style="font-size: 14px;">تاريخ</span></th>
+                            <th colspan="2" style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;" *ngFor="let item of detailedTax?.taxSlabs">VAT {{item}} %</th>
+                            <th rowspan="2" style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Total Sales</th>
+                        </tr>
+                        <tr>
+                            <ng-container *ngFor="let item of detailedTax?.taxSlabs">
+                            <th style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Amount</th>
+                            <th
+                                style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                Tax</th>
+                            </ng-container>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of detailedTax?.taxes">
+                            <td style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;">{{item.invoiceNumber}}</td>
+                            <td style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;">{{item.transactionDate | customDate}}</td>
+                            <ng-container *ngFor="let tax of detailedTax?.taxSlabs">
+                            <td style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="(item?.taxDetails | vatFilter:tax:'taxableAmount') | customCurrency"></td>
+                            <td style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="(item?.taxDetails | vatFilter:tax:'taxAmount') | customCurrency"></td>
+                        </ng-container>
+                            <td style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="item?.totalAmount | customCurrency"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;">TOTAL</th>
+                            <ng-container *ngFor="let tax of detailedTax?.taxSlabs">
+                            <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="(detailedTax?.taxTotals | vatFilter:tax:'totalTaxableAmount') | customCurrency"></th>
+                            <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="(detailedTax?.taxTotals | vatFilter:tax:'totalTaxAmount') | customCurrency" ></th>
+                        </ng-container>
+                            <th style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="detailedTax?.netTotalAmount | customCurrency"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>

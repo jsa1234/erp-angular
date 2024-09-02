@@ -1,0 +1,49 @@
+.bg-aqua {
+    background-color: #2196f3 !important;
+}
+
+.bg-yellow-light {
+    background-color: #f1e443 !important;
+}
+
+.bg-pink {
+    background-color: #804c89 !important;
+}
+
+.bg-green {
+    background-color: #059e73 !important;
+}
+
+.bg-teal {
+    background-color: #009688 !important;
+}
+
+.bg-yellow {
+    background-color: #cf9b00 !important;
+    color           : #fff !important;
+}
+
+.bg-red {
+    background-color: #dd4b39 !important;
+}
+
+
+// table column width helper for mat-tables
+@for $index from 0 through 200 {
+    $size: $index * 2;
+
+    .table-column-#{$size} {
+        // flex: 0 1 #{$size}#{"px"};
+        min-width: #{$size}#{"px"};
+    }
+}
+
+.content-header h1 i {
+    display: list-item;
+    position: absolute;
+    padding-right: 18px;
+    background-color: #f58220 !important;
+  }
+  .content-header h1 span {
+    margin-left: 25px;
+  }

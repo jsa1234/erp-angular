@@ -1,0 +1,93 @@
+.content-header h1 i {
+    display: list-item;
+    position: absolute;
+    padding-right: 18px;
+    background-color: #f58220 !important;
+  }
+  .content-header h1 span {
+    margin-left: 35px;
+  }
+  .grid-container {
+    border: 1px solid #ccc;
+}
+.grid-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+button.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary {
+  margin-right: 10px;
+}
+thead.thead-dark {
+  color: white;
+  background-color: rgb(52, 52, 52);
+  font-weight: bold;
+}
+tfoot.tfoot-dark {
+  color: #000;
+  font-weight: bold;
+  background-color: #e3fdcc;
+}
+.top-foams {
+  display: flex;
+  width: 100%;
+}
+.top-foams .form-group {
+  width: 100%;
+  padding-right: 10px;
+}
+.manage-purchase-boxing {
+  padding: 10px 15px 0px 15px !important;
+}
+.manage-purchase-boxing .form-group {
+  margin-bottom: 0;
+}
+
+
+.purchanse-managed-table {
+  height: 400px;
+  overflow: auto;
+}
+.form-control:disabled, .form-control[readonly] {
+  background-color: #e9ecef !important;
+  opacity: 1;
+}
+table {
+  width: 100%;
+}
+.total-count-form p {
+  margin-bottom: 0px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.total-count-form span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.purchanse-managed-table table tr:hover {
+  cursor: pointer;
+}
+.selected-row {
+  background: linear-gradient(90deg, #c4c3c3 0%, #d7d7d7 100%);
+}
+
+
+.shortcut-keys {
+  text-align: right;
+  line-height: 20px;
+  font-weight: 500;
+}
+.shortcut-keys b {
+  color: #f58220;
+}
+
+
+.table thead th {
+  background-color: #f58220;
+  color: white;
+}
+
+.return-button button {
+  background-color: #009723;
+  color: white;
+}

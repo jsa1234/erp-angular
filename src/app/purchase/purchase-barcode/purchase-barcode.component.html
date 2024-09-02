@@ -1,0 +1,535 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons">
+        <h1><i class="icon3"></i> <span>Generate Barcode</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+      <a [routerLink]="['/purchase-invoice/list']">{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</a> / <span>Generate Barcode</span>
+    </div>
+  </div>
+</div>
+
+<div class="generate-barcodes">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="section-boxed">
+        <!-- Product Information Section -->
+        <div class="row">
+          <!-- Choose Variant -->
+          <div class="col-md-12">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Choose Product</label>
+              <div class="col-sm-12">
+                <mat-select placeholder="" class="w-100 form-control" [(ngModel)]="selectedPurchasedProductVariant"
+                  (selectionChange)="getProductVariants()">
+                  <mat-option *ngFor="let item of productVariants" [value]="item">{{item.productObject.productCode}} - {{item.productObject.nameEnglish}} - {{ item.unitObject.nameEnglish
+                    }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Choose Product Variant</label>
+              <div class="col-sm-12">
+                <mat-select placeholder="" class="w-100 form-control" [(ngModel)]="selectedProductVariant"
+                  (selectionChange)="compareVariants()">
+                  <mat-option *ngFor="let item of productPrice" [value]="item">{{ item.unit.nameEnglish}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <!-- Enter Quantity -->
+          <div class="col-md-4">
+            <div class="form-group row">
+              <label class="col-sm-7 col-form-label">Enter Quantity</label>
+              <div class="col-sm-5">
+                <input type="number" [(ngModel)]="quantity" class="form-control">
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Choose Branch/Company</label>
+              <div class="col-sm-6">
+                <mat-select placeholder="" class="w-100 form-control" [(ngModel)]="selectedBranch">
+                  <mat-option *ngFor="let item of allBranches" [value]="item">{{ item.nameEnglish }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div> -->
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Choose MFG. Date</label>
+              <div class="col-sm-6">
+                  <input matInput class="form-control"
+                         [matDatepicker]="mfgDatePicker"
+                         [(ngModel)]="mfgDate" disabled>
+                  <mat-datepicker-toggle matSuffix [for]="mfgDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #mfgDatePicker  disabled="false"></mat-datepicker>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Choose EXP. Date</label>
+              <div class="col-sm-6">
+                <input matInput class="form-control"
+                       [matDatepicker]="expDatePicker"
+                       [(ngModel)]="expDate" disabled>
+                <mat-datepicker-toggle matSuffix [for]="expDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #expDatePicker  disabled="false"></mat-datepicker>
+
+            </div>
+            </div>
+          </div>
+          
+          <!-- Choose Barcode Profile -->
+          <div class="col-md-8">
+            <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Choose Barcode Profile</label>
+              <div class="col-sm-7">
+                <mat-select placeholder="" class="w-100 form-control" [(ngModel)]="selectedProfile">
+                  <!-- (selectionChange)="getSingleProfileConfiguration()"> -->
+                  <mat-option *ngFor="let item of barcodeProfiles" [value]="item">{{ item.profileName }}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-12">
+            <div class="barcode-btn text-center">
+              <button class="btn" type="submit" 
+                (click)="getSingleProfileConfiguration()">Show Barcode Preview</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Barcode Configuration Section -->
+      <ng-container *ngIf="isShowConfiguration">
+        <div class="section-boxed">
+          <div class="barcode-profile-det">
+            <h2>Barcode Configuration</h2>
+            <div class="row">
+              <div class="col-md-4" *ngFor="let config of selectedProfileConfiguration.configurations">
+                <div class="form-group text-center">
+                  <label>{{ config.label }}</label><br>
+                  <mat-slide-toggle [disabled]="!config.isShow" [(ngModel)]="config.value"
+                    (change)="updateConfigurationValue(config)"></mat-slide-toggle>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Details Section -->
+        <div class="section-boxed">
+          <div class="barcode-profile-det">
+            <h2>Profile Details</h2>
+            <div class="row">
+              <!-- Barcode Type -->
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Barcode Type :</label>
+                  <div class="col-sm-6">
+                    <input type="text" [(ngModel)]="selectedProfile.barcodeTypeText" readonly
+                      class="form-control-plaintext">
+                  </div>
+                </div>
+              </div>
+              <!-- Sticker Per Line -->
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Sticker Per Line :</label>
+                  <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                      [(ngModel)]="selectedProfile.stickerPerLine">
+                  </div>
+                </div>
+              </div>
+              <!-- Sticker Height -->
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Sticker Height :</label>
+                  <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                      [(ngModel)]="selectedProfile.stickerHeight">
+                  </div>
+                </div>
+              </div>
+              <!-- Sticker Width -->
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Sticker Width :</label>
+                  <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                      [(ngModel)]="selectedProfile.stickerWidth">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Preview Section -->
+        <div class="section-boxed">
+          <div class="barcode-profile-det">
+            <h2 class="text-center">Profile Preview</h2>
+            <div *ngFor="let variant of productVariants">
+              <div *ngIf="variantBarcodeImages[variant.productPriceUUID]">
+                <div *ngFor="let row of variantBarcodeImages[variant.productPriceUUID].images">
+                  <div class="row">
+                    <div class="barcode" *ngFor="let image of row">
+                      <table class="barcode-profile-preview-table">
+                        <ng-container  *ngIf="isConfigEnabled('company')">
+                        <tr>
+                          <th colspan="4" class="text-center">
+                            {{variantBarcodeImages[variant.productPriceUUID].companyName}}</th>
+                        </tr>
+                        <tr>
+                          <td colspan="4" class="text-center">
+                            {{variantBarcodeImages[variant.productPriceUUID].place}}</td>
+                        </tr>
+                        <tr>
+                          <td colspan="2"> {{variantBarcodeImages[variant.productPriceUUID].contactNo}}</td>
+                          <td colspan="2"> {{variantBarcodeImages[variant.productPriceUUID].email}}</td>
+                        </tr>
+                        </ng-container>
+                        <tr>
+                          <td colspan="4"><img style="width: 100%;" [src]="image"></td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            {{variant.barcode}}</td>
+                          <td colspan="2" *ngIf="isConfigEnabled('product')" >
+                            {{variantBarcodeImages[variant.productPriceUUID].productName}}</td>
+                        </tr>
+                        <tr>
+                          <ng-container
+                             *ngIf="isConfigEnabled('mrp')" >
+                            <td colspan="2">
+                              MRP: <span>{{variantBarcodeImages[variant.productPriceUUID].mrp}}</span>
+                            </td>
+                          </ng-container>
+                          <td colspan="2" *ngIf="isConfigEnabled('unit')" >Unit:
+                            {{variantBarcodeImages[variant.productPriceUUID].variantName}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2"
+                          *ngIf="isConfigEnabled('mfg')" >
+                         MFG: {{variantBarcodeImages[variant.productPriceUUID].mfg | customDate}}</td>
+                          <td colspan="2"
+                             *ngIf="isConfigEnabled('exp')" >
+                            EXP: {{variantBarcodeImages[variant.productPriceUUID].exp | customDate}}</td>
+
+                        </tr>
+                        <tr>
+                          <td colspan="2"  *ngIf="isConfigEnabled('unitPrice')" >Unit
+                          Price: <span>500.00</span>
+                        </td>
+                          <td colspan="2" *ngIf="isConfigEnabled('fssai')" >fssai:
+                            {{variantBarcodeImages[variant.productPriceUUID].fssai}}
+                            </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">Price : 
+                            <span *ngIf="isConfigEnabled('sellingPrice')">{{variantBarcodeImages[variant.productPriceUUID].sellingPrice}}</span>
+                            <span *ngIf="isConfigEnabled('wholesaleRate')">{{variantBarcodeImages[variant.productPriceUUID].wholesalePrice}}</span>
+                          </td>
+                          <td colspan="2"  *ngIf="isConfigEnabled('inclusiveOfTaxes')" >Inclusive
+                            Of All Taxes</td>
+                        </tr>
+                      </table>
+                  </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Generate Barcode Button -->
+      <div class="barcode-btn text-center">
+        <button class="btn" type="submit" [disabled]="!isShowConfiguration"
+          (click)="generateBarcode()">Generate</button>
+      </div>
+    </div>
+
+    <!-- Barcode Preview Section -->
+    <div class="col-md-6">
+      <div class="section-boxed">
+        <div class="barcode-list-head">
+          <div class="row">
+            <div class="col-md-6">
+              <h2>Barcode Preview</h2>
+            </div>
+            <div class="col-md-6 text-right">
+              <div class="barpreview-btn">
+                <button [disabled]="isVariantBarcodeImagesPdfEmpty()" class="btn" type="submit" (click)="clear()">Clear
+                  All</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-boxed barcode-list-box">
+        <div class="barcode-profile-det">
+          <div *ngFor="let variant of productVariantsPdf">
+            <div *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID]">
+              <h1 *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID]">{{variant.productObject.nameEnglish}} - {{ variant.unitObject.nameEnglish }}
+              </h1>
+              <div
+                *ngFor="let row of variantBarcodeImagesPdf[variant.productPriceUUID].images; let rowIndex = index">
+                <div class="row">
+                  <div class="barcode" *ngFor="let image of row; let columnIndex = index">
+                        
+                    <table class="barcode-profile-preview-table">
+                      <ng-container *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'company'">
+                      <tr>
+                        <th colspan="4" class="text-center">
+                          {{variantBarcodeImagesPdf[variant.productPriceUUID].companyName}}</th>
+                      </tr>
+                      <tr>
+                        <td colspan="4" class="text-center">
+                          {{variantBarcodeImagesPdf[variant.productPriceUUID].place}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"> {{variantBarcodeImagesPdf[variant.productPriceUUID].contactNo}}</td>
+                        <td colspan="2"> {{variantBarcodeImagesPdf[variant.productPriceUUID].email}}</td>
+                      </tr>
+                      </ng-container>
+                      <tr>
+                        <td colspan="4"><img style="width: 100%;" [src]="image"></td>
+      
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          {{variant.barcode}}</td>
+                        <td colspan="2" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'product'" >
+                          {{variantBarcodeImagesPdf[variant.productPriceUUID].productName}}</td>
+                      </tr>
+                      <tr>
+                        <ng-container
+                           *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'mrp'"  >
+                          <td colspan="2">
+                            MRP: <span>{{variantBarcodeImagesPdf[variant.productPriceUUID].mrp}}</span>
+                          </td>
+                        </ng-container>
+                        <td colspan="2" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'unit'"  >Unit:{{variantBarcodeImagesPdf[variant.productPriceUUID].variantName}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"
+                        *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'mfg'"  >
+                       MFG:{{variantBarcodeImagesPdf[variant.productPriceUUID].mfg | customDate}} </td>
+                        <td colspan="2"
+                           *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'exp'"  >
+                          EXP: {{variantBarcodeImagesPdf[variant.productPriceUUID].exp | customDate}}</td>
+
+                      </tr>
+                      <tr>
+                        <td colspan="2"  *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'unitPrice'" >Unit Price: <span></span>
+                      </td>
+                        <td colspan="2" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'fssai'" >fssai:{{variantBarcodeImagesPdf[variant.productPriceUUID].fssai}}
+                          </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">Price : 
+                          <span *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'sellingPrice'">{{variantBarcodeImagesPdf[variant.productPriceUUID].sellingPrice}}</span>
+                          <span *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'wholesaleRate'">{{variantBarcodeImagesPdf[variant.productPriceUUID].wholesalePrice}}</span>
+                        </td>
+                        <td colspan="2"  *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'inclusiveOfTaxes'" >Inclusive
+                          Of All Taxes</td>
+                      </tr>
+                    </table>
+                    <span (click)="deleteBarcodeImage(variant.unit.nameEnglish, rowIndex, columnIndex)" class="delete-button">
+                      <mat-icon>delete</mat-icon>
+                    </span>
+              </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf="isVariantBarcodeImagesPdfEmpty()">
+            currently no barcode available, please generate
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Print Barcode Button -->
+      <div class="barcode-btn text-center">
+        <button class="btn" [disabled]="isVariantBarcodeImagesPdfEmpty()" type="submit" (click)="printBarcode()">Print
+          Barcode</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="position: absolute; left: -15420px" *ngIf="stickerPerLine == 2">
+  <div style="width: 100%; display: flex;">
+        <div id="barcode">
+          <div *ngFor="let variant of productVariantsPdf">
+            <div *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID]">
+              <div style="width: 100%; display: flex;" *ngFor="let row of variantBarcodeImagesPdf[variant.productPriceUUID].images; let rowIndex = index" >
+
+                <div style="padding:0mm 1mm 0mm 1mm;width: 38mm;background: #FFF;height: 94px;margin-right:3mm;margin-left:2mm;font-family: roboto;" *ngFor="let image of row; let columnIndex = index">
+
+                  <table style="width: 100%; text-align: center;margin-top: 0px;font-family: roboto;">
+                    <ng-container  *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'company'">
+                    <tr>
+                      <th colspan="4" style="border: 0;font-size: 9px;padding: 0px;line-height: 1;">
+                        {{variantBarcodeImagesPdf[variant.productPriceUUID].companyName}}</th>
+                    </tr>
+                    <tr>
+                      <td colspan="4" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">
+                        {{variantBarcodeImagesPdf[variant.productPriceUUID].place}}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.productPriceUUID].contactNo}}</td>
+                      <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.productPriceUUID].email}}</td>
+                    </tr>
+                  </ng-container>
+                    <tr>
+                      <td colspan="4" style="text-align: left;"><img style="width: 100%;" [src]="image"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2"
+                        style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 7px;line-height: .5;">
+                        {{variant.barcode}}</td>
+                      <td colspan="2"
+                        style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 7px;line-height: .5;" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'product'">
+                        {{variantBarcodeImagesPdf[variant.productPriceUUID].productName}}</td>
+                    </tr>
+                    <tr>
+                      <ng-container
+                        *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'mrp'">
+                        <td colspan="2"
+                          style="font-size: 7px; text-align: left; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 7px;line-height: 1;">
+                          MRP: <span
+                            style="font-size: 9px; text-align: left;font-weight: 600; border: 0;padding: 0px;">
+                            {{variantBarcodeImagesPdf[variant.productPriceUUID].mrp}}</span>
+                        </td>
+                      </ng-container>
+                      <td colspan="2"
+                        style="text-align: left;font-size: 8; font-weight: 500; padding-left: 7px;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'unit'">Unit: 
+                        {{variantBarcodeImagesPdf[variant.productPriceUUID].variantName}}
+                      </td>
+                    </tr>
+                    <table style="width: 100%;">
+                      <tr>
+                        <td colspan="2"
+                        style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 1px;line-height: 1;"
+                        *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'mfg'">
+                        MFG:{{variantBarcodeImagesPdf[variant.productPriceUUID].mfg | customDate}}  </td>
+                        <td colspan="2"
+                          style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 7px;line-height: 1;"
+                          *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'exp'">
+                          EXP: {{variantBarcodeImagesPdf[variant.productPriceUUID].exp | customDate}} </td>
+
+                      </tr>
+                      <tr>
+                        <td colspan="2"
+                        style="text-align: left;font-size: 8; font-weight: 500; padding-left: 7px;line-height: 1;"  *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'unitPrice'">Unit
+                        Price: <span
+                          style="font-size: 8px; text-align: left;font-weight: 400; border: 0;padding: 0px;"></span>
+                      </td>
+                        <td colspan="2" style="text-align: center;font-size: 8; font-weight: 400;line-height: 1;"  *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'fssai'">fssai:
+                          {{variantBarcodeImagesPdf[variant.productPriceUUID].fssai}}
+                          </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: left;font-size: 8; font-weight: 400;padding-left: 7px;line-height: 1;">Price : 
+                        
+                          <span *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'sellingPrice'">{{variantBarcodeImagesPdf[variant.productPriceUUID].sellingPrice}}</span>
+                          <span *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'wholesaleRate'">{{variantBarcodeImagesPdf[variant.productPriceUUID].wholesalePrice}}</span>
+                        </td>
+                        <td colspan="2" style="text-align: left;font-size: 8; font-weight: 400;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'inclusiveOfTaxes'">Inclusive
+                          Of All Taxes</td>
+                      </tr>
+                    </table>
+                  </table>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+
+
+<div style="position: absolute; left: -15420px" *ngIf="stickerPerLine == 1">
+  <div style="width: 100%; display: flex;">
+        <div id="barcode">
+          <div *ngFor="let variant of productVariantsPdf">
+            <div *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID]">
+              <div style="width: 100%; display: flex;" *ngFor="let row of variantBarcodeImagesPdf[variant.productPriceUUID].images; let rowIndex = index" >
+
+                <div style="padding:0.5mm 1mm 0mm 5mm;width: 100mm;background: #FFF;height: 160px;margin-right:3mm;margin-left:2mm;font-family: roboto;" *ngFor="let image of row; let columnIndex = index">
+
+                  <table style="width: 100%; text-align: left;margin-top: 0px;font-family: roboto;">
+                      <tr>
+                          <th colspan="4" style="border: 0;font-size: 14px;padding-bottom: 0px;padding-top: 0;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'company'">Aspirom Technologies</th>
+                      </tr>
+                      <tr>
+                          <td colspan="4" style="font-size: 12px;border: 0; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'manufacture'">Karunagappally, Kollam</td>
+                      </tr>
+                      <tr>
+                          <td colspan="3" rowspan="4" style="text-align: left;"><img style="width: 100%;" [src]="image"></td>
+                      </tr>
+                      <tr>
+                        <td style="font-size: 10px;border: 0;padding-left: 10px; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;"> WT: 1Kg</td>
+                      </tr>
+                      <tr>
+                        <td style="font-size: 10px;border: 0;padding-left: 10px; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;"> PKD: 20/10/2023</td>
+                      </tr>
+                      <tr>
+                        <td style="font-size: 10px;border: 0;padding-left: 10px; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;"> Batch No: 20</td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" style="text-align: left;font-size: 12px; font-weight: 600;padding-bottom: 0px;padding-top: 0;line-height: 1;">{{variant.barcode}}</td>
+                        <ng-container *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'mrp'">
+                          <td style="font-size: 10px; text-align: left; border: 0;padding-left: 10px;padding-bottom: 0px;padding-top: 0;line-height: 1;">MRP: <span style="font-size: 16px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;">1500.00</span></td>
+                        </ng-container>
+                      </tr>
+                      <tr>
+                        <td colspan="4" style="font-size: 10px;border: 0; font-weight: 600; text-align: left;line-height: 1;"> ITEM NAME</td>
+                      </tr>
+                      <tr>
+                        <td style="font-size: 10px; text-align: left;font-weight: 600; border: 0;padding-left: 10px;padding-bottom: 0px;padding-top: 0;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'Mfg.Date'">MFG:{{variantBarcodeImagesPdf[variant.productPriceUUID].mfg | customDate}}</td>
+                        <td colspan="3" style="font-size: 10px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.productPriceUUID].configuration.configurations | configEnabled: 'Exp.Date'">EXP: {{variantBarcodeImagesPdf[variant.productPriceUUID].exp | customDate}} </td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" style="font-size: 8px;border: 0; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;"> (Inclusive of All Taxes)</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" style="font-size: 10px;border: 0; font-weight: 600; text-align: center;padding-bottom: 0px;padding-top: 0;line-height: 1;"> fssai Lic No: 1132100100929</td>
+                    </tr>
+                  </table>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+<div class="loading-shade" *ngIf="loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>

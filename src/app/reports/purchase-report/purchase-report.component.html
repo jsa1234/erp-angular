@@ -1,0 +1,31 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon24"></i> <span>{{'SIDEBAR.PURCHASE_REPORT' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.PURCHASE_REPORT' | translate}}</span>
+    </div>
+  </div>
+</div>
+<div class="loading-shade" *ngIf="isLoading$">
+  <mat-spinner></mat-spinner>
+</div>
+<mat-tab-group animationDuration="0ms">
+  <!-- <mat-tab label="{{'REPORTS.PRODUCT_WISE' | translate}}" *hasClaim="'report_purchase_report_product_wise_purchase_report'">
+    <app-product-wise-report></app-product-wise-report>
+  </mat-tab>
+  <mat-tab label="{{'REPORTS.SUPPLIER_WISE' | translate}}" *hasClaim="'report_purchase_report_supplier_wise_purchase_report'">
+    <app-supplier-wise-report></app-supplier-wise-report>
+  </mat-tab> -->
+  <mat-tab label="{{'REPORTS.BILL_WISE' | translate}}" *hasClaim="'report_purchase_report_bill_wise_purchase_report'">
+   <app-bill-wise-report></app-bill-wise-report>
+  </mat-tab>
+  <mat-tab label="{{'REPORTS.DETAILED' | translate}}" *hasClaim="'report_purchase_report_detailed_purchase_report'">
+    <app-detailed-report></app-detailed-report>
+  </mat-tab>
+</mat-tab-group>

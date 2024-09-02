@@ -1,0 +1,212 @@
+<div class="modal-content1" [ngClass]="{'modal-content-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-9 col">
+                <h4 class="modal-title">
+                    {{"TAX.MANAGE_TAX" | translate}}
+                </h4>
+            </div>
+            <div class="col-sm-auto col-auto ml-auto">
+                <button type="button" class="close" (click)="onCancel()" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="taxForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="percentage">{{"TAX.TAX_TYPE" | translate}} <span class="text-danger">*</span></label>
+                        <mat-select class="form-control" formControlName="taxType">
+                            <mat-option *ngFor="let item of taxTypes; let i = index" [value]="i">{{item}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="taxForm.get('taxType').touched && taxForm.get('taxType').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('taxType').touched && taxForm.get('taxType').errors?.required">
+                                Tax Type is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="percentage">{{"TAX.TAX_BEHAVIOUR" | translate}} </label>
+                        <mat-select class="form-control" formControlName="taxBehaviour">
+                            <mat-option *ngFor="let item of taxBehaviours; let i = index" [value]="i">{{item}}</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="percentage">{{"TAX.CODE" | translate}} </label>
+                        <input formControlName="code" type="text" class="form-control" >
+                            <div *ngIf="taxForm.get('code').touched && taxForm.get('code').errors">
+                                <div class="text-danger"
+                                    *ngIf="taxForm.get('code').touched && taxForm.get('code').errors?.required">
+                                    Code Is Required
+                                </div>
+                            </div>
+                    </div>
+                </div> -->
+
+                <div  [ngClass]="(taxType === taxTypeEnum.CESS || taxType === taxTypeEnum.DUTY || taxType === taxTypeEnum.OTHERS) ? 'col-md-6' : 'col-md-3'">
+                    <div class="form-group">
+                        <label for="taxName">{{"TAX.NAME_ENGLISH" | translate}} <span class="text-danger">*</span></label>
+                        <input formControlName="nameEnglish" type="text" class="form-control" id="taxName">
+                        <div *ngIf="taxForm.get('nameEnglish').touched && taxForm.get('nameEnglish').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('nameEnglish').touched && taxForm.get('nameEnglish').errors?.required">
+                                Tax Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div  [ngClass]="(taxType === taxTypeEnum.CESS || taxType === taxTypeEnum.DUTY || taxType === taxTypeEnum.OTHERS) ? 'col-md-4' : 'col-md-6'">
+                    <div class="form-group">
+                        <label for="taxName">{{"TAX.NAME_SECOND_LANGUAGE" | translate}} </label>
+                        <input formControlName="nameSecondLanguage" type="text" class="form-control text-arabics" id="taxName">
+                    </div>
+                </div> -->
+                <div class="col-md-6" *ngIf="taxType === taxTypeEnum.CESS || taxType === taxTypeEnum.DUTY ||  taxType === taxTypeEnum.OTHERS ">
+                    <div class="form-group">
+                        <label for="percentage">{{"TAX.PERCENTAGE" | translate}} <span class="text-danger">*</span></label>
+                        <input formControlName="percentage" type="text" class="form-control" id="percentage" appDecimalOnly>
+                        <div *ngIf="(taxForm.get('percentage').touched || taxForm.get('percentage').dirty) && taxForm.get('percentage').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('percentage').touched  && taxForm.get('percentage').errors?.required">
+                                Tax Percentage is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <ng-container *ngIf="taxType === taxTypeEnum.TAX ">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cgst">{{"TAX.CGST" | translate}} <span class="text-danger">*</span></label>
+                        <input formControlName="cgst" type="text" class="form-control" id="percentage" appDecimalOnly>
+                        <div *ngIf="(taxForm.get('cgst').touched || taxForm.get('cgst').dirty) && taxForm.get('cgst').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('cgst').touched  && taxForm.get('cgst').errors?.required">
+                                CGST is Required
+                            </div>
+                            <div  class="text-danger" *ngIf="taxForm.get('cgst').touched  && (taxForm.get('cgst').errors?.max || taxForm.get('cgst').errors?.min)">
+                                {{"VALIDATIONS.PERCENTAGE_MAXIMUM" | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="sgst">{{"TAX.SGST" | translate}} <span class="text-danger">*</span></label>
+                        <input formControlName="sgst" type="text" class="form-control" id="percentage" appDecimalOnly>
+                        <div *ngIf="(taxForm.get('sgst').touched || taxForm.get('sgst').dirty) && taxForm.get('sgst').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('sgst').touched  && taxForm.get('sgst').errors?.required">
+                                SGST is Required
+                            </div>
+                            <div  class="text-danger" *ngIf="taxForm.get('sgst').touched  && (taxForm.get('sgst').errors?.max || taxForm.get('sgst').errors?.min)">
+                                {{"VALIDATIONS.PERCENTAGE_MAXIMUM" | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="igst">{{"TAX.IGST" | translate}} <span class="text-danger">*</span></label>
+                        <input formControlName="igst" type="text" class="form-control" id="percentage" appDecimalOnly>
+                        <div *ngIf="(taxForm.get('igst').touched || taxForm.get('igst').dirty) && taxForm.get('igst').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('igst').touched  && taxForm.get('igst').errors?.required">
+                               IGST is Required
+                            </div>
+                            <div  class="text-danger" *ngIf="taxForm.get('igst').touched  && (taxForm.get('igst').errors?.max || taxForm.get('igst').errors?.min)">
+                                {{"VALIDATIONS.PERCENTAGE_MAXIMUM" | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="saleMappingAccountUUID">{{"TAX.SALE_MAPPING_ACCOUNT" | translate}} <span class="text-danger">*</span></label>
+                        <mat-select class="form-control" formControlName="saleMappingAccountUUID">
+                            <mat-option *ngFor="let item of acccountHeadList" [value]="item.accountUUID">{{item.nameEnglish}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="(taxForm.get('saleMappingAccountUUID').touched || taxForm.get('saleMappingAccountUUID').dirty) && taxForm.get('saleMappingAccountUUID').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('saleMappingAccountUUID').touched  && taxForm.get('saleMappingAccountUUID').errors?.required">
+                                Sale Mapping Account is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="purchaseMappingAccountUUID">{{"TAX.PURCHASE_MAPPING_ACCOUNT" | translate}} <span class="text-danger">*</span></label>
+                        <mat-select class="form-control" formControlName="purchaseMappingAccountUUID">
+                            <mat-option *ngFor="let item of acccountHeadList" [value]="item.accountUUID">{{item.nameEnglish}}</mat-option>
+                        </mat-select>
+                        <div *ngIf="(taxForm.get('purchaseMappingAccountUUID').touched || taxForm.get('purchaseMappingAccountUUID').dirty) && taxForm.get('purchaseMappingAccountUUID').errors">
+                            <div class="text-danger"
+                                *ngIf="taxForm.get('purchaseMappingAccountUUID').touched  && taxForm.get('purchaseMappingAccountUUID').errors?.required">
+                                Purchase Mapping Account is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 content-flex" *ngIf="taxType === taxTypeEnum.CESS || taxType === taxTypeEnum.DUTY ||  taxType === taxTypeEnum.OTHERS ">
+                    <div class="form-group">
+                    <label for="isGlobal">{{"TAX.ISGLOBAL" | translate}}</label>
+                    <mat-checkbox formControlName="isGlobal"></mat-checkbox>
+                </div>
+                </div>
+
+                <ng-container  *ngIf="taxType === taxTypeEnum.CESS || taxType === taxTypeEnum.DUTY ||  taxType === taxTypeEnum.OTHERS ">
+                <div class="col-md-5" *ngIf="isGlobal">
+                    <div class="form-group" >
+                        <date-input [group]="taxForm" [controlName]="'taxValidFrom'"
+                        [label]="'TAX.TAX_VALID_FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'"
+                        [isMandatory]="false"></date-input>
+                    </div>
+                </div>
+                <div class="col-md-5" *ngIf="isGlobal">
+                    <div class="form-group">
+                        <date-input [group]="taxForm" [controlName]="'taxValidTo'"
+                        [label]="'TAX.TAX_VALID_TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'"
+                        [isMandatory]="false"></date-input>
+                    </div>
+                </div>
+            </ng-container>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group" *ngIf="isEdit">
+                        <label for="unitName">{{'COMMON.IS_ACTIVE' | translate}}</label>
+                        <mat-slide-toggle formControlName="isActive" class="active-togle">{{ (isActive ? 'COMMON.ACTIVE' : 'COMMON.INACTIVE') | translate }}</mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <div class="form-row w-100">
+                <div class="text-center w-100">
+                        <button *hasClaim="['product_tax_create_tax','product_tax_edit_tax']" class="btn btn-success btn-sm m-right-10" [disabled]="isDisable"  (click)="saveTax()" cdkFocusInitial><i
+                                class="fas fa-save"></i>
+                                {{'COMMON.SAVE' | translate}}
+                        </button>
+                    <button class="btn btn-danger btn-sm" (click)="onCancel()">
+                        <i class="fas fa-times-circle"></i>
+                        {{'COMMON.CANCEL' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

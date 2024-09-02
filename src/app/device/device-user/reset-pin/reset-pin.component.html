@@ -1,0 +1,75 @@
+<div class="modal-content1" [ngClass]="{'modal-content-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-9 col">
+                <h4 class="modal-title">
+                    {{'DEVICE.DEVICE_USERS.RESET_PIN'|translate}}
+                </h4>
+            </div>
+            <div class="col-sm-auto col-auto ml-auto">
+                <button type="button" class="close" (click)="onCancel(false)" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="pinCodeResetForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label> {{'DEVICE.DEVICE_USERS.NEW_PIN_NUMBER'|translate}} <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <input class="form-control" [type]="showPin ? 'text' : 'password'" mask="0  0  0  0" [showMaskTyped]="true"
+                                placeHolderCharacter="_" formControlName="loginPin">
+                            <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer" (click)="showPin=!showPin">
+                                    <i class="fa" [ngClass]="{'fa-eye-slash':!showPin,'fa-eye': showPin}"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngIf="f.loginPin.touched && f.loginPin.errors">
+                            <div class="text-danger" *ngIf="f.loginPin.errors.required">
+                              {{ 'VALIDATIONS.PIN_NUMBER_IS_REQUIRED' | translate }}
+                            </div>
+                          </div> 
+                    </div>
+                    <div class="form-group">
+                        <label >{{'DEVICE.DEVICE_USERS.CONFIM_PIN_NUMBER'|translate}} <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <input class="form-control" [type]="showConfirmPin ? 'text' : 'password'" mask="0  0  0  0" [showMaskTyped]="true"
+                                placeHolderCharacter="_" formControlName="confirmLoginPin">
+                            <div class="input-group-append">
+                                <span class="input-group-text cursor-pointer" (click)="showConfirmPin=!showConfirmPin">
+                                    <i class="fa" [ngClass]="{'fa-eye-slash':!showConfirmPin,'fa-eye': showConfirmPin}"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngIf="f.confirmLoginPin.touched && f.confirmLoginPin.errors">
+                            <div class="text-danger" *ngIf="f.confirmLoginPin.errors.passwordMismatch">
+                              {{ 'VALIDATIONS.PIN_NUMBER_DO_NOT_MATCH' | translate }}
+                            </div>
+                          </div>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-row w-100">
+                <div class="text-center w-100">
+                    <ng-container >
+                        <button class="btn btn-success btn-sm m-right-10" (click)="save()"
+                            cdkFocusInitial><i class="fas fa-save"></i>
+                            {{'COMMON.SAVE' | translate}}
+                        </button>
+                    </ng-container>
+                    <button class="btn btn-danger btn-sm" (click)="onCancel(false)">
+                        <i class="fas fa-times-circle"></i>
+                        {{'COMMON.CANCEL' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

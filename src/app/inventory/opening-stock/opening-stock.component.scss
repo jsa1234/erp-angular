@@ -1,0 +1,23 @@
+table.mat-table {
+    border-spacing: 0;
+    display: table !important;
+    width: 100% !important;
+    margin: 0;
+}
+.myClass{
+    border: none;
+    outline: none;
+
+}
+.myClass:disabled{
+    background-color: #fff;
+}
+.content-header h1 i {
+    display: list-item;
+    position: absolute;
+    padding-right: 18px;
+    background-color: #f58220 !important;
+  }
+  .content-header h1 span {
+    margin-left: 35px;
+  }

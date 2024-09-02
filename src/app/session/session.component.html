@@ -1,0 +1,47 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon39"></i> <span>{{'CURRENT_ONLINE_USERS.ONLINE_USERS' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'CURRENT_ONLINE_USERS.ONLINE_USERS' | translate}}</span>
+    </div>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th> {{'COMMON.EMAIL' | translate}}</th>
+        <th> {{'COMMON.ACTION' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="onlineUsers && onlineUsers.length>0; else tempNoRecord">
+        <tr *ngFor="let onlineUser of onlineUsers">
+          <td>
+            <i class="fas fa-circle text-success"></i>
+            {{onlineUser.email}}
+          </td>
+          <td>
+            <button *hasClaim="'profile_user_logout_current_online_user'"  class="btn btn-danger btn-sm" (click)="onForceLogout(onlineUser.id)">
+              {{'CURRENT_ONLINE_USERS.FORCEFULLY_LOGOUT' | translate}}</button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #tempNoRecord>
+        <tr>
+          <td colspan="2" class="text-center">
+            <b>
+              {{'CURRENT_ONLINE_USERS.CURRENTLY_NO_USER_LOGIN_OTHER_THAN_YOU' | translate}}
+            </b>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>

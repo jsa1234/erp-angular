@@ -1,0 +1,108 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons">
+        <h1><i class="icon57"></i> <span>Product Details</span> </h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/product']">{{'SIDEBAR.PRODUCT' | translate}}</a> / <span>Product Details</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-boxed">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="product-detail-img text-center">
+        <img [src]="imagePath$ | async">
+        <h6>{{product?.nameEnglish}}</h6>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="product-table table-responsive">
+        <table class="table table-bordered table-hover">
+          <tr>
+            <th>Product Code</th>
+            <td>{{product?.productCode}}</td>
+            <th>Category</th>
+            <td>{{product?.category}}</td>
+          </tr>
+          <tr>
+            <th>Sub Category</th>
+            <td>{{product?.subCategory}}</td>
+            <th>Brand</th>
+            <td>{{product?.brand}}</td>
+          </tr>
+          <tr>
+            <th>Part No</th>
+            <td>{{product?.partNo}}</td>
+            <th>Gst Rate</th>
+            <td>{{product?.gstName}}</td>
+          </tr>
+          <tr>
+            <th>Cess Rate</th>
+            <td>{{product?.cessName}}</td>
+            <th>Additional Cess Rate</th>
+            <td>{{product?.addnlCessName}}</td>
+          </tr>
+          <tr>
+            <th>Maximum Stock Level</th>
+            <td>{{product?.maxStockLevel}}</td>
+            <th>Reorder Level</th>
+            <td>{{product?.reorderLevel}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-boxed">
+  <h5>Product Variant</h5>
+  <div class="product-variant-table table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Printed Barcode</th>
+          <th>Unit</th>
+          <th>Unit Cost</th>
+          <th>Average Cost</th>
+          <th>Selling Price</th>
+          <th>Wholesale Rate</th>
+          <th>MRP (Printed On The Product)</th>
+          <th>Quantity Conversion</th>
+          <th>Is Base Unit</th>
+          <th>Is Active</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of producPrices">
+          <td>{{item?.barcode}}</td>
+          <td>{{item?.unit?.nameEnglish}}</td>
+          <td>{{item.unitCost}}</td>
+          <td>{{item.averageCost}}</td>
+          <td>{{item.sellingPrice}}</td>
+          <td>{{item.wholeSaleRate}}</td>
+          <td>{{item.mrp}}</td>
+          <td>{{item.qtyConversion}}</td>
+          <td>
+            <span class="badge "
+            [ngClass]="{'badge-success': item.isBaseUnit, 'badge-secondary': !item.isBaseUnit}">
+            {{item.isBaseUnit?'YES':'NO'}}
+          </span>
+          </td>
+          <td>
+            <span class="badge "
+            [ngClass]="{'badge-success': item.isActive, 'badge-secondary': !item.isActive}">
+            {{item.isActive?'Active':'Inactive'}}
+          </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

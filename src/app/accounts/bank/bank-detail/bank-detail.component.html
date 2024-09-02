@@ -1,0 +1,78 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons">
+        <h1><i class="icon57"></i> <span>Bank Details</span> </h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">Dashboard</a> / <a [routerLink]="['/bank']">Bank</a> / <span>Bank Details</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-boxed">
+  <div class="bankdetails">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="banklogo-name text-center">
+          <img [src]="imagePath$ | async" alt="Bank Image" draggable="false"/>
+          <h6>{{bankDetail?.nameEnglish}}</h6>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div class="bankdetails-tables table-responsive">
+          <table class="table table-bordered table-hover">
+            <tr>
+              <th>{{'ACCOUNTS.BANK.ACCOUNT_CODE' | translate}}</th>
+              <td>{{bankDetail?.accountCode}}</td>
+              <th> {{'ACCOUNTS.BANK.BRANCH_NAME' | translate}}</th>
+              <td>{{bankDetail?.namePrefixEnglish}}</td>
+            </tr>
+            <tr>
+              <th> {{'ACCOUNTS.BANK.ACCOUNT_HOLDER_NAME' | translate}}</th>
+              <td>{{bankDetail?.firstNameEnglish}}</td>
+              <th> {{'ACCOUNTS.BANK.ACCOUNT_NO' | translate}} </th>
+              <td>{{bankDetail?.accountNo}}</td>
+            </tr>
+            <tr>
+              <th> {{'ACCOUNTS.BANK.IFSC_CODE' | translate}} </th>
+              <td>{{bankDetail?.ifscCode}}</td>
+              <th> {{'ACCOUNTS.BANK.PHONE_NO' | translate}} </th>
+              <td>{{bankDetail?.phone}}</td>
+            </tr>
+          </table>
+          <h5>Address</h5>
+          <table class="table table-bordered table-hover">
+            <tr>
+              <th>Building</th>
+              <td>{{bankDetail?.buildingNoEnglish}}</td>
+              <th>Street</th>
+              <td>{{bankDetail?.streetEnglish}}</td>
+            </tr>
+            <tr>
+              <th>Place</th>
+              <td>{{bankDetail?.placeEnglish}}</td>
+              <th>District</th>
+              <td>{{bankDetail?.districtObject?.nameEnglish}}</td>
+            </tr>
+            <tr>
+              <th>State</th>
+              <td>{{bankDetail?.stateObject?.nameEnglish}}</td>
+              <th>Pincode</th>
+              <td>{{bankDetail?.zipCode}}</td>
+            </tr>
+            <tr>
+              <th>Country</th>
+              <td>{{bankDetail?.countryObject?.nameEnglish}}</td>
+              <th>Email</th>
+              <td>{{bankDetail?.email}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

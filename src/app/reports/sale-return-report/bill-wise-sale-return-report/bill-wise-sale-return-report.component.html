@@ -1,0 +1,135 @@
+<form [formGroup]="searchForm">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-4">
+            <app-branch-dropdown [group]="searchForm" [controlName]="'branch'"
+              (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+          </div>
+          <div class="col-md-4">
+            <app-device-dropdown [branch]="branchUUID" [group]="searchForm"
+              [controlName]="'device'"></app-device-dropdown>
+          </div>
+          <div class="col-md-4">
+            <app-customer-dropdown [group]="searchForm" [controlName]="'customer'" ></app-customer-dropdown>
+          </div>
+          <div class="col-md-4">
+            <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+          </div>
+          <div class="col-md-4">
+            <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <app-transaction-mode-dropdown [group]="searchForm" [controlName]="'mode'" [isMandatory]="false"></app-transaction-mode-dropdown>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 report-tool-bar">
+        <button type="submit" (click)="onSearch()" class="btn btn-primary btn-sm m-right-10"><i class="fas fa-search"></i>
+          {{'COMMON.SEARCH' | translate}}
+        </button>
+        <button type="submit" (click)="onClear()" class="btn btn-danger btn-sm m-right-10"><i class="fas fa-eraser"></i>
+          {{'COMMON.CLEAR' | translate}}
+        </button>
+        <ng-container *hasClaim="'report_sale_report_excel_sale_report'">
+          <button type="submit" (click)="onDownloadReport()" *ngIf="saleReturnSummaryList.length"
+            class="btn btn-green btn-sm m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+          </button>
+        </ng-container>
+        <ng-container *hasClaim="'report_sale_report_print_sale_report'">
+          <button type="submit" *ngIf="saleReturnSummaryList.length" (click)="generatePdf()"
+            class="btn btn-warning btn-sm m-right-10"><i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <div class="fiter-sec-ico">
+        <button mat-icon-button [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger" aria-label="Action">
+          <mat-icon>filter_list</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <ng-container *ngFor="let column of columns; let i = index">
+            <button mat-menu-item *ngIf="column.isShowCheckBox">
+              <div (click)="$event.stopPropagation()">
+                <app-check-box [label]="column.name" [(isChecked)]="column.visibleTableColumns" [checkboxColor]="'primary'"
+                  [isDisabled]="false" (checkedChange)="onCheckboxValueChanged(column.key, $event)"></app-check-box>
+              </div>
+            </button>
+          </ng-container>
+        </mat-menu>
+      </div>
+      <div class="table-responsive table-scrolls" id="report">
+        <table class="table report-varient-table table-striped table-hover">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let item of columns">
+              <th  [ngClass]="{ 'text-center':  item.key !== 'netTotal', 'text-right': item.key === 'netTotal'}" *ngIf="columnVisibility[item.key]">{{item.name |translate}}</th>
+            </ng-container>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of saleReturnSummaryList; let i = index">
+              <td class="text-center" >{{i+1}}</td>
+              <td class="text-center"  *ngIf="columnVisibility['docNo']">{{item?.docNo}}</td>
+              <td class="text-center" *ngIf="columnVisibility['docDate']">{{item?.docDate | customDate}}</td>
+              <td class="text-center" *ngIf="columnVisibility['refInvNo']">{{item?.refBillNo}}</td>
+              <td class="text-center" *ngIf="columnVisibility['refInvDate']">{{item?.refBillDate | customDate}}</td>
+              <td class="text-center" *ngIf="columnVisibility['customerName']">{{translationService.getSelectedLanguage()=='en'?item?.account?.nameEnglish:item?.account?.nameSecondLanguage}}</td>
+              <td class="text-center" *ngIf="columnVisibility['gstNo']">{{item?.account?.gstVatNo}}</td>
+              <td class="text-center" *ngIf="columnVisibility['subTotal']" [innerHTML]="item?.subTotal | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['discount']" [innerHTML]="item?.discountAmount | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['taxableAmount']" [innerHTML]="item?.grossAmount | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['cgst']" [innerHTML]="item?.cgstAmount | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['sgst']" [innerHTML]="item?.sgstAmount | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['igst']" [innerHTML]="item?.igstAmount | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['totalGST']" [innerHTML]="(item?.cgstAmount + item?.sgstAmount + item?.igstAmount) | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['cess']" [innerHTML]="item?.cessAmount | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['additionalCess']" [innerHTML]="item?.addnlCessAmount | customCurrency"></td>
+              <td class="text-center" *ngIf="columnVisibility['transactionMode']" >{{item?.transactionModeText}}</td>
+              <td class="text-right" *ngIf="columnVisibility['netTotal']" [innerHTML]="item?.roundednetTotalAmount | customCurrency"></td>
+            </tr>
+            <tr *ngIf="saleReturnSummaryList.length == 0" class="text-center">
+              <td [attr.colspan]="colspan">{{'COMMON.NO_DATA_FOUND' | translate}}</td>
+
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td class="text-center" >TOTAL</td>
+              <td class="text-center"   *ngIf="columnVisibility['docNo']"></td>
+              <td class="text-center"  *ngIf="columnVisibility['docDate']"></td>
+              <td class="text-center"  *ngIf="columnVisibility['refInvNo']"></td>
+              <td class="text-center"  *ngIf="columnVisibility['refInvDate']"></td>
+              <td class="text-center" *ngIf="columnVisibility['customerName']"></td>
+              <td class="text-center"  *ngIf="columnVisibility['gstNo']"></td>
+              <td class="text-center"  *ngIf="columnVisibility['subTotal']" [innerHTML]="billWiseReport?.subTotal | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['discount']" [innerHTML]="billWiseReport?.discountTotal | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['taxableAmount']" [innerHTML]="billWiseReport?.grossAmountTotal | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['cgst']" [innerHTML]="billWiseReport?.cgstTotalAmount | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['sgst']" [innerHTML]="billWiseReport?.sgstTotalAmount | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['igst']" [innerHTML]="billWiseReport?.igstTotalAmount | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['totalGST']" [innerHTML]="(billWiseReport?.cgstTotalAmount + billWiseReport?.sgstTotalAmount + billWiseReport?.igstTotalAmount) | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['cess']" [innerHTML]="billWiseReport?.cessTotalAmount | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['additionalCess']" [innerHTML]="billWiseReport?.addnlCessTotalAmount | customCurrency"></td>
+              <td class="text-center"  *ngIf="columnVisibility['transactionMode']" ></td>
+              <td class="text-right h4"  *ngIf="columnVisibility['netTotal']" [innerHTML]="billWiseReport?.totalAmount | customCurrency"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="billWiseReportPdf">
+    <app-bill-wise-sale-return-report [billWiseReport]="billWiseReportPdf" [billWiseReportColumns]="billWiseReportTableColumns"></app-bill-wise-sale-return-report>
+  </ng-container>

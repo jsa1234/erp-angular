@@ -1,0 +1,3 @@
+<app-page-list-presentation [pages]="pages$ | async" [loading]="loading$ | async"
+  (deletePageHandler)="deletePage($event)" [moduleList]="moduleList">
+</app-page-list-presentation>

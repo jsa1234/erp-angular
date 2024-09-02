@@ -1,0 +1,248 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header">
+        <h1>{{'SALES_INVOICE.SALES_INVOICE_DETAIL' | translate}}</h1>
+      </div>
+    </div>
+    <div class="col-md-auto col-sm-auto">
+      <button *hasClaim="'sale_sale_invoice_print_sale_invoice'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
+        <i class="fas fa-receipt"></i> {{'COMMON.PRINT_INVOICE' | translate}}
+      </button>
+    </div>
+  </div>
+</div>
+<br>
+  <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="simplifiedSaleInvoice.branchUUID"></app-comapny-profile-heading>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="invoice-detatable table-responsive"
+        [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+        <table>
+          <tr>
+            <th>{{'SALES_INVOICE.INVOICE_NO' | translate}}</th>
+            <td>{{simplifiedSaleInvoice?.invoiceNumber}}</td>
+          </tr>
+          <tr>
+            <th>{{'SALES_INVOICE.INVOICE_DATE' | translate}}</th>
+            <td>{{simplifiedSaleInvoice.invoiceDate | customDate}}</td>
+          </tr>
+          <tr>
+            <th>{{'COMMON.DATE_OF_SUPPLY' | translate}}</th>
+            <td>{{simplifiedSaleInvoice?.dateOfSupply | customDate}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="invoice-detatable table-responsive"
+        [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+        <table>
+          <tr>
+            <th>{{'SALES_INVOICE.P_O_NUMBER' | translate}}</th>
+            <td>{{simplifiedSaleInvoice.poNo}}</td>
+          </tr>
+          <tr>
+            <th>{{'SALES_INVOICE.D_R_NUMBER' | translate}}</th>
+            <td>{{simplifiedSaleInvoice.drNo}}</td>
+          </tr>
+          <tr>
+            <th>{{'SALES_INVOICE.TRANSACTION_MODE' | translate}}</th>
+            <td>
+
+              <span class="badge-pill" [ngClass]="{'badge-primary': simplifiedSaleInvoice?.transactionMode == 0 ,
+              'badge-success' : simplifiedSaleInvoice?.transactionMode == 1,
+              'badge-warning' : simplifiedSaleInvoice?.transactionMode == 2,
+            'badge-danger': simplifiedSaleInvoice?.transactionMode == 3}">
+                {{simplifiedSaleInvoice.transactionModeText}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="invoice-detatable table-responsive"
+        [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+        <table>
+          <tr>
+            <th colspan="2" class="text-center" style="font-size: 18px;">{{'SALES_INVOICE.BUYER' | translate}}</th>
+          </tr>
+          <tr>
+            <th [ngClass]="{'salesins-name-ar':translationService.getSelectedLanguage()=='ar'}">{{client.nameEnglish}}</th>
+            <th class="salesins-name text-right" >
+              {{client.nameSecondLanguage}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-header">
+    <h1>{{'COMMON.LINE_ITEMS' | translate}}</h1>
+  </div>
+  <div class="table-responsive invoice-detatable">
+    <table class="table table-bordered table-hover table-striped">
+      <thead class="head">
+        <tr>
+          <th style="width:1%">{{'COMMON.#' | translate}}</th>
+          <th>{{'SALES_INVOICE.NATURE_OF_GOODS_OR_SERVICES' | translate}}</th>
+          <th class="text-center"> {{'PRODUCT.UNIT_COST' | translate}} </th>
+          <th class="text-center">{{"PRODUCT.QUANTITY" | translate}}</th>
+          <th class="text-center">{{'SALES_INVOICE.DISCOUNT' | translate}}</th>
+          <th class="text-center">{{'SALES_INVOICE.TAXABLE_AMOUNT' | translate}}</th>
+          <th class="text-center">{{'SALES_INVOICE.TAX_RATE' | translate}}</th>
+          <th class="text-center">{{'SALES_INVOICE.TAX_AMOUNT' | translate}}</th>
+          <th class="text-right">{{'SALES_INVOICE.TOTAL' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let saleInvoice of saleInvoiceItems;let i=index">
+            <td style="text-align: center;">{{i+1}}</td>
+            <td>{{ translationService.getSelectedLanguage()=='en'?saleInvoice?.productObject?.nameEnglish:saleInvoice?.productObject?.nameSecondLanguage}}</td>
+            <td class="text-center" [innerHTML]="saleInvoice?.unitPrice | customCurrency"></td>
+            <td class="text-center">{{saleInvoice?.quantity}} {{translationService.getSelectedLanguage()=='en'?saleInvoice.unitObject.nameEnglish:saleInvoice.unitObject.nameSecondLanguage}}
+            </td>
+            <td class="text-center" [innerHTML]="saleInvoice?.discountAmount | customCurrency"></td>
+            <td class="text-center" [innerHTML]="(saleInvoice?.itemTotalAmount - saleInvoice?.vatAmount ) | customCurrency"></td>
+            <td class="text-center" > {{saleInvoice?.vatRate}} %</td>
+            <td class="text-center" [innerHTML]="saleInvoice?.vatAmount | customCurrency">
+            </td>
+            <td class="text-right" [innerHTML]="saleInvoice?.itemTotalAmount | customCurrency">
+            </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+      <tbody>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>
+                      Total Qty
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>
+                    إجمالي الكمية
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice.totalQuantity"></b>
+              </td>
+          </tr>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>
+                      Total (Excluding VAT)
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>
+                      الإجمالي (باستثناء ضريبة القيمة المضافة)
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice.subTotal | customCurrency"></b>
+              </td>
+          </tr>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>Discount</b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>تخفيض</b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice.totalDiscount | customCurrency"></b>
+              </td>
+          </tr>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>
+                      Total Taxable Amt (Excluding VAT)
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>
+                      إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice.totalTaxableAmount | customCurrency"></b>
+              </td>
+          </tr>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>Total VAT</b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>
+                      إجمالي ضريبة القيمة المضافة
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice.totalTax | customCurrency"></b>
+              </td>
+          </tr>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>Total Expenses</b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>
+                      إجمالي ضريبة القيمة المضافة
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice.totalExpenses | customCurrency"></b>
+              </td>
+          </tr>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>Round Off</b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>
+                    نهاية الجولة
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice.roundOff | customCurrency"></b>
+              </td>
+          </tr>
+          <tr style="border: none;">
+              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                  <b>Total Amount</b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                  colspan="4">
+                  <b>
+                      إجمالي المبلغ المستحق
+                  </b>
+              </td>
+              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                  <b [innerHTML]="simplifiedSaleInvoice?.totalAmount | customCurrency"></b>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <div class="mt-3">
+    <qrcode [qrdata]="simplifiedSaleInvoice.qrCode?simplifiedSaleInvoice.qrCode:''" width="100%" [errorCorrectionLevel]="'H'" allowEmptyString="true"></qrcode>
+</div>
+  </div>
+
+<ng-container *ngIf="simplifiedSaleInvoiceForPdf">
+  <app-simplified [simplifiedPDF]="simplifiedSaleInvoiceForPdf" [companyProfilePdf]="companyProfileForPdf"></app-simplified>
+</ng-container>

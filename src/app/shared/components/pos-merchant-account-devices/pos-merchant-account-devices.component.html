@@ -1,0 +1,165 @@
+<div class="modal-content1">
+  <div class="modal-header">
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <div class="col-md-9 col">
+        <h4 class="modal-title">
+          POS Device Detail
+        </h4>
+      </div>
+      <div class="col-sm-auto col-auto ml-auto">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCancel(null)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-shade" *ngIf="isLoading$| async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-dialog-content>
+    <div class="section-boxed">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="payment-pos-details-img text-center">
+            <img [src]="imagePath$ | async">
+            <h6>{{posDevice?.nameEnglish}}</h6>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="payment-pos-table table-responsive">
+            <table class="table table-bordered table-hover">
+    
+              <tr>
+                <th>Device Code</th>
+                <td>{{posDevice?.posDeviceCode}}</td>
+                <th>Device Model</th>
+                <td>{{posDevice?.deviceModel}}</td>
+                <th>Device Id</th>
+                <td>{{posDevice?.serialNo}}</td>
+              </tr>
+              <tr>
+                <th>App Key</th>
+                <td>{{posDevice?.appKey}}</td>
+                <th>User Name</th>
+                <td>{{posDevice?.username}}</td>
+                <th>Password</th>
+                <td>{{posDevice?.password}}</td>
+    
+              </tr>
+              <tr>
+    
+                <th>Have Rear Camera</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveRearCamera, 'badge-secondary': !posDevice?.haveRearCamera}">
+                    {{posDevice?.haveRearCamera?'YES':'NO'}}
+                  </span>
+                </td>
+                <th>Have Front Camera</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveFrontCamera, 'badge-secondary': !posDevice?.haveFrontCamera}">
+                    {{posDevice?.haveFrontCamera?'YES':'NO'}}
+                  </span>
+                </td>
+                <th>Have Wifi</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveWifi, 'badge-secondary': !posDevice?.haveWifi}">
+                    {{posDevice?.haveWifi?'YES':'NO'}}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+    
+                <th>Have Sim</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveSim, 'badge-secondary': !posDevice?.haveSim}">
+                    {{posDevice?.haveSim?'YES':'NO'}}
+                  </span>
+                </td>
+                <th>Have USB</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveUsb, 'badge-secondary': !posDevice?.haveUsb}">
+                    {{posDevice?.haveUsb?'YES':'NO'}}
+                  </span>
+                </td>
+                <th>Have Printer</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.havePrinter, 'badge-secondary': !posDevice?.havePrinter}">
+                    {{posDevice?.havePrinter?'YES':'NO'}}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>Printing Paper Size</th>
+                <td>{{posDevice?.printingPaperSize}}</td>
+                <th>Have Nfc</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveNfc, 'badge-secondary': !posDevice?.haveNfc}">
+                    {{posDevice?.haveNfc?'YES':'NO'}}
+                  </span>
+                </td>
+                <th>Have Magnetic Card Reader</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveMagneticCardReader, 'badge-secondary': !posDevice?.haveMagneticCardReader}">
+                    {{posDevice?.haveMagneticCardReader?'YES':'NO'}}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>Have Battery</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveBattery, 'badge-secondary': !posDevice?.haveBattery}">
+                    {{posDevice?.haveBattery?'YES':'NO'}}
+                  </span>
+                </td>
+                <th>Have Bluetooth</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveBluetooth, 'badge-secondary': !posDevice?.haveBluetooth}">
+                    {{posDevice?.haveBluetooth?'YES':'NO'}}
+                  </span>
+                </td>
+                <th>Have Upi Enabled</th>
+                <td>
+                  <span class="badge "
+                    [ngClass]="{'badge-success': posDevice?.haveUpiEnabled, 'badge-secondary': !posDevice?.haveUpiEnabled}">
+                    {{posDevice?.haveUpiEnabled?'YES':'NO'}}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+    
+                <th>IMEI1</th>
+                <td>{{posDevice?.imeI1}}</td>
+                <th>IMEI2</th>
+                <td>{{posDevice?.imeI2}}</td>
+                <th>Bluetooth Mac</th>
+                <td>{{posDevice?.bluetoothMac}}</td>
+              </tr>
+              <tr>
+    
+                <th>Wifi Mac</th>
+                <td>{{posDevice?.wifiMac}}</td>
+                <th>Brand Name</th>
+                <td>{{posDevice?.brandName}}</td>
+                <th></th>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>
+

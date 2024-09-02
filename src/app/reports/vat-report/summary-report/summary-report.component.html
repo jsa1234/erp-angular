@@ -1,0 +1,194 @@
+<vat-report-filter (searchActionHandler)="onSearch($event)" (excelActionHandler)="generateExcel()" (pdfActionHandler)="generatePdf()" (clearActionHandler)="clear()" [summaryData]="taxSummary"></vat-report-filter>
+
+
+<!-- <div class="stock-rport-table table-responsive table-scrolls">
+    <ng-container *ngIf="reportType == '0'">
+        <table class="table report-varient-table table-striped table-hover" id="vat-report">
+            <thead>
+                <tr>
+                    <th [attr.colspan]="taxSummary?.taxSlabs?.length+2" class="text-center">{{'REPORTS.TAX_REPORT.INPUT_TAX_PURCHASE_AND_SALES_RETURN' | translate}}</th>
+                    <th [attr.colspan]="taxSummary?.taxSlabs?.length+1" class="text-center">{{'REPORTS.TAX_REPORT.OUTPUT_TAX_SALES_AND_PURCHASE_RETURN' | translate}}</th>
+                </tr>
+                <tr>
+                    <th class="text-center"><b>%</b></th>
+                    <th class="text-center" *ngFor="let item of taxSummary?.taxSlabs">{{item}}</th>
+                    <th class="text-right">{{'REPORTS.TAX_REPORT.INPUT_TAX_THROUGH_PURCHASE' | translate}}</th>
+                      <th class="text-center" *ngFor="let item of taxSummary?.taxSlabs">{{item}}</th>
+                      <th class="text-right">{{'REPORTS.TAX_REPORT.OUTPUT_TAX_COLLCECTED' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of taxSummary?.taxData">
+                    <th class="text-left">{{'REPORTS.TAX_REPORT.VAT' | translate}}</th>
+                    <td class="text-center" *ngFor="let tax of taxSummary?.taxSlabs">
+                        <span [innerHTML]="(item?.inputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                    </td>
+                    <td class="text-right"  [innerHTML]="item.inputTaxSum | customCurrency"></td>
+                    <td class="text-center" *ngFor="let tax of taxSummary?.taxSlabs">
+                        <span [innerHTML]="(item?.outputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                    </td>
+                    <td class="text-right" [innerHTML]="item.outputTaxSum | customCurrency"></td>
+                </tr>
+                <tr *ngFor="let item of taxSummary?.taxData">
+                  <th class="text-left">{{'REPORTS.TAX_REPORT.TOTAL' | translate}}</th>
+                  <td class="text-center" *ngFor="let tax of taxSummary?.taxSlabs">
+                    <span [innerHTML]="(item?.inputTaxes | vatFilter:tax:'taxableAmount') | customCurrency"></span>
+                  </td>
+                  <td class="text-center"></td>
+                  <td class="text-center" *ngFor="let tax of taxSummary?.taxSlabs">
+                    <span [innerHTML]="(item?.outputTaxes | vatFilter:tax:'taxableAmount') | customCurrency"></span>
+                  </td>
+                  <td class="text-center"></td>
+              </tr>
+              <tr>
+                <th [attr.colspan]="(taxSummary?.taxSlabs?.length+2)/2">{{'REPORTS.TAX_REPORT.TOTAL_TAX_PAYABLE_THIS_MONTH' | translate}}</th>
+                <th [attr.colspan]="(taxSummary?.taxSlabs?.length+2)/2" class="text-right"></th>
+                <th [attr.colspan]="taxSummary?.taxSlabs?.length+2" class="text-right"  [innerHTML]="taxSummary?.taxAmountPayable | customCurrency"></th>
+              </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="reportType != '0'">
+        <table class="table report-varient-table table-striped table-hover"  id="vat-report">
+            <thead>
+                <tr>
+                    <th rowspan="2" class="text-center">{{'REPORTS.TAX_REPORT.MONTH' | translate}}</th>
+                    <th [attr.colspan]="taxSummary?.taxSlabs?.length+1" class="text-center">{{'REPORTS.TAX_REPORT.INPUT_TAX_PURCHASE_AND_SALES_RETURN' | translate}}</th>
+                    <th [attr.colspan]="taxSummary?.taxSlabs?.length+1" class="text-center">{{'REPORTS.TAX_REPORT.OUTPUT_TAX_SALES_AND_PURCHASE_RETURN' | translate}}</th>
+                    <th rowspan="2" class="text-center">{{'REPORTS.TAX_REPORT.TAX_AMOUNT_PAYABLE' | translate}}</th>
+                </tr>
+                <tr>
+                    <th class="text-center;" *ngFor="let item of taxSummary?.taxSlabs">{{item}}% {{'REPORTS.TAX_REPORT.TAX_AMOUNT' | translate}}</th>
+                    <th class="text-center">{{'REPORTS.TAX_REPORT.INPUT_TAX' | translate}}</th>
+                    <th class="text-center" *ngFor="let item of taxSummary?.taxSlabs">{{item}}% {{'REPORTS.TAX_REPORT.TAX_AMOUNT' | translate}}</th>
+                    <th class="text-center">{{'REPORTS.TAX_REPORT.OUTPUT_TAX' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let item of taxSummary?.taxData">
+                    <th class="text-left" style="color: #f00;">{{item?.month}}</th>
+                    <td class="text-right" *ngFor="let tax of taxSummary?.taxSlabs">
+                    <span [innerHTML]="(item?.inputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                    </td>
+                    <td class="text-center" [innerHTML]="item.inputTaxSum | customCurrency"></td>
+                    <td class="text-center" *ngFor="let tax of taxSummary?.taxSlabs">
+                    <span [innerHTML]="(item?.outputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                    </td>
+                    <td class="text-center" [innerHTML]="item.outputTaxSum | customCurrency"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th class="text-left">{{'REPORTS.TAX_REPORT.TOTAL' | translate}}</th>
+                    <th class="text-center"  *ngIf="taxSummary?.taxSlabs?.length>0" [attr.colspan]="taxSummary?.taxSlabs?.length"></th>
+                    <th class="text-center"  [innerHTML]="taxSummary?.totalInputTaxAmount | customCurrency"></th>
+                    <th class="text-center" *ngIf="taxSummary?.taxSlabs?.length>0" [attr.colspan]="taxSummary?.taxSlabs?.length"></th>
+                    <th class="text-center"  [innerHTML]="taxSummary?.totalOutputTaxAmount | customCurrency"></th>
+                    <th class="text-center" [innerHTML]="taxSummary?.taxAmountPayable | customCurrency"></th>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div> -->
+
+<div id="tax-report">
+<div class="tax-report-table section-boxed table-responsive">
+  <table class="table report-varient-table table-striped table-hover" >
+    <thead>
+      <tr>
+        <th rowspan="2">Tax Name</th>
+        <th class="text-center" rowspan="2">Sales Amount</th>
+        <th class="text-center" colspan="3">Tax Amount</th>
+        <th class="text-center" rowspan="2">Purchase</th>
+        <th class="text-center" colspan="3">Tax Amount</th>
+        <th class="text-center" rowspan="2">Net Tax</th>
+      </tr>
+      <tr>
+        <th class="text-center">CGST</th>
+        <th class="text-center">SGST</th>
+        <th class="text-center">IGST</th>
+        <th class="text-center">CGST</th>
+        <th class="text-center">SGST</th>
+        <th class="text-center">IGST</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of gstSummary?.gstSummaryItems">
+        <th>{{item?.taxNameEnglish}}</th>
+        <td class="text-center">{{item?.saleAmount}}</td>
+        <td class="text-center">{{item?.saleCgstAmount}}</td>
+        <td class="text-center">{{item?.saleSgstAmount}}</td>
+        <td class="text-center">{{item?.saleIgstAmount}}</td>
+        <td class="text-center">{{item?.purchaseAmount}}</td>
+        <td class="text-center">{{item?.purchaseCgstAmount}}</td>
+        <td class="text-center">{{item?.purchaseSgstAmount}}</td>
+        <td class="text-center">{{item?.purchaseIgstAmount}}</td>
+        <td class="text-center">{{item?.taxAmount}}</td>
+      </tr>
+      <tr *ngIf="gstSummary?.gstSummaryItems.length<=0">
+        <td colspan="10" class="text-center">{{'COMMON.NO_DATA_FOUND' | translate}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Grand Total</th>
+        <th class="text-center">{{(gstSummary?.totalSaleAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalSaleCgstAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalSaleSgstAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalSaleIgstAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalPurchaseAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalPurchaseCgstAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalPurchaseSgstAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalPurchaseIgstAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(gstSummary?.totalTaxAmount || 0) | customCurrency}}</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+
+<div class="tax-report-table section-boxed table-responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>Tax Group</th>
+        <th class="text-center">Sales Amount</th>
+        <th class="text-center">Cess</th>
+        <th class="text-center">Additional Cess</th>
+        <th class="text-center">Purchase Amount</th>
+        <th class="text-center">Cess</th>
+        <th class="text-center">Additional Cess</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let item of cessSummary?.cessSummaryItems" >
+        <th>{{item?.cessNameEnglish}}</th>
+        <td class="text-center">{{item?.saleAmount}}</td>
+        <td class="text-center">{{item?.saleCessAmount}}</td>
+        <td class="text-center">{{item?.saleAddnlCessAmount}}</td>
+        <td class="text-center">{{item?.purchaseAmount}}</td>
+        <td class="text-center">{{item?.purchaseCessAmount}}</td>
+        <td class="text-center">{{item?.purchaseAddnlCessAmount}}</td>
+      </tr>
+      <tr *ngIf="cessSummary?.cessSummaryItems.length<=0">
+        <td colspan="10" class="text-center">{{'COMMON.NO_DATA_FOUND' | translate}}</td>
+      </tr>
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Grand Total</th>
+        <th class="text-center">{{(cessSummary?.totalSaleAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(cessSummary?.totalSaleCessAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(cessSummary?.totalSaleAddnlCessAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(cessSummary?.totalPurchaseAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(cessSummary?.totalPurchaseCessAmount || 0) | customCurrency}}</th>
+        <th class="text-center">{{(cessSummary?.totalPurchaseAddnlCessAmount || 0) | customCurrency}}</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+</div>
+
+<ng-container *ngIf="taxSummaryPdf">
+    <app-summary-gst-pdf  [summaryTaxReport]="taxSummaryPdf" [dateInterval]="dateObjectPdf"></app-summary-gst-pdf>
+</ng-container>

@@ -1,0 +1,230 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons"
+        [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon25"></i> <span>{{'SIDEBAR.DAILY_ACTIVITY_REPORT' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.DAILY_ACTIVITY_REPORT' | translate}}</span>
+    </div>
+  </div>
+</div>
+<div class="loading-shade" *ngIf="isloading">
+  <mat-spinner ></mat-spinner>
+</div>
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+<div class="row">
+  <div class="col-md-3">
+    <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+ </div>
+ <div class="col-md-3">
+    <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"></app-device-dropdown>
+ </div>
+  <div class="col-md-2">
+    <date-input [group]="searchForm" [controlName]="'date'" [label]="'REPORTS.DAILY_ACTIVITY_REPORT.DATE'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_DATE'" [isMandatory]="true"></date-input>
+  </div>
+  <div class="col-md-4 report-tool-bar">
+    <button type="submit" class="btn btn-primary btn-sm m-right-10"><i class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
+    </button>
+    <button type="button" class="btn btn-danger btn-sm m-right-10" (click)="clear()"><i class="fas fa-eraser"></i>
+      {{'COMMON.CLEAR' | translate}}
+    </button>
+    <ng-container *hasClaim="'report_daily_activity_report_print_daily_activity_report'">
+    <button *ngIf="dailyActivityReportDetail" type="button" class="btn btn-warning btn-sm m-right-10" (click)="generatePDF()"><i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
+    </button>
+  </ng-container>
+  </div>
+</div>
+</form>
+
+<ng-container *ngIf="dailyActivityReportDetail">
+<div class="stock-rport-table">
+  <div class="row">
+    <div class="col-md-4">
+      <h3> {{'REPORTS.DAILY_ACTIVITY_REPORT.SALES_SUMMARY' | translate}}</h3>
+      <div class="table-responsive">
+        <table class="table report-varient-table table-striped table-hover">
+          <thead>
+            <tr>
+              <th style="color: #707070;" class="text-center"> {{'REPORTS.DAILY_ACTIVITY_REPORT.CASH_SALES' | translate}}</th>
+              <th style="color: #707070;" class="text-center"> {{'REPORTS.DAILY_ACTIVITY_REPORT.CREDIT_SALES' | translate}}</th>
+              <th style="color: #707070;" class="text-center"> {{'REPORTS.DAILY_ACTIVITY_REPORT.BY_CARD' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: #707070;" class="text-center">{{dailyActivityReportDetail?.totalCashSale}}</td>
+              <td style="color: #707070;" class="text-center">{{dailyActivityReportDetail?.totalCreditSale}}</td>
+              <td style="color: #707070;" class="text-center">{{dailyActivityReportDetail?.totalCardSale}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="2"> {{'REPORTS.DAILY_ACTIVITY_REPORT.TOTAL_SALES' | translate}}</th>
+              <th class="text-center">{{dailyActivityReportDetail?.totalSales}}</th>
+            </tr>
+            <tr>
+              <th colspan="2"> {{'REPORTS.DAILY_ACTIVITY_REPORT.TAX_COLLECTED' | translate}}</th>
+              <th class="text-center">{{dailyActivityReportDetail?.vatCollected}}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <h3> {{'REPORTS.DAILY_ACTIVITY_REPORT.CASH_FLOW_SUMMARY' | translate}}</h3>
+      <div class="table-responsive">
+        <table class="table report-varient-table table-striped table-hover">
+          <tbody>
+            <tr>
+              <th style="color: #707070;"> {{'REPORTS.DAILY_ACTIVITY_REPORT.OPENING_BALANCE' | translate}}</th>
+              <th class="text-right" style="color: #f58220;">{{dailyActivityReportDetail?.openingbalance}}</th>
+              <th style="color: #707070;"> {{'REPORTS.DAILY_ACTIVITY_REPORT.CASH_PURCHASES' | translate}}</th>
+              <td style="color: #707070;" class="text-right">{{dailyActivityReportDetail?.totalCashPurchase}}</td>
+            </tr>
+            <tr>
+              <th style="color: #707070;"> {{'REPORTS.DAILY_ACTIVITY_REPORT.CASH_SALES' | translate}}</th>
+              <td style="color: #707070;" class="text-right">{{dailyActivityReportDetail?.totalCashSale}}</td>
+              <th style="color: #707070;"> {{'REPORTS.DAILY_ACTIVITY_REPORT.OTHER_PAYMENTS' | translate}}</th>
+              <td style="color: #707070;" class="text-right">{{dailyActivityReportDetail?.otherPayments}}</td>
+            </tr>
+            <tr>
+              <th style="color: #707070;">{{'REPORTS.DAILY_ACTIVITY_REPORT.OTHER_RECEIPTS' | translate}}</th>
+              <td style="color: #707070;" class="text-right">{{dailyActivityReportDetail?.otherRecipts}}</td>
+              <th style="color: #707070;">{{'REPORTS.DAILY_ACTIVITY_REPORT.SALES_RETURN' | translate}}</th>
+              <td style="color: #707070;" class="text-right">{{dailyActivityReportDetail?.salesReturns}}</td>
+            </tr>
+            <tr>
+              <th style="color: #707070;">{{'REPORTS.DAILY_ACTIVITY_REPORT.PURCHASE_RETURNS' | translate}}</th>
+              <td style="color: #707070;" class="text-right">{{dailyActivityReportDetail?.purchaseReturns}}</td>
+              <th></th>
+              <td></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.TOTAL' | translate}}</th>
+              <th class="text-right">{{dailyActivityReportDetail?.totalCashFlowSummary}}</th>
+              <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.TOTAL' | translate}}</th>
+              <th class="text-right">{{dailyActivityReportDetail?.totalSummary}}</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th></th>
+              <th style="color: #707070;">{{'REPORTS.DAILY_ACTIVITY_REPORT.CLOSING_BALANCE' | translate}}</th>
+              <th class="text-right" style="color: #09720f;">{{dailyActivityReportDetail?.closingBalance}}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label=" {{'REPORTS.DAILY_ACTIVITY_REPORT.SALES_TRANSACTIONS' | translate}}">
+    <div class="table-responsive">
+      <table class="table report-varient-table table-striped table-hover">
+        <thead>
+          <tr>
+            <th> {{'REPORTS.DAILY_ACTIVITY_REPORT.BILL_NO' | translate}}</th>
+            <th> {{'REPORTS.DAILY_ACTIVITY_REPORT.CLIENT_NAME' | translate}}</th>
+            <th class="text-right"> {{'REPORTS.DAILY_ACTIVITY_REPORT.CASH' | translate}}</th>
+            <th class="text-right"> {{'REPORTS.DAILY_ACTIVITY_REPORT.CREDIT' | translate}}</th>
+            <th class="text-right"> {{'REPORTS.DAILY_ACTIVITY_REPORT.CARD' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dailyActivityReportDetail?.salesTransactions">
+            <td>{{item?.transactionDocumentNo}}</td>
+            <td>{{translationService.getSelectedLanguage()=='en'?item?.clientNameEnglish:item?.clientNameArabic}}</td>
+            <td class="text-right">{{item?.cashSale}}</td>
+            <td class="text-right">{{item?.creditSale}}</td>
+            <td class="text-right">{{item?.cardSale}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.TOTAL' | translate}}</th>
+            <th></th>
+            <th class="text-right">{{dailyActivityReportDetail?.totalCashSale}}</th>
+            <th class="text-right">{{dailyActivityReportDetail?.totalCreditSale}}</th>
+            <th class="text-right">{{dailyActivityReportDetail?.totalCardSale}}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </mat-tab>
+  <mat-tab label=" {{'REPORTS.DAILY_ACTIVITY_REPORT.PURCHASE_TRANSACTIONS' | translate}} ">
+    <div class="table-responsive">
+      <table class="table report-varient-table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.BILL_NO' | translate}}</th>
+            <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.SUPPLIER' | translate}}</th>
+            <th class="text-right">{{'REPORTS.DAILY_ACTIVITY_REPORT.CASH' | translate}}</th>
+            <th class="text-right">{{'REPORTS.DAILY_ACTIVITY_REPORT.CREDIT' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dailyActivityReportDetail?.purchaseTransactions">
+            <td>{{item?.transactionDocumentNo}}</td>
+            <td>{{translationService.getSelectedLanguage()=='en'?item?.supplierNameEnglish:item?.supplierNameArabic}}</td>
+            <td class="text-right">{{item?.cashPurchase}}</td>
+            <td class="text-right">{{item?.creditPurchase}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.TOTAL' | translate}}</th>
+            <th></th>
+            <th class="text-right">{{dailyActivityReportDetail?.totalCashPurchase}}</th>
+            <th class="text-right">{{dailyActivityReportDetail?.totalCreditsPurchase}}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </mat-tab>
+  <mat-tab label=" {{'REPORTS.DAILY_ACTIVITY_REPORT.RECEIPT_PAYMENTS' | translate}} ">
+    <div class="table-responsive">
+      <table class="table report-varient-table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.VOUCHER_NO' | translate}}</th>
+            <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.PARTICULARS' | translate}}</th>
+            <th class="text-right">{{'REPORTS.DAILY_ACTIVITY_REPORT.RECEIPTS' | translate}}</th>
+            <th class="text-right">{{'REPORTS.DAILY_ACTIVITY_REPORT.PAYMENTS' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dailyActivityReportDetail?.reciptPayments">
+            <td>{{item?.transactionDocumentNo}}</td>
+            <td>{{item?.particulars}}</td>
+            <td class="text-right">{{item?.cashRecipt}}</td>
+            <td class="text-right">{{item?.cashPayment}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>{{'REPORTS.DAILY_ACTIVITY_REPORT.TOTAL' | translate}}</th>
+            <th></th>
+            <th class="text-right">{{dailyActivityReportDetail?.totalRecipts}}</th>
+            <th class="text-right">{{dailyActivityReportDetail?.totalPayments}}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+</ng-container>
+
+
+<ng-container *ngIf="dailyActivityReportDetailPdf">
+  <app-daily-activity-report-pdf [dailyActivityReportPDF]="dailyActivityReportDetailPdf"></app-daily-activity-report-pdf>
+</ng-container>
+

@@ -1,0 +1,66 @@
+<div class="modal-content1" [ngClass]="{'modal-content-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-9 col">
+                <h4 class="modal-title">
+                    {{'BRAND.MANAGE_BRAND' | translate}}
+                </h4>
+            </div>
+            <div class="col-sm-auto col-auto ml-auto">
+                <button type="button" class="close" data-dismiss="modal" (click)="onCancel(false)">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="brandForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+        <div class="modal-body modal-manage">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <div class="form-group">
+                        <label  for="unitName">{{'BRAND.CODE' | translate}} <span class="text-danger">*</span></label>
+                        <input formControlName="code" [readonly]="isEdit" type="text" class="form-control" id="unitName">
+                        <div *ngIf="brandForm.get('code').errors && brandForm.get('code').touched">
+                            <div class="text-danger" *ngIf="brandForm.get('code').errors?.required">
+                              Brand Code is Required
+                            </div>
+                          </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="unitName">{{'BRAND.NAME_ENGLISH' | translate}} <span class="text-danger">*</span></label>
+                        <input formControlName="nameEnglish" type="text" class="form-control" id="unitName">
+                        <div *ngIf="brandForm.get('nameEnglish').errors && brandForm.get('nameEnglish').touched">
+                            <div class="text-danger" *ngIf="brandForm.get('nameEnglish').errors?.required">
+                              Brand Name is Required
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitName">{{'COMMON.DESCRIPTION_ENGLISH' | translate}} </label>
+                        <textarea class="form-control"  formControlName="descriptionEnglish" rows="4"></textarea>
+                    </div>
+                    <div class="form-group" *ngIf="isEdit">
+                        <label for="unitName">{{'COMMON.IS_ACTIVE' | translate}}</label>
+                        <mat-slide-toggle formControlName="isActive" class="active-togle">{{ (isActive ? 'COMMON.ACTIVE' : 'COMMON.INACTIVE') | translate }}</mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-row w-100">
+                <div class="text-center w-100">
+                    <ng-container>
+                        <button class="btn btn-success btn-sm m-right-10" (click)="saveUnit()">
+                            <i class="fas fa-save"></i>
+                            {{'COMMON.SAVE' | translate}}
+                        </button>
+                    </ng-container>
+                    <button class="btn btn-danger btn-sm" (click)="onCancel(false)">
+                        <i class="fas fa-times-circle"></i>
+                        {{'COMMON.CANCEL' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

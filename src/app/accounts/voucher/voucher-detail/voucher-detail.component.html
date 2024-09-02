@@ -1,0 +1,101 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>{{'ACCOUNTS.PAYMENT_VOUCHER.PAYMENT_VOUCHER_DETAIL' | translate}}</h1>
+            </div>
+        </div>
+        <div
+            class="col-md-auto col-sm-auto">
+            <button *hasClaim="'account_payment_voucher_print_payment_voucher'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
+                <i class="fas fa-receipt"></i> {{'ACCOUNTS.PAYMENT_VOUCHER.PRINT_PAYMENT_VOUCHER'  | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="breadcrump-pages">
+        <div class="crumbs-sec">
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+          <a [routerLink]="['/paymentVoucher']">{{'SIDEBAR.RECEIPT_VOUCHER' | translate}}</a> /
+          <span>{{'ACCOUNTS.PAYMENT_VOUCHER.PAYMENT_VOUCHER_DETAIL' | translate}}</span>
+        </div>
+      </div>
+</div>
+
+    <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="voucher?.branchUUID"></app-comapny-profile-heading>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+                <table>
+                    <tr>
+                        <td>{{'ACCOUNTS.PAYMENT_VOUCHER.PAYMENT_VOUCHER_NO' | translate}}</td>
+                        <th>{{voucher?.docNo}}</th>
+                    </tr>
+                    <tr>
+                        <td>{{'ACCOUNTS.PAYMENT_VOUCHER.PAYMENT_VOUCHER_DATE'  | translate}}</td>
+                        <th>{{voucher?.docDate  | customDate}}</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+                <table>
+                    <tr>
+                        <td>{{'COMMON.USER' | translate}}</td>
+                        <th>{{voucher?.createdBy}}</th>
+                    </tr>
+                    <tr>
+                        <td>{{'COMMON.AMOUNT' | translate}}</td>
+                        <th [innerHTML]="voucher.totalAmount | customCurrency">
+                        </th>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+<ng-container *hasClaim="'account_payment_voucher_list_payment_voucher_items'">
+    <div class="page-header-main">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-auto col-sm-auto">
+                <div class="content-header">
+                    <h1>{{'ACCOUNTS.PAYMENT_VOUCHER.VOUCHER_DETAIL'  | translate}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="head">
+                <tr>
+                    <th style="width:1%">{{'COMMON.#'  | translate}}</th>
+                    <th>{{'COMMON.ACCOUNT_CODE'  | translate}}</th>
+                    <th>{{'ACCOUNTS.ACCOUNT_HEAD.NAME_ENGLISH'  | translate}}</th>
+                    <!-- <th>{{'ACCOUNTS.ACCOUNT_HEAD.NAME_ARABIC'  | translate}}</th> -->
+                    <th>{{'COMMON.NARRATION'  | translate}}</th>
+                    <th class="text-right">{{'COMMON.AMOUNT'  | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of voucherDetail;let i=index">
+                    <ng-container>
+                        <td style="text-align: center;">{{i+1}}</td>
+                        <td>{{item?.accountHead?.accountCode}}</td>
+                        <td class="text-left">{{item?.accountHead?.nameEnglish}}</td>
+                        <!-- <td class="text-right">{{item?.accountHead?.nameSecondLanguage}}</td> -->
+                        <td class="text-left">{{item?.description}}</td>
+                        <td class="text-right" [innerHTML]="item?.amount | customCurrency"></td>
+                    </ng-container>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+<ng-container *ngIf="voucherInvoice">
+    <app-voucher-pdf [voucherPDF]="voucherInvoice"></app-voucher-pdf>
+</ng-container>

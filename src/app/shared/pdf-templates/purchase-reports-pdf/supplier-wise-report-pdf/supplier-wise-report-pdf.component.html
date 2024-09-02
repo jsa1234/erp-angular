@@ -1,0 +1,142 @@
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="purchaseReport">
+            <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+                <div style="position: relative;z-index: 4;background-color: #FFF;">
+                    <div style="padding: 20px;">
+                        <header style="margin-bottom: 20px;">
+                            <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                            <div style="display: grid;grid-template-columns: auto auto;">
+                                <div
+                                    style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                    Purchase Report - Supplier Wise</div>
+                                <div
+                                    style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                    تقرير الشراء - المورد الحكيم</div>
+                            </div>
+                        </header>
+
+
+                        <div style="padding: 2px;margin-bottom: 20px;">
+                            <table
+                                style="border: 1px solid #f2f2f2; width: 100%;margin: 0;font-family: 'Inter', sans-serif;border-collapse: collapse;border-top: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;border-bottom: 1px solid #c9c6c6;">
+                                <tbody>
+                                    <tr style="border:none">
+                                        <th
+                                            style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">
+                                            Supplier Details</th>
+                                        <th
+                                            style="text-align: right;padding: 6px 12px;border-left: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                            مشتر</th>
+                                    </tr>
+                                    <tr style="border:none">
+                                        <th
+                                            style="text-align: left;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                            {{supplierWiseReportDetails.supplier.nameEnglish}}</th>
+                                            <th
+                                            style="text-align: right;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">{{supplierWiseReportDetails.supplier.nameSecondLanguage}}</th>
+                                    </tr>
+                                    <tr style="border:none">
+                                        <td
+                                            style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                            {{supplier?.addressEnglish}}
+                                        </td>
+                                            <td
+                                            style="text-align: right;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                            {{supplier?.addressArabic}}
+                                        </td>
+                                    </tr>
+                                    <tr style="border:none">
+                                        <td
+                                            style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                            {{supplier?.mobileNo}} , {{supplier?.phoneNo}}</td>
+                                            <td
+                                            style="text-align: right;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                            {{supplier?.mobileNo}} , {{supplier?.phoneNo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr style="border:none">
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Ref. Bill No <br> <span style="font-size: 12px;">مشروع قانون</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Ref. Bill Date <br> <span style="font-size: 12px;">تاريخ</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Doc No <br> <span style="font-size: 12px;">تاريخ</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Doc Date <br> <span style="font-size: 12px;">تاريخ</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Item <br> <span style="font-size: 12px;">العنصر</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Qty <br> <span style="font-size: 12px;">كمية</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Rate <br> <span style="font-size: 12px;">معدل</span></th>
+                                    <!-- <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Gross Total <br> <span style="font-size: 12px;">مقدار</span></th> -->
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Discount <br> <span style="font-size: 12px;">مقدار</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Amount <br> <span style="font-size: 12px;">مقدار</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border:none" *ngFor="let item of supplierWiseReportList">
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.refBillNo}}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.refBillDate | customDate}}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.docNo }}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.docDate | customDate}}</td>
+                                    <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{translate.getSelectedLanguage()=='en'?item?.product?.nameEnglish:item?.product?.nameSecondLanguage}}
+                                    </td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.quantity}}</td>
+                                    <td [innerHTML]="item?.unitPrice | customCurrency" style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                    <!-- <td [innerHTML]="item?.grossAmount | customCurrency" style="text-align: right;font-size:14px;padding: 8px 12px;"></td> -->
+                                    <td [innerHTML]="item?.discountAmount | customCurrency" style="text-align: right;font-size:14px;padding: 8px 12px;"></td>
+                                    <td [innerHTML]="item?.itemTotal | customCurrency" style="text-align: right;font-size:14px;padding: 8px 12px;"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <tbody>
+                                <tr style="border:none">
+                                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                                        colspan="3"><b>Total</b></td>
+                                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                                        colspan="4"><b>الإجمالي </b></td>
+                                    <th [innerHTML]="supplierWiseReportDetails.totalAmount | customCurrency"
+                                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"></th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- <div style="display: grid;grid-template-columns: auto auto;font-family: 'Inter', sans-serif;">
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: left;">
+                                <b> Received By</b></p>
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: right;">
+                                <b>Salesman</b></p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

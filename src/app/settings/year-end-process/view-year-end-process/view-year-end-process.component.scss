@@ -1,0 +1,43 @@
+.financial-table table {
+  background-color: #FFF;
+  margin-bottom: 20px;
+}
+.financial-table th, td {
+  border: 2px solid #dee2e6;
+  padding: 10px 20px;
+}
+.content-header h1 i {
+  display: list-item;
+  position: absolute;
+  padding-right: 18px;
+  background-color: #f58220 !important;
+}
+.content-header h1 span {
+  margin-left: 35px;
+}
+.highlight {
+  outline: 1px solid red;
+}
+
+input.no-spinner {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+.yep-view-btn {
+  text-align: center;
+  position: fixed;
+  bottom: 31px;
+  width: 80%;
+  z-index: 999;
+}
+.yep-view-btn button {
+  border: 0;
+  background-color: #f58220;
+  color: #FFF;
+  padding: 5px 20px;
+  font-size: 16px;
+  font-weight: 600;
+}

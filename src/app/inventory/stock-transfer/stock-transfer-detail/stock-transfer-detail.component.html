@@ -1,0 +1,117 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon19"></i> <span>{{'INVENTORY.STOCK_TRANSFER.STOCK_TRANSFER_DETAIL' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
+        [routerLink]="['/inventory/stock-transfer']">{{'SIDEBAR.STOCK_TRANSFER' | translate}}</a> /
+      <span>{{'INVENTORY.STOCK_TRANSFER.STOCK_TRANSFER_DETAIL' | translate}}</span>
+    </div>
+  </div>
+</div>
+<div class="section-boxed">
+  <app-comapny-profile-heading [ProfileType]="1"></app-comapny-profile-heading>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="invoice-detatable table-responsive"
+      [ngClass]="{'invoice-detatable-ar':translate.getSelectedLanguage()=='ar'}">
+      <table>
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.DOC_DATE' | translate}}</th>
+          <td>{{stockTransfer?.docNo}}</td>
+        </tr>
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.DOC_NO' | translate}}</th>
+          <td>{{stockTransfer?.docDate | customDate}}</td>
+        </tr>
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.REMARKS' | translate}}</th>
+          <td>{{stockTransfer?.remarks }}</td>
+        </tr>
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.SOURCE_BRANCH' | translate}}</th>
+          <td>{{stockTransfer?.sourceBranch?.nameEnglish}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="invoice-detatable table-responsive"
+      [ngClass]="{'invoice-detatable-ar':translate.getSelectedLanguage()=='ar'}">
+      <table>
+
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.REF_INVOICE_DATE' | translate}}</th>
+          <td>{{stockTransfer?.refInvDate |customDate}}</td>
+        </tr>
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.REF_INVOICE_NO' | translate}}</th>
+          <td>{{stockTransfer?.refInvNo }} </td>
+        </tr>
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.TOTAL_AMOUNT' | translate}}</th>
+          <td>{{stockTransfer?.netTotalAmount | customCurrency }} </td>
+        </tr>
+        <tr>
+          <th>{{'INVENTORY.STOCK_TRANSFER.DESTINATION_BRANCH' | translate}}</th>
+          <td>{{stockTransfer?.destinationBranch?.nameEnglish }} </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header">
+        <h1>{{'COMMON.LINE_ITEMS' |translate}}</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="head">
+      <tr>
+        <th>{{'COMMON.#'|translate}}</th>
+        <th>{{'INVENTORY.STOCK_TRANSFER.BARCODE'|translate}}</th>
+        <th>{{'INVENTORY.STOCK_TRANSFER.PRODUCT_CODE'|translate}}</th>
+        <th>{{'INVENTORY.STOCK_TRANSFER.PRODUCT_NAME'|translate}}</th>
+        <th>{{'INVENTORY.STOCK_TRANSFER.UNIT_NAME'|translate}}</th>
+        <th>{{'INVENTORY.STOCK_TRANSFER.QUANTITY'|translate}}</th>
+        <th>{{'INVENTORY.STOCK_TRANSFER.UNIT_PRICE'|translate}}</th>
+        <th>{{'INVENTORY.STOCK_TRANSFER.TOTAL'|translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="stockTransferItems?.length>0">
+        <tr *ngFor="let item of stockTransferItems;let last = last; let i=index" class="text-center">
+          <td>{{i+1}}</td>
+          <td>{{item.productPrice.barcode}}</td>
+          <td>{{item.product.productCode}}</td>
+          <td>{{item.product.nameEnglish}}</td>
+          <td>{{item.unit.nameEnglish}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.unitPrice | customCurrency}}</td>
+          <td>{{item.netTotalAmount | customCurrency}}</td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf="stockTransferItems?.length<=0">
+        <tr class="text-center">
+          <td colspan="13">
+            {{'COMMON.NO_DATA_FOUND'|translate}}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

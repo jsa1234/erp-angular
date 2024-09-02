@@ -1,0 +1,77 @@
+<div class="topbar">
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="topbar-left text-center">
+      <a [routerLink]="['/']" class="logo">
+        <span>
+          <img src="assets/images/logo.png" alt="logo-large" class="logo-lg">
+        </span>
+      </a>
+    </div>
+    <div class="form-row align-items-center">
+      <div class="col-md-auto col-auto">
+        <div class="hamburger cursor-pointer" (click)="togglediv()">
+          <span class="line"></span><span class="line"></span><span class="line"></span>
+        </div>
+      </div>
+      <div class="col-md-auto col-auto">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon hamburger" style="margin-top: -10px;">
+            <span class="line"></span><span class="line"></span><span class="line"></span>
+          </span>
+        </button>
+      </div>
+      <div class="form-group header-branch-select">
+        <app-branch-dropdown [group]="branchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)" [label]="''"></app-branch-dropdown>
+      </div>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="list-unstyled topbar-nav ml-auto topbar-nav-right mb-0 float-right hide-when-toogle">
+        <!-- <li class="pos">
+          <button mat-raised-button color="primary" (click)="openPos()">
+            <img src="../../../assets/images/pos.png" alt="" srcset="">
+            POS
+          </button>
+        </li> -->
+
+        <li class="nav-item dropdown" *ngIf="languages.length>1; else elseBlock">
+          <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <img class="contry-flag rounded" src="{{ language.flag }}" alt="language" /> {{ language.name }}
+          </a>
+          <ul class="dropdown-menu contry-dropdown" aria-labelledby="dropdownMenuButton">
+            <ng-container *ngFor="let language of languages">
+              <li role="button" class="dropdown-item" (click)="setNewLanguageRefresh(language.lang)">
+                <img class="contry-flag ml-2" src="{{ language.flag }}"> {{ language.name }}
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+
+        <ng-template #elseBlock>
+        <a href="#" class=" nav-link">
+          <img class="contry-flag rounded" src="{{ language.flag }}" alt="language" /> {{ language.name }}
+        </a>
+      </ng-template>
+
+      
+        <li class="nav-item" *hasClaim="'profile_personal_show_personal_profile'">
+          <a class="nav-link cursor-pointer" [routerLink]="['/my-profile']">
+            <span class="left-fa-icon">
+              <img *ngIf="appUserAuth?.profilePhoto" [src]="profilePath" alt="User Avatar"
+                class="user-image mt-1"></span><span class="mb-0 fs-14 text-capitalize">{{appUserAuth.firstName}}
+              {{appUserAuth.lastName}}</span>
+            <img *ngIf="!appUserAuth?.profilePhoto" src="assets/images/user-profile.jpg" alt="User Avatar"
+              class="user-image mt-1">
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="onLogout()">
+            <span class="left-fa-icon"><i class="fas fa-sign-out-alt fs-15"></i></span>
+            <span class="mb-0 fs-14 text-capitalize">{{'LOGOUT' | translate}}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

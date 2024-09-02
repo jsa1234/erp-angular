@@ -1,0 +1,107 @@
+
+
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="taxReport">
+
+            <div style="margin: auto auto;width: 100%;background: #FFF;">
+                    <div>
+                        <h2 style="text-align:center;font-size: 16px;margin: 3px 0 0 0;font-family: 'Poppins', sans-serif;margin-bottom: 20px;">Tax Report</h2>
+                    </div>
+            
+                <table style="width: 100%;border-collapse: collapse;margin-top: 3px;font-family: 'Poppins', sans-serif;">
+                    <tr>
+                        <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;font-size: 12px;border: 1px solid #ddd;padding: 20px 5px;line-height: .5;">
+                            SUMMARY TAX REPORT FOR THE PERIOD <b>{{fromDate | customDate}}</b> TO <b>{{toDate | customDate}}</b>
+                        </td>
+                    </tr>
+                </table>
+            
+                <table style="width: 100%;border-collapse: collapse;font-family: 'Poppins', sans-serif;">
+                    <thead>
+                    <tr style="background-color: #ececec;">
+                        <th rowspan="2" style="text-align: left;font-size: 12px;border: 1px solid #999;padding: 3px;">Tax Name</th>
+                        <th rowspan="2" style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">Sales Amount</th>
+                        <th colspan="3" style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">Tax Amount</th>
+                        <th rowspan="2" style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">Purchase</th>
+                        <th colspan="3" style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">Tax Amount</th>
+                        <th rowspan="2" style="text-align:right;font-size: 12px;border: 1px solid #999;padding: 3px;">Net Tax</th>
+                    </tr>
+                    <tr style="background-color: #ececec;">
+                        <th style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">CGST</th>
+                        <th style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">SGST</th>
+                        <th style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">IGST</th>
+                        <th style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">CGST</th>
+                        <th style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">SGST</th>
+                        <th style="text-align: center;font-size: 12px;border: 1px solid #999;padding: 3px;">IGST</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of gstSummary?.gstSummaryItems">
+                        <th style="text-align: left;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.taxNameEnglish}}</th>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.saleAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.saleCgstAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.saleSgstAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.saleIgstAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.purchaseAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.purchaseCgstAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.purchaseSgstAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.purchaseIgstAmount}}</td>
+                        <td style="text-align: right;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.taxAmount}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th style="text-align: left;font-size: 12px;padding: 3px;border: 1px solid #999;">Grand Total</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalSaleAmount || 0) | customCurrency}}</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalSaleCgstAmount || 0) | customCurrency}}</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalSaleSgstAmount || 0) | customCurrency}}</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalSaleIgstAmount || 0) | customCurrency}}</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalPurchaseAmount || 0) | customCurrency}}</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalPurchaseCgstAmount || 0) | customCurrency}}</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalPurchaseSgstAmount || 0) | customCurrency}}</th>
+                            <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalPurchaseIgstAmount || 0) | customCurrency}}</th>
+                            <th  style="text-align: right;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(gstSummary?.totalTaxAmount || 0) | customCurrency}}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <table style="width: 100%;border-collapse: collapse;font-family: 'Poppins', sans-serif;margin-top: 20px;">
+                    <tr>
+                        <th style="text-align: left;font-size: 12px;padding: 3px;border: 1px solid #999;">Tax Group</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">Sales Amount</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">Cess</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">Additional Cess</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">Purchase Amount</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">Cess</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">Additional Cess</th>
+                    </tr>
+                    <tr *ngFor="let item of cessSummary?.cessSummaryItems" >
+                        <th style="text-align: left;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.cessNameEnglish}}</th>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.saleAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.saleCessAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.saleAddnlCessAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.purchaseAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.purchaseCessAmount}}</td>
+                        <td style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{item?.purchaseAddnlCessAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">Grand Total</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(cessSummary?.totalSaleAmount || 0) | customCurrency}}</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(cessSummary?.totalSaleCessAmount || 0) | customCurrency}}</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(cessSummary?.totalSaleAddnlCessAmount || 0) | customCurrency}}</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(cessSummary?.totalPurchaseAmount || 0) | customCurrency}}</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(cessSummary?.totalPurchaseCessAmount || 0) | customCurrency}}</th>
+                        <th style="text-align: center;font-size: 12px;padding: 3px;border: 1px solid #999;">{{(cessSummary?.totalPurchaseAddnlCessAmount || 0) | customCurrency}}</th>
+                     
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>

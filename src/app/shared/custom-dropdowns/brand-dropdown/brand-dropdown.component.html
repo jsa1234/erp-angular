@@ -1,0 +1,28 @@
+
+
+  <label>{{'COMMON.BRAND' | translate}} <span class="text-danger" *ngIf="isMandatory">*</span> </label>
+  <div class="">
+    <mat-form-field [formGroup]="group">
+      <mat-select class="form-control" [formControlName]="controlName" (valueChange)="getBrandId($event)">
+        <div class="serch-item-options">
+          <div class="select-item-in" style="position: sticky; top: 0; z-index: 1;">
+        <input class="form-control w-100"  (keydown.space)="$event.stopPropagation()" type="text"
+        autocomplete="off" placeholder="search brand" [formControl]="searchControl">
+      </div>
+        <!-- <mat-option  [value]="''">
+          {{'COMMON.ALL' | translate}}
+         </mat-option> -->
+         <div class="select-item-op">
+        <mat-option *ngFor="let brand of brands" [value]="brand.brandUUID" >
+          {{brand.code}} - {{brand.nameEnglish}}
+        </mat-option>
+      </div>
+      </div>
+      </mat-select>
+      <div *ngIf="group.get('brand').touched && group.get('brand').errors">
+        <div class="text-danger" *ngIf="group.get('brand').errors?.required">
+            Please choose Brand
+        </div>
+    </div>
+    </mat-form-field>
+  </div>

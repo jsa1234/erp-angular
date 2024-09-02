@@ -1,0 +1,478 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-4 ">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon3"></i> <span>{{'PURCHASE_INVOICE.MANAGE_PURCHASE' | translate}}</span></h1>
+      </div>
+      <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+        <div class="crumbs-sec">
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+          <a [routerLink]="['/purchase-invoice/list']">{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</a> /
+          <span>{{'PURCHASE_INVOICE.MANAGE_PURCHASE' | translate}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="shortcut-keys">
+        <span><b>F2</b> - Focus Barcode Input</span>&nbsp;&nbsp;
+        <span><b>F9 </b> - Search </span>&nbsp;&nbsp;
+        <span><b>Esc</b> - Clear </span>&nbsp;&nbsp;
+        <span><b>Alt + A</b> - Add </span>&nbsp;&nbsp;
+        <span><b>Single Click Table Row</b> - Edit </span>&nbsp;&nbsp;
+        <span><b>Double Click Table Row</b> - Delete </span>&nbsp;&nbsp;
+        <span><b>Alt + S</b> - Save </span>&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="purchaseAddForm">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="section-boxed manage-purchase-boxing">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-supplier-dropdown [group]="purchaseAddForm" [controlName]="'accountUUID'"
+                (supplierSelected)="onSupplierSelected($event)" [isMandatory]="true"></app-supplier-dropdown>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{'PURCHASE_INVOICE.INVOICE_TYPE' | translate}}<span class="text-danger">*</span></label>
+              <mat-select class="form-control w-100" formControlName="invoiceType">
+                <mat-option *ngFor="let invoiceType of invoiceTypeList; let i =index"
+                  [value]="i">{{invoiceType}}</mat-option>
+              </mat-select>
+
+              <div
+              *ngIf="purchaseAddForm.get('invoiceType').errors && purchaseAddForm.get('invoiceType').touched">
+              <div class="text-danger" *ngIf="purchaseAddForm.get('invoiceType').errors?.required">
+                Please Choose Invoice Type
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{'PURCHASE_INVOICE.INVOICE_NO' | translate}}<span class="text-danger">*</span></label>
+              <input formControlName="docNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <date-input [group]="purchaseAddForm" [controlName]="'docDate'" [label]="'PURCHASE_INVOICE.INVOICE_DATE'"
+                [validationMessage]="'Please Choose Doc Date'" [isMandatory]="true"
+                [isDatePickerDisabled]="true" [isDefaultDate]="isDefaultDate" [defaultDate]="docDate"></date-input>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{'PURCHASE_INVOICE.REFF_BILL_NO' | translate}}<span class="text-danger">*</span></label>
+              <input formControlName="refBillNo" class="form-control w-100" type="text">
+              <div
+              *ngIf="purchaseAddForm.get('refBillNo').errors && purchaseAddForm.get('refBillNo').touched">
+              <div class="text-danger" *ngIf="purchaseAddForm.get('refBillNo').errors?.required">
+                Please Choose Reff. Bill No
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <date-input [group]="purchaseAddForm" [controlName]="'refBillDate'"
+                [label]="'PURCHASE_INVOICE.REFF_BILL_DATE'" [validationMessage]="'Please Choose Reff Bill Date'"
+                [isMandatory]="true" [isDefaultDate]="false" [defaultDate]="refBillDate"></date-input>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-branch-dropdown [group]="purchaseAddForm" [controlName]="'branchUUID'"
+                [isAddAll]="false" [isDefault]="isDefaultBranch"></app-branch-dropdown>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-transaction-mode-dropdown [group]="purchaseAddForm"
+                [controlName]="'transactionMode'"></app-transaction-mode-dropdown>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="section-boxed">
+      <div class="row">
+        <div class="col-md-3 content-flex">
+          <div class="form-group">
+            Scan Barcode:
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <input class="form-control w-100" type="text" [(ngModel)]="barcodeValue" #barcodeInput
+              [disabled]="isDisabled">
+          </div>
+        </div>
+        <div class="col-md-5 text-right purchanse-managed-button">
+          <button mat-raised-button color="warn" (click)="openProductDialog()" [disabled]="isDisabled">
+            <mat-icon>search</mat-icon>
+            Search Product
+          </button>
+        </div>
+      </div>
+
+      <ng-container>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              Barcode <input class="form-control w-100" type="text" [value]="productDetail?.barcode || ''" disabled>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              Product Name <input class="form-control w-100" type="text"
+                [value]="productDetail?.productObject?.nameEnglish" disabled>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              Product Code <input class="form-control w-100" type="text"
+                [value]="productDetail?.productObject?.productCode" disabled>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              Unit Name <input class="form-control w-100" type="text" [value]="productDetail?.unitObject?.nameEnglish"
+                disabled>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              Quantity<input type="number" class="form-control w-100" #quantityInput
+                [(ngModel)]="productDetail.quantity" name="quantity"  id="{{productDetail?.quantity}}"
+                (ngModelChange)="updateAmount(productDetail)" [disabled]="isDisabled">
+                <ng-container *ngIf="isInvalidQuantity">
+                  <samll class="text-danger">
+                    Quantity below 1 is not accepted
+                  </samll>
+                </ng-container>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Unit Price <input class="form-control w-100" type="number" [(ngModel)]="productDetail.unitPrice"
+                (ngModelChange)="updateAmount(productDetail)" [disabled]="isDisabled">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Amount <input class="form-control w-100" type="number" [value]="productDetail?.amount" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Discount % <input class="form-control w-100" type="number" [(ngModel)]="productDetail.discountRate"
+                name="discountRate" id="{{productDetail?.discountRate}}"
+                #discountRateInput="ngModel"
+                (focus)="onInputFocus(discountRateInput)"
+                (blur)="onInputBlur(discountRateInput)"
+                (ngModelChange)="updateDiscountAmount(productDetail)" [disabled]="isDisabled">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Discount Amount <input class="form-control w-100" type="number" [(ngModel)]="productDetail.discountAmount"
+                name="discountAmount" id="{{productDetail.discountAmount}}"
+                #discountAmountInput="ngModel"
+        (focus)="onInputFocus(discountAmountInput)"
+        (blur)="onInputBlur(discountAmountInput)"
+                (ngModelChange)="updateDiscountRate(productDetail)" [disabled]="isDisabled">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Taxable Amount <input class="form-control w-100" type="number" [(ngModel)]="productDetail.taxableAmount"
+                name="taxableAmount" id="{{productDetail?.taxableAmount}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              CGST % <input class="form-control w-100" type="number" [(ngModel)]="productDetail.cgstRate"
+                name="cgstRate" id="{{productDetail.cgstRate}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              CGST Amount <input class="form-control w-100" type="number" [(ngModel)]="productDetail.cgstAmount"
+                name="cgstAmount" id="{{productDetail?.cgstAmount}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              SGST % <input class="form-control w-100" type="number" [(ngModel)]="productDetail.sgstRate"
+                name="sgstRate" id="{{productDetail?.sgstRate}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              SGST Amount <input class="form-control w-100" type="number" [(ngModel)]="productDetail.sgstAmount"
+                name="sgstAmount" id="{{productDetail.sgstAmount}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              IGST % <input class="form-control w-100" type="number" [(ngModel)]="productDetail.igstRate"
+                name="igstRate" id="{{productDetail.igstRate}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              IGST Amount <input class="form-control w-100" type="number" [(ngModel)]="productDetail.igstAmount"
+                name="igstAmount" id="{{productDetail?.igstAmount}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              CESS % <input class="form-control w-100" type="number" [(ngModel)]="productDetail.cessRate"
+                name="cessRate" id="{{productDetail?.cessRate}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              CESS Amount <input class="form-control w-100" type="number" [(ngModel)]="productDetail.cessAmount"
+                name="cessAmount" id="{{productDetail?.cessAmount}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Additional CESS % <input class="form-control w-100" type="number"
+                [(ngModel)]="productDetail.addnlCessRate" name="addnlCessRate" id="{{productDetail?.addnlCessRate}}"
+                disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Addn. CESS Amt <input class="form-control w-100" type="number" [(ngModel)]="productDetail.addnlCessAmount"
+                name="addnlCessAmount" id="{{productDetail?.addnlCessAmount}}" disabled>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Item Total Amount<input class="form-control w-100" type="number"
+                [(ngModel)]="productDetail.itemTotalAmount" name="itemTotalAmount"
+                id="{{productDetail?.itemTotalAmount}}" disabled>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              Manufacture Date
+              <mat-form-field color="accent">
+                <input class="form-control" matInput [matDatepicker]="mfgDate" disabled="true"
+                  [(ngModel)]="productDetail.manufactureDate">
+                <mat-datepicker-toggle matSuffix [for]="mfgDate"></mat-datepicker-toggle>
+                <mat-datepicker #mfgDate [disabled]="isDisabled"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              Expiry Date
+              <mat-form-field color="accent">
+                <input class="form-control" matInput [matDatepicker]="expDate" disabled="true"
+                  [(ngModel)]="productDetail.expiryDate" [min]="productDetail.manufactureDate">
+                <mat-datepicker-toggle matSuffix [for]="expDate"></mat-datepicker-toggle>
+                <mat-datepicker #expDate [disabled]="isDisabled"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+      </ng-container>
+      <div class="row">
+        <div class="col-md-6 ">
+          <button class=" w-100" mat-raised-button color="primary" (click)="addtoTable()">
+            <mat-icon>note_add</mat-icon>
+            Add
+          </button>
+        </div>
+        <div class="col-md-6 ">
+          <button class=" w-100" mat-raised-button color="warn" (click)="clear()">
+            <mat-icon>clear_all</mat-icon>
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-md-6">
+    <div class="section-boxed">
+      <div class="purchanse-managed-table" tabindex="0">
+        <table mat-table [dataSource]="matTableDataSource">
+          <!-- Position Column -->
+          <ng-container matColumnDef="slNo">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element;let i = index">{{ i + 1 }} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="productCode">
+            <th mat-header-cell *matHeaderCellDef> PRODUCT CODE </th>
+            <td mat-cell *matCellDef="let element"> {{element?.productObject?.productCode}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="productName">
+            <th mat-header-cell *matHeaderCellDef> PRODUCT NAME </th>
+            <td mat-cell *matCellDef="let element"> {{element.productObject?.nameEnglish}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> QUANTITY </th>
+            <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+          </ng-container>
+          <ng-container matColumnDef="unitPrice">
+            <th mat-header-cell *matHeaderCellDef> UNIT PRICE </th>
+            <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+          </ng-container>
+          <ng-container matColumnDef="discountAmount">
+            <th mat-header-cell *matHeaderCellDef> DISCOUNT AMOUNT </th>
+            <td mat-cell *matCellDef="let element"> {{element.discountAmount}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cgstAmount">
+            <th mat-header-cell *matHeaderCellDef> CGST AMOUNT </th>
+            <td mat-cell *matCellDef="let element"> {{element.cgstAmount}}</td>
+          </ng-container>
+          <ng-container matColumnDef="sgstAmount">
+            <th mat-header-cell *matHeaderCellDef> SGST AMOUNT </th>
+            <td mat-cell *matCellDef="let element"> {{element.sgstAmount}}</td>
+          </ng-container>
+          <ng-container matColumnDef="igstAmount">
+            <th mat-header-cell *matHeaderCellDef> IGST AMOUNT </th>
+            <td mat-cell *matCellDef="let element"> {{element.igstAmount}}</td>
+          </ng-container>
+          <ng-container matColumnDef="cessAmount">
+            <th mat-header-cell *matHeaderCellDef> CESS AMOUNT </th>
+            <td mat-cell *matCellDef="let element"> {{element.cessAmount}}</td>
+          </ng-container>
+          <ng-container matColumnDef="addnlCessAmount">
+            <th mat-header-cell *matHeaderCellDef> ADDITIONAL CESS AMOUNT </th>
+            <td mat-cell *matCellDef="let element"> {{element.addnlCessAmount}}</td>
+          </ng-container>
+          <ng-container matColumnDef="itemTotalAmount">
+            <th mat-header-cell *matHeaderCellDef> ITEM TOTAL AMOUNT </th>
+            <td mat-cell *matCellDef="let element"> {{element.itemTotalAmount}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="deleteRow(row)"
+            (click)="editRow(row)" [ngClass]="{'selected-row': selectedRow === row}"></tr>
+        </table>
+      </div>
+    </div>
+    <div class="section-boxed">
+      <div class="form-group">
+        Remarks:
+        <textarea class="form-control w-100" name="" id="" cols="30" rows="3" [(ngModel)]="remark"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="section-boxed">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            Total Quantity <input class="form-control w-100" type="text" [value]="totalQuantity" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Subtotal <input class="form-control w-100" type="text" [value]="subtotal" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Total Discount <input class="form-control w-100" type="text" [value]="totalDiscount" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Total Taxable Amount <input class="form-control w-100" type="text" [value]="taxableAmount" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            CGST <input class="form-control w-100" type="text" [value]="totalCgst" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            SGST <input class="form-control w-100" type="text" [value]="totalSgst" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            IGST <input class="form-control w-100" type="text" [value]="totalIgst" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            CESS <input class="form-control w-100" type="text" [value]="totalCess" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Additional CESS <input class="form-control w-100" type="text" [value]="totalAddnlCess" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Other Expense <input class="form-control w-100" type="number" [(ngModel)]="otherExpense"
+              (ngModelChange)="calculateTotal()">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Transport Expense <input class="form-control w-100" type="number" [(ngModel)]="transExpense"
+              (ngModelChange)="calculateTotal()">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Roundoff <input class="form-control w-100" type="number" [(ngModel)]="roundoff"
+              (ngModelChange)="validateRoundoff()">
+            <small class="text-danger" *ngIf="invalidValue">The value should be between 0 and 1.</small>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group total-count-form">
+            <p>Total :</p>
+            <span>{{(itemRoundTotalAmount || 0) | customCurrency }}</span>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <button class=" btn btn-success w-100" mat-raised-button (click)="addPurchaseInvoice()">
+            <mat-icon>save</mat-icon>
+            {{'COMMON.SAVE' | translate}}
+          </button>
+        </div>
+        <div class="col-md-6 text-center">
+          <button class=" w-100 btn btn-danger " mat-raised-button [routerLink]="['/purchase-invoice/list']">
+            <mat-icon>cancel</mat-icon>
+            {{'COMMON.CANCEL' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="modal-content1">
+
+    <div class="loading-shade" *ngIf="isLoading$| async">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-dialog-content>
+        <div class="section-boxed">
+          <h4 class="modal-title">
+            <span class="higlite-attn">Attention :</span> It seems you have changed the unit price for this purchase.
+            Do you also want to update associated prices such as unit price, selling price, wholesale rate, and
+            MRP? This will ensure consistency across your product pricing. Choose <span class="text-success">'Save'</span> to modify all related
+            prices, or <span class="text-danger">'Cancel'</span> to keep the current prices.
+        </h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="posdetails-table table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Unit</th>
+                                    <th>Unit Price</th>
+                                    <th>Selling Price</th>
+                                    <th>WholeSale Rate</th>
+                                    <th>MRP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of purchaseInvoice">
+                                    <td>
+                                        <input class="form-control" readonly type="text" [value]="item?.productObject?.nameEnglish" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" readonly type="text" [value]="item?.unitObject?.nameEnglish" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" [(ngModel)]="item.unitCost" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" [(ngModel)]="item.sellingPrice" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" [(ngModel)]="item.wholeSaleRate" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" [(ngModel)]="item.mrp" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <div class="form-row w-100">
+          <div class="text-center w-100">
+            <ng-container>
+              <button class="btn btn-success btn-sm m-right-10" type="button" (click)="updatePrice()">
+                <i class="fas fa-save"></i>
+                {{'COMMON.SAVE' |translate}}
+              </button>
+            </ng-container>
+            <ng-container>
+              <button class="btn btn-danger btn-sm m-right-10" type="button" (click)="onCancel()">
+                <i class="fas fa-save"></i>
+                {{'COMMON.CANCEL' |translate}}
+              </button>
+            </ng-container>
+
+          </div>
+        </div>
+      </mat-dialog-actions>
+</div>

@@ -1,0 +1,97 @@
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="journal">
+            <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+                <div style="position: relative;z-index: 4;background-color: #FFF;">
+                    <div style="padding: 20px;">
+                        <header style="margin-bottom: 20px;">
+                            <app-comapny-profile-heading [ProfileType]="3" [branchUUID]="journal?.branchUUID"></app-comapny-profile-heading>
+                                <div style="display: grid;grid-template-columns: auto auto;">
+                                    <div
+                                        style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                        Journal</div>
+                                </div>
+                        </header>
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div style="padding: 2px;">
+                                <table
+                                    style="border: 0px solid #f2f2f2; width: 837px;margin: 0 0 1.5em;border-collapse: collapse;">
+                                    <tbody>
+                                        <tr>
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
+                                                Journal No</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
+                                                {{journal.journalNo}}</td>
+                                            <th
+                                              style="font-size:14px;font-family: 'Inter', sans-serif;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">
+                                              Journal Date</th>
+                                          <td
+                                              style="font-size:14px;font-family: 'Inter', sans-serif;text-align: center;padding: 8px 12px;border: 1px solid #c9c6c6;">
+                                              {{journal.journalDate  | customDate}}</td>
+
+                                            <th
+                                                style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">
+                                                User</th>
+                                            <td
+                                                style="font-size:14px;text-align: center;padding: 8px 12px;border: 1px solid #c9c6c6;">
+                                                {{journal.createdBy}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div style="display: grid;grid-template-columns: auto auto;">
+                            <div
+                                style="font-family: 'Inter', sans-serif;text-align: left;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;">
+                                Journal Items</div>
+                        </div>
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr style="border:none">
+                                    <th rowspan="2"
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        #</th>
+                                    <th colspan="2"
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Dr Account <br> </th>
+                                    <th colspan="2"
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;border: 1px solid #c9c6c6;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Cr Account <br> </th>
+                                    <th rowspan="2"
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;    line-height: 16px;">
+                                        Narration <br> </th>
+                                    <th rowspan="2"
+                                        style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
+                                        Amount <br></th>
+                                </tr>
+                                <tr>
+                                  <th style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Code</th>
+                                  <th style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Name</th>
+                                  <th style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Code</th>
+                                  <th style="font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">Name</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of journalDetailList; let i = index" style="border:none">
+                                    <td style="text-align: center;border: 1px solid #c9c6c6;font-size:14px;padding: 8px 12px;">{{i+1}}</td>
+                                    <td style="text-align: center;border: 1px solid #c9c6c6;font-size:14px;padding: 8px 12px;">{{item?.drAccountObj?.accountCode}}</td>
+                                    <td style="text-align: center;border: 1px solid #c9c6c6;font-size:14px;padding: 8px 12px;">{{item?.drAccountObj?.nameEnglish}}</td>
+                                    <td style="text-align: center;border: 1px solid #c9c6c6;font-size:14px;padding: 8px 12px;">{{item?.crAccountObj?.accountCode}}</td>
+                                    <td style="text-align: center;border: 1px solid #c9c6c6;font-size:14px;padding: 8px 12px;">{{item?.crAccountObj?.nameEnglish}}</td>
+                                    <td style="text-align: left;border: 1px solid #c9c6c6;font-size:14px;padding: 8px 12px;">{{item?.description}}</td>
+                                    <td style="text-align: right;border: 1px solid #c9c6c6;font-size:14px;padding: 8px 12px;" [innerHTML]="item?.amount | customCurrency"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

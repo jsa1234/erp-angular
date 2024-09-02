@@ -1,0 +1,150 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon19"></i> <span>{{'ACCOUNTS.JOURNAL.MANAGE_JOURNAL' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
+        [routerLink]="['/journal']">{{'SIDEBAR.JOURNAL' | translate}}</a> /
+      <span>{{'ACCOUNTS.JOURNAL.MANAGE_JOURNAL' | translate}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="loading-shade" *ngIf="isLoading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="journalForm">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <label>{{'ACCOUNTS.JOURNAL.JOURNAL_NO' | translate}}<span class="text-danger">*</span></label>
+              <input formControlName="docNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <date-input [group]="journalForm" [controlName]="'docDate'"
+                [label]="'ACCOUNTS.JOURNAL.JOURNAL_DATE'"
+                [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <app-branch-dropdown [group]="journalForm" [controlName]="'branchUUID'"
+                [isAddAll]="false" [isDefault]="isDefaultBranch"></app-branch-dropdown>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <app-user-dropdown [group]="journalForm" [controlName]="'createdBy'" [label]="'Created User'" [isMandatory]="true" (user)="onSelectedUser($event)"></app-user-dropdown>
+            </div>
+          </div> -->
+
+          <div class="col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'COMMON.REMARKS' | translate}}</label>
+              <textarea class="form-control w-100" cols="30" rows="2" formControlName="description"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="section-boxed">
+        <div class="table-responsive manage-voucher-table">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>DR Account</th>
+                <th>CR Account</th>
+                <th>Amount</th>
+                <th>Remarks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="journalDetails">
+              <tr *ngFor="let row of tableRows.controls; let i = index" [formGroupName]="i">
+                <td>
+                  <div class="form-group">
+                    <mat-select placeholder="" class="w-100 form-control" formControlName="drAccountUUID">
+                      <input class="form-control w-100"  (keydown.space)="$event.stopPropagation()" type="text"
+                        autocomplete="off" placeholder="search by code or name" [formControl]="drSearchControl">
+                      <mat-option  *ngFor="let item of drAccountHeadList" [value]="item.accountUUID">{{item.accountCode}} - {{item.nameEnglish}}</mat-option>
+                    </mat-select>
+                    <div  *ngIf="journalForm.get('journalDetails').get(i.toString()).get('drAccountUUID').hasError('required') && journalForm.get('journalDetails').get(i.toString()).get('drAccountUUID').touched">
+                    <small class="text-danger"> Dr Account  is required</small> 
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <mat-select placeholder="" class="w-100 form-control" formControlName="crAccountUUID">
+                      <input class="form-control w-100"  (keydown.space)="$event.stopPropagation()" type="text"
+                        autocomplete="off" placeholder="search by code or name" [formControl]="crSearchControl">
+                      <mat-option  *ngFor="let item of crAccountHeadList" [value]="item.accountUUID">{{item.accountCode}} - {{item.nameEnglish}}</mat-option>
+                    </mat-select>
+                    <div  *ngIf="journalForm.get('journalDetails').get(i.toString()).get('crAccountUUID').hasError('required') && journalForm.get('journalDetails').get(i.toString()).get('crAccountUUID').touched">
+                    <small class="text-danger">Cr  Account  is required</small> 
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <input class="form-control w-100" formControlName="amount" type="number" />
+                    <div  *ngIf="journalForm.get('journalDetails').get(i.toString()).get('amount').hasError('required') && journalForm.get('journalDetails').get(i.toString()).get('amount').touched">
+                      <small class="text-danger"> Amount is required</small> 
+                      </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <textarea class="form-control w-100" cols="30" rows="2" formControlName="description"></textarea>
+                  </div>
+                </td>
+                <td>
+                  <div class="col-md-12 m-bottom-40 text-center">
+                    <button class="manage-add-btn" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                      (click)="addRow()">
+                      <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                    <button class="manage-delete-btn" *ngIf="tableRows.controls.length>1" mat-mini-fab color="warn"
+                      aria-label="Example icon button with a menu icon" (click)="removeRow(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="manage-voucher text-center">
+          <button *hasClaim="['account_journal_create_journal','account_journal_edit_journal']" mat-raised-button class="btn-success" (click)="saveJournal()">
+            <mat-icon>save</mat-icon>
+            {{'COMMON.SAVE'|translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+
+

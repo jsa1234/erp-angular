@@ -1,0 +1,101 @@
+ <div class="modal-content1">
+  <div class="modal-header">
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <div class="col-md-9 col">
+        <h4 class="modal-title">
+          POS Printer Detail
+        </h4>
+      </div>
+      <div class="col-sm-auto col-auto ml-auto">
+        <button type="button" class="close" data-dismiss="modal" (click)="onCancel(null)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-shade" *ngIf="isLoading$| async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-dialog-content>
+    <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="posprinter-image text-center">
+              <img [src]="imagePath$ | async">
+              <h6>{{posPrinter?.nameEnglish}}</h6>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="posdetails-table table-responsive">
+              <table class="table table-bordered table-hover">
+                <tr>
+                  <th>Name</th>
+                  <td>{{posPrinter?.nameEnglish}}</td>
+                  <th>IP Address</th>
+                  <td>{{posPrinter?.ipAddress}}</td>
+                </tr>
+                <tr>
+                  <th>Port No</th>
+                  <td>{{posPrinter?.portNo}}</td>
+                  <th>Paper Width</th>
+                  <td>{{posPrinter?.paperWidth}}</td>
+                </tr>
+                <tr>
+                  <th>Model Name</th>
+                  <td>{{posPrinter?.modelName}}</td>
+                  <th>Serial No</th>
+                  <td>{{posPrinter?.serialNo}}</td>
+                </tr>
+                <tr>
+                  <th>Print Speed</th>
+                  <td>{{posPrinter?.printSpeed}}</td>
+                  <th>Have Battery</th>
+                  <td>
+                    <span class="badge "
+                    [ngClass]="{'badge-success': posPrinter?.haveBattery, 'badge-secondary': !posPrinter?.haveBattery}">
+                    {{posPrinter?.haveBattery?'YES':'NO'}}
+                  </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Has Bluetooth</th>
+                  <td>
+                    <span class="badge "
+                    [ngClass]="{'badge-success': posPrinter?.hasBluetooth, 'badge-secondary': !posPrinter?.hasBluetooth}">
+                    {{posPrinter?.hasBluetooth?'YES':'NO'}}
+                  </span>
+                  </td>
+                  <th>Has Wifi</th>
+                  <td>
+                    <span class="badge "
+                    [ngClass]="{'badge-success': posPrinter?.hasWifi, 'badge-secondary': !posPrinter?.hasWifi}">
+                    {{posPrinter?.hasWifi?'YES':'NO'}}
+                  </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Has Ethernet</th>
+                  <td>
+                    <span class="badge "
+                    [ngClass]="{'badge-success': posPrinter?.hasEthernet, 'badge-secondary': !posPrinter?.hasEthernet}">
+                    {{posPrinter?.hasEthernet?'YES':'NO'}}
+                  </span>
+                  </td>
+                  <th>Has USB</th>
+                  <td>
+                    <span class="badge "
+                    [ngClass]="{'badge-success': posPrinter?.hasUSB, 'badge-secondary': !posPrinter?.hasUSB}">
+                    {{posPrinter?.hasUSB?'YES':'NO'}}
+                  </span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </mat-dialog-content>
+</div>
+

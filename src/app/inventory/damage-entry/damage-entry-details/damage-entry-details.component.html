@@ -1,0 +1,106 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-md-auto col-sm-auto">
+        <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+          <h1><i class="icon19"></i> <span>{{'INVENTORY.DAMAGE_ENTRY.DAMAGE_ENTRY_DETAIL' | translate}}</span></h1>
+        </div>
+      </div>
+    </div>
+    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+      <div class="crumbs-sec">
+        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/inventory/damage-entry']" >{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</a> / <span>{{'INVENTORY.DAMAGE_ENTRY.DAMAGE_ENTRY_DETAIL' | translate}}</span>
+      </div>
+    </div>
+  </div>
+
+  <app-comapny-profile-heading [ProfileType]="1"></app-comapny-profile-heading>
+
+  <div class="row">
+    <div class="col-md-6">
+        <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translate.getSelectedLanguage()=='ar'}">
+            <table>
+                <tr>
+                    <th>{{'INVENTORY.DAMAGE_ENTRY.DOC_DATE' | translate}}</th>
+                    <td>{{damageEntry.docNo}}</td>
+                </tr>
+                <tr>
+                    <th>{{'INVENTORY.DAMAGE_ENTRY.DOC_NO' | translate}}</th>
+                    <td>{{damageEntry.docDate | customDate}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translate.getSelectedLanguage()=='ar'}">
+            <table>
+
+                <tr>
+                    <th>{{'INVENTORY.DAMAGE_ENTRY.GRAND_TOTAL' | translate}}</th>
+                    <td>{{damageEntry.netTotalAmount}}</td>
+                </tr>
+                <tr>
+                    <th>{{'INVENTORY.DAMAGE_ENTRY.REMARK' | translate}}</th>
+                    <td>{{damageEntry.remarks }} </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+  <div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>{{'COMMON.LINE_ITEMS' |translate}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead class="head">
+          <tr>
+            <td>{{'COMMON.#'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.BARCODE'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.PRODUCT_CODE'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.PRODUCT_NAME_ENGLISH'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.STOCK'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.DAMAGE_QUANTITY'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.UNIT_PRICE'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.UNIT_NAME'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.DESCRIPTION'|translate}}</td>
+            <td>{{'INVENTORY.DAMAGE_ENTRY.TOTAL'|translate}}</td>
+          </tr>
+      </thead>
+      <tbody >
+          <ng-container *ngIf="damageProductList?.length>0">
+          <tr *ngFor="let item of damageProductList;let last = last; let i=index">
+              <td>{{i+1}}</td>
+              <td>{{item.barcode}}</td>
+              <td>{{item.productCode}}</td>
+              <td>{{item.productNameEnglish}}</td>
+              <td>{{item?.stock}}</td>
+              <td>
+                  {{item.damageQuantity}}
+              </td>
+              <td>{{item.averageRate | number:'1.2-2'}}</td>
+              <td>{{item.unitNameEnglish}}</td>
+
+              <td>
+                {{item.description}}
+              </td>
+              <td>{{item.totalAmount | number:'1.2-2'}}</td>
+          </tr>
+      </ng-container>
+      <ng-container *ngIf="damageProductList?.length<=0">
+          <tr class="text-center">
+              <td colspan="13">
+                  NO DATA FOUND
+              </td>
+          </tr>
+      </ng-container>
+      </tbody>
+  </table>
+</div>

@@ -1,0 +1,53 @@
+.content-header h1 i {
+    display: list-item;
+    position: absolute;
+    padding-right: 18px;
+    background-color: #f58220 !important;
+  }
+  .content-header h1 span {
+    margin-left: 30px;
+  }
+
+  .total {
+    text-align: end;
+    border: 1px solid #dee2e6;
+    font-weight: bold;
+}
+
+.head {
+    background-color: #ececec;
+    text-align: center;
+}
+.invoivce-logoimg img {
+    width: 60%;
+}
+.invoice-detatables th {
+    text-align: left;
+    padding: 10px;
+    border: 0 !important;
+}
+.invoice-detatables-ar th {
+    text-align: right;
+}
+.invoice-detatables td {
+    text-align: left;
+    padding: 10px;
+    border: 0 !important;
+}
+.invoice-detatables-ar td {
+    text-align: right;
+}
+.invoice-detatables {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.invoice-detatable th, td {
+  background-color: #FFF;
+  border: 1px solid #d6d6d6;
+  padding: 10px;
+}
+.invoice-detatables th, td {
+  background-color: #FFF;
+  border: 1px solid #d6d6d6;
+  padding: 10px;
+}

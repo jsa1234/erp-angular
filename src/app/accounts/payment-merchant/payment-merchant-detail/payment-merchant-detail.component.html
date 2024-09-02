@@ -1,0 +1,126 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+      <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+              <h1>POS Merchant Account Details</h1>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="details-tables">
+  <div class="section-boxed">
+    <h5>Basic Details</h5>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="payment-pos-details-img text-center">
+          <img [src]="imagePath$ |async">
+        </div>
+      </div>
+      <div class="col-md-10 table-responsive">
+        <table class="table table-bordered table-hover">
+          <tr>
+            <th>Name</th>
+            <td>{{posMerchantAccount.nameEnglish}}</td>
+            <th>Payment Merchant Type</th>
+            <td>{{posMerchantAccount.posMerchantType}}</td>            
+          </tr>
+          <tr>
+            <th>Merchant Identification Number</th>
+            <td>{{posMerchantAccount.merchantIdentificationnumber}}</td>
+            <th>Terminal Identification Number</th>
+            <td>{{posMerchantAccount.terminalIdentificationNumber}}</td>            
+          </tr>
+          <tr>
+            <th>Portal Url</th>
+            <td>{{posMerchantAccount.portalUrl}}</td>
+            <th>Portal User Name</th>
+            <td>{{posMerchantAccount.portalUsername}}</td>
+          </tr>
+          <tr>
+            <th>Portal Password</th>
+            <td>{{posMerchantAccount.portalPassword}}</td>
+            <th>Device Count</th>
+            <td>{{posMerchantAccount.deviceCount}}</td>            
+          </tr>
+          <tr>
+            <th>Contact Person Name</th>
+            <td>{{posMerchantAccount.contactPersonName}}</td>
+            <th>Contact Person Phone</th>
+            <td>{{posMerchantAccount.contactPersonPhone}}</td>            
+          </tr>
+          <tr>
+            <th>Contact Person Email</th>
+            <td>{{posMerchantAccount.contactPersonEmail}}</td>
+            <th>Support Email</th>
+            <th>{{posMerchantAccount.supportEmail}}</th>
+          </tr>
+          <tr>
+            <th>Support Phone</th>
+            <td>{{posMerchantAccount.supportPhone}}</td>
+            <th></th>
+            <td></td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+    
+  </div>
+  <div class="section-boxed">
+    <h5>Bank Details</h5>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>Bank Name</th>
+        <th>Branch</th>
+        <th>Account Number</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of posMerchatAccountBanks">
+        <td>{{item.account.nameEnglish}}</td>
+        <td>{{item.account.namePrefixEnglish}}</td>
+        <td>{{item.account.accountNo}}</td>
+        <td class="text-center add-button-modal">
+          <button class="manage-add-btn" mat-mini-fab color="primary" (click)="openDetailDialog('merchantBank',item.account.accountUUID)">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section-boxed">
+    <h5>Device Details</h5>
+    <table class="table table-bordered table-hover">
+      <thead>
+      <tr>
+        <th>Manufacture</th>
+        <th>Model No</th>
+        <th>Device ID</th>
+        <th>Bank</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let device of posMerchatAccountDevices">
+        <td>{{device?.brandName}}</td>
+        <td>{{device?.deviceModel}}</td>
+        <td>{{device?.serialNo}}</td>
+        <td>
+          <ng-container *ngFor="let item of device?.posMerchantDeviceBanks">
+            {{item?.account.nameEnglish}}
+          </ng-container>
+        </td>
+        <td class="text-center add-button-modal">
+          <button class="manage-add-btn" mat-mini-fab color="primary" (click)="openDetailDialog('merchantDevice',device.posDeviceUUID)">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

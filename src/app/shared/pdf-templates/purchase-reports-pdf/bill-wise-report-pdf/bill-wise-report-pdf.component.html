@@ -1,0 +1,79 @@
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="purchaseReport">
+
+
+            <div style="margin: auto auto;width: 100%;background: #FFF;">
+                <div>
+                    <h2 style="text-align: center;font-size: 16px;margin: 3px 0 0 0;font-family: 'Poppins', sans-serif;margin-bottom: 20px;">Purchase Bill Wise Report</h2>
+                </div>
+
+            <table style="width: 100%;border-collapse: collapse;margin-top: 3px;font-family: 'Poppins', sans-serif;">
+                <tr>
+                    <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                </tr>
+                <tr>
+                    <td style="text-align: center;font-size: 12px;border: 1px solid #ddd;padding: 20px 5px;line-height: .5;">
+                        Bill WISE PURCHASE REPORT FOR THE PERIOD <b>{{billWiseReportDetails?.fromDate | customDate}}</b> TO <b>{{billWiseReportDetails?.toDate | customDate}}</b>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="width: 100%;border-collapse: collapse;font-family: 'Poppins', sans-serif;">
+                <thead>
+                    <tr style="background-color: #ececec;">
+                        <ng-container *ngFor="let item of columns">
+                        <th style="font-size: 12px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;border-left: 0;border-right: 0;padding: 3px;" [style.text-align]="item.key === 'netTotal' ? 'right' : 'center'" *ngIf="columnVisibility[item.key]">{{item.name |translate}}</th>
+                      </ng-container>
+                      </tr>
+                </thead>
+               <tbody>
+                <tr *ngFor="let item of billWiseReportList; let i = index">
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" >{{i+1}}</td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['docNo']">{{item.docNo}}</td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['docDate']">{{item.docDate | customDate}}</td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['refBillNo']">{{item.refBillNo}}</td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['refBillDate']">{{item.refBillDate | customDate}}</td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['supplierName']">{{translate.getSelectedLanguage()=='en'?item.supplier.nameEnglish:item.supplier.nameSecondLanguage}}</td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['gstNo']">{{item.supplier.gstVatNo}}</td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['subTotal']" [innerHTML]="item.subTotal | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['discount']" [innerHTML]="item.discountAmount | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['taxableAmount']" [innerHTML]="item.grossAmount | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['cgst']" [innerHTML]="item.cgstAmount | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['sgst']" [innerHTML]="item.sgstAmount | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['igst']" [innerHTML]="item.igstAmount | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['totalGST']" [innerHTML]="(item.cgstAmount + item.sgstAmount + item.igstAmount) | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['cess']" [innerHTML]="item.cessAmount | customCurrency"></td>
+                  <td style="text-align: center;font-size: 12px;padding: 3px;" *ngIf="columnVisibility['additionalCess']" [innerHTML]="item.addnlCessAmount | customCurrency"></td>
+                  <td style="text-align: right;font-size:  12px;padding: 3px;" *ngIf="columnVisibility['netTotal']" [innerHTML]="item.roundedNetTotalAmount | customCurrency"></td>
+                </tr>
+              </tbody>
+                <tfoot>
+                    <tr>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;"  >TOTAL</td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;"   *ngIf="columnVisibility['docNo']"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;"  *ngIf="columnVisibility['docDate']"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;"  *ngIf="columnVisibility['refBillNo']"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;"  *ngIf="columnVisibility['refBillDate']"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;"  *ngIf="columnVisibility['supplierName']"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;"  *ngIf="columnVisibility['gstNo']"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['subTotal']" [innerHTML]="billWiseReportDetails?.subTotal | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['discount']" [innerHTML]="billWiseReportDetails?.discountTotal | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['taxableAmount']" [innerHTML]="billWiseReportDetails?.grossAmountTotal | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['cgst']" [innerHTML]="billWiseReportDetails?.cgstTotalAmount | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['sgst']" [innerHTML]="billWiseReportDetails?.sgstTotalAmount | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['igst']" [innerHTML]="billWiseReportDetails?.igstTotalAmount | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['totalGST']" [innerHTML]="(billWiseReportDetails?.cgstTotalAmount + billWiseReportDetails?.sgstTotalAmount + billWiseReportDetails?.igstTotalAmount) | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['cess']" [innerHTML]="billWiseReportDetails?.cessTotalAmount | customCurrency"></td>
+                      <td style="text-align: center;font-size: 15px;border: 1px solid #ddd;padding: 3px;" *ngIf="columnVisibility['additionalCess']" [innerHTML]="billWiseReportDetails?.addnlCessTotalAmount | customCurrency"></td>
+                      <td  style="text-align: right;font-size: 15px;border: 1px solid #ddd;padding: 3px;"  *ngIf="columnVisibility['netTotal']" [innerHTML]="billWiseReportDetails?.totalAmount | customCurrency"></td>
+                    </tr>
+                  </tfoot>
+            </table>
+        </div>
+
+
+        </div>
+    </div>
+</div>
+

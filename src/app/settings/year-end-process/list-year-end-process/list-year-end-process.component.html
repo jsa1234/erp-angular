@@ -1,0 +1,64 @@
+    <div class="page-header-main">
+      <div class="row align-items-center justify-content-between">
+          <div class="col-md-auto col-sm-auto">
+              <div class="content-header">
+                <h1><i class="icon51"></i> <span>{{'SIDEBAR.YEAR_END_PROCESS'|translate}}</span></h1>
+              </div>
+          </div>
+      </div>
+      <div class="breadcrump-pages">
+        <div class="crumbs-sec">
+          <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.YEAR_END_PROCESS'|translate}}     </span>
+        </div>
+      </div>
+    </div>
+    <div class="Year-end-button">
+      <button *ngIf="financialYearInfo.status==0" (click)="allDeviceFyClose()">{{'SETTINGS.YEAR_END_PROCESS.PROCESS'|translate}}  ({{currentFinancialYear?.year}})</button>
+    </div>
+    <div *ngIf="showTable" class="financial-table table-responsive">
+      <table mat-table [dataSource]="allDeviceFinancialYear" class="table table-bordered table-hover grid-height"  >
+
+
+        <ng-container matColumnDef="#">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef >{{'COMMON.#'|translate}}</th>
+          <td class="table-column-100" mat-cell *matCellDef="let data; let i=index">  {{i+1}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="code">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'SETTINGS.YEAR_END_PROCESS.CODE'|translate}} </th>
+          <td class="table-column-100" mat-cell *matCellDef="let data"> {{data?.device?.deviceCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deviceName">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'SETTINGS.YEAR_END_PROCESS.DEVICE_NAME'|translate}} </th>
+          <td class="table-column-100" mat-cell *matCellDef="let data"> {{ translate.getSelectedLanguage()=='en'?data?.device?.nameEnglish:data?.device?.nameSecondLanguage}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'SETTINGS.YEAR_END_PROCESS.STATUS'|translate}} </th>
+          <td class="table-column-100" mat-cell *matCellDef="let data"> {{data.status | enumKeyToValue}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th class="table-column-100 text-center" mat-header-cell *matHeaderCellDef mat-sort-header> {{'SETTINGS.YEAR_END_PROCESS.ACTION'|translate}} </th>
+          <td class="table-column-100" mat-cell *matCellDef="let data">
+            <button class="approve-btn"  *ngIf="data.status==yearEndProcessEnum.FY_PROCESS_READY" (click)="approveDeviceFinancialYearEndProcess(data?.deviceUUID,data?.financialYearUUID)"><mat-icon>check_circle</mat-icon> {{'COMMON.APPROVE'| translate}}</button>
+            <button class="views-btn" *ngIf="data.status==yearEndProcessEnum.IN_PROGRESS" [routerLink]="['/settings/year-end-process/view',data?.deviceUUID,data?.financialYearUUID]">{{'COMMON.VIEW' | translate}}</button>
+          </td>
+        </ng-container>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+            {{'COMMON.NO_DATA_FOUND'|translate}}
+          </td>
+        </tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+      </table>
+    </div>
+
+    <div class="Year-end-button" *ngIf="areAllStatusesSuccess()">
+        <button (click)="activateNewFinancialYear()">
+          {{'SETTINGS.YEAR_END_PROCESS.FINISH_FINANCIAL_YEAR' |translate}}</button>
+      </div>
+

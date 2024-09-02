@@ -1,0 +1,100 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header svg-icons">
+                <h1><i class="icon57"></i> <span>Branch Details</span> </h1>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrump-pages">
+        <div class="crumbs-sec">
+            <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
+                [routerLink]="['/branch']">{{'SIDEBAR.BRANCH' | translate}}</a> / <span>Branch Details</span>
+        </div>
+    </div>
+</div>
+
+<div class="section-boxed">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="product-detail-img text-center">
+                <img [src]="imagePath$ | async">
+                <h6>{{branch?.nameEnglish}}</h6>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="branch-table table-responsive">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>{{'BRANCH.BRANCH_TYPE'|translate}}</th>
+                        <td>{{getBranchTypeString(branch.branchType)}}  </td>
+                        <th>{{'BRANCH.HEAD_OFFICE' | translate}}</th>
+                        <td>
+                            <span class="badge "
+                                [ngClass]="{'badge-success': branch.isHeadOffice, 'badge-secondary': !branch.isHeadOffice}">
+                                {{branch.isHeadOffice?'YES':'NO'}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>GST No</th>
+                        <td>{{branch.gstVatNo}}</td>
+                        <th>Mobile No</th>
+                        <td>{{branch.mobileCountryCode}} {{branch.mobileNo}}</td>
+
+                    </tr>
+                    <tr>
+                        <th>Phone No</th>
+                        <td>{{branch.phoneCountryCode}} {{branch.phoneNo}}</td>
+                        <th>Email</th>
+                        <td>{{branch.email}}</td>
+
+                    </tr>
+                    <tr>
+                        <th>Website</th>
+                        <td>{{branch.website}}</td>
+                        <th>Building No</th>
+                        <td>{{branch.buildingNoEnglish}}</td>
+
+                    </tr>
+                    <tr>
+                        <th>Street</th>
+                        <td>{{branch.streetEnglish}}</td>
+                        <th>Place</th>
+                        <td>{{branch.placeEnglish}}</td>
+                    </tr>
+                    <tr>
+                        <th>District</th>
+                        <td>{{branch.districtEnglish}}</td>
+                        <th>State</th>
+                        <td>{{branch.stateEnglish}}</td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td>{{branch.countryEnglish}}</td>
+                        <th>Zip Code</th>
+                        <td>{{branch.zipCodeEnglish}}</td>
+                    </tr>
+                    <tr>
+                        <th>TIN No</th>
+                        <td>{{branch.registrationNo}}</td>
+                        <th>PIN No</th>
+                        <td>{{branch.additionalNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>FSSAI No</th>
+                        <td>{{branch.fssaiNumber}}</td>
+                        <th>Start Date</th>
+                        <td>{{branch.startDate | customDate}}</td>
+                    </tr>
+                    <tr>
+                        <th>Installation Date</th>
+                        <td>{{branch.installationDate | customDate}}</td>
+                        <th>Renewal date</th>
+                        <td>{{branch.renewalDate | customDate}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

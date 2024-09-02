@@ -1,0 +1,25 @@
+.main-footer {
+    padding: 5px 10px;
+    font-size: 13px;
+    position: absolute;
+    width: calc(100% - 240px);
+    bottom: 0;
+    margin-left: -30px;
+    background-color: #f58220;
+    color: #FFF;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.copy-right {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+@media (min-width: 150px) and (max-width: 600px) {
+    .main-footer {
+        display: none;
+    }
+}

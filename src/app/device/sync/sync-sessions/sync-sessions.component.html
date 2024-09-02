@@ -1,0 +1,60 @@
+<table mat-table [dataSource]="dataSource" class="table table-bordered table-hover grid-height">
+    <ng-container matColumnDef="#">
+      <th class="text-center" mat-header-cell *matHeaderCellDef>{{'COMMON.#' | translate}}</th>
+      <td class="text-center" mat-cell *matCellDef="let syncSessions; let i=index">{{i+1+syncSessionsResource.skip}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="session">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.SESSION' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncSessions"> {{syncSessions.session}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.TYPE' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncSessions"> {{syncSessions.type}} </td>
+    </ng-container>
+    <ng-container matColumnDef="table">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.TABLE' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncSessions"> {{syncSessions.tableName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.ACTION' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncSessions"> {{syncSessions.action}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.STATUS' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncSessions">  {{syncSessions.status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="startedOn">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.STARTED_ON' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncSessions"> {{syncSessions.startedOn | date:'dd-MM-yyyy, h:mm:ss a zzzz'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="completeFailedOn">
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef>{{'DEVICE.SYNC_SESSION_AND_LOG.COMPLETE_OR_FAILED_ON' | translate}}</th>
+      <td class="table-column-100" mat-cell *matCellDef="let syncSessions"> {{syncSessions.completedOrFailedOn | date:'dd-MM-yyyy, h:mm:ss a zzzz'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="footer">
+      <td mat-footer-cell colspan="8" *matFooterCellDef>
+        <mat-paginator [length]="syncSessionsResource.totalCount" [pageSize]="syncSessionsResource.pageSize"  [pageSizeOptions]="[10, 25, 50,100]">
+        </mat-paginator>
+      </td>
+    </ng-container>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+          {{'COMMON.NO_DATA_FOUND' | translate}}
+      </td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+  </table>
+
+  <div class="loading-shade" *ngIf="dataSource?.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>

@@ -1,0 +1,110 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto col">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon18"></i> <span>{{'SIDEBAR.OPENING_STOCK' | translate}}</span></h1>
+      </div>
+    </div>
+    <div class="col-md-auto col-sm-auto" *ngIf="openingStocks.length>0">
+      <button class="btn blue-btn btn-sm m-right-10" 
+        [routerLink]="" (click)="updateOpeningStock()">
+        Update Stock
+      </button>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.OPENING_STOCK' | translate}}</span>
+    </div>
+  </div>
+</div>
+<div class="loading-shade" *ngIf="isLoading$">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="searchForm" (ngSubmit)="getOpeningStocks()">
+<div class="filter-sec mb-4">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+
+
+        <div class="col-md-6">
+          <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" [isAddAll]="false"></app-branch-dropdown>
+       </div>
+
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="filter-search">
+        <button type="submit" class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+
+      <div class="stockitem-table">
+
+        <table>
+          <thead>
+            <tr>
+              <th>{{'PRODUCT.CODE'| translate}}</th>
+              <th>{{'INVENTORY.OPENING_STOCK.NAME'| translate}}</th>
+              <th>{{'COMMON.CATEGORY' | translate}}</th>
+              <th>{{'COMMON.SUBCATEGORY' | translate}}</th>
+              <th>{{'COMMON.BRAND' | translate}}</th>
+              <th>{{'INVENTORY.OPENING_STOCK.STOCK'| translate}}</th>
+              <th>{{'INVENTORY.OPENING_STOCK.STOCK_UNIT'| translate}}</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let item of openingStocks; let j=index">
+            <tr style="background-color: #d0d0d0;">
+              <td>{{item.productCode}}
+                <!-- <input class="myClass" type="text" disabled> -->
+              </td>
+              <td>{{translationService.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</td>
+              <td>{{translationService.getSelectedLanguage()=='en'?item.productCategory?.nameEnglish:item.productCategory?.nameSecondLanguage}}</td>
+              <td>{{translationService.getSelectedLanguage()=='en'?item.productSubCategory?.nameEnglish:item.productSubCategory?.nameSecondLanguage}} </td>
+              <td>{{translationService.getSelectedLanguage()=='en'?item.brand?.nameEnglish:item.brand?.nameSecondLanguage}} </td>
+              <td>{{item.stock}}</td>
+              <td>{{translationService.getSelectedLanguage()=='en'?item.baseUnitNameEnglish:item.baseUnitNameArabic}}</td>
+            </tr>
+            <tr>
+              <td colspan="7" style="background-color: #d0d0d0;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{'PRODUCT.BARCODE'| translate}}</th>
+                      <th>{{'COMMON.UNIT'| translate}}</th>
+                      <th>{{'INVENTORY.OPENING_STOCK.STOCK'| translate}}</th>
+                      <th>{{'PRODUCT.UNIT_COST'| translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr colspan="7" *ngFor="let stock of item.openingStockProductDetails; let i=index">
+                      <td>{{stock.barcode}}</td>
+                      <td>{{translationService.getSelectedLanguage()=='en'?stock.unitNameEnglish:stock.unitNameArabic}}</td>
+                      <td class="w-20">
+                        <input placeholder=""  [(ngModel)]="stock.quantity" type="text" class="form-control">
+                      </td>
+                      <td>{{stock.ItemValue}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot  *ngIf="openingStocks.length === 0">
+            <tr>
+              <td colspan="7"><label class="font-weight-bold"> {{'COMMON.NO_DATA_FOUND' | translate}}</label></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

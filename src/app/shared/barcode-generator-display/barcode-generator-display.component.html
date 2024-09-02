@@ -1,0 +1,52 @@
+
+  <div class="section-boxed">
+    <div class="barcode-list-head">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Barcode Preview</h2>
+        </div>
+        <div class="col-md-6 text-right">
+          <div class="barpreview-btn  ">
+            <button [disabled]="isVariantBarcodeImagesPdfEmpty()" class="btn" type="submit" (click)="clear()">Clear
+              All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-boxed barcode-list-box">
+    <div class="barcode-profile-det">
+
+
+      <div *ngFor="let variant of productVariantsPdf">
+        <div *ngIf="variantBarcodeImagesPdf && variantBarcodeImagesPdf[variant.unit.nameEnglish]">
+          <h1 *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish]">{{variant.unit.nameEnglish}}</h1>
+          <div *ngFor="let row of variantBarcodeImagesPdf[variant.unit.nameEnglish].images let rowIndex = index">
+            <div class="row">
+              <div class="barcode" *ngFor="let image of row  let columnIndex = index">
+                <p *ngIf="isConfigEnabledPrint('company',variant.unit.nameEnglish)">company Name</p>
+                <p *ngIf="isConfigEnabledPrint('manufacture',variant.unit.nameEnglish)">Manufacture</p>
+                <img [src]="image" alt="Barcode">
+                <span (click)="deleteBarcodeImage(variant.unit.nameEnglish, rowIndex, columnIndex)">
+                  <mat-icon>delete</mat-icon>
+                </span>
+                <p *ngIf="isConfigEnabledPrint('mrp',variant.unit.nameEnglish)">MRP</p>
+                <p *ngIf="isConfigEnabledPrint('Exp.Date',variant.unit.nameEnglish)">Exp Date</p>
+                <p *ngIf="isConfigEnabledPrint('Mfg.Date',variant.unit.nameEnglish)">Mfg Date</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="isVariantBarcodeImagesPdfEmpty()">
+        currently no barcode available, please generate
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="barcode-btn text-center">
+    <button class="btn" [disabled]="isVariantBarcodeImagesPdfEmpty()" type="submit" (click)="printBarcode()">Print
+      Barcode</button>
+  </div>

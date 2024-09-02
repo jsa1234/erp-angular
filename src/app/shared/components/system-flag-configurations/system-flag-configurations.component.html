@@ -1,0 +1,52 @@
+<div class="section-boxed">
+    <div class="row">
+      <div class="col-md-3" *ngFor="let config of companyConfigurations; let i = index">
+        <div class="form-group">
+          <ng-container [ngSwitch]="config.systemFlag.controlType">
+            <ng-container *ngSwitchCase="controlType.CHECKBOX">
+              <mat-slide-toggle class="w-100" [checked]="config.value === 'TRUE'" (change)="onToggleChange(config)">
+                {{ config.systemFlag.label }}
+              </mat-slide-toggle>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="controlType.SELECT">
+              <mat-label>{{ config.systemFlag.label }}</mat-label>
+              <mat-select [(ngModel)]="config.value" class="w-100 form-control">
+                <mat-option *ngFor="let option of config.systemFlag.valueList.split(',')" [value]="option.trim()">{{ option.trim() }}</mat-option>
+              </mat-select>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="controlType.TEXTAREA">
+              <mat-label>{{ config.systemFlag.label }}</mat-label>
+              <textarea matInput [(ngModel)]="config.value" class="w-100 form-control" rows="3"></textarea>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="controlType.TEXTFIELD">
+              <mat-label>{{ config.systemFlag.label }}</mat-label>
+              <input matInput [(ngModel)]="config.value" class="w-100 form-control">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="controlType.NUMBER">
+              <mat-label>{{ config.systemFlag.label }}</mat-label>
+              <input matInput type="number" [(ngModel)]="config.value" class="w-100 form-control">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="controlType.EMAIL">
+              <mat-label>{{ config.systemFlag.label }}</mat-label>
+              <input matInput type="email" [(ngModel)]="config.value" class="w-100 form-control">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="controlType.PASSWORD">
+              <mat-label>{{ config.systemFlag.label }}</mat-label>
+              <input matInput type="password" [(ngModel)]="config.value" class="w-100 form-control">
+            </ng-container>            
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="m-top-10 m-bottom-40 text-center dconfic-btns">
+      <button *hasClaim="['branch_branch_update_branch_configurations']" type="submit" class="btn btn-success btn-sm m-right-10 m-left-10" (click)="save()">
+        <i class="fas fa-save"></i> {{ 'COMMON.SAVE' | translate }}
+      </button>
+    </div>
+  </div>

@@ -1,0 +1,6 @@
+<ng-container *ngIf="saleReturn.saleReturnType == 1" >
+    <app-detailed-sale-return></app-detailed-sale-return> 
+</ng-container>
+<ng-container *ngIf="saleReturn.saleReturnType == 0" >
+    <app-simplified-sale-return [saleReturn]="saleReturn"></app-simplified-sale-return>
+</ng-container>

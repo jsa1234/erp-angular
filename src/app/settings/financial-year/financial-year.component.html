@@ -1,0 +1,48 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+      <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+              <h1><i class="icon50"></i> <span>{{'SIDEBAR.FINANCIAL_YEAR' | translate}}</span></h1>
+          </div>
+      </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.FINANCIAL_YEAR' | translate}}</span>
+    </div>
+  </div>
+</div>
+<div class="financial-table table-responsive">
+  <table>
+    <thead>
+      <tr>
+        <th> {{'SETTINGS.FINANCIAL_YEAR.NAME' | translate}}</th>
+        <th>  {{'SETTINGS.FINANCIAL_YEAR.START_DATE' | translate}}</th>
+        <th>  {{'SETTINGS.FINANCIAL_YEAR.END_DATE' | translate}}</th>
+        <th> {{'SETTINGS.FINANCIAL_YEAR.STATUS' | translate}}</th>
+        <th class="text-center"> {{'COMMON.ACTION' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of financialYearDataList">
+        <td>{{translate.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</td>
+        <td>{{item.startDate | customDate}}</td>
+        <td>{{item.endDate | customDate}}</td>
+        <td>{{item.status | enumKeyToValue}}</td>
+        <td>
+          <button *ngIf="currentFinancialYearUuid !=item.financialYearUUID" (click)="switchFY(item.financialYearUUID)" class="switch-fy" role="button">Switch FY</button>
+        </td>
+      </tr>
+      <tr *ngIf="financialYearDataList?.length<=0" class="text-center">
+        <td colspan="4">{{'COMMON.NO_DATA_FOUND' | translate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<ng-container *ngIf="isLoading$">
+  <div class="loading-shade" >
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-container>

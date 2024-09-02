@@ -1,0 +1,47 @@
+import { ICustomerAccount } from "@core/domain-classes/customer-account";
+import { IProduct, Product } from "@core/domain-classes/product";
+import { Unit } from "@core/domain-classes/unit";
+
+export class SalesInvoiceItemReportlist{
+    addnlCessAmount:       number;
+    addnlCessRate:         number;
+    amount:                number;
+    branchId:              number;
+    branchUUID:            string;
+    cessAmount:            number;
+    cessRate:              number;
+    cgstAmount:            number;
+    cgsTRate:              number;
+    clientObject:          ICustomerAccount;
+    deviceId:              number;
+    deviceUUID:            string;
+    discountAmount:        number;
+    discountRate:          number;
+    docDate:               Date;
+    docNo:                 string;
+    igstAmount:            number;
+    igstRate:              number;
+    itemTotalAmount:       number;
+    product:               string;
+    productObject:         IProduct;
+    productUUID:           string;
+    quantity:              number;
+    refInvDate:            Date;
+    refInvNo:              string;
+    saleInvoiceDetailId:   number;
+    saleInvoiceDetailUUID: string;
+    saleInvoiceId:         number;
+    saleInvoiceUUID:       string;
+    sgstAmount:            number;
+    sgstRate:              number;
+    subTotal:              number;
+    unit:                  string;
+    transactionModeText:   string;
+    transactionMode:   number;
+    unitObject:            Unit;
+    unitPrice:             number;
+    unitUUID:              string;
+    vatAmount:             number;
+    vatRate:               number;
+    grossAmount:           number;
+}

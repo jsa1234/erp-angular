@@ -1,0 +1,100 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons">
+        <h1><i class="icon51"></i> <span>{{'SETTINGS.YEAR_END_PROCESS.VIEW.YEAR_END_PROCESS_VIEW'|translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> /<a [routerLink]="['/settings/year-end-process']" >{{'SIDEBAR.YEAR_END_PROCESS'|translate}}</a> / <span>{{'SETTINGS.YEAR_END_PROCESS.VIEW.YEAR_END_PROCESS_VIEW'|translate}}</span>
+    </div>
+  </div>
+</div>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="{{'SETTINGS.YEAR_END_PROCESS.VIEW.ACCOUNT'|translate}}">
+    <div class="financial-table table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="text-center">{{'COMMON.#'|translate}}</th>
+          <th rowspan="2">{{'SETTINGS.YEAR_END_PROCESS.VIEW.ACCOUNT_CODE'|translate}}</th>
+          <th rowspan="2">{{'SETTINGS.YEAR_END_PROCESS.VIEW.ACCOUNT_NAME'|translate}}</th>
+          <th colspan="2" class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.CLOUD'|translate}}</th>
+          <th colspan="2" class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.DEVICE'|translate}}</th>
+        </tr>
+        <tr>
+          <th class="text-center" >{{'SETTINGS.YEAR_END_PROCESS.VIEW.OPENING'|translate}}</th>
+          <th class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.CLOSING'|translate}}</th>
+          <th class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.OPENING'|translate}}</th>
+          <th class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.CLOSING'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of financialYearClosingDataList.financialYearAccounts; let i=index">
+          <td>{{i+1}}</td>
+          <td>{{item.accountCode}}</td>
+          <td>{{translate.getSelectedLanguage()=='en'?item.accountNameEnglish:item.accountNameArabic}}</td>
+          <td>{{item.serverOpeningBalance}}</td>
+          <td>{{item.serverClosingBalance}}</td>
+          <td class="text-center">
+            <input type="number" class="no-spinner " [(ngModel)]="item.deviceOpeningBalance" name="deviceOpeningBalance{{ i }}" [class.highlight]="errorValues.includes(item.deviceOpeningBalance) && item.highlight" appDecimalOnly>
+          </td>
+          <td class="text-center">
+            <input type="number" class="no-spinner " [(ngModel)]="item.deviceClosingBalance" name="deviceClosingBalance{{ i }}" [class.highlight]="errorValues.includes(item.deviceClosingBalance) && item.highlight" appDecimalOnly>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </mat-tab>
+  <mat-tab label="{{'SETTINGS.YEAR_END_PROCESS.VIEW.STOCK'|translate}}">
+    <ng-container *ngFor="let item of financialYearClosingDataList.financialYearStocks">
+    <div class="financial-table table-responsive">
+      <table>
+        <tr>
+          <th colspan="3">{{translate.getSelectedLanguage()=='en'?item.productNameEnglish:item.productNameArabic}}</th>
+        </tr>
+        <tr>
+          <td>{{translate.getSelectedLanguage()=='en'?item.categoryEnglish:item.categoryArabic}}</td>
+          <td>{{translate.getSelectedLanguage()=='en'?item.subCategoryEnglish:item.subCategoryArabic}}</td>
+          <td>{{translate.getSelectedLanguage()=='en'?item.brandEnglish:item.brandArabic}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="financial-table table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2" class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.UNIT'|translate}}</th>
+            <th colspan="2" class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.CLOUD'|translate}}</th>
+            <th colspan="2" class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.DEVICE'|translate}}</th>
+          </tr>
+          <tr>
+            <th class="text-center" >{{'SETTINGS.YEAR_END_PROCESS.VIEW.OPENING'|translate}}</th>
+            <th class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.CLOSING'|translate}}</th>
+            <th class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.OPENING'|translate}}</th>
+            <th class="text-center">{{'SETTINGS.YEAR_END_PROCESS.VIEW.CLOSING'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of item.productPrices">
+            <td>{{translate.getSelectedLanguage()=='en'?item.unitNameEnglish:item.unitNameArabic}}</td>
+            <td>{{item.serverOpeningBalance}}</td>
+            <td>{{item.serverClosingBalance}}</td>
+            <td>{{item.deviceOpeningBalance}}</td>
+            <td>{{item.deviceClosingBalance}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  </mat-tab>
+</mat-tab-group>
+<div class="yep-view-btn">
+<button (click)="confirmToSave()">{{'COMMON.SAVE' | translate}}</button>
+</div>
+<div class="loading-shade" *ngIf="isLoading$">
+  <mat-spinner></mat-spinner>
+</div>

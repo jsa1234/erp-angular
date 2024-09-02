@@ -1,0 +1,183 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons">
+        <h1><i class="icon21"></i> <span>Sales Order</span> </h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">Dashboard</a> / <span>Sales Order</span>
+    </div>
+  </div>
+</div>
+
+<div class="loading-shade" *ngIf="(dataSource.loading$ | async) ||isLoading$">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  <div class="filter-sec mb-4">
+    <div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-3">
+            <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+         </div>
+         <div class="col-md-3">
+            <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"></app-device-dropdown>
+         </div>
+          <div class="col-md-3">
+            <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+          </div>
+          <div class="col-md-3">
+            <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="filter-search">
+        <button type="submit"  class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows
+        class="table table-bordered table-hover grid-height" >
+
+        <ng-container matColumnDef="action">
+          <th class="table-column-80" mat-header-cell *matHeaderCellDef>
+          </th>
+          <td class="table-column-80" mat-cell *matCellDef="let so">
+            <ng-container *hasClaim="'sale_sale_order_list_sale_order_items'">
+            <i  class="fas fa-chevron-right btn" *ngIf="so != expandedElement" (click)="toggleRow(so)"></i>
+            <i  class="fas fa-chevron-down btn" *ngIf="so == expandedElement" (click)="toggleRow(so)"></i>
+          </ng-container>
+                <button *hasClaim="['sale_sale_order_view_sale_order']" class="ml-4"
+              mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button *hasClaim="'sale_sale_order_view_sale_order'"  mat-menu-item
+                [routerLink]="['/sale-order/detail/', so.saleOrderUUID]">
+                <mat-icon>info</mat-icon>
+                <span>{{'COMMON.DETAIL' | translate}}</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderNumber">
+          <th class="table-column-150" mat-header-cell *matHeaderCellDef >Order Number</th>
+          <td class="table-column-150" mat-cell *matCellDef="let so"> {{so.docNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate">
+          <th class="table-column-80" mat-header-cell *matHeaderCellDef >Order Date</th>
+          <td class="table-column-80" mat-cell *matCellDef="let so"> {{so.docDate | customDate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="orderStatus">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef >Order Status</th>
+          <td class="table-column-100" mat-cell *matCellDef="let so">
+            <h6>
+              <span class="badge badge-pill text-white p-2" [appOrderStatus]="so.orderStatus"></span>
+            </h6>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="customer">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef > Customer</th>
+          <td class="table-column-100" mat-cell *matCellDef="let so"> {{so?.clientObject?.nameEnglish}} </td>
+        </ng-container>
+        <ng-container matColumnDef="total">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef >Total</th>
+          <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.roundedNetTotalAmount}} </td>
+        </ng-container>
+        <ng-container matColumnDef="createdUser">
+          <th class="table-column-100" mat-header-cell *matHeaderCellDef >Created User</th>
+          <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.createdUser?.firstName}} {{so.createdUser?.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action-search">
+          <th mat-header-cell *matHeaderCellDef> </th>
+        </ng-container>
+        <form [formGroup]="filterForm">
+        <ng-container matColumnDef="orderNumber-search">
+          <th mat-header-cell *matHeaderCellDef>
+            <input class="form-control" placeholder="Sale Order No" formControlName="docNo">
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="orderDate-search">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="filterDate col-md-12">
+              <date-input [group]="filterForm" [controlName]="'docDate'" [label]="''" [isShowLabel]="false" [isDefaultDate]="false"></date-input>
+            </div>
+            <button class="dateRemove" mat-icon-button color="warn" (click)="removeDate()" *ngIf ="filterForm.get('docDate').value">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </th>
+        </ng-container>
+      </form>
+
+      <ng-container matColumnDef="orderStatus-search">
+        <th mat-header-cell *matHeaderCellDef> </th>
+      </ng-container>
+
+        <ng-container matColumnDef="customer-search">
+          <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
+        <ng-container matColumnDef="total-search">
+          <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
+        <ng-container matColumnDef="createdUser-search">
+          <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
+
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+              {{'COMMON.NO_DATA_FOUND' | translate}}
+          </td>
+        </tr>
+
+        <ng-container matColumnDef="footer">
+          <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>
+            <mat-paginator [length]="saleOrderResource.totalCount" [pageSize]="saleOrderResource.pageSize"
+              [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+            </mat-paginator>
+          </td>
+        </ng-container>
+        <ng-container *hasClaim="'sale_sale_order_list_sale_order_items'" >
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let soObject" [attr.colspan]="displayedColumns.length">
+            <ng-container *ngIf="soObject == expandedElement">
+              <div class="example-element-detail"
+                [@detailExpand]="soObject == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="inner-table mat-elevation-z8">
+                  <app-sale-order-items [saleOrderUUID]="soObject.saleOrderUUID">
+                  </app-sale-order-items>
+                </div>
+              </div>
+            </ng-container>
+          </td>
+        </ng-container>
+      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true">
+        <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+        <ng-container *hasClaim="'sale_sale_order_list_sale_order_items'">
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </ng-container>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,82 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons"
+        [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon49"></i> <span>{{'DEVICE.SYNC' | translate}}</span> </h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'DEVICE.SYNC' | translate}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="device-details-sync">
+  <table>
+    <tr>
+      <td>{{'DEVICE.NAME_ENGLISH' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.nameEnglish}}</th>
+      <!-- <td>{{'DEVICE.NAME_ARABIC' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.nameSecondLanguage}}</th> -->
+      <td>{{'DEVICE.DEVICE_TYPE' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.deviceTypeText}}</th>
+    </tr>
+    <tr>
+      <td>{{'DEVICE.MODEL_NUMBER' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.modelNo}}</th>
+      <td>{{'DEVICE.DEVICE_IDENTIFIER' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.deviceIdentifier}}</th>
+      <td>{{'DEVICE.DEVICE_STATUS' | translate}}</td>
+      <td>:</td>
+      <th>
+        <h5>
+          <span class="badge text-light" 
+          [ngClass]="{'badge-success':deviceDetail.actStatus===deviceActivationStatus.ACTIVATED,
+                      'badge-warning':deviceDetail.actStatus===deviceActivationStatus.PENDING,
+                      'badge-danger':deviceDetail.actStatus===deviceActivationStatus.DEACTIVATED,
+                      'badge-primary':deviceDetail.actStatus===deviceActivationStatus.READYFORACTIVATE}">
+            {{deviceDetail.deviceStatusText}}
+          </span>
+        </h5>
+      </th>
+    </tr>
+    <tr>
+      <td>{{'DEVICE.INSTALLATION_DATE' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.installationDate | date:'dd-MM-yyyy, h:mm:ss a zzzz'}}</th>
+      <td>{{'DEVICE.ACTIVATION_DATE' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.actDate | date:'dd-MM-yyyy, h:mm:ss a zzzz'}}</th>
+      <td>{{'DEVICE.LAST_SYNCED_ON' | translate}}</td>
+      <td>:</td>
+      <th>{{deviceDetail.lastSyncedOn}}</th>
+    </tr>
+  </table>
+</div>
+
+<div class="sync-tabs">
+  <mat-tab-group  >
+    <mat-tab label="{{'DEVICE.SYNC_SESSIONS' | translate}}" *hasClaim="'device_device_view_sync_sessions'">
+      <ng-template matTabContent>
+        <div class="table-responsive">
+          <app-sync-sessions></app-sync-sessions>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="{{'DEVICE.SYNC_LOG' | translate}}" *hasClaim="'device_device_view_sync_logs'">
+      <ng-template matTabContent>
+        <div class="table-responsive">
+          <app-sync-logs></app-sync-logs>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,88 @@
+
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>{{'ACCOUNTS.JOURNAL.JOURNAL_DETAIL' | translate}}</h1>
+            </div>
+        </div>
+        <div
+            class="col-md-auto col-sm-auto">
+            <button *hasClaim="'account_journal_print_journal'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
+                <i class="fas fa-receipt"></i> {{'ACCOUNTS.JOURNAL.PRINT_JOURNAL'  | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="breadcrump-pages">
+        <div class="crumbs-sec">
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+          <a [routerLink]="['/journal']">{{'SIDEBAR.JOURNAL' | translate}}</a> /
+          <span>{{'ACCOUNTS.JOURNAL.JOURNAL_DETAIL' | translate}}</span>
+        </div>
+      </div>
+</div>
+
+    <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="journal?.branchUUID"></app-comapny-profile-heading>
+
+    <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+      <table>
+        <tr>
+          <td>{{'ACCOUNTS.JOURNAL.JOURNAL_NO'  | translate}}</td>
+          <th>{{journal.journalNo}}</th>
+          <td>{{'ACCOUNTS.JOURNAL.JOURNAL_DATE'  | translate}}</td>
+          <th>{{journal.journalDate  | customDate}}</th>
+          <td>{{'COMMON.USER' | translate}}</td>
+          <th>{{journal?.createdBy}}</th>
+        </tr>
+      </table>
+    </div>
+
+    <div class="page-header-main">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-auto col-sm-auto">
+                <div class="content-header">
+                    <h1>{{'ACCOUNTS.JOURNAL.JOURNAL_ITEMS_DETAIL'  | translate}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="head">
+                <tr>
+                    <th style="text-align: center;" rowspan="2">{{'COMMON.#'  | translate}}</th>
+                    <th style="text-align: center;" colspan="2">{{'ACCOUNTS.JOURNAL.DR_ACCOUNT'  | translate}}</th>
+                    <th style="text-align: center;" colspan="2">{{'ACCOUNTS.JOURNAL.CR_ACCOUNT'  | translate}}</th>
+                    <th rowspan="2">{{'COMMON.NARRATION'  | translate}}</th>
+                    <th class="text-right" rowspan="2">{{'COMMON.AMOUNT'  | translate}}</th>
+                </tr>
+                <tr>
+                  <th style="text-align: center;">{{'COMMON.CODE'  | translate}}</th>
+                  <th style="text-align: center;">{{'COMMON.NAME'  | translate}}</th>
+                  <th style="text-align: center;">{{'COMMON.CODE'  | translate}}</th>
+                  <th style="text-align: center;">{{'COMMON.NAME'  | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of journalDetail;let i=index">
+                    <ng-container>
+                        <td style="text-align: center;">{{i+1}}</td>
+                        <td style="text-align: center;">{{item?.drAccountObj?.accountCode}}</td>
+                        <td class="text-center">{{translationService.getSelectedLanguage() == 'en'?item?.drAccountObj?.nameEnglish:item?.drAccountObj?.nameSecondLanguage}}</td>
+                        <td style="text-align: center;">{{item?.crAccountObj?.accountCode}}
+                        </td>
+                        <td class="text-center">                           {{translationService.getSelectedLanguage() == 'en'?item?.crAccountObj?.nameEnglish:item?.crAccountObj?.nameSecondLanguage}}
+                        </td>
+                        <td>{{item?.description}}</td>
+                        <td class="text-right" [innerHTML]="item.amount | customCurrency"></td>
+
+                    </ng-container>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+<ng-container *ngIf="journalInvoice">
+    <app-journal-pdf [journalPDF]="journalInvoice"></app-journal-pdf>
+</ng-container>

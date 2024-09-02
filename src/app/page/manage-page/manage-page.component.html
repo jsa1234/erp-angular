@@ -1,0 +1,59 @@
+<div class="modal-content1">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-8 col">
+                <h4 class="modal-title">
+                    Page
+                </h4>
+            </div>
+            <div class="col-sm-auto ml-auto col-auto">
+                <button type="button" class="close" (click)="onNoClick()" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="pageName">Choose Module</label>
+                    <mat-select [(ngModel)]="data.page.moduleId" class="w-100 form-control">
+                        <mat-option *ngFor="let item of data.moduleList" [value]="item.id">{{ item.name }}</mat-option>
+                      </mat-select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="pageName">Page Name</label>
+                    <input [(ngModel)]="data.page.name" type="text" class="form-control" id="pageName">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pageName">Show In Web</label><br>
+                    <mat-slide-toggle [(ngModel)]="data.page.showInWeb"  id="showInWeb"></mat-slide-toggle>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pageName">Show In Device</label><br>
+                    <mat-slide-toggle [(ngModel)]="data.page.showInDevice"  id="showInDevice"></mat-slide-toggle>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-row w-100 justify-content-end">
+            <div class="col-md-auto col-auto">
+                <ng-container >
+                    <button class="btn btn-success btn-sm m-right-10" (click)="savePage()" cdkFocusInitial>
+                        <i class="fas fa-save"></i> Save</button>
+                </ng-container>
+                <button class="btn btn-danger btn-sm" (click)="onNoClick()"><i class="fas fa-times-circle"></i>
+                    Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,40 @@
+.modal-footer-mat {
+    display: flex;
+}
+.modal-footer-mat .mat-menu-item {
+    overflow: inherit !important;
+}
+.modal-footer-mat .mat-menu-item .mat-icon {
+    color: #FFF !important;
+}
+.modal-footer-mat .btn-success:hover {
+    background-color: #218838 !important;
+}
+.modal-footer-mat .btn-danger:hover {
+    background-color: #dc3545 !important;
+}
+.activation-code .grid {
+    display: grid;
+    grid-template-areas:'auto auto auto auto';
+    gap: 10px;
+    margin-top: 16px;
+}
+.grid-item {
+    box-shadow: 0px 0px 3px 0px #b1b1b1;
+    border-radius: 4px;
+    text-align: center;
+    padding: 2px 0px;
+    color: #a8171c;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-item button {
+    background-color: transparent;
+    border: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color: #28a745;
+}

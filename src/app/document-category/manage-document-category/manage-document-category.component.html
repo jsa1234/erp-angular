@@ -1,0 +1,56 @@
+<div class="modal-content1">
+  <div class="modal-header">
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <div class="col-md-8">
+        <h4 class="modal-title">
+          {{'DOCUMENT_CATEGORY' | translate}}
+        </h4>
+      </div>
+      <div class="col-sm-auto ml-auto">
+        <button type="button" class="close" (click)="onCancel()" data-dismiss="modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <form name="form" (ngSubmit)="categoryForm.form.valid && saveCategory()" #categoryForm="ngForm" novalidate>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label class="text-danger" for="screeName">{{'NAME' | translate}}:*</label>
+            <input [(ngModel)]="data.name" type="text" name="name" #name="ngModel" class="form-control" id="screeName">
+            <div *ngIf="categoryForm.submitted && name.invalid" class="invalid-feedback">
+              <div class="text-danger" *ngIf="name.errors.required">{{'NAME_IS_REQUIRED' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="screeName">{{'DESCRIPTION' | translate}}:</label>
+            <textarea [(ngModel)]="data.description" name="description" type="text" class="form-control">
+              </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="form-row w-100 justify-content-end">
+        <div class="col-md-auto col-auto">
+          <ng-container *ngIf="!isEdit">
+            <button type="submit" class="btn btn-success btn-sm m-right-10" cdkFocusInitial><i class="las la-save"></i>
+              {{'SAVE' | translate}}</button>
+          </ng-container>
+          <ng-container *ngIf="isEdit">
+            <button type="submit" class="btn btn-success btn-sm m-right-10" cdkFocusInitial><i class="las la-save"></i>
+              {{'SAVE' | translate}}</button>
+          </ng-container>
+          <button type="button" class="btn btn-danger btn-sm" (click)="onCancel()"> <i class="las la-times-circle"></i>
+            {{'CANCEL' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

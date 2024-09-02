@@ -1,0 +1,336 @@
+
+
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;"> 
+        <div class="invoice-container-wrap" id="dailyActivityReport">
+            <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+                <div style="position: relative;z-index: 4;background-color: #FFF;">
+                    <div style="padding: 20px;">
+                        <header style="margin-bottom: 20px;">
+                            <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                            <div style="display: grid;grid-template-columns: auto auto;">
+                                <div
+                                    style="text-align: left;font-size:18px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                                    DAILY REPORT AS ON <b>10/06/2022</b></div>
+                                <div
+                                    style="text-align: right;font-size:18px;font-weight:400;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                    تقرير يومي كما في <b>10/06/2022</b></div>
+                            </div>
+                        </header>
+        
+                        <div style="display: grid;grid-template-columns: auto auto;margin-bottom: 10px;">
+                            <div
+                                style="text-align: left;font-size:15px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                                SALES TRANSACTIONS</div>
+                            <div
+                                style="text-align: right;font-size:15px;font-weight:400;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                معاملات البيع</div>
+                        </div>
+        
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Bill No <br> <span style="font-size: 12px;">مشروع قانون لا</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Client Name <br> <span style="font-size: 12px;">اسم العميل</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Cash <br> <span style="font-size: 12px;">نقدي</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Credit <br> <span style="font-size: 12px;">ائتمان</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Card <br> <span style="font-size: 12px;">بطاقة</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dailyActivityReport?.salesTransactions">
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.transactionDocumentNo}}</td>
+                                    <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{item?.clientNameEnglish}}</td>
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;">{{item?.cashSale}}</td>
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;">{{item?.creditSale}}</td>
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;"> {{item?.cardSale}}</td>
+                                </tr>
+                          
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;">Total</th>
+                                    <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;">{{dailyActivityReport?.totalCashSale}}</th>
+                                    <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;">{{dailyActivityReport?.totalCreditSale}}</th>
+                                    <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;">{{dailyActivityReport?.totalCardSale}}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+        
+                        <div style="display: grid;grid-template-columns: auto auto;margin-bottom: 10px; margin-top: 20px;">
+                            <div
+                                style="text-align: left;font-size:15px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                                PURCHASE TRANSACTIONS</div>
+                            <div
+                                style="text-align: right;font-size:15px;font-weight:400;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                معاملات الشراء</div>
+                        </div>
+        
+        
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Bill No <br> <span style="font-size: 12px;">مشروع قانون لا</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Supplier <br> <span style="font-size: 12px;">المورد</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Cash <br> <span style="font-size: 12px;">نقدي</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Credit <br> <span style="font-size: 12px;">ائتمان</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dailyActivityReport?.purchaseTransactions">
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.transactionDocumentNo}}</td>
+                                    <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{item?.supplierNameEnglish}}</td>
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;">{{item?.cashPurchase}}</td>
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;">{{item?.creditPurchase}}</td>
+                                </tr>
+                             
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;">Total</th>
+                                    <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;">{{dailyActivityReport?.totalCashPurchase}}</th>
+                                    <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;">{{dailyActivityReport?.totalCreditsPurchase}}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+        
+                        <div style="display: grid;grid-template-columns: auto auto;margin-bottom: 10px; margin-top: 20px;">
+                            <div
+                                style="text-align: left;font-size:15px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                                RECEIPTS & PAYMENTS</div>
+                            <div
+                                style="text-align: right;font-size:15px;font-weight:400;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                المقبوضات والمدفوعات</div>
+                        </div>
+        
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Voucher No <br> <span style="font-size: 12px;">رقم القسيمة</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Particulars <br> <span style="font-size: 12px;">تفاصيل</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Receipts <br> <span style="font-size: 12px;">الإيصالات</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Payments <br> <span style="font-size: 12px;">المدفوعات</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dailyActivityReport?.reciptPayments">
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item?.transactionDocumentNo}}</td>
+                                    <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{item?.particulars}} </td>
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;">{{item?.cashRecipt}}</td>
+                                    <td style="text-align: right;font-size:14px;padding: 8px 12px;">{{item?.cashPayment}}</td>
+                                </tr>
+                          
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;">Total</th>
+                                    <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;">{{dailyActivityReport?.totalRecipts}}</th>
+                                    <th style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;">{{dailyActivityReport?.totalPayments}}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+        
+                        <div style="display: grid;grid-template-columns: auto auto;margin-bottom: 10px; margin-top: 20px;">
+                            <div
+                                style="text-align: left;font-size:15px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                                SALES SUMMARY</div>
+                            <div
+                                style="text-align: right;font-size:15px;font-weight:400;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                ملخص المبيعات</div>
+                        </div>
+        
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <tr>
+                                    <th  
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Cash Sales</th>
+                                    <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.totalCashSale}}</td>
+                                    <th  
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        البيع نقدا</th>
+                            </tr>
+                            <tr>
+                                            <th  
+                                                style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                                Credit Sales</th>
+                                            <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.totalCreditSale}}</td>
+                                            <th  
+                                                style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                                مبيعات الائتمان</th>
+                            </tr>
+                            <tr>
+                                        <th  
+                                            style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                            By Card</th>
+                                        <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.totalCardSale}}</td>
+                                        <th  
+                                            style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                            عن طريق البطاقة</th>
+                            </tr>
+                            <tr style="border-top: 3px solid #fff;">
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    Total Sales</th>
+                                    <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    {{dailyActivityReport?.totalSales}}</th>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    إجمالي المبيعات</th>
+                    </tr>
+                    <tr>
+                        <th  
+                            style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                            VAT Collected</th>
+                            <th  
+                            style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                            {{dailyActivityReport?.vatCollected}}</th>
+                        <th  
+                            style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                            تحصيل ضريبة القيمة المضافة</th>
+            </tr>
+        
+                        </table>
+        
+                        <div style="display: grid;grid-template-columns: auto auto;margin-bottom: 10px; margin-top: 20px;">
+                            <div
+                                style="text-align: left;font-size:15px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                                CASH FLOW SUMMARY</div>
+                            <div
+                                style="text-align: right;font-size:15px;font-weight:400;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                ملخص التدفق النقدي</div>
+                        </div>
+        
+        
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <tr>
+                                    <th  
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Opening Balance</th>
+                                    <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.openingbalance}}</td>
+                                    <th  
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        الرصيد الافتتاحي</th>
+                            </tr>
+                            <tr>
+                                            <th  
+                                                style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                                Cash Sales</th>
+                                            <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.totalCashSale}}</td>
+                                            <th  
+                                                style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                                البيع نقدا</th>
+                            </tr>
+                            <tr>
+                                        <th  
+                                            style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                            Other Receipts</th>
+                                        <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.otherRecipts}}</td>
+                                        <th  
+                                            style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                            إيصالات أخرى</th>
+                            </tr>
+                            <tr>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    Purchase Returns</th>
+                                <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.purchaseReturns}}</td>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    عوائد الشراء</th>
+                            </tr>
+                            <tr style="border-top: 3px solid #fff;border-bottom: 3px solid #fff;">
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    Total</th>
+                                    <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    {{dailyActivityReport?.totalCashFlowSummary}}</th>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    إجمالي</th>
+                            </tr>
+                            <tr>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    Cash Purchases</th>
+                                <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.totalCashPurchase}}</td>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    المشتريات النقدية</th>
+                            </tr>
+                            <tr>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    Other Payments</th>
+                                <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.otherPayments}}
+                                </td>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    مدفوعات أخرى</th>
+                            </tr>
+                            <tr style="border-top: 3px solid #fff;border-bottom: 3px solid #fff;">
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    Total</th>
+                                    <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    {{dailyActivityReport?.totalSummary}}</th>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    إجمالي</th>
+                            </tr>
+                            <tr>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    Closing Balance</th>
+                                <td style="text-align: center;background-color: #f2f2f2;font-size:14px;padding: 8px 12px;">{{dailyActivityReport?.closingBalance}}
+                                </td>
+                                <th  
+                                    style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                    الرصيد الختامي</th>
+                            </tr>
+        
+                        </table>
+        
+        
+                        <div style="display: grid;grid-template-columns: auto auto;font-family: 'Inter', sans-serif;">
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: left;">
+                                <b>Prepared By</b></p>
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: right;">
+                                <b>Salesman</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-md-auto col-sm-auto">
+        <div class="content-header svg-icons"
+          [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+          <h1><i class="icon3"></i> <span>{{'BRANCH.BRANCH_CONFIGURATIONS' | translate}}</span></h1>
+        </div>
+      </div>
+    </div>
+    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+      <div class="crumbs-sec">
+        <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/branch']">{{'SIDEBAR.BRANCH' | translate}}</a> / <span>{{'BRANCH.BRANCH_CONFIGURATIONS' | translate}}</span>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="loading-shade" *ngIf="isLoading$">
+    <mat-spinner></mat-spinner>
+  </div>
+
+<app-system-flag-configurations *hasClaim="['branch_branch_view_branch_configurations','branch_branch_update_branch_configurations']" [systemFlagConfigurations]="branchConfigurations" (saveConfig)="save($event)"></app-system-flag-configurations>

@@ -1,0 +1,50 @@
+.approve-btn {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding: 0.7em 1.4em 0.7em 1.1em;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
+    justify-content: center;
+  }
+  .views-btn {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding: 0.7em 1.4em 0.7em 1.1em;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(0deg, #208bec 0%, #7dbdf7 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #3898ef4f;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .approve-btn:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+  }
+
+  .approve-btn:active {
+    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+  }

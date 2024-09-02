@@ -1,0 +1,104 @@
+
+
+
+<div style="position:absolute;left:-15420px">
+    <div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="VATReport">
+            <div style="width: 1030px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+                <div style="position: relative;z-index: 4;background-color: #FFF;">
+                    <div style="padding: 20px;">
+                        <header style="margin-bottom: 20px;">
+                            <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                            <div style="display: grid;grid-template-columns: auto auto;">
+                                <div
+                                    style="padding-right: 20px;text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
+                                    Quaterly VAT Report Summary Oct To Dec 2022</div>
+                                <div
+                                    style="padding-left: 15px;text-align: right;font-size:24px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                    ملخص ضريبة القيمة المضافة بشكل رابع من أكتوبر إلى ديسمبر 2022</div>
+                            </div>
+                        </header>
+        
+        
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2"
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Month <br> <span style="font-size: 14px;">شهر</span></th>
+                                    <th [attr.colspan]="taxSummary?.taxSlabs?.length+1"
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Purchase <br> <span style="font-size: 14px;">شراء</span></th>
+                                    <th [attr.colspan]="taxSummary?.taxSlabs?.length+1"
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Sales <br> <span style="font-size: 14px;">مبيعات</span></th>
+                                    <th rowspan="2"
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:18px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        VAT Amount Payable <br> <span style="font-size: 14px;">المبلغ المستحق</span></th>
+                                </tr>
+                                <tr>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;" *ngFor="let item of taxSummary?.taxSlabs">{{item}}%</th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Input VAT</th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;" *ngFor="let item of taxSummary?.taxSlabs">{{item}}%</th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
+                                        Output VAT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  *ngFor="let item of taxSummary?.taxData">
+                                    <td
+                                        style="border: 1px solid #b5b5b5;text-align: left;font-size:14px;padding: 8px 12px;color: #F00;">
+                                        {{item?.month}}</td>
+                                    <td
+                                        style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;"  *ngFor="let tax of taxSummary?.taxSlabs">
+                                        <span [innerHTML]="(item?.inputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                                    </td>
+                                    <td
+                                        style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;" [innerHTML]="item.inputTaxSum | customCurrency">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;" *ngFor="let tax of taxSummary?.taxSlabs">
+                                        <span [innerHTML]="(item?.outputTaxes | vatFilter:tax:'taxAmount') | customCurrency"></span>
+                                    </td>
+                                    <td
+                                        style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;" [innerHTML]="item.outputTaxSum | customCurrency">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid #b5b5b5;text-align: right;font-size:14px;padding: 8px 12px;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;text-align: left;font-size:14px;padding: 8px 12px;">
+                                        TOTAL</th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" *ngIf="taxSummary?.taxSlabs?.length>0" [attr.colspan]="taxSummary?.taxSlabs?.length">
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="taxSummary?.totalInputTaxAmount | customCurrency">
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" *ngIf="taxSummary?.taxSlabs?.length>0" [attr.colspan]="taxSummary?.taxSlabs?.length">
+                                    </th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="taxSummary?.totalOutputTaxAmount | customCurrency">
+                                        </th>
+                                    <th
+                                        style="border: 1px solid #b5b5b5;text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="taxSummary?.taxAmountPayable | customCurrency">
+                                        </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+<form [formGroup]="searchForm">
+  <div [ngClass]="{'form-label-ar':translationService?.getSelectedLanguage()=='ar'}">
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-3">
+            <app-branch-dropdown [group]="searchForm" [controlName]="'branch'"
+              (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+          </div>
+          <div class="col-md-3">
+            <app-device-dropdown [branch]="branchUUID" [group]="searchForm"
+              [controlName]="'device'"></app-device-dropdown>
+          </div>
+          <div class="col-md-3">
+            <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+          </div>
+          <div class="col-md-3">
+            <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-category-dropdown [group]="searchForm" [controlName]="'category'"
+                (categoryUUID)="parentCategoryHandlerFunction($event)"></app-category-dropdown>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-subcategory-dropdown [id]="categoryUUID" [group]="searchForm" [controlName]="'subcategory'"
+                (subcategoryUUID)="parentSubcategoryHandlerFunction($event)"></app-subcategory-dropdown>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-brand-dropdown [group]="searchForm" [controlName]="'brand'"
+                (brandUUID)="parentBrandHandlerFunction($event)"></app-brand-dropdown>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-product-dropdown [group]="searchForm" [controlName]="'product'" [category]="categoryUUID"
+                [isMandatory]="true" [subcategory]="subcategoryUUID" [brand]="brandUUID"></app-product-dropdown>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 report-tool-bar">
+        <button type="submit" (click)="onSearch()" class="btn btn-primary btn-sm m-right-10"><i
+            class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
+        </button>
+        <button type="submit" (click)="onClear()" class="btn btn-danger btn-sm m-right-10"><i class="fas fa-eraser"></i>
+          {{'COMMON.CLEAR' | translate}}
+        </button>
+        <ng-container *hasClaim="'report_stock_report_excel_stock_report'">
+          <button type="submit" (click)="generateExcel()" *ngIf="stockItemList.length"
+            class="btn btn-green btn-sm m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+          </button>
+        </ng-container>
+        <ng-container *hasClaim="'report_stock_report_print_stock_report'">
+          <button type="submit" (click)="generatePdf()" *ngIf="stockItemList.length"
+            class="btn btn-warning btn-sm m-right-10"><i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="stock-rport-table table-responsive" id="report">
+  <table class="table report-varient-table table-striped table-hover">
+    <thead>
+      <tr>
+        <th rowspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.DATE' | translate}}</th>
+        <th rowspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.BILL_NO' | translate}}</th>
+        <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.PURCHASE' | translate}}</th>
+        <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.SALES' | translate}}</th>
+        <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.PURCHASE_RETURN' | translate}}</th>
+        <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.SALES_RETURN' | translate}}</th>
+        <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.DAMAGE' | translate}}</th>
+        <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.STOCK_IN' | translate}}</th>
+        <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.STOCK_OUT' | translate}}</th>
+        <th rowspan="2" class="text-right">{{'REPORTS.STOCK_REPORT.UNIT_RATE' | translate}}</th>
+        <th rowspan="2" class="text-right">{{'REPORTS.STOCK_REPORT.BALANCE' | translate}}</th>
+      </tr>
+      <tr>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
+        <th class="text-center">{{'REPORTS.STOCK_REPORT.UNIT' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="stockItemList?.length>0">
+        <td></td>
+        <td>Opening Stock</td>
+        <td class="text-right" colspan="16">{{stockitemWiseReport?.openingStockQuantity}}</td>
+      </tr>
+      <tr *ngFor="let item of stockItemList">
+        <td class="text-center">{{item.transactionDate | customDate}}</td>
+        <td class="text-center">{{item.transactionNo}}</td>
+        <td class="text-center">{{item.purchaseOuantity >0?item.purchaseOuantity:''}}</td>
+        <td class="text-center">{{item.purchaseOuantity >0 ?(translationService?.getSelectedLanguage() === 'en' ?
+          item.unit.nameEnglish : item.unit.nameSecondLanguage) :''}}</td>
+        <td class="text-center">{{item.saleQuantity >0?item.saleQuantity:''}}</td>
+        <td class="text-center">{{item.saleQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+          item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+        </td>
+        <td class="text-center">{{item.purchaseReturnOuantity >0?item.purchaseReturnOuantity:''}}</td>
+        <td class="text-center">{{item.purchaseReturnOuantity > 0 ? (translationService?.getSelectedLanguage() === 'en'
+          ?
+          item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+        </td>
+        <td class="text-center">{{item.saleReturnQuantity >0?item.saleReturnQuantity:''}}</td>
+        <td class="text-center">{{item.saleReturnQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+          item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+        </td>
+        <td class="text-center">{{item.damageQuantity >0?item.damageQuantity:''}}</td>
+        <td class="text-center">{{item.damageQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+          item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+        </td>
+        <td class="text-center">{{item.stockInQuantity >0?item.stockInQuantity:''}}</td>
+        <td class="text-center">{{item.stockInQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+          item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+        </td>
+        <td class="text-center">{{item.stockOutQuantity >0?item.stockOutQuantity:''}}</td>
+        <td class="text-center">{{item.stockOutQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
+          item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
+        </td>
+        <td class="text-right">{{item.rate}}</td>
+        <td class="text-right">{{item.balance}}</td>
+      </tr>
+      <tr *ngIf="stockItemList.length<=0">
+        <td class="text-center" colspan="19">
+          {{'COMMON.NO_DATA_FOUND' |translate}}
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th class="text-center" colspan="2">Total </th>
+        <th class="text-center">{{stockitemWiseReport?.totalQuantityPurchase}}</th>
+        <th class="text-center"></th>
+        <th class="text-center">{{stockitemWiseReport?.totalQuantitySales}}</th>
+        <th class="text-center"></th>
+        <th class="text-center">{{stockitemWiseReport?.totalQuantityPurchaseReturn}}</th>
+        <th class="text-center"></th>
+        <th class="text-center">{{stockitemWiseReport?.totalQuantitySalesReturn}}</th>
+        <th class="text-center"></th>
+        <th class="text-center">{{stockitemWiseReport?.totalQuantityDamage}}</th>
+        <th class="text-center"></th>
+        <th class="text-center">{{stockitemWiseReport?.totalQuantityStockIn}}</th>
+        <th class="text-center"></th>
+        <th class="text-center">{{stockitemWiseReport?.totalQuantityStockOut}}</th>
+        <th class="text-center"></th>
+        <th class="text-center">{{stockitemWiseReport?.totalRate}}</th>
+        <th class="text-center"></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<ng-container *ngIf="productWiseReportPdf">
+  <app-product-wise-stock-report-pdf [stockItemWiseReport]="productWiseReportPdf"></app-product-wise-stock-report-pdf>
+</ng-container>

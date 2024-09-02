@@ -1,0 +1,182 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon55"></i> <span>{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</span></h1>
+      </div>
+    </div>
+    <div class="col-md-auto col-sm-auto">
+      <!-- *hasClaim="'product_product_create_product'" -->
+      <button  class="btn blue-btn btn-sm m-right-10"
+        [routerLink]="['/inventory/damage-entry/manage/add']">
+        <i class="fas fa-plus"></i> {{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}
+      </button>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.DAMAGE_ENTRY' |
+        translate}}</span>
+    </div>
+  </div>
+</div>
+  <div class="loading-shade" *ngIf="(dataSource.loading$ | async) ">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <form autocomplete="off" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()" [ngClass]="{'form-label-ar':translate.getSelectedLanguage()=='ar'}">
+    <div class="filter-sec mb-4">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-3">
+               <app-branch-dropdown [group]="searchForm" [controlName]="'branchUUID'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
+            </div>
+            <div class="col-md-3">
+               <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'deviceUUID'"></app-device-dropdown>
+            </div>
+            <div class="col-md-3">
+              <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+            </div>
+            <div class="col-md-3">
+              <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="filter-search">
+          <button type="submit"  class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows
+          class="table table-bordered table-hover grid-height" matSort matSortActive="docNo">
+          <ng-container matColumnDef="action">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef>
+            </th>
+            <td class="table-column-150" mat-cell *matCellDef="let damageEntry">
+              <ng-container >
+              <i class="fas fa-chevron-right btn" *ngIf="damageEntry != expandedElement" (click)="toggleRow(damageEntry)"></i>
+              <i class="fas fa-chevron-down btn" *ngIf="damageEntry == expandedElement" (click)="toggleRow(damageEntry)"></i>
+            </ng-container>
+
+              <button class="ml-4"
+                mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
+                <mat-icon>more_vert</mat-icon >
+              </button>
+              <mat-menu #menu="matMenu">
+                <button   mat-menu-item
+                  [routerLink]="['/inventory/damage-entry/detail', damageEntry.damageUUID]">
+                  <mat-icon>info</mat-icon>
+                  <span>{{'COMMON.DETAIL' | translate}}</span>
+                </button>
+                <button  mat-menu-item   [routerLink]="['/inventory/damage-entry/manage', damageEntry.damageUUID]">
+                  <mat-icon>edit</mat-icon>
+                  <span>{{'COMMON.EDIT' | translate}}</span>
+                </button>
+                <button  mat-menu-item (click)="deleteDamageEntry(damageEntry)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{'COMMON.DELETE' | translate}}</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="docDate">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'INVENTORY.DAMAGE_ENTRY.DOC_DATE' | translate}} </th>
+            <td class="table-column-100" mat-cell *matCellDef="let damageEntry"> {{damageEntry.docDate  | customDate }} </td>
+          </ng-container>
+          <ng-container matColumnDef="docNo">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header> {{'INVENTORY.DAMAGE_ENTRY.DOC_NO' | translate}} </th>
+            <td class="table-column-150" mat-cell *matCellDef="let damageEntry"> {{damageEntry.docNo }} </td>
+          </ng-container>
+          <ng-container matColumnDef="branch">
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'INVENTORY.DAMAGE_ENTRY.BRANCH' | translate}} </th>
+            <td class="table-column-100" mat-cell *matCellDef="let damageEntry"> {{damageEntry.branch.nameEnglish}} </td>
+          </ng-container>
+          <ng-container matColumnDef="grandTotal">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>{{'INVENTORY.DAMAGE_ENTRY.GRAND_TOTAL' | translate}} </th>
+            <td class="table-column-150" mat-cell *matCellDef="let damageEntry"> {{damageEntry.netTotalAmount }} </td>
+          </ng-container>
+          <ng-container matColumnDef="remarks">
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header> {{'INVENTORY.DAMAGE_ENTRY.REMARK' | translate}} </th>
+            <td class="table-column-100" mat-cell *matCellDef="let damageEntry"> {{damageEntry?.remarks}}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="action-search">
+            <th mat-header-cell *matHeaderCellDef> </th>
+          </ng-container>
+          <ng-container matColumnDef="docDate-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <input class="form-control" id="docDate"  [(ngModel)]="docDateFilter"
+              [owlDateTimeTrigger]="docDate" [owlDateTime]="docDate"
+            placeholder="">
+            </th>
+            <owl-date-time [pickerType]="'calendar'" #docDate></owl-date-time>
+          </ng-container>
+
+          <ng-container matColumnDef="docNo-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <input placeholder="" type="text" class="form-control w-90"
+                [(ngModel)]="docNoFilter">
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="branch-search">
+            <th mat-header-cell *matHeaderCellDef> </th>
+          </ng-container>
+
+          <ng-container matColumnDef="grandTotal-search">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+          </ng-container>
+          <ng-container matColumnDef="remarks-search">
+            <th mat-header-cell *matHeaderCellDef>
+            </th>
+          </ng-container>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+                {{'COMMON.NO_DATA_FOUND' | translate}}
+            </td>
+          </tr>
+
+          <ng-container matColumnDef="footer">
+            <td mat-footer-cell colspan="6" *matFooterCellDef>
+              <mat-paginator [length]="damageEntryResource.totalCount" [pageSize]="damageEntryResource.pageSize"
+                [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+              </mat-paginator>
+            </td>
+          </ng-container>
+          <ng-container >
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let damageEntryObject" [attr.colspan]="displayedColumns.length">
+              <ng-container *ngIf="damageEntryObject == expandedElement">
+                <div class="example-element-detail"
+                  [@detailExpand]="damageEntryObject == expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="inner-table mat-elevation-z8">
+                    <app-damage-entry-item [damagEntryId]="damageEntryObject.damageUUID">
+                    </app-damage-entry-item>
+                  </div>
+                </div>
+              </ng-container>
+            </td>
+          </ng-container>
+        </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true">
+          <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+
+      </div>
+    </div>
+  </div>

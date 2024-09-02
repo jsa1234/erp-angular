@@ -1,0 +1,155 @@
+<div style="position:absolute;left:-15420px">
+	<div style="width:100%;display:flex;">
+        <div class="invoice-container-wrap" id="purchaseReport">
+            <div style="width: 880px;padding: 20px 15px;margin: 15px auto;position: relative;z-index: 5;">
+                <div style="position: relative;z-index: 4;background-color: #FFF;">
+                    <div style="padding: 20px;">
+                        <header style="margin-bottom: 20px;">
+                            <app-comapny-profile-heading [ProfileType]="0"></app-comapny-profile-heading>
+                            <div style="display: grid;grid-template-columns: auto auto;">
+                                <div
+                                    style="text-align: left;font-size:18px;font-weight:400;font-family: 'Inter', sans-serif;color: #535b61;">
+                                    ITEM WISE SALES REPORT for the Period <b>{{productWiseReportDetails.fromDate  | customDate }}</b> TO <b>{{productWiseReportDetails.toDate  | customDate}}</b></div>
+                                <div
+                                    style="text-align: right;font-size:18px;font-weight:400;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
+                                    تقرير مبيعات العناصر الحكيمة للفترة <b> {{productWiseReportDetails.fromDate  | customDate }} </b> إلى <b> {{productWiseReportDetails.toDate  | customDate}}</b>
+                                    </div>
+                            </div>
+                        </header>
+
+
+                        <div style="padding: 2px;margin-bottom: 20px;">
+                            <table
+                                style="border: 1px solid #f2f2f2; width: 100%;margin: 0;font-family: 'Inter', sans-serif;border-collapse: collapse;border-top: 1px solid #c9c6c6;border-left: 1px solid #c9c6c6;border-right: 1px solid #c9c6c6;border-bottom: 1px solid #c9c6c6;">
+                                <tbody>
+                                    <tr style="border:none">
+                                        <th
+                                            style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">
+                                            Item Details</th>
+                                        <th
+                                            style="text-align: right;padding: 6px 12px;border-left: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                            مشتر</th>
+                                    </tr>
+                                    <tr  style="border:none">
+                                        <th
+                                            style="text-align: left;padding: 0px 12px;font-size:14px;border-right: 0;border-bottom: 0;color: #535b61;">
+                                            {{product?.nameEnglish}}</th>
+                                        <th
+                                            style="text-align: right;padding: 0px 12px;font-size:14px;border-left: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                            {{product?.nameSecondLanguage}}</th>
+                                    </tr>
+                                    <tr  style="border:none">
+                                        <td
+                                            style="text-align: left;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                            <span>{{product?.category}}</span>, <span>{{product.subCategory}}</span> </td>
+                                            <td
+                                            style="text-align: right;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                            <span> {{product?.categoryArabic}}</span>, <span>{{product?.subCategoryArabic}}</span>  </td>
+                                    </tr>
+                                    <tr  style="border:none">
+                                        <td
+                                            style="text-align: left;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                            {{product?.brand}}</td>
+                                            <td
+                                            style="text-align: right;padding: 0px 12px 5px 12px;font-size:12px;border-top: 0;color: #535b61;">
+                                            {{product?.brandArabic}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <thead>
+                                <tr  style="border:none">
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Doc No <br> <span style="font-size: 12px;">مشروع قانون لا</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Doc Date <br> <span style="font-size: 12px;">تاريخ</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Customer <br> <span style="font-size: 12px;">عميل</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Mode <br> <span style="font-size: 12px;">تاريخ</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Qty <br> <span style="font-size: 12px;">المجموع الفرعي</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Rate <br> <span style="font-size: 12px;">تخفيض</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Sub Total <br> <span style="font-size: 12px;">تخفيض</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Discount <br> <span style="font-size: 12px;">تخفيض</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Taxable Amount <br> <span style="font-size: 12px;">صافي الإجمالي</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        VAT Amount <br> <span style="font-size: 12px;">الوضع</span></th>
+                                    <th
+                                        style="font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;    line-height: 16px;">
+                                        Net Total <br> <span style="font-size: 12px;">الوضع</span></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of productWiseReportList">
+                                <tr  style="border:none">
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item.docNo}}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item.docDate | customDate}}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{translate.getSelectedLanguage()=='en'?item.clientObject.nameEnglish:item.clientObject.nameSecondLanguage}}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item.transactionModeText}}</td>
+                                    <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{item.quantity}}</td>
+                                    <td [innerHTML]="item.unitPrice | customCurrency" style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                    <td [innerHTML]="item.subTotal | customCurrency" style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                    <td [innerHTML]="item.discountAmount | customCurrency" style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                    <td [innerHTML]="item.grossAmount | customCurrency" style="text-align: center;font-size:14px;padding: 8px 12px;"></td>
+                                    <td [innerHTML]="item.vatAmount | customCurrency" style="text-align: right;font-size:14px;padding: 8px 12px;"></td>
+                                    <td [innerHTML]="item.itemTotalAmount | customCurrency" style="text-align: right;font-size:14px;padding: 8px 12px;"></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+                            <tr style="border:none">
+                              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                                <b>Total</b>
+                              </td>
+                              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 33px;">-</td>
+                              <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                <b>الإجمالي</b>
+                              </td>
+                              <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 33px;">-</td>
+                              <th [innerHTML]="productWiseReportDetails.totalQuantity" style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                              </th>
+                              <th [innerHTML]="productWiseReportDetails.totalUnitPrice | customCurrency" style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                              </th>
+                              <th [innerHTML]="productWiseReportDetails.totalSubTotalAmount | customCurrency" style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                              </th>
+                              <th [innerHTML]="productWiseReportDetails.totalDiscountAmount | customCurrency" style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                              </th>
+                              <th [innerHTML]="productWiseReportDetails.totalGrossAmount | customCurrency" style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                              </th>
+                              <th [innerHTML]="productWiseReportDetails.totalVatAmount | customCurrency" style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                              </th>
+                              <th [innerHTML]="productWiseReportDetails.totalNetItemTotalAmount | customCurrency" style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                              </th>
+                            </tr></table>
+
+                        <!-- <div style="display: grid;grid-template-columns: auto auto;font-family: 'Inter', sans-serif;">
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: left;">
+                                <b> Received By</b></p>
+                            <p
+                                style="border-top: 1px solid #cfd3dc;border-bottom: 1px solid #cfd3dc;padding-top: 15px;padding-bottom: 15px;text-align: right;">
+                                <b>Salesman</b></p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

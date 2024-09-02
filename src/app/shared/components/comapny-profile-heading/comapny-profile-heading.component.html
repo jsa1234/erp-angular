@@ -1,0 +1,63 @@
+
+
+<ng-container [ngSwitch]="type">
+    <div *ngSwitchCase="0" style="display: grid;grid-template-columns: auto auto auto;border-bottom: 1px solid #cfd3dc;
+    margin-bottom: 10px; padding: 0px 100px;">
+        <div
+            style="text-align: center;font-size:18px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;width: 100%;">
+            <p>  {{companyProfile.nameEnglish}}<br>
+                {{companyProfile.addressEnglish}}<br>
+                Phone: {{companyProfile.phoneNo}}<br>
+                Mobile: {{companyProfile.mobileNo}}<br>
+                Email: <a href="mailto:{{companyProfile.email}}">{{companyProfile.email}}</a><br>
+                GSTIN : {{companyProfile.vatRegNo}}
+            </p>
+
+        </div>
+    </div>
+
+    <div *ngSwitchCase="1" class="row">
+        <div class="col-md-12">
+            <div class="ouraddress-en text-center">
+                <b> {{companyProfile.nameEnglish}}</b><br>
+                {{companyProfile.addressEnglish}}<br><br>
+                Phone: {{companyProfile.phoneNo}}<br>
+                Mobile: {{companyProfile.mobileNo}}<br>
+                Email: <a href="mailto:{{companyProfile.email}}">{{companyProfile.email}}</a>
+               GSTIN : {{companyProfile.vatRegNo}}
+            </div>
+        </div>
+    </div>
+    <div *ngSwitchCase="3" style="display: grid;grid-template-columns: auto auto auto;border-bottom: 1px solid #cfd3dc;
+    margin-bottom: 10px; padding: 0px 100px;">
+        <div
+            style="text-align: center;font-size:18px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;width: 100%;">
+            <p>  {{branchName}}<br>
+                {{branchAddress}}<br>
+                Phone: {{branchPhoneNo}}<br>
+                Mobile: {{branchMobileNo}}<br>
+                Email: <a href="mailto:{{branchEmail}}">{{branchEmail}}</a><br>
+                GSTIN : {{branchGSTNo}}
+            </p>
+
+        </div>
+    </div>
+
+    <div *ngSwitchCase="4" class="row">
+        <div class="col-md-12">
+            <div class="ouraddress-en text-center">
+                <b> {{branchName}}</b><br>
+                {{branchAddress}}<br><br>
+                Phone: {{branchPhoneNo}}<br>
+                Mobile: {{branchMobileNo}}<br>
+                Email: <a href="mailto:{{branchEmail}}">{{branchEmail}}</a>
+               GSTIN : {{branchGSTNo}}
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-shade" *ngIf="isloading$ | async">
+        <mat-spinner></mat-spinner>
+      </div>
+
+</ng-container>

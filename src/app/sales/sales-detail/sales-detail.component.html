@@ -1,0 +1,7 @@
+<ng-container *ngIf="saleInvoice.saleInvoiceType == 1">
+    <app-detailed-invoice-detail  [saleInvoice]="saleInvoice"></app-detailed-invoice-detail>
+</ng-container>
+<ng-container *ngIf="saleInvoice.saleInvoiceType == 0">
+    <app-simplified-invoice-detail  [saleInvoice]="saleInvoice"></app-simplified-invoice-detail>
+</ng-container>
+

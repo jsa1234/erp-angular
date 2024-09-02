@@ -1,0 +1,65 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>{{'PRODUCT.PRODUCT_VARIANTS' | translate}}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="table-responsive">
+            <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="table table-bordered table-hover">
+                <ng-container matColumnDef="units">
+                    <th class="table-column-100" mat-header-cell *matHeaderCellDef >{{'COMMON.UNIT' | translate}}</th>
+                    <td class="table-column-100" mat-cell *matCellDef="let element">{{translationService.getSelectedLanguage() == 'en'?element?.unit?.nameEnglish:element?.unit?.nameSecondLanguage}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th class="table-column-150" mat-header-cell *matHeaderCellDef >{{'PRODUCT.QUANTITY' | translate}}</th>
+                    <td class="table-column-150" mat-cell *matCellDef="let element">
+                        {{element?.qtyConversion}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="unit-cost">
+                    <th class="table-column-150 text-right" mat-header-cell *matHeaderCellDef > {{'PRODUCT.UNIT_COST' | translate}}</th>
+                    <td class="text-right" mat-cell *matCellDef="let element" style="text-align: center;" [innerHTML]="element?.unitCost | customCurrency"></td>
+                </ng-container>
+                <ng-container matColumnDef="average-cost">
+                    <th class="table-column-150 text-right" mat-header-cell *matHeaderCellDef > {{'PRODUCT.AVERAGE_COST' | translate}}</th>
+                    <td class="text-right" mat-cell *matCellDef="let element" style="text-align: center;" [innerHTML]="element?.averageCost | customCurrency"></td>
+                </ng-container>
+                <ng-container matColumnDef="selling">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef >{{'PRODUCT.SELLING_PRICE' | translate}}</th>
+                    <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element?.sellingPrice | customCurrency"></td>
+                </ng-container>
+                <ng-container matColumnDef="whole-sale">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef >{{'PRODUCT.WHOLESALE_RATE' | translate}}</th>
+                    <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element?.wholeSaleRate | customCurrency"></td>
+                </ng-container>
+                <ng-container matColumnDef="mrp">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef >{{'PRODUCT.MRP' | translate}}</th>
+                    <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element?.mrp | customCurrency"></td>
+                </ng-container>
+                <ng-container matColumnDef="barcode">
+                    <th mat-header-cell *matHeaderCellDef >{{'PRODUCT.BARCODE' | translate}}</th>
+                    <td mat-cell *matCellDef="let element">{{element?.barcode}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <ng-container *ngIf="dataSource.count=== 0">
+                <div class="row">
+                    <div class="col-sm-12 ml-4 mt-3">
+                        <label class="font-weight-bold"> {{'COMMON.NO_DATA_FOUND' | translate}}</label>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

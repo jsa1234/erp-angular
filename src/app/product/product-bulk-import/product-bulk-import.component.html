@@ -1,0 +1,265 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons"
+        [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon3"></i> <span>{{'PRODUCT.BULK_IMPORT' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+      <a [routerLink]="['/product']">{{'SIDEBAR.PRODUCT' | translate}}</a> / <span>{{'PRODUCT.BULK_IMPORT' |
+        translate}}</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="upload-file-exel">
+  <div class="upload-files-container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="drag-file-area">
+          <label class="label"><span class="browse-files">
+              <input #fileInputRef type="file" class="default-file-input" (change)="onFileSelected($event)" />
+              <span class="browse-files-text">
+                <mat-icon> attach_file</mat-icon>
+                <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+                <span *ngIf="!selectedFile">Browse / Drag & Drop Excel File</span>
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="file-upload-buttons text-right">
+          <button type="button" class="upload-button" #tooltip="matTooltip" matTooltip="Choose Excel for upload"
+            [matTooltipPosition]="'above'" [disabled]="!selectedFile" (click)="uploadFile()"><i
+              class="fas fa-cloud-upload-alt"></i> Upload </button>
+
+          <button type="button" class="download-button" (click)="downloadExcel()"><mat-icon>save_alt</mat-icon> Excel
+            Template </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-shade" *ngIf="isLoading$ |async">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="bulk-product-container">
+  <h3>Product List</h3>
+  <div class="bulk-upload-table table-responsive">
+    <ng-container *ngIf="productList.length>0">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>productCode</th>
+            <th>nameEnglish</th>
+            <!-- <th>nameSecondLanguage</th> -->
+            <th>partNo</th>
+            <th>hsnCode</th>
+            <th>maxStockLevel</th>
+            <th>reorderLevel</th>
+            <th>margin</th>
+            <th>unitLevel</th>
+            <th>unitCost</th>
+            <th>sellingPrice</th>
+            <th>wholeSaleRate</th>
+            <th>mrp</th>
+            <th>cgst</th>
+            <th>sgst</th>
+            <th>igst</th>
+            <th>cess</th>
+            <th>addnlCess</th>
+            <th>barcode</th>
+            <th>unit</th>
+            <th>qtyConversion</th>
+            <th>category</th>
+            <th>subCategory</th>
+            <th>brand</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of productList; let i=index">
+            <td class="bulk-up-editing">
+              <ng-container *ngIf="!item.isEdit">
+                <button mat-icon-button color="primary" (click)="item.isEdit = true">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteRow(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="item.isEdit">
+                <button mat-icon-button color="primary" (click)="item.isEdit = false">
+                  <mat-icon>save</mat-icon>
+                </button>
+              </ng-container>
+
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.productCode">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.productCode}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.nameEnglish">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.nameEnglish}} </ng-container>
+            </td>
+            <!-- <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.nameSecondLanguage">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.nameSecondLanguage}} </ng-container>
+            </td> -->
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.partNo">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.partNo}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.hsnCode">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.hsnCode}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.maxStockLevel">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.maxStockLevel}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.reorderLevel">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.reorderLevel}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.margin">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.margin}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.unitLevel">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.unitLevel}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.unitCost">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.unitCost}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.sellingPrice">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.sellingPrice}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.wholeSaleRate">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.wholeSaleRate}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.mrp">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.mrp}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.cgst">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.cgst}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.sgst">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.sgst}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.igst">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.igst}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.cess">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.cess}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.addnlCess">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.addnlCess}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.barcode">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.barcode}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.unit">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.unit}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.qtyConversion">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.qtyConversion}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.category">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.category}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.subCategory">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.subCategory}} </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="item.isEdit">
+                <input type="text" class="form-control" [(ngModel)]="item.brand">
+              </ng-container>
+              <ng-container *ngIf="!item.isEdit"> {{item.brand}} </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-container *ngIf="productList.length<=0">
+      <div class="text-center bulk-upload-nodata">
+        <span>{{'COMMON.NO_DATA_FOUND' | translate}}</span>
+      </div>
+    </ng-container>
+  </div>
+  <div class="bulkupload-pro-button text-center">
+    <button type="submit" class=" upload-button" [disabled]="isSave()" (click)="saveProducts()"><i
+        class="fas fa-save"></i> {{'COMMON.SAVE' |
+      translate}}</button>
+  </div>
+</div>

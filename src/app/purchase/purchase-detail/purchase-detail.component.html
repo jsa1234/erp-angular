@@ -1,0 +1,221 @@
+<div class="page-header-main">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+            <div class="content-header">
+                <h1>{{'PURCHASE_INVOICE.PURCHASE_INVOICE_DETAIL' | translate}}</h1>
+            </div>
+        </div>
+        <div
+            class="col-md-auto col-sm-auto">
+            <button *hasClaim="'purchase_purchase_invoice_print_purchase_invoice'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
+                <i class="fas fa-receipt"></i> {{'COMMON.PRINT_INVOICE' | translate}}
+            </button>
+        </div>
+    </div>
+    <div class="breadcrump-pages">
+        <div class="crumbs-sec">
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+          <a [routerLink]="['/purchase-invoice/list']">{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</a> /
+          <span>{{'PURCHASE_INVOICE.PURCHASE_INVOICE_DETAIL' | translate}}</span>
+        </div>
+      </div>
+</div>
+<br>
+<ng-container >
+<app-comapny-profile-heading [ProfileType]="4" [branchUUID]="purchaseInvoice.branchUUID"></app-comapny-profile-heading>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="invoice-detatable table-responsive" >
+                <table>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.DOC_DATE' | translate}}</th>
+                        <td>{{purchaseInvoice.invoiceNumber}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.DOC_NO' | translate}}</th>
+                        <td>{{purchaseInvoice.invoiceDate | customDate}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.REMARKS' | translate}}</th>
+                        <td>{{purchaseInvoice.remarks}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+                <table>
+
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.REF_BILL_NO' | translate}}</th>
+                        <td>{{purchaseInvoice.refBillNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.REF_BILL_DATE' | translate}}</th>
+                        <td>{{purchaseInvoice.refBillDate | customDate }} </td>
+                    </tr>
+                    <tr>
+                        <th>{{'PURCHASE_INVOICE.TRANSACTION_MODE' | translate}}</th>
+                        <td>{{purchaseInvoice.transactionModeText}} </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+    <div class="invoice-detatables table-responsive" [ngClass]="{'invoice-detatables-ar':translationService.getSelectedLanguage()=='ar'}">
+        <table>
+            <tr>
+                <th style="font-size: 16px;">{{'COMMON.SUPPLIER_DETAILS' |translate}}</th>
+            </tr>
+            <tr>
+                <th>{{translationService.getSelectedLanguage()=='en'?supplier.nameEnglish:supplier.nameSecondLanguage}}</th>
+            </tr>
+            <tr>
+                <td>{{translationService.getSelectedLanguage()=='en'?supplier.addressEnglish:supplier.addressArabic}}</td>
+            </tr>
+            <tr>
+                <td>Phone: {{supplier.phoneNo}}<br>
+                    Mobile: {{supplier.mobileNo}}<br>
+                    Email: <a href="mailto:{{supplier.email}}">{{supplier.email}}</a></td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    </div>
+    <div class="page-header-main">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-auto col-sm-auto">
+                <div class="content-header">
+                    <h1>{{'COMMON.LINE_ITEMS' |translate}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="head">
+                <tr>
+                    <th style="width:1%">{{'COMMON.#' |translate}}</th>
+                    <th style="width:20%">{{'COMMON.PRODUCT_NAME' | translate}}</th>
+                    <th>{{'COMMON.UNIT' |translate}}</th>
+                    <th>{{'PRODUCT.UNIT_COST' |translate}}</th>
+                    <th >{{'PRODUCT.QUANTITY' | translate}}</th>
+                    <th>{{'PURCHASE_INVOICE.DISCOUNT' | translate}}</th>
+                    <th >{{'PURCHASE_INVOICE.CGST' | translate}}</th>
+                    <th >{{'PURCHASE_INVOICE.SGST' | translate}}</th>
+                    <th >{{'PURCHASE_INVOICE.IGST' | translate}}</th>
+                    <th >{{'PURCHASE_INVOICE.CESS' | translate}}</th>
+                    <th >{{'PURCHASE_INVOICE.ADDITIONAL_CESS' | translate}}  </th>
+                    <th > {{'PURCHASE_INVOICE.MANUFACTURE_DATE' | translate}} </th>
+                    <th > {{'PURCHASE_INVOICE.EXPIRY_DATE' | translate}} </th>
+                    <th >{{'PURCHASE_INVOICE.TOTAL' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let purchaseItem of purchaseInvoiceItems;let i=index">
+                    <ng-container>
+                        <td style="text-align: center;">{{i+1}}</td>
+                        <td>{{translationService.getSelectedLanguage()=='en'?purchaseItem?.productObject?.nameEnglish:purchaseItem?.productObject?.nameSecondLanguage}}</td>
+                        <td > {{translationService.getSelectedLanguage()=='en'?purchaseItem?.unitObject?.nameEnglish:purchaseItem?.unitObject?.nameSecondLanguage}}</td>
+                        <td  [innerHTML]="purchaseItem?.unitPrice | customCurrency"></td>
+                        <td >{{purchaseItem?.quantity}}</td>
+                        <td  [innerHTML]="purchaseItem.discountAmount | customCurrency"></td>
+                        <td [innerHTML]="purchaseItem.cgstAmount | customCurrency"></td>
+                        <td [innerHTML]="purchaseItem.sgstAmount | customCurrency"></td>
+                        <td [innerHTML]="purchaseItem.igstAmount | customCurrency"></td>
+                        <td [innerHTML]="purchaseItem.cessAmount | customCurrency"></td>
+                        <td [innerHTML]="purchaseItem.addnlCessAmount | customCurrency"></td>
+                        <td>{{purchaseItem.manufactureDate  | customDate}}</td>
+                        <td >{{purchaseItem.expiryDate | customDate}}</td>
+                        <td [innerHTML]="purchaseItem.itemTotalAmount | customCurrency"></td>
+                    </ng-container>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+            <tbody>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Sub Total</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.subTotal | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.TOTAL_DISCOUNT' | translate}}</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.totalDiscount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Taxable Amount</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.taxableAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.CGST' | translate}}</b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.totalCgstAmount | customCurrency"></b></td>
+                </tr>                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.SGST' | translate}} </b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.totalSgstAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b> {{'PURCHASE_INVOICE.IGST' | translate}} </b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.totalIgstAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.CESS' | translate}}</b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.totalCessAmount | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>{{'PURCHASE_INVOICE.ADDITIONAL_CESS' | translate}}</b></td>
+                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.totalAdnlCessAmount | customCurrency"></b></td>
+                </tr>
+
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b> {{'PURCHASE_INVOICE.TOTAL_EXPENSES' | translate}}</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.totalExpenses | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Round Off</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice?.roundOff | customCurrency"></b></td>
+                </tr>
+                <tr style="border: none;">
+                    <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
+                        colspan="4"><b>Net Total</b></td>
+                    <td
+                        style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                        <b [innerHTML]="purchaseInvoice.netTotal | customCurrency"></b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</ng-container>
+
+<ng-container *ngIf="purchaseInvoiceForPdf">
+    <app-purchase-invoice-pdf [purchaseInvoicePdf]="purchaseInvoiceForPdf" ></app-purchase-invoice-pdf>
+</ng-container>

@@ -1,0 +1,25 @@
+.digital-time {
+  font-size: 20px;
+  text-align: center;
+  font-family: digitalclock;
+  letter-spacing: 3px;
+  color: #FFF;
+  font-weight: 600;
+}
+.digital-date {
+  text-align: center;
+  font-size: 13px;
+  color: #FFF;
+  margin-left: 10px;
+  font-weight: 600;
+}
+.digital-clock-sec {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 991px) {
+  .digital-time {
+    font-size: 18px !important;
+    letter-spacing: 2px !important;
+}
+}

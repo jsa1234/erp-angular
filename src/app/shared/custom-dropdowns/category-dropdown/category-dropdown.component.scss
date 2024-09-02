@@ -1,0 +1,9 @@
+::ng-deep .mat-form-field-underline {
+    display: none;
+  }
+  .custom-mat-form-field .search-container {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white; /* Adjust this to match your background */
+  }

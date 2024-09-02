@@ -1,0 +1,15 @@
+.content-header h1 i {
+    display: list-item;
+    position: absolute;
+    padding-right: 18px;
+    background-color: #f58220 !important;
+  }
+  .content-header h1 span {
+    margin-left: 25px;
+  }
+  .main-menu-inner .menu-body .nav-link p, span {
+    font-weight: 600;
+}
+.main-menu-inner-ar .menu-body .nav-link p, span {
+  text-align: right;
+}

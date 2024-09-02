@@ -1,0 +1,98 @@
+<div class="modal-content1">
+    <div class="modal-header">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="col-md-9 col">
+                <h4 class="modal-title">
+                    {{'DEVICE.MANAGE_DEVICE' | translate}}
+                </h4>
+            </div>
+            <div class="col-sm-auto col-auto ml-auto">
+                <button type="button" class="close" (click)="onCancel(false)" data-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body-condevice">
+        <app-branch-dropdown *ngIf="data.componentType == 'activate'" [group]="branchForm" [controlName]="'branchUUID'" [isAddAll]="false" [isMandatory]="true"></app-branch-dropdown>
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <td>{{'DEVICE.NAME_ENGLISH' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.nameEnglish}}</th>
+                    <!-- <td>{{'DEVICE.NAME_ARABIC' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.nameSecondLanguage}}</th> -->
+                </tr>
+                <tr>
+                    <td>{{'DEVICE.DEVICE_TYPE' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.deviceTypeText}}</th>
+                    <td>{{'DEVICE.DEVICE_CODE' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.deviceCode}}</th>
+                </tr>
+                <tr>
+                    <td>{{'DEVICE.DEVICE_IDENTIFIER' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.deviceIdentifier}}</th>
+                    <td>{{'DEVICE.MODEL_NUMBER' | translate}} </td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.modelNo}}</th>
+                </tr>
+                <tr>
+                    <td>{{'DEVICE.INSTALLATION_DATE' | translate}}</td>
+                    <td>:</td>
+                    <th>{{deviceDetails?.installationDate| date:'dd-MM-yyyy, h:mm:ss a zzzz'}}</th>
+                    <td>{{'DEVICE.DEVICE_STATUS' | translate}}</td>
+                    <td>:</td>
+                    <th class="badge text-light" 
+                        [ngClass]="{'badge-success':deviceDetails.actStatus===deviceActivationStatus.ACTIVATED,
+                                    'badge-warning':deviceDetails.actStatus===deviceActivationStatus.PENDING,
+                                    'badge-danger':deviceDetails.actStatus===deviceActivationStatus.DEACTIVATED,
+                                    'badge-primary':deviceDetails.actStatus===deviceActivationStatus.READYFORACTIVATE}">
+                          {{deviceDetails.deviceStatusText}}
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <ng-container *ngIf="data.componentType != 'deactivate'">
+        <div class="activation-code">
+            <div class="grid">
+                <div class="grid-item" *ngFor="let item of ActivationCode;let i=index">{{item}}
+                    <mat-icon *ngIf="isLoading"><mat-spinner color="warn"  diameter="20">
+                    </mat-spinner></mat-icon>
+                </div>
+                <ng-container  *ngIf="data.componentType == 'activate'">
+                <div class="grid-item">
+                    <button (click)="RegenerateCode(deviceDetails?.deviceUUID)">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+            </div>
+        </div>
+    </ng-container>
+    </div>
+    <div class="modal-footer">
+        <div class="form-row w-100">
+            <div class="col-md-auto col-auto modal-footer-mat">
+                <ng-container *ngIf="data.componentType == 'activate'">
+                    <button class="btn btn-success btn-sm m-right-10"
+                        mat-menu-item  (click)="ReadyForActivate(deviceDetails?.deviceUUID)">
+                        <mat-icon>check_circle_outline</mat-icon>
+                        <span>{{'DEVICE.ACTIVATE' | translate}}</span>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="data.componentType == 'deactivate'">
+                    <button class="btn btn-danger btn-sm m-right-10"
+                        mat-menu-item  (click)=" DeActivateDevice(deviceDetails?.deviceUUID,deviceDetails?.deviceId)"><mat-icon>highlight_off</mat-icon>
+                        <span>{{'DEVICE.DEACTIVATE' | translate}}</span>
+                    </button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

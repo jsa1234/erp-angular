@@ -1,0 +1,148 @@
+<div class="filter-sec mb-4">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <select class="w-100 form-control">
+              <option>item</option>
+              <option>item</option>
+              <option>item</option>
+              <option>item</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <input class="w-100 form-control" type="date" name="" id="">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input class="w-100 form-control" type="text" name="" id="">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <select class="w-100 form-control">
+              <option>item</option>
+              <option>item</option>
+              <option>item</option>
+              <option>item</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button mat-raised-button color="accent" type="button" (click)="onCreateTab()">Suspend Sales</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive pos-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Sub Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="selectedVariants.length>0">
+                <tr *ngFor="let item of selectedVariants;let last = last">
+                  <td>{{item.productNameEnglish}}</td>
+                  <td>{{item.unitPrice | number:'1.2-2'}}</td>
+                  <td>
+                    <input type="number" class="form-control w-100" #quantityInput [(ngModel)]="item.quantity"
+                      name="quantity" id="{{item.quantity}}" (ngModelChange)="updateAmount(item)">
+                  </td>
+                  <td>{{item.itemTotalAmount| number:'1.2-2'}}</td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="selectedVariants.length<=0">
+                <tr class="text-center">
+                  <td colspan="13">
+                    NO DATA FOUND
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      <div class="pos-total-box">
+        <div class="row">
+          <div class="col-md-2 content-flex text-center">
+            <div class="row">
+              <div class="col-lg-12"><span class="subtotal-head">Subtotal</span></div>
+              <div class="col-lg-12"><span class="subtotal-Amount">{{ subtotal | number:'1.2-2' }}</span></div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="row">
+              <div class="col-lg-6"><span class="next-class-head">Total Discount</span></div>
+              <div class="col-lg-6 content-flex text-right"><span class="next-class-value">{{ totalDiscount | number:'1.2-2' }}</span></div>
+              <div class="col-lg-6"><span class="next-class-head">Total Taxable Amount</span></div>
+              <div class="col-lg-6 content-flex text-right"><span class="next-class-value">{{ totalTaxable | number:'1.2-2' }}</span></div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-lg-6"><span class="next-class-head">Total Tax Amount</span></div>
+              <div class="col-lg-6 content-flex text-right"><span class="next-class-value">{{ totalVAT | number:'1.2-2'}}</span></div>
+              <div class="col-lg-6"><span class="next-class-head">Other Expense</span></div>
+              <div class="col-lg-6"><div class="form-group"><input class="form-control w-100" type="number" [(ngModel)]="otherExpense"
+                name="otherExpense" (ngModelChange)="calculateTotals()"> </div></div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-lg-6"><span class="next-class-head">Transportation Expense</span></div>
+              <div class="col-lg-6"><div class="form-group"><input class="form-control w-100" type="number"
+                [(ngModel)]="transportationExpense" name="transportationExpense" (ngModelChange)="calculateTotals()">
+            </div></div>
+              <div class="col-lg-6 content-flex"><span class="next-class-head">Roundoff</span></div>
+              <div class="col-lg-6"><div class="form-group"><input type="number" class="form-control w-100" [(ngModel)]="roundoff"
+                name="roundoff" (ngModelChange)="validateRoundoff()" #roundoffInput="ngModel" min="0" max="1"
+                step="0.01">
+              <div *ngIf="invalidValue">
+                <small class="text-danger"> Invalid value. Please enter a valid number between 0 and 1. </small>
+              </div>
+            </div></div>
+            </div>
+          </div>
+          <div class="col-md-2 content-flex text-center">
+            <div class="row">
+              <div class="col-lg-12"><span class="total-head">Total</span></div>
+              <div class="col-lg-12"><span class="total-value">{{ roundedTotal | number:'1.2-2' }}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="suspend-button">
+        <button mat-raised-button color="primary" type="button" (click)="save()">Suspend Sales</button>
+      </div>
+    </div>
+  <div class="col-md-5">
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <input class="form-control" type="text" [(ngModel)]="barcodeValue" #barcodeInput placeholder="Barcode">
+      </div>
+    </div>
+    <div class="row" infiniteScroll [infiniteScrollDistance]="2" [scrollWindow]="false" (scrolled)="onScroll($event)" style="height: 700px;overflow-y: auto;">
+      <div class="col-md-4" *ngFor="let product of products">
+        <mat-card class="product-card-poss"  (click)="selectProduct(product)">
+          <img mat-card-image [src]="product.imageUrl" alt="{{product.productName}}">
+          <mat-card-content>
+            <h2>{{product.productName}}</h2>
+            <p>Product Code: {{product.productCode}}</p>
+            <p>MRP: {{product.mrp}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

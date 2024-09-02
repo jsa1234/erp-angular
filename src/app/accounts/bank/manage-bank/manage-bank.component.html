@@ -1,0 +1,146 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons">
+        <h1><i class="icon57"></i> <span>Manage Bank Details</span> </h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">Dashboard</a> / <a [routerLink]="['/bank']">Bank</a> / <span>Manage Bank Details</span>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="bankForm" (ngSubmit)="saveBank()">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-dark">Bank</label>
+              <mat-select placeholder="" class="w-100 form-control" formControlName="bankType" (selectionChange)="setBankNameAndImage($event.value)">
+                <mat-option  *ngFor="let item of bankTypes" [value]="item.value">{{item.text}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-dark">Account Head Code</label>
+              <input formControlName="accountCode" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-dark">Bank Name</label>
+              <input formControlName="nameEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-dark">Branch</label>
+              <input formControlName="namePrefixEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-dark">Account Holder Name</label>
+              <input formControlName="firstNameEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-dark">Account Number</label>
+              <input formControlName="accountNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="text-dark">IFSC Code</label>
+              <input formControlName="ifscCode" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="bank-logo" >
+              <img [src]="imagePath$ | async" alt="Bank Image" draggable="false"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-boxed">
+        <h5>Address</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">Email</label>
+              <input formControlName="email" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">Phone Number</label>
+              <input formControlName="phone" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">Building</label>
+              <input formControlName="buildingNoEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">Street</label>
+              <input formControlName="streetEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">Place</label>
+              <input formControlName="placeEnglish" class="form-control w-100" type="text">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">Country</label>
+              <mat-select placeholder="" class="w-100 form-control" formControlName="countryUUID" (selectionChange)="getStateByCountry($event.value)">
+                <mat-option  *ngFor="let item of countries" [value]="item.countryUUID">{{item.nameEnglish}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">State</label>
+              <mat-select placeholder="" class="w-100 form-control" formControlName="stateUUID" (selectionChange)="getDistrictByState($event.value)">
+                <mat-option  *ngFor="let item of states" [value]="item.stateUUID">{{item.nameEnglish}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">District</label>
+              <mat-select placeholder="" class="w-100 form-control" formControlName="districtUUID">
+                <mat-option  *ngFor="let item of districts" [value]="item.districtUUID">{{item.nameEnglish}}</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="text-dark">Pincode</label>
+              <input formControlName="zipCode" class="form-control w-100" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 m-bottom-40 text-center">
+            <button  type="submit" class="btn btn-success btn-sm mr-2 m-left-10">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </div>
+    </div>
+  </div>
+</form>

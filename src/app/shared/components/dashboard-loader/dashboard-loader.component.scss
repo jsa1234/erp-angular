@@ -1,0 +1,112 @@
+
+.loading {
+  position: absolute;
+  top: 30%;
+  left: 41%;
+}
+
+@keyframes loading-1 {
+  0% {
+    background-color: #cd0a00;
+  }
+  30% {
+    background-color: #fa8a00;
+  }
+  50% {
+    height: 100px;
+    margin-top: 0px;
+  }
+  80% {
+    background-color: #91d700;
+  }
+  100% {
+    background-color: #cd0a00;
+  }
+}
+
+@keyframes loading-2 {
+  0% {
+    background-color: #cd0a00;
+  }
+  30% {
+    background-color: #fa8a00;
+  }
+  50% {
+    height: 100px;
+    margin-top: 0px;
+  }
+  80% {
+    background-color: #91d700;
+  }
+  100% {
+    background-color: #cd0a00;
+  }
+}
+
+@keyframes loading-3 {
+  0% {
+    background-color: #cd0a00;
+  }
+  30% {
+    background-color: #fa8a00;
+  }
+  50% {
+    height: 100px;
+    margin-top: 0px;
+  }
+  80% {
+    background-color: #91d700;
+  }
+  100% {
+    background-color: #cd0a00;
+  }
+}
+
+@keyframes loading-4 {
+  0% {
+    background-color: #cd0a00;
+  }
+  30% {
+    background-color: #fa8a00;
+  }
+  50% {
+    height: 100px;
+    margin-top: 0px;
+  }
+  80% {
+    background-color: #91d700;
+  }
+  100% {
+    background-color: #cd0a00;
+  }
+}
+
+.loading div {
+  height: 10px;
+  width: 30px;
+  background-color: #fff;
+  display: inline-block;
+  margin-top: 90px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.loading-1 {
+  animation: loading-1 2.5s infinite;
+  animation-delay: 0s;
+}
+
+.loading-2 {
+  animation: loading-2 2.5s infinite;
+  animation-delay: 0.4s;
+}
+
+.loading-3 {
+  animation: loading-3 2.5s infinite;
+  animation-delay: 0.8s;
+}
+
+.loading-4 {
+  animation: loading-4 2.5s infinite;
+  animation-delay: 1.2s;
+}

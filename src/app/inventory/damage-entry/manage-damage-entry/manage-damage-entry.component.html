@@ -1,0 +1,155 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon19"></i> <span>{{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}</span></h1>
+      </div>
+    </div>
+  </div>
+  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
+        [routerLink]="['/inventory/damage-entry']">{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</a> /
+      <span>{{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}</span>
+    </div>
+  </div>
+</div>
+
+
+
+<form [formGroup]="damageEntryForm">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <div class="section-boxed">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <label>{{'INVENTORY.DAMAGE_ENTRY.DOC_NO' | translate}}<span class="text-danger">*</span></label>
+              <input formControlName="docNo" class="form-control w-100" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <date-input [group]="damageEntryForm" [controlName]="'docDate'" [label]="'INVENTORY.DAMAGE_ENTRY.DOC_DATE'"
+                [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-12">
+            <div class="form-group">
+              <app-branch-dropdown [group]="damageEntryForm" [controlName]="'branchUUID'"
+                [isAddAll]="false"></app-branch-dropdown>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="form-group">
+              <label>{{'INVENTORY.DAMAGE_ENTRY.REMARK' | translate}}</label>
+              <textarea class="form-control w-100" formControlName="remarks" name="" id="" cols="50"
+                rows="2"> </textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-md-12 col-12">
+    <div class="section-boxed">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            {{'COMMON.SCAN_BARCODE'|translate}}: <input class="form-control w-50" type="text" [(ngModel)]="barcodeValue" #barcodeInput>
+          </div>
+          </div>
+          <div class="col-md-6 text-right purchanse-managed-button">
+          <button mat-raised-button color="warn" (click)="openProductDialog()">
+            <mat-icon>search</mat-icon>
+            {{'COMMON.SEARCH_PRODUCT'|translate}}
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 table-responsive">
+            <table class="table table-striped purchanse-managed-table">
+                <thead>
+                    <tr>
+                        <th>{{'COMMON.#'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.BARCODE'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.PRODUCT_CODE'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.PRODUCT_NAME_ENGLISH'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.STOCK'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.DAMAGE_QUANTITY'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.UNIT_PRICE'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.UNIT_NAME'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.DESCRIPTION'|translate}}</th>
+                        <th>{{'INVENTORY.DAMAGE_ENTRY.TOTAL'|translate}}</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <ng-container *ngIf="damageProductList?.length>0">
+                    <tr *ngFor="let item of damageProductList;let last = last; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{item.barcode}}</td>
+                        <td>{{item.product.productCode}}</td>
+                        <td>{{item.product.nameEnglish}}</td>
+                        <td>{{item?.stock}}</td>
+                        <td>
+                            <input class="form-control w-100" type="number" #quantityInput [(ngModel)]="item.damageQuantity" name="damageQuantity" id="{{item.damageQuantity}}" (ngModelChange)="updateAmount(item)">
+                        </td>
+                        <td>
+                          <input class="form-control w-100" type="number"  [(ngModel)]="item.averageRate" name="averageRate" id="{{item.averageRate}}" (ngModelChange)="updateAmount(item)">    
+                      </td>
+                        <td>{{item.unit.nameEnglish}}</td>
+
+                        <td>
+                            <input class="form-control w-100" type="text" [(ngModel)]="item.description" name="description" id="{{item.description}}">
+                        </td>
+                        <td>{{item.totalAmount | number:'1.2-2'}}</td>
+                        <td class="text-center">
+                          <button mat-icon-button color="warn" (click)="deleteRow(item.productPriceUUID)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-container *ngIf="damageProductList?.length<=0">
+                    <tr class="text-center">
+                        <td colspan="11">
+                           {{'COMMON.NO_DATA_FOUND'|translate}}
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+                <tfoot *ngIf="damageProductList?.length>0">
+                  <tr>
+                    <th colspan="9" class="text-right">
+                      {{'INVENTORY.DAMAGE_ENTRY.GRAND_TOTAL'|translate}}
+                    </th>
+                    <th class="text-right">
+                       {{this.grandTotal  | number:'1.2-2'}}
+                    </th>
+                    <th></th>
+                  </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 m-bottom-40 text-center">
+          <!-- *hasClaim="'profile_business_update_business_profile'" -->
+          <button  type="submit" class="btn btn-success btn-sm mr-2 m-left-10" (click)="saveDamageEntry()">
+              <i class="fas fa-save"></i> {{'COMMON.SAVE' | translate}}
+          </button>
+          </div>
+          </div>
+    </div>
+  </div>
+</div>

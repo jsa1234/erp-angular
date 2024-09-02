@@ -1,0 +1,261 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+      <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+              <h1>{{'SIDEBAR.SALES_RETURN' | translate}}</h1>
+          </div>
+      </div>
+      <div class="col-md-auto col-sm-auto">
+          <button *hasClaim="'sale_sale_return_print_sale_return'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
+              <i class="fas fa-receipt"></i> {{'COMMON.PRINT_INVOICE'  | translate}}
+          </button>
+      </div>
+  </div>
+</div>
+
+
+<br>
+<ng-container>
+    <app-comapny-profile-heading [ProfileType]="1"></app-comapny-profile-heading>
+  <div class="row">
+      <div class="col-md-6">
+          <div class="invoice-detatable table-responsive"
+          [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+              <table>
+                  <tr>
+                      <th>{{'SALES_RETURN.INVOICE_NO' | translate}}</th>
+                      <td>{{simplifiedSaleReturn?.docNo}}</td>
+                  </tr>
+                  <tr>
+                      <th>{{'SALES_RETURN.INVOICE_DATE' | translate}}</th>
+                      <td>{{simplifiedSaleReturn?.docDate | customDate}}</td>
+                  </tr>
+                  <tr>
+                      <th>{{'SALES_RETURN.REF_INV_DATE' | translate}}</th>
+                      <td>{{simplifiedSaleReturn?.refInvDate| customDate}}</td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="invoice-detatable table-responsive"
+          [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+              <table>
+                  <tr>
+                      <th>{{'SALES_RETURN.P_O_NUMBER' | translate}}</th>
+                      <td>{{simplifiedSaleReturn?.poNo}}</td>
+                  </tr>
+                  <tr>
+                      <th>{{'SALES_RETURN.D_R_NUMBER' | translate}}</th>
+                      <td>{{simplifiedSaleReturn?.drNo}}</td>
+                  </tr>
+                  <tr>
+                      <th>{{'SALES_RETURN.TRANSACTION_MODE' | translate}}</th>
+                      <td>
+
+                          <span class="badge-pill" [ngClass]="{'badge-primary': simplifiedSaleReturn?.transactionMode == 0 ,
+              'badge-success' : simplifiedSaleReturn?.transactionMode == 1,
+              'badge-warning' : simplifiedSaleReturn?.transactionMode == 2,
+            'badge-danger': simplifiedSaleReturn?.transactionMode == 3}">{{simplifiedSaleReturn?.transactionModeText}}</span>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="invoice-detatable table-responsive">
+              <div class="col-md-12">
+                <div class="invoice-detatable table-responsive"
+                  [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+                  <table>
+                    <tr>
+                      <th colspan="2" class="text-center" style="font-size: 18px;">{{'SALES_RETURN.BUYER' | translate}}</th>
+                    </tr>
+                    <tr>
+                      <th [ngClass]="{'salesins-name-ar':translationService.getSelectedLanguage()=='ar'}">{{client.nameEnglish}}</th>
+                      <th class="salesins-name text-right" >
+                        {{client.nameSecondLanguage}}</th>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+  <div class="page-header-main">
+      <div class="row align-items-center justify-content-between">
+          <div class="col-md-auto col-sm-auto">
+              <div class="content-header">
+                  <h1>{{"COMMON.LINE_ITEMS" | translate}}</h1>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="table-responsive invoice-detatable">
+      <table class="table table-bordered table-hover table-striped">
+          <thead class="head">
+              <tr>
+                  <th style="width:1%;text-align: center;">{{"COMMON.#" | translate}}</th>
+                  <th>{{'SALES_RETURN.NATURE_OF_GOODS_OR_SERVICES' | translate}}</th>
+                  <th class="text-center"> {{'PRODUCT.UNIT_COST' | translate}} </th>
+                  <th class="text-center">{{"PRODUCT.QUANTITY" | translate}}</th>
+                  <th class="text-center">{{'COMMON.RETURN_QUANTITY' | translate}}</th>
+                  <th class="text-center">{{'SALES_RETURN.DISCOUNT' | translate}}</th>
+                  <th class="text-center">{{'SALES_RETURN.TAXABLE_AMOUNT' | translate}}</th>
+                  <th class="text-center">{{'SALES_RETURN.TAX_RATE' | translate}}</th>
+                  <th class="text-center">{{'SALES_RETURN.TAX_AMOUNT' | translate}}</th>
+                  <th class="text-right">{{'SALES_RETURN.TOTAL' | translate}}</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let saleReturn of saleReturnItems;let i=index">
+                <td style="text-align: center;">{{i+1}}</td>
+                <td>{{ translationService.getSelectedLanguage()=='en'?saleReturn?.productObject?.nameEnglish:saleReturn?.productObject?.nameSecondLanguage}}</td>
+                <td class="text-center" [innerHTML]="saleReturn?.unitPrice | customCurrency"></td>
+                <td class="text-center">{{saleReturn?.quantity}}</td>
+                <td class="text-center">{{saleReturn?.returnQuanity}}</td>
+                <td class="text-center" [innerHTML]="saleReturn?.discountAmount | customCurrency"></td>
+                <td class="text-center" [innerHTML]="(saleReturn?.itemTotalAmount - saleReturn?.vatAmount ) | customCurrency"></td>
+                <td class="text-center" > {{saleReturn?.vatRate}} %</td>
+                <td class="text-center" [innerHTML]="saleReturn?.vatAmount | customCurrency">
+                </td>
+                <td class="text-right" [innerHTML]="saleReturn?.itemTotalAmount | customCurrency">
+                </td>
+              </tr>
+          </tbody>
+      </table>
+
+
+      <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
+        <tbody>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>
+                        Total Qty
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>
+                      إجمالي الكمية
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn.totalQuantity"></b>
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>
+                        Total (Excluding VAT)
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>
+                        الإجمالي (باستثناء ضريبة القيمة المضافة)
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn.subTotal | customCurrency"></b>
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>Discount</b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>تخفيض</b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn.totalDiscount | customCurrency"></b>
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>
+                        Total Taxable Amt (Excluding VAT)
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>
+                        إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn.totalTaxableAmount | customCurrency"></b>
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>Total VAT</b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>
+                        إجمالي ضريبة القيمة المضافة
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn.totalTax | customCurrency"></b>
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>Total Expenses</b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>
+                        إجمالي ضريبة القيمة المضافة
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn.totalExpenses | customCurrency"></b>
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>Round Off</b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>
+                      نهاية الجولة
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn.roundOff | customCurrency"></b>
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
+                    <b>Total Amount</b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
+                    colspan="4">
+                    <b>
+                        إجمالي المبلغ المستحق
+                    </b>
+                </td>
+                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
+                    <b [innerHTML]="simplifiedSaleReturn?.totalAmount | customCurrency"></b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+
+
+
+  <ng-container *ngIf="simplifiedSaleReturnForPdf">
+    <app-return-simplified [simplifiedPDF]="simplifiedSaleReturnForPdf"></app-return-simplified>
+  </ng-container>
+
+
+

@@ -1,0 +1,20 @@
+.content-header h1 i {
+    display: list-item;
+    position: absolute;
+    padding-right: 18px;
+    background-color: #f58220 !important;
+  }
+  .content-header h1 span {
+    margin-left: 35px;
+  }
+  .mat-focus-indicator img {
+    height: 160px;
+    object-fit: scale-down;
+  }
+  .section-boxed mat-card {
+    height: 220px;
+    padding: 15px;
+  }
+  .mat-card>.mat-card-actions:last-child {
+    text-align: center;
+}

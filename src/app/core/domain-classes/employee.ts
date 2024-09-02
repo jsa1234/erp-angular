@@ -1,0 +1,55 @@
+import { Country } from "./country";
+import { District } from "./district";
+import { State } from "./state";
+
+export interface Employee {
+    accountUUID?: string;
+    branchId?: number;
+    branchUUID: string;
+    accountCode?: string;
+    accountType?: number;
+    nameEnglish?: string;
+    nameSecondLanguage?: string;
+    namePrefixEnglish?: string;
+    firstNameEnglish?: string;
+    middleNameEnglish?: string;
+    lastNameEnglish?: string;
+    nameSuffixEnglish: string;
+    namePrefixArabic: string;
+    firstNameArabic: string;
+    middleNameArabic: string;
+    lastNameArabic: string;
+    nameSuffixArabic: string;
+    mobileCountryCode: string;
+    mobile: string;
+    phoneCountryCode: string;
+    phone: string;
+    email: string;
+    website: string;
+    fax: string;
+   // birthdate?: Date;
+    gender: number;
+    imagePath: string;
+    buildingNoEnglish: string;
+    buildingNoArabic: string;
+    streetEnglish: string;
+    streetArabic: string;
+    placeEnglish: string;
+    placeArabic: string;
+    districtObj?: District;
+    stateObj?: State;
+    countryObj?: Country;
+    country:string;
+    state:string;
+    district:string;
+    zipCode: string;
+    createdBy: string;
+    openingBalance: number;
+    creditLimit: number;
+    debitCredit: number;
+    maxCreditDays: number;
+    traySecurityRequired?: boolean;
+    isActive: boolean;
+    imageFile?:string;
+    isImageUpdate?:boolean
+}

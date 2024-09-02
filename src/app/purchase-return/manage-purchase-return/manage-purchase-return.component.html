@@ -1,0 +1,284 @@
+<div class="page-header-main">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-4 ">
+      <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
+        <h1><i class="icon3"></i> <span>{{'PURCHASE_RETURN.MANAGE_PURCHASE_RETURN' | translate}}</span></h1>
+      </div>
+      <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+        <div class="crumbs-sec">
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
+          <a [routerLink]="['/purchase-return/list']">{{'SIDEBAR.PURCHASE_RETURN' | translate}}</a> /
+          <span>{{'PURCHASE_RETURN.MANAGE_PURCHASE_RETURN' | translate}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="shortcut-keys">
+        <span><b>Ctrl + F10</b> - Focus First Row Return Quantity Input</span>&nbsp;&nbsp;
+        <span><b>Arrow Up</b> - Navigate to the row above</span>&nbsp;&nbsp;
+        <span><b>Arrow Down</b> - Navigate to the row below</span>&nbsp;&nbsp;
+        <span><b>Ctrl + Del</b> - Delete tabke row </span>&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-shade" *ngIf="isLoading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+
+
+<form [formGroup]="purchaseReturnForm">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="section-boxed manage-purchase-boxing">
+        <div class="top-foams">
+          <div class="form-group">
+            <app-supplier-dropdown [group]="purchaseReturnForm" [controlName]="'accountUUID'"
+              (supplierSelected)="onSupplierSelected($event)"></app-supplier-dropdown>
+          </div>
+          <div class="form-group">
+            <label>{{'PURCHASE_RETURN.INVOICE_TYPE' | translate}}<span class="text-danger">*</span></label>
+            <mat-select class="form-control w-100" formControlName="invoiceType">
+              <mat-option *ngFor="let invoiceType of invoiceTypeList; let i =index"
+                [value]="i">{{invoiceType}}</mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group">
+            <label>{{'PURCHASE_RETURN.INVOICE_NO' | translate}}<span class="text-danger">*</span></label>
+            <input formControlName="docNo" class="form-control w-100" type="text">
+            <div *ngIf="purchaseReturnForm.get('docNo').touched && purchaseReturnForm.get('docNo').errors">
+              <div class="text-danger" *ngIf="purchaseReturnForm.get('docNo').errors?.required">
+                Invoice No is Required
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <date-input [group]="purchaseReturnForm" [controlName]="'docDate'" [label]="'PURCHASE_RETURN.INVOICE_DATE'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true" [isDatePickerDisabled]="true"></date-input>
+          </div>
+        </div>
+        <div class="top-foams">
+          <div class="form-group">
+            <label>{{'PURCHASE_RETURN.PURCHASE_INVOICE_NO' | translate}}<span class="text-danger">*</span></label>
+            <mat-form-field>
+              <mat-select formControlName="refInvNo" class="form-control w-100"
+                (selectionChange)="onPurchaseSelected($event.value)">
+                <mat-option *ngFor="let item of purchaseList" [value]="item.docNo">{{item.docNo}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="purchaseReturnForm.get('refInvNo').touched && purchaseReturnForm.get('refInvNo').errors">
+              <div class="text-danger" *ngIf="purchaseReturnForm.get('refInvNo').errors?.required">
+                Please Select Purchase Invoice
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <date-input [group]="purchaseReturnForm" [controlName]="'refInvDate'"
+              [label]="'PURCHASE_RETURN.PURCHASE_INVOICE_DATE'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"
+              [isDatePickerDisabled]="true" [isDefaultDate]="false"></date-input>
+          </div>
+          <div class="form-group">
+            <app-branch-dropdown [group]="purchaseReturnForm" [controlName]="'branchUUID'"
+              [isAddAll]="false"></app-branch-dropdown>
+          </div>
+          <div class="form-group">
+            <app-transaction-mode-dropdown [group]="purchaseReturnForm"
+              [controlName]="'transactionMode'"></app-transaction-mode-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="section-boxed">
+      <div class="row mt-3">
+        <div class="col-sm-12">
+          <div class="table-responsive table-scrolls">
+            <table class="table report-varient-table table-striped table-hover">
+              <thead>
+                <tr>
+                  <td [attr.colspan]="colspan" class="text-left return-button">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger"
+                      aria-label="Action">
+                      <mat-icon>filter_list</mat-icon>
+                    </button>
+
+                    <mat-menu #menu="matMenu">
+                      <ng-container *ngFor="let column of columns; let i = index">
+                        <button mat-menu-item *ngIf="column.isShowCheckBox">
+                          <div (click)="$event.stopPropagation()">
+                            <app-check-box [label]="column.name" [(isChecked)]="column.visibleTableColumns"
+                              [checkboxColor]="'primary'" [isDisabled]="false"
+                              (checkedChange)="onCheckboxValueChanged(column.key, $event)"></app-check-box>
+                          </div>
+                        </button>
+                      </ng-container>
+                    </mat-menu>
+
+                  </td>
+                </tr>
+                <tr>
+                  <ng-container *ngFor="let item of columns">
+                    <th [ngClass]="{ 'text-center':  item.key !== 'netTotal', 'text-right': item.key === 'netTotal'}"
+                      *ngIf="columnVisibility[item.key]">{{item.name |translate}}</th>
+                  </ng-container>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of purchaseReturnItems; let i = index" [class.active]="i === currentRowIndex">
+                  <td class="text-center">{{i+1}}</td>
+                  <td class="text-center" *ngIf="columnVisibility['barcode']">{{item?.productObject}}</td>
+                  <td class="text-center" *ngIf="columnVisibility['productName']">{{item?.productObject?.nameEnglish}}
+                  </td>
+                  <td class="text-center" *ngIf="columnVisibility['productCode']">{{item?.productObject?.productCode}}
+                  </td>
+                  <td class="text-center" *ngIf="columnVisibility['unitName']">{{item?.unitObject.nameEnglish}}</td>
+                  <td class="text-center" *ngIf="columnVisibility['quantity']">{{item?.quantity}}</td>
+                  <td class="text-center" *ngIf="columnVisibility['returnQuantity']">
+                    <input type="number" name="returnQuantityInput" class="form-control w-100"
+                      [(ngModel)]="item.returnQuantity" #returnQuantityInput
+                      (ngModelChange)="validateReturnQuantity(item)">
+                    <div class="text-danger" *ngIf="validationMessages[item.productPriceUUID]">{{
+                      validationMessages[item.productPriceUUID] }}</div>
+                  </td>
+                  <td class="text-center" *ngIf="columnVisibility['unitPrice']">{{item?.unitPrice}}</td>
+                  <td class="text-center" *ngIf="columnVisibility['amount']"
+                    [innerHTML]="item?.amount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['discountPercentage']"
+                    [innerHTML]="item?.discountRate"></td>
+                  <td class="text-center" *ngIf="columnVisibility['discountAmount']"
+                    [innerHTML]="item?.discountAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['cgstPercentage']" [innerHTML]="item?.cgstRate"></td>
+                  <td class="text-center" *ngIf="columnVisibility['cgstAmount']"
+                    [innerHTML]="item?.cgstAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['sgstPercentage']" [innerHTML]="item?.sgstRate"></td>
+                  <td class="text-center" *ngIf="columnVisibility['sgstAmount']"
+                    [innerHTML]="item?.sgstAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['igstPercentage']" [innerHTML]="item?.igstRate"></td>
+                  <td class="text-center" *ngIf="columnVisibility['igstAmount']"
+                    [innerHTML]="item?.igstAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['cessPercentage']" [innerHTML]="item?.cessRate"></td>
+                  <td class="text-center" *ngIf="columnVisibility['cessAmount']"
+                    [innerHTML]="item?.cessAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['additionalCessPercentage']"
+                    [innerHTML]="item?.addnlCessRate"></td>
+                  <td class="text-center" *ngIf="columnVisibility['additionalCessAmount']"
+                    [innerHTML]="item?.addnlCessAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['taxableAmount']"
+                    [innerHTML]="item?.taxableAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['manufactureDate']"
+                    [innerHTML]="item?.manufactureDate | customDate"></td>
+                  <td class="text-center" *ngIf="columnVisibility['expiryDate']"
+                    [innerHTML]="item?.expiryDate | customDate"></td>
+                  <td class="text-right" *ngIf="columnVisibility['itemTotalAmount']"
+                    [innerHTML]="item?.itemTotalAmount | customCurrency"></td>
+                  <td class="text-center" *ngIf="columnVisibility['action']">
+                    <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon"
+                      (click)="deleteRow(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="purchaseReturnItems.length == 0" class="text-center">
+                  <td [attr.colspan]="colspan">{{'COMMON.NO_DATA_FOUND' | translate}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="section-boxed">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            Subtotal <input class="form-control w-100" type="text" [value]="selectedPurchase.subTotal || 0" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Total Discount <input class="form-control w-100" type="text" [value]="selectedPurchase.discountAmount  || 0"
+              disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Total Taxable Amount <input class="form-control w-100" type="text"
+              [value]="selectedPurchase.grossAmount  || 0" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            CGST <input class="form-control w-100" type="text" [value]="selectedPurchase.cgstAmount  || 0" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            SGST <input class="form-control w-100" type="text" [value]="selectedPurchase.sgstAmount  || 0" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            IGST <input class="form-control w-100" type="text" [value]="selectedPurchase.igstAmount  || 0" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            CESS <input class="form-control w-100" type="text" [value]="selectedPurchase.cessAmount  || 0" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Additional CESS <input class="form-control w-100" type="text"
+              [value]="selectedPurchase.addnlCessAmount  || 0" disabled>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Other Expense <input class="form-control w-100" type="number" [(ngModel)]="selectedPurchase.otherExpense"
+              (ngModelChange)="calculateTotal()">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Transport Expense <input class="form-control w-100" type="number"
+              [(ngModel)]="selectedPurchase.transExpense" (ngModelChange)="calculateTotal()">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            Roundoff <input class="form-control w-100" type="number" [(ngModel)]="selectedPurchase.roundOff"
+              (ngModelChange)="validateRoundoff()">
+            <small class="text-danger" *ngIf="invalidValue">The value should be between 0 and 1.</small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group total-count-form">
+            <p>Total :</p>
+            <span>{{(selectedPurchase.roundNetTotalAmount || 0) | customCurrency }}</span>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <button class="btn-success w-100" mat-raised-button (click)="savePurchaseReturn()">
+            <mat-icon>save</mat-icon>
+            {{'COMMON.SAVE' | translate}}
+          </button>
+        </div>
+        <div class="col-md-6 text-center">
+          <button class=" w-100 btn btn-danger " mat-raised-button [routerLink]="['/purchase-return/list']">
+            <mat-icon>cancel</mat-icon>
+            {{'COMMON.CANCEL' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
