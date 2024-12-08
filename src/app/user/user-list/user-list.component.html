@@ -2,20 +2,65 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-                <h1><i class="icon37"></i> <span>{{'SIDEBAR.USERS' | translate}}</span></h1>
+                <h1>{{'SIDEBAR.USERS' | translate}}</h1>
             </div>
         </div>
         <div class="col-md-auto col-sm-auto col-auto">
             
             <button *hasClaim="'profile_user_create_user'"  class="btn blue-btn btn-sm m-right-10"
                 [routerLink]="['/users/manage']">
-                <i class="fas fa-plus"></i> {{'USERS.ADD_USER' | translate}}
+                {{'USERS.ADD_USER' | translate}}&nbsp;
+                <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 8V16M16 12H8"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
+                  stroke="white"
+                  stroke-width="1.5"
+                />
+              </svg>
             </button>
         </div>
     </div>
     <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
         <div class="crumbs-sec">
-          <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.USERS' | translate}}</span>
+          <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> <svg
+          width="16"
+          height="17"
+          viewBox="0 0 16 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_229_1686)">
+            <path
+              d="M6 4.5L10 8.5L6 12.5"
+              stroke="#4A4A4A"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_229_1686">
+              <rect
+                width="16"
+                height="16"
+                fill="white"
+                transform="translate(0 0.5)"
+              />
+            </clipPath>
+          </defs>
+        </svg> <span>{{'SIDEBAR.USERS' | translate}}</span>
         </div>
       </div>
 </div>
@@ -23,10 +68,34 @@
     <div class="loading-shade" *ngIf="dataSource.loading$ | async">
         <mat-spinner></mat-spinner>
     </div>
-    <div class="col-sm-6 mb-3">
+    <div class="filter-group">
+        <div class="form">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control form-input" placeholder="{{'USERS.SEARCH_BY_EMAIL_FIRST_NAME_LAST_NAME_PHONE_NUMBER' | translate}}"
+          #input />
+        </div>
+        <!-- <label for="choose">Sort by</label>
+        <mat-form-field class="filter-dropdown" #choose>
+          <mat-select class="form-control">
+             <div class="select-item-op">
+            <mat-option  [value]="-1" >
+             Choose
+            </mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="#4A4A4A" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M6 9H9.5M17 9H18M12 8V10M14.5 8V10" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 15H12M7 15H6M9.5 14V16" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Filters -->
+      </div>
+<!--     <div class="col-sm-6 mb-3">
         <input class="form-control" placeholder="{{'USERS.SEARCH_BY_EMAIL_FIRST_NAME_LAST_NAME_PHONE_NUMBER' | translate}}"
             #input>
-    </div>
+    </div> -->
     <table mat-table class="table table-bordered table-hover" [dataSource]="dataSource" matSort matSortActive="email">
         <ng-container matColumnDef="action">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef>
@@ -42,10 +111,10 @@
                         <mat-icon>edit</mat-icon>
                         <span>{{'COMMON.EDIT' | translate}}</span>
                     </button>
-                    <button *hasClaim="'profile_user_user_permission'"  mat-menu-item (click)="userPermission(user.id)">
+                    <!-- <button *hasClaim="'profile_user_user_permission'"  mat-menu-item (click)="userPermission(user.id)">
                         <mat-icon>admin_panel_settings</mat-icon>
                         <span>{{'USERS.PERMISSION' | translate}}</span>
-                    </button>
+                    </button> -->
                     <button *hasClaim="'profile_user_reset_password'"  mat-menu-item (click)="resetPassword(user)">
                         <mat-icon>vpn_key</mat-icon>
                         <span>{{'USERS.RESET_PASSWORD' | translate}}</span>
@@ -55,10 +124,10 @@
                         <mat-icon>delete</mat-icon>
                         <span>{{'COMMON.DELETE' | translate}}</span>
                     </button>
-                    <button  mat-menu-item [routerLink]="['/users/configuration', user.id]">
+                    <!-- <button  mat-menu-item [routerLink]="['/users/configuration', user.id]">
                         <mat-icon>settings</mat-icon>
                         <span>{{'COMMON.CONFIGURATIONS' | translate}}</span>
-                    </button>
+                    </button> -->
                 </mat-menu>
             </td>
         </ng-container>

@@ -40,3 +40,48 @@ table.mat-table {
   display: table !important;
   width: 100% !important;
 }
+.add-product{
+  
+  width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+hr{
+  width: 97%;
+}
+.mng-product{
+  background-color: white;
+  margin: 0 5px;
+  border-radius: 20px;
+  padding: 40px;
+}
+.btn-danger{
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+.modal-content{
+  border-radius: 20px !important;
+  padding: 10px;
+}
+.addvariants-header-right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-around;
+}
+#mng-prod-togl{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0;
+}
+.error{
+  border: 2px solid red;
+}

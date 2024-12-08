@@ -24,11 +24,11 @@ export class PosPrinterListComponent extends BaseComponent implements OnInit,Aft
 
   dataSource: POSPrinterDataSource;
   displayedColumns: string[] = [
-    'action',
     'name',
     'modelName',
     'serialNo',
-    'ipAddress'
+    'ipAddress',
+    'action',
   ];
 
   footerToDisplayed: string[] = ['footer'];

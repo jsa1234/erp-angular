@@ -52,20 +52,21 @@ export class BranchListComponent
   dataSource: BranchDataSource;
   branches: IBranch[] = [];
   displayedColumns: string[] = [
-    'action',
+   
     'nameEnglish',
     // 'nameSecondLanguage',
     'branchType',
     'gstNo',
     // 'regNo',
     'mobileNo',
-    'phoneNo',
+    //'phoneNo',
     'district',
     // 'state',
     // 'country',
+    'action',
   ];
   displayedColumnsSearch: string[] = [
-    'action-search',
+   
     'nameEnglish-search',
     // 'nameSecondLanguage-search',
     'branchType-search',
@@ -76,6 +77,7 @@ export class BranchListComponent
     'district-search',
     // 'state-search',
     // 'country-search',
+    'action-search',
   ];
   footerToDisplayed: string[] = ['footer'];
   branchResource: BranchResourceParameter;
@@ -129,6 +131,7 @@ export class BranchListComponent
     this.branchResource.orderBy = 'nameEnglish asc';
   }
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
     this.getAllBranches();
   }

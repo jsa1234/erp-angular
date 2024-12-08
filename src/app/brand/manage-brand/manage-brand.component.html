@@ -1,5 +1,6 @@
 <div class="modal-content1" [ngClass]="{'modal-content-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="modal-header">
+
         <div class="d-flex w-100 align-items-center justify-content-between">
             <div class="col-md-9 col">
                 <h4 class="modal-title">
@@ -13,6 +14,7 @@
             </div>
         </div>
     </div>
+    <hr style="margin-left: 10px;margin-right: 10px;border: 1px solid #B5ADAB;">
     <form [formGroup]="brandForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
         <div class="modal-body modal-manage">
             <div class="row">
@@ -28,7 +30,7 @@
                     </div> -->
                     <div class="form-group">
                         <label for="unitName">{{'BRAND.NAME_ENGLISH' | translate}} <span class="text-danger">*</span></label>
-                        <input formControlName="nameEnglish" type="text" class="form-control" id="unitName">
+                        <input formControlName="nameEnglish" type="text" class="form-control" id="unitName" placeholder="Enter here">
                         <div *ngIf="brandForm.get('nameEnglish').errors && brandForm.get('nameEnglish').touched">
                             <div class="text-danger" *ngIf="brandForm.get('nameEnglish').errors?.required">
                               Brand Name is Required
@@ -46,17 +48,18 @@
                 </div>
             </div>
         </div>
+        <hr style="margin-left: 10px;margin-right: 10px;border: 1px solid #B5ADAB;">
         <div class="modal-footer">
             <div class="form-row w-100">
                 <div class="text-center w-100">
                     <ng-container>
-                        <button class="btn btn-success btn-sm m-right-10" (click)="saveUnit()">
-                            <i class="fas fa-save"></i>
-                            {{'COMMON.SAVE' | translate}}
+                        <button class="btn blue-btn m-right-10" (click)="saveUnit()">
+                            <i class="icon61"></i>
+                            {{'COMMON.ADD' | translate}}
                         </button>
                     </ng-container>
-                    <button class="btn btn-danger btn-sm" (click)="onCancel(false)">
-                        <i class="fas fa-times-circle"></i>
+                    <button class="btn modal-cancel m-right-10" (click)="onCancel(false)">
+                        <i class="icon62"></i>
                         {{'COMMON.CANCEL' | translate}}
                     </button>
                 </div>

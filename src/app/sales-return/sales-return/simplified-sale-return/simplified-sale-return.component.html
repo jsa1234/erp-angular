@@ -75,8 +75,8 @@
                     </tr>
                     <tr>
                       <th [ngClass]="{'salesins-name-ar':translationService.getSelectedLanguage()=='ar'}">{{client.nameEnglish}}</th>
-                      <th class="salesins-name text-right" >
-                        {{client.nameSecondLanguage}}</th>
+                      <!-- <th class="salesins-name text-right" >
+                        {{client.nameSecondLanguage}}</th> -->
                     </tr>
                   </table>
                 </div>
@@ -105,7 +105,7 @@
                   <th class="text-center">{{'COMMON.RETURN_QUANTITY' | translate}}</th>
                   <th class="text-center">{{'SALES_RETURN.DISCOUNT' | translate}}</th>
                   <th class="text-center">{{'SALES_RETURN.TAXABLE_AMOUNT' | translate}}</th>
-                  <th class="text-center">{{'SALES_RETURN.TAX_RATE' | translate}}</th>
+                  <!-- <th class="text-center">{{'SALES_RETURN.TAX_RATE' | translate}}</th> -->
                   <th class="text-center">{{'SALES_RETURN.TAX_AMOUNT' | translate}}</th>
                   <th class="text-right">{{'SALES_RETURN.TOTAL' | translate}}</th>
               </tr>
@@ -118,9 +118,9 @@
                 <td class="text-center">{{saleReturn?.quantity}}</td>
                 <td class="text-center">{{saleReturn?.returnQuanity}}</td>
                 <td class="text-center" [innerHTML]="saleReturn?.discountAmount | customCurrency"></td>
-                <td class="text-center" [innerHTML]="(saleReturn?.itemTotalAmount - saleReturn?.vatAmount ) | customCurrency"></td>
-                <td class="text-center" > {{saleReturn?.vatRate}} %</td>
-                <td class="text-center" [innerHTML]="saleReturn?.vatAmount | customCurrency">
+                <td class="text-center" [innerHTML]="(saleReturn?.unitPrice * saleReturn?.returnQuanity ) | customCurrency"></td>
+                <!-- <td class="text-center" > {{saleReturn?.vatRate}} %</td> -->
+                <td class="text-center" [innerHTML]="(saleReturn?.sgstAmount + saleReturn?.cgstAmount +saleReturn?.igstAmount +saleReturn?.cessAmount +saleReturn?.addnlCessAmount )| customCurrency">
                 </td>
                 <td class="text-right" [innerHTML]="saleReturn?.itemTotalAmount | customCurrency">
                 </td>
@@ -137,12 +137,7 @@
                         Total Qty
                     </b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>
-                      إجمالي الكمية
-                    </b>
-                </td>
+              
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn.totalQuantity"></b>
                 </td>
@@ -150,15 +145,10 @@
             <tr style="border: none;">
                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                     <b>
-                        Total (Excluding VAT)
+                        Total (Excluding TAX)
                     </b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>
-                        الإجمالي (باستثناء ضريبة القيمة المضافة)
-                    </b>
-                </td>
+               
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn.subTotal | customCurrency"></b>
                 </td>
@@ -167,10 +157,7 @@
                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                     <b>Discount</b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>تخفيض</b>
-                </td>
+               
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn.totalDiscount | customCurrency"></b>
                 </td>
@@ -178,29 +165,19 @@
             <tr style="border: none;">
                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                     <b>
-                        Total Taxable Amt (Excluding VAT)
+                        Total Taxable Amt (Excluding TAX)
                     </b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>
-                        إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
-                    </b>
-                </td>
+               
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn.totalTaxableAmount | customCurrency"></b>
                 </td>
             </tr>
             <tr style="border: none;">
                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
-                    <b>Total VAT</b>
+                    <b>Total TAX</b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>
-                        إجمالي ضريبة القيمة المضافة
-                    </b>
-                </td>
+              
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn.totalTax | customCurrency"></b>
                 </td>
@@ -209,12 +186,7 @@
                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                     <b>Total Expenses</b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>
-                        إجمالي ضريبة القيمة المضافة
-                    </b>
-                </td>
+               
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn.totalExpenses | customCurrency"></b>
                 </td>
@@ -223,12 +195,7 @@
                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                     <b>Round Off</b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>
-                      نهاية الجولة
-                    </b>
-                </td>
+                
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn.roundOff | customCurrency"></b>
                 </td>
@@ -237,12 +204,7 @@
                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                     <b>Total Amount</b>
                 </td>
-                <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                    colspan="4">
-                    <b>
-                        إجمالي المبلغ المستحق
-                    </b>
-                </td>
+               
                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                     <b [innerHTML]="simplifiedSaleReturn?.totalAmount | customCurrency"></b>
                 </td>

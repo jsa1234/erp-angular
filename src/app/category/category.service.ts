@@ -14,7 +14,7 @@ export class CategoryService{
     }
 
     getCategory(resourceParams:CategoryResourceParameter):Observable<HttpResponse<ProductCategory[]>>{
-        const url ='ProductCategories'
+        const url ='ProductCategory_Web/ProductCategories'
         const customParams = new HttpParams()
         .set('Fields', resourceParams.fields)
         .set('OrderBy', resourceParams.orderBy)
@@ -25,24 +25,24 @@ export class CategoryService{
     }
 
       getActiveCategories():Observable<ProductCategory[]>{
-        const url = 'ProductCategory/GetActiveCategories'
+        const url = 'ProductCategory_Web/ProductCategory/GetActiveCategories'
         return this.http.get<ProductCategory[]>(url).pipe(
             map(item => item.sort((a, b) => a.nameEnglish.localeCompare(b.nameEnglish)))
           );
       }
 
     add(categoryData:ProductCategory){
-        const url = 'ProductCategory'
+        const url = 'ProductCategory_Web/ProductCategory'
         return this.http.post(url,categoryData)
     }
 
     update(categoryData:ProductCategory){
-        const url = `ProductCategory/${categoryData.categoryUUID}`
+        const url = `ProductCategory_Web/ProductCategory/${categoryData.categoryUUID}`
         return this.http.put(url,categoryData)
     }
 
     delete(id:string){
-        const url = `ProductCategory/${id}`
+        const url = `ProductCategory_Web/ProductCategory/${id}`
         return this.http.delete(url)
     }
 }

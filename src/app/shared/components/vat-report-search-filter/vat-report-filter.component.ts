@@ -59,6 +59,7 @@ export class VatReportFilterComponent
       reportType: ['', Validators.required],
       selectMonth: ['', Validators.required],
     });
+    this.label='';
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -121,11 +122,13 @@ export class VatReportFilterComponent
       case 0:
         this.monthsArray = generateMonths(this.financialYearMonth.toUpperCase())
         this.selectMonth.enable();
+        this.label='';
         break;
 
       case 1:
         this.monthsArray = generateQuarterlyMonths(this.financialYearMonth.toUpperCase())
         this.selectMonth.enable();
+        this.label='';
         break;
 
       case 2:
@@ -150,6 +153,7 @@ export class VatReportFilterComponent
     this.searchResponse = new SearchResponse();
     this.selectMonth.enable();
     this.clearActionHandler.emit();
+    this.label='';
   }
 
   getFInancialYear() {

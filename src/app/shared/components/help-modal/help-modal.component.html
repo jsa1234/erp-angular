@@ -1,0 +1,54 @@
+<div class="modal-container">
+    <div class="modal-header">
+      <h3 class="modal-title">Short Keys</h3>
+      <button mat-icon-button (click)="closeModal()" class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>F9</td>
+          <td>Search</td>
+        </tr>
+        <tr>
+          <td>Esc</td>
+          <td>Clear</td>
+        </tr>
+        <tr>
+          <td>Alt + A</td>
+          <td>Add</td>
+        </tr>
+        <tr>
+          <td>Alt + S</td>
+          <td>Save</td>
+        </tr>
+        <tr>
+          <td>F2</td>
+          <td>Focus Barcode Input</td>
+        </tr>
+        <tr>
+          <td>Single Click Table Row</td>
+          <td>Edit</td>
+        </tr>
+        <tr>
+          <td>Double Click Table Row</td>
+          <td>Delete</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="modal-footer">
+      <button mat-button (click)="closeModal()" class="close-btn">
+        <mat-icon>close</mat-icon> Close
+      </button>
+    </div>
+  </div>
+  

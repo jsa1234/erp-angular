@@ -1,10 +1,38 @@
 .invoice-detatable th, td {
   background-color: #FFF;
-  border: 1px solid #d6d6d6;
+  border: 1px solid #d6d6d6ae;
   padding: 10px !important;
+}
+.invoice-detatable{
+  border: 1px solid #d6d6d6;
 }
 .invoice-detatables th, td {
   background-color: #FFF;
   border: 1px solid #d6d6d6;
   padding: 10px;
+}
+table {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  // margin-bottom: 50px;
+  // padding: 20px;
+  thead{
+  background-color: #8E8F93;
+  color: white;
+ tr th{
+  padding: 20px;
+ }
+}}
+.card{
+  margin-top: 30px;
+  padding: 5px;
+  background-color: white;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-around;
+   height: auto;
+   border-radius: 20px;
+   border: none;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

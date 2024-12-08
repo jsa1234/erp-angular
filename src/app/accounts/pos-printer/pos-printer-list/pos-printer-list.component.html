@@ -2,19 +2,19 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons">
-        <h1><i class="icon60"></i> <span>POS Printer</span> </h1>
+        <h1>POS Printer</h1>
       </div>
     </div>
     <div class="col-md-auto col-sm-auto">
       <button  class="btn blue-btn btn-sm m-right-10"
         [routerLink]="['/pos-printer/manage/add']">
-        <i class="fas fa-plus"></i> Manage POS Printer
+        Manage POS Printer &nbsp;<i class="new-add"></i>
       </button>
     </div>
   </div>
   <div class="breadcrump-pages">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >Dashboard</a> / <span>POS Printer</span>
+      <a [routerLink]="['/']" >Dashboard</a> <i class="chevron-icon"></i> <span>POS Printer</span>
     </div>
   </div>
 </div>
@@ -30,7 +30,7 @@
     <div class="table-responsive">
 
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows
-        class="table table-bordered table-hover grid-height" matSort >
+        class="table table-bordered" matSort >
 
         <ng-container matColumnDef="action">
           <th class="table-column-150" mat-header-cell *matHeaderCellDef>
@@ -60,25 +60,25 @@
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-          <td class="table-column-150" mat-cell *matCellDef="let posPrinter">
+          <th class="table-column-0" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td class="table-column-0" mat-cell *matCellDef="let posPrinter">
            {{posPrinter.nameEnglish}}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="modelName">
-          <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Model Name</th>
-          <td class="table-column-100" mat-cell *matCellDef="let posPrinter"> {{posPrinter.modelName}} </td>
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Model Name</th>
+          <td class="table-column-300" mat-cell *matCellDef="let posPrinter"> {{posPrinter.modelName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="serialNo">
-          <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Serial No</th>
-          <td class="table-column-100" mat-cell *matCellDef="let posPrinter"> {{posPrinter.serialNo}} </td>
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>Serial No</th>
+          <td class="table-column-300" mat-cell *matCellDef="let posPrinter"> {{posPrinter.serialNo}} </td>
         </ng-container>
 
         <ng-container matColumnDef="ipAddress">
-          <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>IP Address</th>
-          <td class="table-column-100" mat-cell *matCellDef="let posPrinter"> {{posPrinter.ipAddress}} </td>
+          <th class="table-column-300" mat-header-cell *matHeaderCellDef mat-sort-header>IP Address</th>
+          <td class="table-column-300" mat-cell *matCellDef="let posPrinter"> {{posPrinter.ipAddress}} </td>
         </ng-container>
 
 

@@ -44,7 +44,7 @@ tfoot.tfoot-dark {
 
 
 .purchanse-managed-table {
-  height: 400px;
+  height: 495px;
   overflow: auto;
 }
 .form-control:disabled, .form-control[readonly] {
@@ -79,4 +79,130 @@ table {
 }
 .shortcut-keys b {
   color: #fd7265;
+}
+.btn-help{
+  position: fixed;
+  right: 27px;
+  top: 128px;
+  border: 1px solid #FECDA3;
+  gap: 10px;
+  color: #FC7E12;
+  font-family: "Inter", sans-serif;
+  z-index: 1;
+
+}
+
+button.mat-button {
+  background-color: #fff;
+  border: 1px solid #46332E;
+  color: #46332E;
+  width: auto;
+ border-radius: 59px;
+}
+
+
+/* Button hover state */
+button.mat-button:hover {
+//  background-color: #f58220;
+//  color: white;
+}
+.clr-btn{
+  width: 135px;
+  height: 38px;
+  left: 630px;
+  background: #FFFFFF;
+  padding: 10px 35px 10px 35px;
+  border: 1px solid #FC8118;
+  border-radius: 8px;
+  gap: 10px;
+  color:#BD6112;
+  font-family: Inter;
+ font-size: 14px;
+ font-weight: 600;
+ line-height: 20px;
+ letter-spacing: 0.005em;
+ text-align: left;
+
+}
+
+.remarks-sectn{
+  margin-left: 8px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  width: 98.5%;
+  .form-control{
+    background: #F9F9FC;
+  }
+}
+.find-btn{
+  border: 1px solid #FC8118;
+  padding:10px 35px 10px 35px;
+  border-radius: 8px;
+  width: 185px;
+  height: 38px;
+  gap: 10px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.005em;
+  text-align: left;
+  color: #BD6112;
+}
+.parent-container{
+  display: flex;
+  justify-content: flex-end;
+}
+.total-count{
+  width: 277px;
+  height: 48px;
+  padding: 10px 20px 10px 20px;
+  gap: 10px;
+  border-radius: 2px 0px 0px 0px;
+  border: 1px solid #FDB374;
+  //color:#F8F9FD;
+  background: #F8F9FD;
+}
+.spn{
+font-family: Inter;
+font-size: 18px;
+font-weight: 600;
+line-height: 28px;
+letter-spacing: 0.005em;
+text-align: left;
+color:#BD6112;
+}
+.varient-table{
+  height: 537px;
+  .mat-header-cell {
+    background: #8E8F93;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16.94px;
+    text-align: left;
+    color: #FFFFFF;
+    padding: 12px;
+    border: none;
+  }
+
+  .mat-cell {
+    text-align: left; // Align text to left for better readability
+    padding: 10px;
+    border-left: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+}
+.mat-input-element{
+  width: 95%;
+}
+.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon, .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+  width: 2em !important;
+  margin-left: -30px;
+}
+:host ::ng-deep .datepicker {
+  width: 98% !important;
 }

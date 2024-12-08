@@ -2,19 +2,31 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons">
-        <h1><i class="icon57"></i> <span>{{'SIDEBAR.BANK'|translate}}</span> </h1>
+        <h1>{{'SIDEBAR.BANK'|translate}}</h1>
       </div>
     </div>
     <div class="col-md-auto col-sm-auto">
       <button   class="btn blue-btn btn-sm m-right-10"
         [routerLink]="['/bank/manage/add']">
-        <i class="fas fa-plus"></i> {{'ACCOUNTS.BANK.ADD_BANK' | translate}}
+         {{'ACCOUNTS.BANK.ADD_BANK' | translate}}
+         <i class="new-add"></i>
       </button>
     </div>
   </div>
   <div class="breadcrump-pages">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD'|translate}}</a> / <span>{{'SIDEBAR.BANK'|translate}}</span>
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD'|translate}}</a>
+      <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_229_1686)">
+        <path d="M6 4.5L10 8.5L6 12.5" stroke="#4A4A4A" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_229_1686">
+        <rect width="16" height="16" fill="white" transform="translate(0 0.5)"/>
+        </clipPath>
+        </defs>
+        </svg>
+      <span>{{'SIDEBAR.BANK'|translate}}</span>
     </div>
   </div>
 </div>
@@ -24,7 +36,14 @@
 
 
 
-<div class="table-responsive">
+<div class="table-filter-container">
+  <!-- <div class="filter-group">
+    <div class="form">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control form-input" placeholder="Search" />
+    </div>
+  </div> -->
+  <div class="table-container">
   <table mat-table [dataSource]="dataSource" class="table table-bordered table-hover grid-height" matSort
   multiTemplateDataRows  matSortActive="nameEnglish">
 
@@ -39,16 +58,29 @@
         </button>
         <mat-menu #menu="matMenu">
           <button *hasClaim="'account_bank_view_bank'" [routerLink]="['/bank/detail/' +bank.accountUUID ]"  mat-menu-item>
-            <mat-icon>info</mat-icon>
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.6668 8.49998C14.6668 4.81808 11.682 1.83331 8.00016 1.83331C4.31826 1.83331 1.3335 4.81808 1.3335 8.49998C1.3335 12.1818 4.31826 15.1666 8.00016 15.1666C11.682 15.1666 14.6668 12.1818 14.6668 8.49998Z" stroke="#141B34"/>
+              <path d="M8.1613 11.8333V8.49998C8.1613 8.18571 8.1613 8.02858 8.06363 7.93091C7.96603 7.83331 7.8089 7.83331 7.49463 7.83331" stroke="#141B34" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.99463 5.83331H8.00149" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             <span>{{'COMMON.DETAIL' | translate}}</span>
           </button>
+          <hr>
           <button *hasClaim="'account_bank_edit_bank'" [routerLink]="['/bank/manage/' +bank.accountUUID ]"  mat-menu-item>
-            <mat-icon>edit</mat-icon>
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.1426 4.48828L11.077 3.55377C11.5932 3.03766 12.43 3.03766 12.9461 3.55377C13.4622 4.06989 13.4622 4.90667 12.9461 5.42279L12.0116 6.35729M10.1426 4.48828L4.65332 9.97755C3.95646 10.6744 3.60801 11.0228 3.37075 11.4474C3.13348 11.872 2.89477 12.8746 2.6665 13.8334C3.62523 13.6051 4.62783 13.3664 5.05243 13.1291C5.47703 12.8918 5.82546 12.5434 6.52234 11.8466L12.0116 6.35729M10.1426 4.48828L12.0116 6.35729" stroke="#141B34" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.3335 13.8333H11.3335" stroke="#141B34" stroke-linecap="round"/>
+              </svg>
             <span>{{'COMMON.EDIT' | translate}}</span>
           </button>
-
+          <hr>
           <button *hasClaim="'account_bank_delete_bank'" mat-menu-item (click)="deleteBank(bank)">
-            <mat-icon>delete</mat-icon>
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 4.16669L12.5869 10.8501C12.4813 12.5576 12.4285 13.4114 12.0005 14.0253C11.7889 14.3288 11.5165 14.5849 11.2005 14.7774C10.5614 15.1667 9.706 15.1667 7.99513 15.1667C6.28208 15.1667 5.42553 15.1667 4.78603 14.7766C4.46987 14.5838 4.19733 14.3272 3.98579 14.0232C3.55792 13.4084 3.5063 12.5534 3.40307 10.8435L3 4.16669" stroke="#141B34" stroke-linecap="round"/>
+              <path d="M2 4.16665H14M10.7038 4.16665L10.2487 3.2278C9.9464 2.60415 9.7952 2.29233 9.53447 2.09785C9.47667 2.05471 9.4154 2.01634 9.35133 1.98311C9.0626 1.83331 8.71607 1.83331 8.023 1.83331C7.31253 1.83331 6.95733 1.83331 6.66379 1.98939C6.59873 2.02399 6.53665 2.06391 6.47819 2.10876C6.21443 2.31111 6.06709 2.63435 5.77241 3.28082L5.36861 4.16665" stroke="#141B34" stroke-linecap="round"/>
+              <path d="M6.3335 11.5V7.5" stroke="#141B34" stroke-linecap="round"/>
+              <path d="M9.6665 11.5V7.5" stroke="#141B34" stroke-linecap="round"/>
+              </svg>
             <span>{{'COMMON.DELETE' | translate}}</span>
           </button>
 
@@ -97,4 +129,5 @@
     <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
 
   </table>
+  </div>
 </div>

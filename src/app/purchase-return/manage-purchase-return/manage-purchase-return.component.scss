@@ -91,3 +91,25 @@ table {
   background-color: #009723;
   color: white;
 }
+.table-scrolls{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  table {
+    margin-bottom: 50px;
+    // padding: 20px;
+    thead{
+    background-color: #8E8F93;
+    color: white;
+   tr th{
+    padding:10px 20px;
+   }
+  }}
+}
+.btn-danger{
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}

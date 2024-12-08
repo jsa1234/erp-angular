@@ -18,6 +18,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { UnitService } from '../unit.service';
 import { tap } from 'rxjs/operators';
 import { ResponseHeader } from '@core/domain-classes/response-header';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-unit-list-presentation',
@@ -31,10 +32,10 @@ export class UnitListPresentationComponent
   dataSource: UnitDataSource;
   unitResource: UnitResourceParameter;
   displayedColumns: string[] = [
-    'action',
     'nameEnglish',
     // 'nameSecondLanguage',
     'code',
+    'action',
   ];
   footerToDisplayed: string[] = ['footer'];
   @Output() deleteUnitHandler: EventEmitter<string> =
@@ -45,14 +46,18 @@ export class UnitListPresentationComponent
     private dialog: MatDialog,
     private unitService: UnitService,
     private commonDialogService: CommonDialogService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private branchService: BranchService
   ) {
     super();
     this.unitResource = new UnitResourceParameter();
     this.unitResource.pageSize = 10;
+    this.unitResource.orderBy='nameEnglish asc';
   }
+  
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loadData();
   }
 

@@ -1,90 +1,116 @@
 <div class="modal-content1" [ngClass]="{'modal-content-ar':translate.getSelectedLanguage()=='ar'}">
-    <div class="modal-header">
-        <div class="d-flex w-100 align-items-center justify-content-between">
-            <div class="col-md-9 col">
-                <h4 class="modal-title">
-                    {{'PURCHASE_INVOICE.SELECT_PRODUCT' | translate}}
-                </h4>
-            </div>
-            <div class="col-sm-auto col-auto ml-auto">
-                <button type="button" class="close" data-dismiss="modal" (click)="onCancel(false)">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 text-right purchanse-managed-searchbar">
-          <mat-icon>search</mat-icon>
-          <input type="search" placeholder="Search" [(ngModel)]="searchText"  (ngModelChange)="onSearch()">
-        </div>
+  <div class="modal-header">
+      <div class="d-flex w-100 align-items-center justify-content-between">
+          <div class="col-md-9 col">
+              <h4 class="modal-title">
+                  {{'PURCHASE_INVOICE.SELECT_PRODUCT' | translate}}
+              </h4>
+          </div>
+          <div class="col-sm-auto col-auto ml-auto">
+              <button type="button" class="close" data-dismiss="modal" (click)="onCancel(false)">
+                  <i class="fas fa-times"></i>
+              </button>
+          </div>
       </div>
-      <div class="table-responsive purchanse-managed-modal-table">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th class="text-center">SL No</th>
-              <th class="text-center">Barcode</th>
-              <th class="text-center">Unit</th>
-              <th class="text-center">Unit Cost</th>
-              <th class="text-center">Selling Price</th>
-              <th class="text-center">Select Variant</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngIf="products.length>0">
-              <ng-container *ngFor="let product of products; let productIndex = index">
-                <tr class="p-3 mb-2 bg-product-modal text-white">
-                  <th class="text-center">{{ productIndex + 1 }}</th>
-                  <th class="text-center">{{ product.productCode }}</th>
-                  <th [attr.colspan]="4">{{ product.nameEnglish }}</th>
-                </tr>
-                <ng-container *ngFor="let variant of product.productPrices; let variantIndex = index">
-                  <ng-container *ngIf="variant.isActive">
+  </div>
+<hr style="border: 1px solid #B5ADAB;width: 95%;margin-top: 0;">
+
+  <div class="modal-body mt-n3 pt-0">
+    <div class="row d-flex justify-content-end ">
+      <div class="col-md-3 col-sm-3 mt-2 mb-2 mr-3  text-right purchanse-managed-searchbar">
+        <!-- <mat-icon>search</mat-icon> -->
+         <i class="icon-search"></i>
+        <input type="search" placeholder="Search" [(ngModel)]="searchText" 
+        (keyup.enter)="onSearch()" (keyup)="onKeyUp($event)">
+      </div>
+    </div>
+    <div class="table-responsive purchanse-managed-modal-table">
+      <table class="">
+        <thead>
+          <tr>
+            <th class="text-center">SL No</th>
+            <th class="text-center">Barcode</th>
+            <th class="text-center">Product Name</th>
+            <!-- <th class="text-center">Unit Cost</th>
+            <th class="text-center">Selling Price</th>
+            <th class="text-center">Select Variant</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="products.length>0">
+            <ng-container *ngFor="let product of products; let productIndex = index">
+              <tr class="p-3 mb-2 bg-product-modal text-white">
+                <th class="text-center">{{ productIndex + 1 }}</th>
+                <th class="text-center">{{ product.productCode }}</th>
+                <th [attr.colspan]="4" class="text-center">{{ product.nameEnglish }}</th>
+              </tr>
+              <ng-container *ngFor="let variant of product.productPrices; let variantIndex = index">
+                <ng-container *ngIf="variant.isActive" >
+                  <tr class="highlight">
+                    <!-- <div> -->
+                    
+                  <td colspan="3">
+                    <div>
+                      <h5 class="prod-variants-header">Product Variants</h5>
+                    <br>
+                  <table class="prod-inner-table">
+                  <thead>
                     <tr>
-                      <td class="text-center">{{ productIndex + 1 }}.{{ variantIndex + 1 }}</td>
-                      <td class="text-center">{{ variant.barcode }}</td>
-                      <td class="text-center">{{ variant.unit.nameEnglish }}</td>
-                      <td class="text-center">{{ variant.unitCost }}</td>
-                      <td class="text-center">{{ variant.sellingPrice }}</td>
-                      <td class="text-center">
-                        <mat-radio-group *ngIf="!isMulti" [(ngModel)]="selectedVariants[productIndex]" name="selectedVariant">
-                          <mat-radio-button [value]="variantIndex"
-                            (change)="updateSelectedVariant(productIndex, variantIndex)"></mat-radio-button>
-                        </mat-radio-group>
-                        
-                        <mat-radio-group  *ngIf="isMulti" [(ngModel)]="selectedVariants[productIndex]" name="selectedVariant_{{productIndex}}">
-                          <mat-radio-button [value]="variantIndex"></mat-radio-button>
-                        </mat-radio-group>
-                      </td>                    
+                      <th class="text-left">SL No</th>
+                      <th class="text-left">Barcode</th>
+                      <th class="text-left">Unit</th>
+                      <th class="text-left">Unit Cost</th>
+                      <th class="text-left">Selling Price</th>
+                      <th class="text-center">Select Variant</th>
                     </tr>
-                  </ng-container>
+                  </thead>
+                  <tr >
+                    <td class="text-left">{{ productIndex + 1 }}.{{ variantIndex + 1 }}</td>
+                    <td class="text-left">{{ variant.barcode }}</td>
+                    <td class="text-left">{{ variant.unit.nameEnglish }}</td>
+                    <td class="text-left">{{ variant.unitCost }}</td>
+                    <td class="text-left">{{ variant.sellingPrice }}</td>
+                    <td class="text-center">
+                      <mat-radio-group *ngIf="!isMulti" [(ngModel)]="selectedVariants[productIndex]" name="selectedVariant">
+                        <mat-radio-button [value]="variantIndex"
+                          (change)="updateSelectedVariant(productIndex, variantIndex)"></mat-radio-button>
+                      </mat-radio-group>
+                      
+                      <mat-radio-group  *ngIf="isMulti" [(ngModel)]="selectedVariants[productIndex]" name="selectedVariant_{{productIndex}}">
+                        <mat-radio-button [value]="variantIndex"></mat-radio-button>
+                      </mat-radio-group>
+                    </td>                    
+                  </tr>
+                </table>
+              </div>
+              </td>
+              <!-- </div> -->
+              </tr>
                 </ng-container>
               </ng-container>
             </ng-container>
-            <ng-container *ngIf="products.length<=0">
-              <tr>
-                <td class="text-center">
-                 No Products Available
-                </td>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table>
-      </div>
-      <div class="mat-paginator">
-        <mat-paginator [length]="productResource.totalCount" [pageSize]="productResource.pageSize"
-                  [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
-                </mat-paginator>
-      </div>
-      <div class="loading-shade" *ngIf="isLoading">
-        <mat-spinner></mat-spinner>
-      </div>
+          </ng-container>
+          <ng-container *ngIf="products.length<=0">
+            <tr>
+              <td class="text-center">
+               No Products Available
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
     </div>
-    <div class="text-center">
-      <button type="button" class="btn btn-primary mt-2" (click)="addSelectedVariants()">Add Product</button>
+    <div class="mat-paginator">
+      <mat-paginator [length]="productResource.totalCount" [pageSize]="productResource.pageSize"
+                [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+              </mat-paginator>
     </div>
+    <div class="loading-shade" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
     </div>
+  </div>
+  <div class="text-center">
+    <button type="button" class="btn blue-btn m-right-10 ml-auto" (click)="addSelectedVariants()">
+      <i class="icon61"></i>Add Product</button>
+  </div>
+  </div>

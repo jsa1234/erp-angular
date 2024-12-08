@@ -49,6 +49,7 @@ export class ReceiptDataSource implements DataSource<IVoucher> {
           }),
           catchError(() => of([]))
         ).subscribe((receiptVoucherLists:Voucher[]) => {
+          
           this._receiptSubject$.next(receiptVoucherLists);
         });
       }

@@ -29,6 +29,7 @@ import { LoaderService } from '@shared/services/loader.service';
 import { Router } from '@angular/router';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { ToastrService } from 'ngx-toastr';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-purchase-list',
@@ -49,7 +50,7 @@ export class PurchaseListComponent extends BaseComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[] = [
-    'action',
+    
     'docDate',
     'docNo',
     // 'refBillDate',
@@ -64,6 +65,7 @@ export class PurchaseListComponent extends BaseComponent implements OnInit {
     // 'totalAdnlCessAmount',
     // 'totalExpenses',
     'totalAmount',
+    'action'
   ];
   filterColumns: string[] = [
     'action-search',
@@ -104,7 +106,8 @@ export class PurchaseListComponent extends BaseComponent implements OnInit {
     public translationService: TranslationService,
     private commonDialogService: CommonDialogService,
     private toastr: ToastrService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private branchService:BranchService
   ) {
     super();
     this.purchaseInvoiceResource = new PurchaseInvoiceResourceParameter();
@@ -115,6 +118,7 @@ export class PurchaseListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide();
     this.createSearchForm();
     this.createFilterForm()

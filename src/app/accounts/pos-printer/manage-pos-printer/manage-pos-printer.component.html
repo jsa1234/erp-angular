@@ -2,13 +2,13 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons">
-        <h1><i class="icon60"></i> <span>Manage POS Printer</span> </h1>
+        <h1>Manage POS Printer</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">Dashboard</a> / <a [routerLink]="['/pos-printer']">POS Printer</a> / <span>Manage POS
+      <a [routerLink]="['/']">Dashboard</a> <i class="chevron-icon"></i> <a [routerLink]="['/pos-printer']">POS Printer</a> <i class="chevron-icon"></i> <span>Manage POS
         Printer</span>
     </div>
   </div>
@@ -88,13 +88,13 @@
             <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" />
             <img *ngIf="!imgSrc" class="full-width" src="../../../assets/images/dummy.jpg" />
             <mat-card-actions>
-              <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm m-right-10"
+              <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm m-right-10 rounded-pill"
                 (click)="fileInput.click()">
                 <i class="far fa-image"></i> {{'COMMON.ADD_IMAGE' | translate}}</button>
-              <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm m-right-10"
+              <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm m-right-10 rounded-pill"
                 (click)="fileInput.click()">
                 <i class="far fa-image"></i> {{'COMMON.CHANGE_IMAGE' | translate}}</button>
-              <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm">
+              <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm rounded-pill">
                 <i class="fas fa-trash-alt"></i> {{'COMMON.REMOVE_IMAGE' | translate}}</button>
             </mat-card-actions>
           </mat-card>
@@ -102,13 +102,13 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12 m-bottom-40 text-center">
-      <button type="submit" class="btn btn-success btn-sm mr-2 m-left-10">
-        <i class="fas fa-save"></i> Save
+  <div class="row section-boxed m-1 p-3">
+    <div class="col-md-12 m-bottom-40 text-right">
+      <button type="submit" class="btn blue-btn mr-2 m-left-10">
+        <i class="icon61"></i> Save
       </button>
-      <button [routerLink]="['/pos-printer']" type="button" class="btn btn-danger btn-sm">
-        <i class="fas fa-times-circle"></i> Cancel
+      <button [routerLink]="['/pos-printer']" type="button" class="btn btn-danger">
+        <i class="fas fa-times"></i> Cancel
       </button>
     </div>
   </div>

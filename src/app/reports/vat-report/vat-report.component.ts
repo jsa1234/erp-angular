@@ -5,6 +5,7 @@ import { PaymentStatusPipe } from '@shared/pipes/purchase-order-paymentStatus.pi
 import { UTCToLocalTime } from '@shared/pipes/utc-to-localtime.pipe';
 import { LoaderService } from '@shared/services/loader.service';
 import { BaseComponent } from 'src/app/base.component';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-vat-report',
@@ -15,9 +16,16 @@ import { BaseComponent } from 'src/app/base.component';
 export class VATReportComponent extends BaseComponent {
   isLoading$:boolean
 
-  constructor(public translationService:TranslationService, private loader:LoaderService) {super();}
+  constructor(public translationService:TranslationService,
+     private loader:LoaderService,
+    private branchService:BranchService
+    )
+     {
+      super();
+    }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
   }
 

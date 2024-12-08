@@ -427,9 +427,191 @@
   </div>
 </div> -->
 
+<div style="position: absolute; left: -15420px" *ngIf="stickerPerLine == 1">
+  <div style="width: 100%; display: flex;">
+    <div id="barcode">
+      <div *ngFor="let variant of productVariantsPdf">
+        <div *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish]">
+          <div style="width: 100%; display: flex;"
+            *ngFor="let row of variantBarcodeImagesPdf[variant.unit.nameEnglish].images; let rowIndex = index">
 
+            <div
+              style="padding:0.5mm 1mm 0mm 5mm;width: 100mm;background: #FFF;height: 160px;margin-right:3mm;margin-left:2mm;font-family: roboto;"
+              *ngFor="let image of row; let columnIndex = index">
 
+              <table style="width: 100%; text-align: center;margin-top: 0px;font-family: roboto;">
+                <ng-container  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'company'">
+                <tr>
+                  <th colspan="4" style="border: 0;font-size: 9px;padding: 0px;line-height: 1;">
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].companyName}}</th>
+                </tr>
+                <tr>
+                  <td colspan="4" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].place}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].contactNo}}</td>
+                  <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].email}}</td>
+                </tr>
+              </ng-container>
+                <tr>
+                  <td colspan="4" style="text-align: left;"><img style="width: 100%;" [src]="image"></td>
+                </tr>
+                <tr>
+                  <td colspan="2"
+                    style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 1px;line-height: .5;">
+                    {{variant.barcode}}</td>
+                  <td colspan="2"
+                    style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 7px;line-height: .5;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'product'">
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].productName}}</td>
+                </tr>
+                <tr>
+                  <ng-container
+                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'mrp'">
+                    <td colspan="2"
+                      style="font-size: 7px; text-align: left; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 1px;line-height: 1;">
+                      MRP: <span
+                        style="font-size: 9px; text-align: left;font-weight: 600; border: 0;padding: 0px;">
+                        {{variantBarcodeImagesPdf[variant.unit.nameEnglish].mrp}}</span>
+                    </td>
+                  </ng-container>
+                  <td colspan="2"
+                    style="text-align: left;font-size: 8; font-weight: 500; padding-left: 7px;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'unit'">Unit:
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].variantName}} 
+                  </td>
+                </tr>
+                <table style="width: 100%;">
+                  <tr>
+                    <td colspan="2"
+                    style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 1px;line-height: 1;"
+                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'mfg'">
+                    MFG: {{variantBarcodeImagesPdf[variant.unit.nameEnglish].mfg | customDate}}</td>
+
+                    <td colspan="2"
+                      style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 7px;line-height: 1;"
+                      *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'exp'">
+                      EXP:  {{variantBarcodeImagesPdf[variant.unit.nameEnglish].exp | customDate}}</td>
+
+                  </tr>
+                  <tr>
+                    <td colspan="2"
+                    style="text-align: left;font-size: 8; font-weight: 500; padding-left: 7px;line-height: 1;"  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'unitPrice'">Unit
+                    Price: <span
+                      style="font-size: 8px; text-align: left;font-weight: 400; border: 0;padding: 0px;"></span>
+                  </td>
+                    <td colspan="2" style="text-align: left;font-size: 8; font-weight: 400;line-height: 1;padding-left: 1px;"  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'fssai'">fssai:{{variantBarcodeImagesPdf[variant.unit.nameEnglish].fssai}}
+                      </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="text-align: left;font-size: 8; font-weight: 400;padding-left: 1px;line-height: 1;">Price : 
+                      <span *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'sellingPrice'">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].sellingPrice}}</span>
+                      <span *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'wholesaleRate'">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].wholesalePrice}}</span>
+                    </td>
+                    <td colspan="2" style="text-align: left;font-size: 8; font-weight: 400;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'inclusiveOfTaxes'">Inclusive
+                      Of All Taxes</td>
+                  </tr>
+                </table>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div style="position: absolute; left: -15420px" *ngIf="stickerPerLine == 2">
+  <div style="width: 100%; display: flex;">
+    <div id="barcode">
+      <div *ngFor="let variant of productVariantsPdf">
+        <div *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish]">
+          <div style="width: 100%; display: flex;"
+            *ngFor="let row of variantBarcodeImagesPdf[variant.unit.nameEnglish].images; let rowIndex = index">
+
+            <div
+              style="padding:0mm 1mm 0mm 1mm;width: 50mm;background: #FFF;height: 114px;margin-right:3mm;margin-left:2mm;font-family: roboto;"
+              *ngFor="let image of row; let columnIndex = index">
+
+              <table style="width: 100%; text-align: center;margin-top: 0px;font-family: roboto;">
+                <ng-container  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'company'">
+                <tr>
+                  <th colspan="4" style="border: 0;font-size: 9px;padding: 0px;line-height: 1;">
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].companyName}}</th>
+                </tr>
+                <tr>
+                  <td colspan="4" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].place}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].contactNo}}</td>
+                  <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].email}}</td>
+                </tr>
+              </ng-container>
+                <tr>
+                  <td colspan="4" style="text-align: left;"><img style="width: 100%;" [src]="image"></td>
+                </tr>
+                <tr>
+                  <td colspan="2"
+                    style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 7px;line-height: .5;">
+                    {{variant.barcode}}</td>
+                  <td colspan="2"
+                    style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 7px;line-height: .5;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'product'">
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].productName}}</td>
+                </tr>
+                <tr>
+                  <ng-container
+                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'mrp'">
+                    <td colspan="2"
+                      style="font-size: 7px; text-align: left; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 7px;line-height: 1;">
+                      MRP: <span
+                        style="font-size: 9px; text-align: left;font-weight: 600; border: 0;padding: 0px;">
+                        {{variantBarcodeImagesPdf[variant.unit.nameEnglish].mrp}}</span>
+                    </td>
+                  </ng-container>
+                  <td colspan="2"
+                    style="text-align: left;font-size: 8; font-weight: 500; padding-left: 7px;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'unit'">Unit:
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].variantName}} 
+                  </td>
+                </tr>
+                <table style="width: 100%;">
+                  <tr>
+                    <td colspan="2"
+                    style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 1px;line-height: 1;"
+                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'mfg'">
+                    MFG: {{variantBarcodeImagesPdf[variant.unit.nameEnglish].mfg | customDate}}</td>
+
+                    <td colspan="2"
+                      style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 7px;line-height: 1;"
+                      *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'exp'">
+                      EXP:  {{variantBarcodeImagesPdf[variant.unit.nameEnglish].exp | customDate}}</td>
+
+                  </tr>
+                  <tr>
+                    <td colspan="2"
+                    style="text-align: left;font-size: 8; font-weight: 500; padding-left: 7px;line-height: 1;"  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'unitPrice'">Unit
+                    Price: <span
+                      style="font-size: 8px; text-align: left;font-weight: 400; border: 0;padding: 0px;"></span>
+                  </td>
+                    <td colspan="2" style="text-align: center;font-size: 8; font-weight: 400;line-height: 1;"  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'fssai'">fssai:{{variantBarcodeImagesPdf[variant.unit.nameEnglish].fssai}}
+                      </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="text-align: left;font-size: 8; font-weight: 400;padding-left: 7px;line-height: 1;">Price : 
+                      <span *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'sellingPrice'">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].sellingPrice}}</span>
+                      <span *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'wholesaleRate'">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].wholesalePrice}}</span>
+                    </td>
+                    <td colspan="2" style="text-align: left;font-size: 8; font-weight: 400;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'inclusiveOfTaxes'">Inclusive
+                      Of All Taxes</td>
+                  </tr>
+                </table>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position: absolute; left: -15420px" *ngIf="stickerPerLine == 3">
   <div style="width: 100%; display: flex;">
     <div id="barcode">
       <div *ngFor="let variant of productVariantsPdf">
@@ -523,87 +705,88 @@
 </div>
 
 
-
-<div style="position: absolute; left: -15420px" *ngIf="stickerPerLine == 1">
+<!-- <div style="position: absolute; left: -15420px" *ngIf="stickerPerLine == 3">
   <div style="width: 100%; display: flex;">
     <div id="barcode">
       <div *ngFor="let variant of productVariantsPdf">
         <div *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish]">
-          <div style="width: 100%; display: flex;"
+          <div style="width: 100%; display: flex; flex-wrap: wrap;"
             *ngFor="let row of variantBarcodeImagesPdf[variant.unit.nameEnglish].images; let rowIndex = index">
 
             <div
-              style="padding:0.5mm 1mm 0mm 5mm;width: 100mm;background: #FFF;height: 160px;margin-right:3mm;margin-left:2mm;font-family: roboto;"
+              style="padding:0mm 1mm;width: 33mm;background: #FFF;height: 114px;margin-right:3mm;margin-left:2mm;font-family: roboto;"
               *ngFor="let image of row; let columnIndex = index">
 
-              <table style="width: 100%; text-align: left;margin-top: 0px;font-family: roboto;">
+              <table style="width: 100%; text-align: center;margin-top: 0px;font-family: roboto;">
+                <ng-container *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'company'">
+                  <tr>
+                    <th colspan="4" style="border: 0;font-size: 9px;padding: 0px;line-height: 1;">
+                      {{variantBarcodeImagesPdf[variant.unit.nameEnglish].companyName}}</th>
+                  </tr>
+                  <tr>
+                    <td colspan="4" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">
+                      {{variantBarcodeImagesPdf[variant.unit.nameEnglish].place}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].contactNo}}</td>
+                    <td colspan="2" style="font-size: 8px;border: 0;padding: 0px;line-height: 1;">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].email}}</td>
+                  </tr>
+                </ng-container>
                 <tr>
-                  <th colspan="4" style="border: 0;font-size: 14px;padding-bottom: 0px;padding-top: 0;line-height: 1;"
-                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'company'">
-                    Aspirom Technologies</th>
+                  <td colspan="4" style="text-align: left;"><img style="width: 100%;" [src]="image"></td>
                 </tr>
                 <tr>
-                  <td colspan="4"
-                    style="font-size: 12px;border: 0; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;"
-                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'manufacture'">
-                    Karunagappally, Kollam</td>
-                </tr>
-                <tr>
-                  <td colspan="3" rowspan="4" style="text-align: left;"><img style="width: 100%;" [src]="image"></td>
-                </tr>
-                <tr>
-                  <td
-                    style="font-size: 10px;border: 0;padding-left: 10px; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;">
-                    WT: 1Kg</td>
-                </tr>
-                <tr>
-                  <td
-                    style="font-size: 10px;border: 0;padding-left: 10px; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;">
-                    PKD: 20/10/2023</td>
-                </tr>
-                <tr>
-                  <td
-                    style="font-size: 10px;border: 0;padding-left: 10px; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;">
-                    Batch No: 20</td>
-                </tr>
-                <tr>
-                  <td colspan="3"
-                    style="text-align: left;font-size: 12px; font-weight: 600;padding-bottom: 0px;padding-top: 0;line-height: 1;">
+                  <td colspan="2"
+                    style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 7px;line-height: .5;">
                     {{variant.barcode}}</td>
-                  <ng-container
-                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'mrp'">
-                    <td
-                      style="font-size: 10px; text-align: left; border: 0;padding-left: 10px;padding-bottom: 0px;padding-top: 0;line-height: 1;">
+                  <td colspan="2"
+                    style="text-align: left;font-size: 7px; font-weight: 600; padding-left: 7px;line-height: .5;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'product'">
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].productName}}</td>
+                </tr>
+                <tr>
+                  <ng-container *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'mrp'">
+                    <td colspan="2"
+                      style="font-size: 7px; text-align: left; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 7px;line-height: 1;">
                       MRP: <span
-                        style="font-size: 16px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;">1500.00</span>
+                        style="font-size: 9px; text-align: left;font-weight: 600; border: 0;padding: 0px;">
+                        {{variantBarcodeImagesPdf[variant.unit.nameEnglish].mrp}}</span>
                     </td>
                   </ng-container>
+                  <td colspan="2"
+                    style="text-align: left;font-size: 8px; font-weight: 500; padding-left: 7px;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'unit'">Unit:
+                    {{variantBarcodeImagesPdf[variant.unit.nameEnglish].variantName}} 
+                  </td>
                 </tr>
-                <tr>
-                  <td colspan="4" style="font-size: 10px;border: 0; font-weight: 600; text-align: left;line-height: 1;">
-                    ITEM NAME</td>
-                </tr>
-                <tr>
-                  <td
-                  style="font-size: 10px; text-align: left;font-weight: 600; border: 0;padding-left: 10px;padding-bottom: 0px;padding-top: 0;line-height: 1;"
-                  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'Mfg.Date'">
-                  MFG: 10/10/2023</td>
-                  <td colspan="3"
-                    style="font-size: 10px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;line-height: 1;"
-                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'Exp.Date'">
-                    EXP: 10/10/2023</td>
+                <table style="width: 100%;">
+                  <tr>
+                    <td colspan="2"
+                    style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 1px;line-height: 1;"
+                    *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'mfg'">
+                    MFG: {{variantBarcodeImagesPdf[variant.unit.nameEnglish].mfg | customDate}}</td>
 
-                </tr>
-                <tr>
-                  <td colspan="4"
-                    style="font-size: 8px;border: 0; font-weight: 600; text-align: left;padding-bottom: 0px;padding-top: 0;line-height: 1;">
-                    (Inclusive of All Taxes)</td>
-                </tr>
-                <tr>
-                  <td colspan="4"
-                    style="font-size: 10px;border: 0; font-weight: 600; text-align: center;padding-bottom: 0px;padding-top: 0;line-height: 1;">
-                    fssai Lic No: 1132100100929</td>
-                </tr>
+                    <td colspan="2"
+                      style="font-size: 7px; text-align: left;font-weight: 600; border: 0;padding-bottom: 0px;padding-top: 0;padding-left: 7px;line-height: 1;"
+                      *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'exp'">
+                      EXP:  {{variantBarcodeImagesPdf[variant.unit.nameEnglish].exp | customDate}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"
+                    style="text-align: left;font-size: 8px; font-weight: 500; padding-left: 7px;line-height: 1;"  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'unitPrice'">Unit
+                    Price: <span
+                      style="font-size: 8px; text-align: left;font-weight: 400; border: 0;padding: 0px;"></span>
+                  </td>
+                    <td colspan="2" style="text-align: center;font-size: 8px; font-weight: 400;line-height: 1;"  *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'fssai'">fssai:{{variantBarcodeImagesPdf[variant.unit.nameEnglish].fssai}}
+                      </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="text-align: left;font-size: 8px; font-weight: 400;padding-left: 7px;line-height: 1;">Price : 
+                      <span *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'sellingPrice'">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].sellingPrice}}</span>
+                      <span *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'wholesaleRate'">{{variantBarcodeImagesPdf[variant.unit.nameEnglish].wholesalePrice}}</span>
+                    </td>
+                    <td colspan="2" style="text-align: left;font-size: 8px; font-weight: 400;line-height: 1;" *ngIf="variantBarcodeImagesPdf[variant.unit.nameEnglish].configuration.configurations | configEnabled: 'inclusiveOfTaxes'">Inclusive
+                      Of All Taxes</td>
+                  </tr>
+                </table>
               </table>
             </div>
           </div>
@@ -611,5 +794,4 @@
       </div>
     </div>
   </div>
-</div>
-
+</div> -->

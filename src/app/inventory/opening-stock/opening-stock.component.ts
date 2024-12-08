@@ -7,6 +7,9 @@ import { LoaderService } from '@shared/services/loader.service';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from 'src/app/base.component';
 import { InventoryService } from '../inventory.service';
+import { ProductCategory } from '@core/domain-classes/product-category';
+import { CategoryService } from 'src/app/category/category.service';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-opening-stock',
@@ -18,12 +21,16 @@ export class OpeningStockComponent extends BaseComponent implements OnInit {
   searchForm:FormGroup
   isLoading$:boolean
   openingStockResource:OpeningStockResourceParameter
+  categoryUUID:string = ''
+  category: ProductCategory[] = [];
   constructor(
     private toastrService: ToastrService,
     public translationService: TranslationService,
     private inventoryService: InventoryService,
     private loader:LoaderService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private categoryService: CategoryService,
+    private branchService:BranchService
   ) {
     super();
     this.openingStockResource = new OpeningStockResourceParameter();
@@ -31,6 +38,10 @@ export class OpeningStockComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
+    this.categoryService.getActiveCategories().subscribe((categories)=>{
+      this.category = categories;
+    })
     this.loaderShowOrHide()
     this.createSearchForm()
    
@@ -45,15 +56,21 @@ export class OpeningStockComponent extends BaseComponent implements OnInit {
       return;
     }
     this.loader.show()
-    const {branch} = this.searchForm.getRawValue()
-    this.openingStockResource.branch = branch
+    const {branch,category} = this.searchForm.getRawValue()
+    this.openingStockResource.branch = branch;
+    this.openingStockResource.category= category;
     this.openingStocks = []
 
     this.sub$.sink = this.inventoryService.getOpeningStocks(this.openingStockResource).subscribe((res: OpeningStock[]) => {
+      debugger
       for(let i = 0; i <res.length;i++){
         let ops = new OpeningStock(res[i])
         this.openingStocks.push(ops)
         this.loader.hide()
+      }
+      if(!res.length){
+        this.loader.hide();
+        this.toastrService.error('No Data Found');
       }
     },
     ()=>{
@@ -62,9 +79,18 @@ export class OpeningStockComponent extends BaseComponent implements OnInit {
   }
   updateOpeningStock(){
     this.loader.show()
-    this.sub$.sink  = this.inventoryService.updateOpeningStocks(this.openingStocks, this.openingStockResource.branch).subscribe((res:OpeningStock)=>{
+    let newOpeningStocks=//this.openingStocks .filter(stockItem => stockItem.stock > 0)
+      this.openingStocks.map(stockItem => ({
+      productUUID: stockItem.productUUID,
+      stock: stockItem.stock
+    }));
+   
+  
+    console.log('openstock',newOpeningStocks);
+    //return
+    this.sub$.sink  = this.inventoryService.updateOpeningStocks(newOpeningStocks, this.openingStockResource.branch).subscribe((res:OpeningStock)=>{
       this.toastrService.success('Opening Stock Updated successfully')
-      this.clear()
+      //this.clear()
       this.loader.hide()
     },
     ()=>{
@@ -74,12 +100,16 @@ export class OpeningStockComponent extends BaseComponent implements OnInit {
   }
   createSearchForm(){
     this.searchForm = this.fb.group({
-      branch:['',Validators.required]
+      branch:['',Validators.required],
+      category:['',Validators.required]
     })
+  }
+  parentCategoryHandlerFunction(valueEmitted){
+    this.categoryUUID = valueEmitted;
   }
 
   clear(){
-    this.searchForm.reset();
+    //this.searchForm.reset();
     this.openingStocks = []
     this.openingStockResource = new OpeningStockResourceParameter()
   }

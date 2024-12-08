@@ -2,7 +2,7 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-                <h1><i class="icon36"></i> <span>{{'SIDEBAR.ROLES' | translate}}</span></h1>
+                <h1 class="p-1">{{'SIDEBAR.ROLES' | translate}}</h1>
             </div>
         </div>
         <div class="col-md-auto col-sm-auto col-auto">
@@ -16,7 +16,7 @@
     </div>
     <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
         <div class="crumbs-sec">
-          <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.ROLES' | translate}}</span>
+          <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <span>{{'SIDEBAR.ROLES' | translate}}</span>
         </div>
       </div>
 </div>
@@ -31,12 +31,12 @@
             <th class="table-column-150" mat-header-cell *matHeaderCellDef>{{'COMMON.ACTION' | translate}} </th>
             <td class="table-column-150" mat-cell *matCellDef="let role">
                 <button *hasClaim="'roles_roles_edit_role'"  [routerLink]="['/roles/manage',role.id]"
-                    class="btn btn-success btn-sm m-right-10 m-left-10" type="button">
+                    class="btn btn-success btn-sm m-right-10 m-left-10 rounded-pill" type="button">
                     <i class="fas fa-pencil-alt"></i>
                     <span class="d-none d-sm-inline"> {{'COMMON.EDIT' | translate}}</span>
                 </button>
                 
-                <button *hasClaim="'roles_roles_delete_role'" (click)="deleteRole(role)" class="btn btn-danger btn-sm"
+                <button *hasClaim="'roles_roles_delete_role'" (click)="deleteRole(role)" class="btn rounded-pill btn-danger btn-sm"
                     type="button">
                     <i class="fas fa-trash-alt"></i>
                     <span class="d-none d-sm-inline"> {{'COMMON.DELETE' | translate}}</span>

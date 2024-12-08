@@ -7,3 +7,37 @@ mat-card-actions.mat-card-actions {
 .branch-section-boxed mat-card {
   height: 420px !important;
 }
+.customer-save {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.customer-save-button {
+  padding: 10px 25px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  gap: 4px;
+  border-radius: 8px;
+  background: var(
+    --pay,
+    radial-gradient(311.13% 122.5% at 0% 0%, #fd9a46 0%, #fc8118 100%)
+  ) !important;
+}
+.customer-close-button {
+  padding-left: 15px;
+  padding-right: 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  border: 1px solid #6b5c58;
+}
+.active-togles{
+ 
+    position: relative;
+    top: 4px;
+}
+
+.error{
+  border: 2px solid red;
+}

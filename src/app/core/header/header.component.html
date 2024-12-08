@@ -1,75 +1,150 @@
 <div class="topbar">
   <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="topbar-left text-center">
+      <div class="hamburger cursor-pointer" (click)="togglediv()">
+        <span class="line"></span><span class="line"></span
+        ><span class="line"></span>
+      </div>
       <a [routerLink]="['/']" class="logo">
         <span>
-          <img src="assets/images/logo.png" alt="logo-large" class="logo-lg">
+          <img
+            src="assets/images/Logo.olopo.svg"
+            alt="logo-large"
+            class="logo-lg"
+          />
         </span>
       </a>
     </div>
-    <div class="form-row align-items-center">
-      <div class="col-md-auto col-auto">
-        <div class="hamburger cursor-pointer" (click)="togglediv()">
-          <span class="line"></span><span class="line"></span><span class="line"></span>
-        </div>
-      </div>
-      <div class="col-md-auto col-auto">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon hamburger" style="margin-top: -10px;">
-            <span class="line"></span><span class="line"></span><span class="line"></span>
-          </span>
-        </button>
-      </div>
-      <div class="form-group header-branch-select">
-        <app-branch-dropdown [group]="branchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)" [label]="''"></app-branch-dropdown>
-      </div>
-    </div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="list-unstyled topbar-nav ml-auto topbar-nav-right mb-0 float-right hide-when-toogle">
-        <!-- <li class="pos">
-          <button mat-raised-button color="primary" (click)="openPos()">
-            <img src="../../../assets/images/pos.png" alt="" srcset="">
-            POS
+      <ul
+        class="list-unstyled topbar-nav ml-auto topbar-nav-right mb-0 float-right hide-when-toogle"
+      >
+        <div class="dropdown form-control-header">
+          <!-- <button class="dropdown-icon">
+            Choose Branch
+            <i class="fa fa-chevron-down"></i>
           </button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Option 1</a></li>
+            <li><a href="#">Option 2</a></li>
+            <li><a href="#">Option 3</a></li>
+          </ul> -->
+          <app-branch-dropdown
+            [group]="branchForm"
+            [controlName]="'branch'"
+            (branchUUID)="parentBranchHandlerFunction($event)"
+            [label]="''"
+          ></app-branch-dropdown>
+        </div>
+
+        <!-- <div class="divider"></div> -->
+        <!-- <li
+          class="nav-item"
+          *hasClaim="'profile_personal_show_personal_profile'"
+        >
+          <div class="notifications-container">
+            <div class="notification">
+              <div class="icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                >
+                  <path
+                    d="M4.66667 23.3333H11.6667C11.6667 23.9522 11.9125 24.5457 12.3501 24.9832C12.7877 25.4208 13.3812 25.6667 14 25.6667C14.6188 25.6667 15.2123 25.4208 15.6499 24.9832C16.0875 24.5457 16.3333 23.9522 16.3333 23.3333H23.3333C23.6428 23.3333 23.9395 23.2104 24.1583 22.9916C24.3771 22.7728 24.5 22.4761 24.5 22.1667C24.5 21.8572 24.3771 21.5605 24.1583 21.3417C23.9395 21.1229 23.6428 21 23.3333 21V12.8333C23.3333 10.358 22.35 7.984 20.5997 6.23366C18.8493 4.48332 16.4754 3.49999 14 3.49999C11.5246 3.49999 9.15068 4.48332 7.40034 6.23366C5.65 7.984 4.66667 10.358 4.66667 12.8333V21C4.35725 21 4.0605 21.1229 3.84171 21.3417C3.62292 21.5605 3.5 21.8572 3.5 22.1667C3.5 22.4761 3.62292 22.7728 3.84171 22.9916C4.0605 23.2104 4.35725 23.3333 4.66667 23.3333ZM7 12.8333C7 10.9768 7.7375 9.19633 9.05025 7.88358C10.363 6.57082 12.1435 5.83333 14 5.83333C15.8565 5.83333 17.637 6.57082 18.9497 7.88358C20.2625 9.19633 21 10.9768 21 12.8333V21H7V12.8333Z"
+                    fill="#1FB789"
+                  />
+                </svg>
+                <div class="notification-count"><span>25</span></div>
+              </div>
+            </div>
+
+            <div class="notification-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M15.0183 9.43332L15.5462 10.498C15.6182 10.6462 15.8102 10.7883 15.9722 10.8155L16.9291 10.9758C17.541 11.0787 17.685 11.5263 17.244 11.9678L16.5001 12.7179C16.3741 12.8449 16.3051 13.0899 16.3441 13.2653L16.5571 14.1938C16.7251 14.9288 16.3381 15.2131 15.6932 14.829L14.7963 14.2937C14.6343 14.1969 14.3674 14.1969 14.2024 14.2937L13.3055 14.829C12.6636 15.2131 12.2736 14.9258 12.4416 14.1938L12.6546 13.2653C12.6935 13.0899 12.6246 12.8449 12.4986 12.7179L11.7547 11.9678C11.3167 11.5263 11.4577 11.0787 12.0696 10.9758L13.0265 10.8155C13.1855 10.7883 13.3775 10.6462 13.4495 10.498L13.9774 9.43332C14.2654 8.85565 14.7333 8.85565 15.0183 9.43332Z"
+                  stroke="#FC8118"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 17V20.5"
+                  stroke="#FC8118"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 3.49997V6.99997"
+                  stroke="#FC8118"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M21.9996 8.87892C21.9327 7.33684 21.7452 6.33295 21.2199 5.53881C20.9177 5.08193 20.5424 4.68456 20.1108 4.36465C18.9443 3.49997 17.2986 3.49997 14.0074 3.49997H9.99263C6.70136 3.49997 5.05573 3.49997 3.88921 4.36465C3.45764 4.68456 3.08226 5.08193 2.78006 5.53881C2.25485 6.33286 2.06735 7.33662 2.00042 8.8784C1.98897 9.14205 2.21607 9.34372 2.4649 9.34372C3.85068 9.34372 4.97408 10.533 4.97408 12C4.97408 13.467 3.85068 14.6562 2.4649 14.6562C2.21607 14.6562 1.98897 14.8579 2.00042 15.1216C2.06735 16.6634 2.25485 17.6671 2.78006 18.4612C3.08226 18.918 3.45764 19.3154 3.88921 19.6353C5.05573 20.5 6.70137 20.5 9.99265 20.5H14.0074C17.2986 20.5 18.9443 20.5 20.1108 19.6353C20.5424 19.3154 20.9177 18.918 21.2199 18.4612C21.7452 17.667 21.9327 16.6631 21.9996 15.1211V8.87892Z"
+                  stroke="#FC8118"
+                  stroke-width="1.8"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <div class="notification-counts"><span>22</span></div>
+            </div>
+          </div>
         </li> -->
+        <!-- <div class="divider"></div> -->
 
-        <li class="nav-item dropdown" *ngIf="languages.length>1; else elseBlock">
-          <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-            <img class="contry-flag rounded" src="{{ language.flag }}" alt="language" /> {{ language.name }}
-          </a>
-          <ul class="dropdown-menu contry-dropdown" aria-labelledby="dropdownMenuButton">
-            <ng-container *ngFor="let language of languages">
-              <li role="button" class="dropdown-item" (click)="setNewLanguageRefresh(language.lang)">
-                <img class="contry-flag ml-2" src="{{ language.flag }}"> {{ language.name }}
-              </li>
-            </ng-container>
-          </ul>
-        </li>
-
-        <ng-template #elseBlock>
-        <a href="#" class=" nav-link">
-          <img class="contry-flag rounded" src="{{ language.flag }}" alt="language" /> {{ language.name }}
-        </a>
-      </ng-template>
-
-      
-        <li class="nav-item" *hasClaim="'profile_personal_show_personal_profile'">
-          <a class="nav-link cursor-pointer" [routerLink]="['/my-profile']">
-            <span class="left-fa-icon">
-              <img *ngIf="appUserAuth?.profilePhoto" [src]="profilePath" alt="User Avatar"
-                class="user-image mt-1"></span><span class="mb-0 fs-14 text-capitalize">{{appUserAuth.firstName}}
-              {{appUserAuth.lastName}}</span>
-            <img *ngIf="!appUserAuth?.profilePhoto" src="assets/images/user-profile.jpg" alt="User Avatar"
-              class="user-image mt-1">
-          </a>
-        </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="onLogout()">
-            <span class="left-fa-icon"><i class="fas fa-sign-out-alt fs-15"></i></span>
-            <span class="mb-0 fs-14 text-capitalize">{{'LOGOUT' | translate}}</span>
-          </a>
+          <div class="header-hello">
+            Hello,
+            <span>{{ appUserAuth.firstName }} {{ appUserAuth.lastName }}</span>
+
+            <div class="menu">
+              <div class="item">
+                <a class="nav-link cursor-pointer" [routerLink]="['/my-profile']">
+                  <img
+                    *ngIf="appUserAuth?.profilePhoto"
+                    [src]="profilePath"
+                    alt="User Avatar"
+                  />
+                  <img
+                    src="assets/images/market.png"
+                    *ngIf="!appUserAuth?.profilePhoto"
+                    alt="Profile"
+                   
+                  />
+                </a>
+                <div class="submenu">
+                  <div class="submenu-item">
+                    <p (click)="onLogout()"><mat-icon class="olo-color">logout</mat-icon> Logout </p>
+                  </div>
+                  <div class="submenu-item">
+                    <p>{{version}}</p>
+                  </div>
+                  <div class="submenu-item">
+                    <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.6667 2.5V4.5M6.66675 2.5V4.5" stroke="#fc8118" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M3.16675 13.7432C3.16675 9.38594 3.16675 7.20728 4.41887 5.85364C5.67099 4.5 7.68624 4.5 11.7167 4.5H13.6167C17.6472 4.5 19.6625 4.5 20.9146 5.85364C22.1667 7.20728 22.1667 9.38594 22.1667 13.7432V14.2568C22.1667 18.6141 22.1667 20.7927 20.9146 22.1464C19.6625 23.5 17.6472 23.5 13.6167 23.5H11.7167C7.68624 23.5 5.67099 23.5 4.41887 22.1464C3.16675 20.7927 3.16675 18.6141 3.16675 14.2568V13.7432Z" stroke="#fc8118" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12.6622 14.0417H12.6712M12.6622 18.2084H12.6712M16.6577 14.0417H16.6667M8.66675 14.0417H8.67572M8.66675 18.2084H8.67572" stroke="#fc8118" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M4.16675 8.83325H21.1667" stroke="#fc8118" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M3.66675 8.83325H21.6667" stroke="#fc8118" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg> {{ currentTime | date:'hh:mm a dd/MM/yyyy' }} 
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>

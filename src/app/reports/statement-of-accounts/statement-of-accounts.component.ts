@@ -14,6 +14,7 @@ import { DeviceService } from 'src/app/device/device.service';
 import { IDevice } from '@core/domain-classes/device';
 import { environment } from '@environments/environment';
 import { ShowCrDrPipe } from '@shared/pipes/show-cr-dr.pipe';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-statement-of-accounts',
@@ -37,7 +38,8 @@ export class StatementOfAccountsComponent  extends BaseComponent implements OnIn
     private statementOfAccountsService:StatementOfAccountsService,
     public translationService:TranslationService,
     private clonerService: ClonerService,
-    private deviceService:DeviceService
+    private deviceService:DeviceService,
+    private branchService:BranchService
     ) {
       super()
       this.ledgerReportResource = new LedgerResourceParameter()
@@ -45,6 +47,7 @@ export class StatementOfAccountsComponent  extends BaseComponent implements OnIn
 
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.createSearchForm()
     this.getAllAccountGroup()
     this.getDevices()

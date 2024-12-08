@@ -12,3 +12,36 @@ table.mat-table {
   .content-header h1 span {
     margin-left: 35px;
   }
+  .blue-btn {
+    background-color: #f58220 !important;
+    color: white !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    height: 38px !important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+ td.mat-cell {
+    border: 0;
+    border-bottom: 1px solid #dee2e6;
+    z-index: 0 !important;
+  }
+  table {
+    width: 100%;
+  }
+  .table tr th {
+    border: none !important;
+      border-bottom: 1px solid #dee2e6 !important;
+      text-transform: capitalize;  
+      background-color:  #F8F9FD !important;
+      // border-radius: 20px;
+  }
+  .table-responsive{
+    border-radius: 20px;
+  }
+
+  hr{
+    width: 80% !important;
+    margin: 0 10px 0 10px;
+    }

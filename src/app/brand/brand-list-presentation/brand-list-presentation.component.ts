@@ -19,6 +19,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { BrandService } from '../brand.service';
 import { tap } from 'rxjs/operators';
 import { ResponseHeader } from '@core/domain-classes/response-header';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-brand-list-presentation',
@@ -30,33 +33,39 @@ export class BrandListPresentationComponent
   implements OnInit, AfterViewInit
 {
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @Output() deleteBrandHandler: EventEmitter<string> =
     new EventEmitter<string>();
 
   dataSource: BrandDataSource;
   brandResource: BrandResourceParameter;
   displayedColumns: string[] = [
-    'Action',
     'nameEnglish',
     // 'nameSecondLanguage',
     'code',
     'descriptionEnglish',
     // 'descriptionSecondLanguage',
+    'Action'
   ];
   footerToDisplayed: string[] = ['footer'];
+  selectedValue: number = -1;
 
   constructor(
     private dialog: MatDialog,
     private brandService: BrandService,
     private commonDialogService: CommonDialogService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private _liveAnnouncer: LiveAnnouncer,
+    private branchService:BranchService
   ) {
     super();
     this.brandResource = new BrandResourceParameter();
     this.brandResource.pageSize = 10;
+    this.brandResource.orderBy = 'nameEnglish asc';
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loadData();
   }
 
@@ -114,5 +123,16 @@ export class BrandListPresentationComponent
         if (!res) return;
         this.loadData();
       });
+  }
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }

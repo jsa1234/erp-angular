@@ -11,12 +11,13 @@ import { IDamageEntry } from '@core/domain-classes/damage-entry.interface';
 import { Router } from '@angular/router';
 import { LoaderService } from '@shared/services/loader.service';
 import { environment } from '@environments/environment';
-import { debounceTime, first, skip, tap } from 'rxjs/operators';
-import { merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, first, skip, tap } from 'rxjs/operators';
+import { merge, Subject } from 'rxjs';
 import { ResponseHeader } from '@core/domain-classes/response-header';
 import { DamageEntryService } from '../damage-entry.service';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { ToastrService } from 'ngx-toastr';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-damage-entry-list',
@@ -33,6 +34,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DamageEntryListComponent extends BaseComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  _docNoFilter: string;
   displayedColumns: string[] = ['action', 'docDate', 'docNo','branch','grandTotal', 'remarks'];
   filterColumns: string[] = ['action-search', 'docDate-search', 'docNo-search','branch-search','grandTotal-search', 'remarks-search'];
   footerToDisplayed: string[] = ['footer'];
@@ -44,6 +46,18 @@ export class DamageEntryListComponent extends BaseComponent implements OnInit {
   isLoading$: boolean;
   defaultPageSize:number = environment.initialPageSize
   pageSizeOptions:number[] = environment.pageSizeOptions
+  public filterObservable$: Subject<string> = new Subject<string>();
+
+  public get docNoFilter(): string {
+    return this._docNoFilter;
+  }
+
+  public set docNoFilter(v: string) {
+    this._docNoFilter = v;
+    const docNoFilter = `docNo:${v}`;
+    this.filterObservable$.next(docNoFilter);
+  }
+
   constructor(    
     private router:Router,
     private cd: ChangeDetectorRef,
@@ -52,7 +66,8 @@ export class DamageEntryListComponent extends BaseComponent implements OnInit {
     private fb: FormBuilder,
     private damageEntryService:DamageEntryService,
     private commonDialogService:CommonDialogService,
-    private toastrService:ToastrService) 
+    private toastrService:ToastrService,
+    private branchService:BranchService) 
     {
        super() 
        this.damageEntryResource = new DamageEntryResourceParameter();
@@ -63,6 +78,7 @@ export class DamageEntryListComponent extends BaseComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
     this.createSearchForm();
     this.onLoadData();
@@ -146,24 +162,24 @@ onLoadData()
       this.dataSource.loadData(this.damageEntryResource);
   });
   this.getResourceParameter();
-  // this.sub$.sink = this.filterObservable$
-  //   .pipe(
-  //     debounceTime(1000),
-  //     distinctUntilChanged())
-  //   .subscribe((c) => {
-  //     this.purchaseInvoiceResource.skip = 0;
-  //     const strArray: Array<string> = c.split(':');
-  //     if (strArray[0] === 'docDate') {
-  //       this.purchaseInvoiceResource.docDate =new Date(strArray[1]);
-  //       if(isNaN(this.purchaseInvoiceResource.docDate.getTime()))
-  //           {
-  //             this.purchaseInvoiceResource.docDate = null;
-  //           }
-  //     } else if (strArray[0] === 'docNo') {
-  //       this.purchaseInvoiceResource.docNo = strArray[1];
-  //     }
-  //     this.dataSource.loadData(this.purchaseInvoiceResource);
-  //   });
+  this.sub$.sink = this.filterObservable$
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged())
+    .subscribe((c) => {
+      this.damageEntryResource.skip = 0;
+      const strArray: Array<string> = c.split(':');
+      if (strArray[0] === 'docDate') {
+        this.damageEntryResource.docDate =new Date(strArray[1]);
+        if(isNaN(this.damageEntryResource.docDate.getTime()))
+            {
+              this.damageEntryResource.docDate = null;
+            }
+      } else if (strArray[0] === 'docNo') {
+        this.damageEntryResource.docNo = strArray[1];
+      }
+      this.dataSource.loadData(this.damageEntryResource);
+    });
 }
 deleteDamageEntry(damageEntry: IDamageEntry) {
   this.sub$.sink = this.commonDialogService

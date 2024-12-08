@@ -24,7 +24,7 @@ export class ProductService {
   getProducts(
     resourceParams: ProductResourceParameter
   ): Observable<HttpResponse<IProduct[]>> {
-    const url = 'Product';
+    const url = 'Product_Web';
     const customParams = new HttpParams()
       .set('Fields', resourceParams.fields)
       .set('OrderBy', resourceParams.orderBy)
@@ -46,7 +46,7 @@ export class ProductService {
   SearchProduct(
     resourceParams: ProductResourceParameter
   ): Observable<HttpResponse<IProduct[]>> {
-    const url = 'Product/SearchProduct';
+    const url = 'Product_Web/SearchProduct';
     const customParams = new HttpParams()
       .set('Fields', resourceParams.fields)
       .set('OrderBy', resourceParams.orderBy)
@@ -67,9 +67,9 @@ export class ProductService {
   }
 
   getProductsForDropdown(resourceParams:ReportResourceParameter):Observable<IProduct[]>{
-    const url = 'Product/GetProductList';
+    const url = 'Product_Web/GetProductList';
     const customParams = new HttpParams()
-    .set('CategorUUID',resourceParams.category)
+    .set('CategoryUUID',resourceParams.category)
     .set('SubCategoryUUID',resourceParams.subcategory)
     .set('BrandUUID',resourceParams.brand)
     return this.http.get<IProduct[]>(url,
@@ -80,30 +80,30 @@ export class ProductService {
 
 
   getProductWithBarcode(barcode: string): Observable<ProductBarcode[]> {
-    const url = `Product/GetProductWithBarcode/${barcode}`;
+    const url = `Product_Web/SearchProductByBarcode/${barcode}`;
     return this.http.get<ProductBarcode[]>(url);
   }
 
   getProductVarients(id: string): Observable<ProductPrice[]> {
-    const url = `Product/GetPrices/${id}`;
+    const url = `Product_Web/GetPrices/${id}`;
     return this.http.get<ProductPrice[]>(url);
   }
 
   getSingleProduct(id: string): Observable<IProduct> {
-    const url = `Product/${id}`;
+    const url = `Product_Web/${id}`;
     return this.http.get<IProduct>(url);
   }
   deleteProduct(id: string): Observable<void> {
-    const url = `Product/${id}`;
+    const url = `Product_Web/${id}`;
     return this.http.delete<void>(url);
   }
-  updateProduct(id: string, product: IProduct): Observable<void> {
-    const url = `Product/${id}`;
-    return this.http.put<void>(url, product);
+  updateProduct(id: string, data: any): Observable<void> {
+    const url = `Product_Web/${id}`;
+    return this.http.put<void>(url, data);
   }
-  saveProduct(product: IProduct): Observable<IProduct> {
-    const url = `Product`;
-    return this.http.post<IProduct>(url, product);
+  saveProduct(data: any): Observable<IProduct> {
+    const url = `Product_Web`;
+    return this.http.post<IProduct>(url, data);
   }
 
   getAllBarcodeProfiles():Observable<IBarcodeProfile[]>{

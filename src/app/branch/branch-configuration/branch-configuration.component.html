@@ -9,7 +9,7 @@
     </div>
     <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
       <div class="crumbs-sec">
-        <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/branch']">{{'SIDEBAR.BRANCH' | translate}}</a> / <span>{{'BRANCH.BRANCH_CONFIGURATIONS' | translate}}</span>
+        <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <a [routerLink]="['/branch']">{{'SIDEBAR.BRANCH' | translate}}</a> <i class="chevron-icon"></i>  <span>{{'BRANCH.BRANCH_CONFIGURATIONS' | translate}}</span>
         
       </div>
     </div>

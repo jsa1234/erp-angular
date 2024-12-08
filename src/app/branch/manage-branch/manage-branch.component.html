@@ -3,14 +3,14 @@
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons"
         [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon45"></i> <span>{{'BRANCH.MANAGE_BRANCH' | translate}}</span></h1>
+        <h1> {{'BRANCH.MANAGE_BRANCH' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/branch']">{{'SIDEBAR.BRANCH'
-        | translate}}</a> / <span>{{'BRANCH.MANAGE_BRANCH' | translate}}</span>
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i><a [routerLink]="['/branch']">{{'SIDEBAR.BRANCH'
+        | translate}}</a>  <i class="chevron-icon"></i><span>{{'BRANCH.MANAGE_BRANCH' | translate}}</span>
     </div>
   </div>
 </div>
@@ -23,7 +23,7 @@
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.BRANCH_TYPE'|translate}} <span class="text-danger">*</span> </label>
-              <mat-select placeholder="" formControlName="branchType" class="form-control w-100">
+              <mat-select placeholder="Enter here" formControlName="branchType" class="form-control w-100">
                 <mat-option *ngFor="let item of branchTypeList" [value]="item.key">{{item.valueEnglish}}</mat-option>
               </mat-select>
               <div *ngIf="branchForm.get('branchType').errors && branchForm.get('branchType').touched">
@@ -33,17 +33,17 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 ">
+          <!-- <div class="col-md-3 ">
               <label for="isHeadoffice">{{'BRANCH.HEAD_OFFICE' | translate}}</label>
             <div class="form-group">
-              <mat-slide-toggle formControlName="isHeadOffice" class="active-togle">{{ (isHeadOffice ? 'BRANCH.YES' :
+              <mat-slide-toggle formControlName="isHeadOffice" class="active-togles">{{ (isHeadOffice ? 'BRANCH.YES' :
                 'BRANCH.NO') | translate }}</mat-slide-toggle>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.NAME_ENGLISH'|translate}}<span class="text-danger">*</span></label>
-              <input formControlName="nameEnglish" class="form-control w-100" type="text">
+              <input formControlName="nameEnglish" class="form-control w-100" type="text" placeholder="Enter here">
               <div *ngIf="branchForm.get('nameEnglish').errors && branchForm.get('nameEnglish').touched">
                 <div class="text-danger" *ngIf="branchForm.get('nameEnglish').errors?.required">
                   Branch Name is Required
@@ -54,110 +54,127 @@
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.MOBILE_COUNTRY_CODE'|translate}}</label>
-              <input formControlName="mobileCountryCode" class="form-control w-100" type="text">
+              <input formControlName="mobileCountryCode" placeholder="Enter here"  minlength="2" maxlength="4" class="form-control w-100" type="text">
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.MOBILE_NO'|translate}}</label>
-              <input formControlName="mobileNo" class="form-control w-100" type="text">
+              <input formControlName="mobileNo" placeholder="Enter here" minlength="10" maxlength="10"
+              class="form-control w-100" type="text"  (keypress)="commonServ.validateTextBox($event,'number');"
+              [ngClass]="{'error': branchForm.get('mobileNo')?.invalid && branchForm.get('mobileNo')?.touched}">
             </div>
           </div>
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.PHONE_COUNTRY_CODE'|translate}}</label>
-              <input formControlName="phoneCountryCode" class="form-control w-100" type="text">
+              <input formControlName="phoneCountryCode" placeholder="Enter here" class="form-control w-100" type="text">
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.PHONE_NO'|translate}}</label>
-              <input formControlName="phoneNo" class="form-control w-100" type="text">
+              <input formControlName="phoneNo" placeholder="Enter here" class="form-control w-100" type="text">
             </div>
-          </div>
+          </div> -->
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.EMAIL'|translate}}</label>
-              <input formControlName="email" class="form-control w-100" type="text">
+              <input formControlName="email" placeholder="Enter here" class="form-control w-100" type="text">
+              <div *ngIf="branchForm.get('email').touched && branchForm.get('email').errors?.email" class="text-danger">
+                Please enter a valid email address.
+              </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.WEBSITE'|translate}}</label>
-              <input formControlName="website" class="form-control w-100" type="text">
+              <input formControlName="website" placeholder="Enter here" class="form-control w-100" type="text"
+              [ngClass]="{'error': branchForm.get('website')?.invalid && branchForm.get('website')?.touched}">
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark">{{'BRANCH.BUILDING_NO_ENGLISH'|translate}}</label>
-              <input formControlName="buildingNoEnglish" class="form-control w-100" type="text">
+              <input formControlName="buildingNoEnglish" placeholder="Enter here" class="form-control w-100" type="text">
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <label class="text-dark"> {{'BRANCH.GST_NO'|translate}}</label>
-              <input formControlName="gstVatNo" class="form-control w-100" type="text">
+              
+              <input id="gstVatNo" name="gstVatNo" formControlName="gstVatNo" placeholder="Enter here" class="form-control w-100" type="text"
+              [ngClass]="{'error': branchForm.get('gstVatNo')?.invalid && branchForm.get('gstVatNo')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'NoSpecialCharacters');" maxlength="15" minlength="15">
             </div>
           </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark">{{'BRANCH.STREET_ENGLISH'|translate}}</label>
-            <input formControlName="streetEnglish" class="form-control w-100" type="text">
+            <input formControlName="streetEnglish" placeholder="Enter here" class="form-control w-100" type="text">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark"> {{'BRANCH.PLACE_ENGLISH'|translate}}</label>
-            <input formControlName="placeEnglish" class="form-control w-100" type="text">
+            <input formControlName="placeEnglish" placeholder="Enter here"  class="form-control w-100" type="text">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark">{{'BRANCH.DISTRICT_ENGLISH'|translate}}</label>
-            <input formControlName="districtEnglish" class="form-control w-100" type="text">
+            <input formControlName="districtEnglish" placeholder="Enter here" class="form-control w-100" type="text">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark">{{'BRANCH.STATE_ENGLISH'|translate}}</label>
-            <input formControlName="stateEnglish" class="form-control w-100" type="text">
+            <input formControlName="stateEnglish" placeholder="Enter here" class="form-control w-100" type="text">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark">{{'BRANCH.COUNTRY_ENGLISH'|translate}}</label>
-            <input formControlName="countryEnglish" class="form-control w-100" type="text">
+            <input formControlName="countryEnglish" placeholder="Enter here" class="form-control w-100" type="text">
           </div>
         </div>
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark">{{'BRANCH.ZIP_CODE_ENGLISH'|translate}}</label>
-            <input formControlName="zipCodeEnglish" class="form-control w-100" type="text">
+            <input formControlName="zipCodeEnglish" placeholder="Enter here" class="form-control w-100" type="text">
           </div>
-        </div>
+        </div> -->
 
         <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark">TIN No</label>
-            <input formControlName="registrationNo" class="form-control w-100" type="text">
+            <input formControlName="registrationNo" placeholder="Enter here" class="form-control w-100" type="text"
+            [ngClass]="{'error': branchForm.get('registrationNo')?.invalid && branchForm.get('registrationNo')?.touched}"
+            (keypress)="commonServ.validateTextBox($event,'number');" maxlength="11" minlength="11">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label class="text-dark">PIN No</label>
-            <input formControlName="additionalNo" class="form-control w-100" type="text">
+            <label class="text-dark">PIN Code</label>
+            <input formControlName="additionalNo" placeholder="Enter here" class="form-control w-100" type="text"
+            [ngClass]="{'error': branchForm.get('additionalNo')?.invalid && branchForm.get('additionalNo')?.touched}"
+            (keypress)="commonServ.validateTextBox($event,'number');" maxlength="6" minlength="6">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label class="text-dark">FSSAI No</label>
-            <input formControlName="fssaiNumber" class="form-control w-100" type="text">
+            <input formControlName="fssaiNumber" placeholder="Enter here" class="form-control w-100" type="text"
+            [ngClass]="{'error': branchForm.get('fssaiNumber')?.invalid && branchForm.get('fssaiNumber')?.touched}"
+            (keypress)="commonServ.validateTextBox($event,'number');" maxlength="14" minlength="14">
           </div>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <date-input [group]="branchForm" [controlName]="'startDate'" [label]="'BRANCH.START_DATE'"
-            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_START_DATE'" [isMandatory]="true"  [isCustomRange]="true"  [isDefaultDate]="!isUpdate" [defaultDate]="branch?.startDate"></date-input>
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_START_DATE'" [isMandatory]="true"
+              [isCustomRange]="true"  [isDefaultDate]="!isUpdate" [defaultDate]="branch?.startDate"
+              formControlName="startDate"></date-input>
         </div>
         <div class="col-md-4">
           <date-input [group]="branchForm" [controlName]="'installationDate'" [label]="'BRANCH.INSTALLATION_DATE'"
@@ -166,9 +183,7 @@
         <div class="col-md-4">
           <date-input [group]="branchForm" [controlName]="'renewalDate'" [label]="'BRANCH.RENEWAL_DATE'"
             [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_RENEWAL_DATE'" [isMandatory]="true" [isCustomRange]="true" [isDefaultDate]="!isUpdate" [defaultDate]="branch?.installationDate"></date-input>
-        </div>
-
-
+        </div> -->
       </div>
       </div>
     </div>
@@ -180,7 +195,9 @@
           <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" draggable="false" />
           <img *ngIf="!imgSrc" class="full-width" src="../../assets/images/dummy.jpg" draggable="false" />
           <mat-card-actions>
-            <button type="button" class="btn btn-success btn-sm mb-2" (click)="fileInput.click()">
+            <button *ngIf="!isUpdate" type="button" class="btn btn-success btn-sm mb-2 rounded-pill" (click)="fileInput.click()">
+              <i class="far fa-image"></i> {{'COMMON.ADD_LOGO' | translate}}</button>
+            <button *ngIf="isUpdate" type="button" class="btn btn-success btn-sm mb-2 rounded-pill" (click)="fileInput.click()">
               <i class="far fa-image"></i> {{'COMMON.CHANGE_LOGO' | translate}}</button>
           </mat-card-actions>
         </mat-card>
@@ -188,15 +205,22 @@
     </div>
   </div>
   <ng-container *ngIf="componentId != 'detail'">
-    <div class="row">
-      <div class="col-md-12 m-bottom-40 text-center">
-        <button *hasClaim="['branch_branch_create_branch','branch_branch_edit_branch']" type="submit"
-          class="btn btn-success btn-sm mr-2 m-left-10" (click)="saveBranch()">
-          <i class="fas fa-save"></i> {{'COMMON.SAVE' | translate}}
+    <div class="row customer-save">
+      <div class="m-top-10 m-bottom-40 col-md-12 text-right  section-boxed ">
+        <button *hasClaim="['branch_branch_create_branch','branch_branch_edit_branch']" type="submit" class="btn btn-success btn-sm m-right-10 m-left-10 customer-save-button"
+          class="btn blue-btn mr-2 m-left-10" (click)="saveBranch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+            <path d="M3 9.50047V11.4085C3 13.8423 3 15.0592 3.66455 15.8834C3.79881 16.0499 3.95048 16.2016 4.117 16.3359C4.94123 17.0005 6.15811 17.0005 8.59185 17.0005C9.12105 17.0005 9.38557 17.0005 9.6279 16.915C9.6783 16.8971 9.72765 16.8767 9.77587 16.8536C10.0077 16.7428 10.1947 16.5557 10.5689 16.1815L14.1213 12.6291C14.5549 12.1956 14.7716 11.9788 14.8858 11.7031C15 11.4275 15 11.1209 15 10.5078V8.00047C15 5.17201 15 3.7578 14.1213 2.87912C13.327 2.08475 12.0949 2.00853 9.77587 2.00122M9.75 16.6255V16.2505C9.75 14.1291 9.75 13.0684 10.409 12.4094C11.068 11.7505 12.1287 11.7505 14.25 11.7505H14.625" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 4.99976H3M6 1.99976V7.99975" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg> {{'COMMON.SAVE' | translate}}
         </button>      
-        <button type="button" class="btn btn-danger btn-sm" (click)="cancel()">
-          <i class="fas fa-times-circle"></i>
+        <button type="button" class="btn customer-close-button"  (click)="cancel()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path d="M15.1725 14.4939C15.498 14.8193 15.498 15.3469 15.1725 15.6724C14.8471 15.9978 14.3194 15.9978 13.994 15.6724L9.99995 11.6784L6.00601 15.6724C5.68058 15.9978 5.15294 15.9978 4.8275 15.6724C4.50206 15.3469 4.50206 14.8193 4.82749 14.4939L8.82143 10.4999L4.82733 6.50583C4.50189 6.18039 4.50189 5.65276 4.82733 5.32733C5.15277 5.00189 5.68041 5.00189 6.00585 5.32733L9.99993 9.32134L13.9939 5.32734C14.3193 5.0019 14.8469 5.0019 15.1724 5.32733C15.4978 5.65277 15.4978 6.1804 15.1724 6.50584L11.1784 10.4998L15.1725 14.4939Z" fill="#6B5C58"/>
+          </svg>
           {{'COMMON.CANCEL' | translate}}
+
+          
         </button>
       </div>
     </div>
@@ -205,3 +229,4 @@
 <div class="loading-shade" *ngIf="isLoading">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 </div>
+

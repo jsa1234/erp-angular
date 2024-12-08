@@ -19,6 +19,7 @@ import { SubCategoryService } from '../sub-category.service';
 import { ResponseHeader } from '@core/domain-classes/response-header';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-sub-category-list-presentation',
@@ -33,21 +34,23 @@ export class SubCategoryListPresentationComponent
   subCategoryResource: SubcategoryResourceParameter;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = [
-    'action',
-    'category',
+    
     'subcategoryEnglish',
+    'category',
     // 'nameSecondLanguage',
     'code',
     'descriptionEnglish',
+    'categoryStatus',
+    'action',
     // 'descriptionSecondLanguage',
   ];
   displayedColumnsSearch: string[] = [
-    'action-search',
     'category-search',
     'subcategoryEnglish-search',
     // 'nameSecondLanguage',
     'code-search',
     'descriptionEnglish-search',
+    'action-search',
     // 'descriptionSecondLanguage-search',
   ];
   footerToDisplayed: string[] = ['footer'];
@@ -67,14 +70,17 @@ export class SubCategoryListPresentationComponent
     private dialog: MatDialog,
     private subCategoryService: SubCategoryService,
     private commonDialogService: CommonDialogService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private branchService: BranchService
   ) {
     super();
     this.subCategoryResource = new SubcategoryResourceParameter();
     this.subCategoryResource.pageSize = 10;
+    this.subCategoryResource.orderBy = 'nameSecondLanguage asc';
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loadData();
   }
 
@@ -122,7 +128,7 @@ export class SubCategoryListPresentationComponent
   manageSubCategory(subcategory: ProductSubcategory) {
     this.dialog
       .open(ManageSubCategoryComponent, {
-        width: '500px',
+        width: '750px',
         data: Object.assign({}, subcategory),
       })
       .afterClosed()

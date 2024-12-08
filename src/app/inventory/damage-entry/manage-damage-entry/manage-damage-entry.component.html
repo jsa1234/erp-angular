@@ -2,14 +2,14 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon19"></i> <span>{{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}</span></h1>
+        <h1>{{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
-        [routerLink]="['/inventory/damage-entry']">{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</a> /
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i>  <a
+        [routerLink]="['/inventory/damage-entry']">{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</a> <i class="chevron-icon"></i> 
       <span>{{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}</span>
     </div>
   </div>
@@ -39,7 +39,7 @@
           <div class="col-md-4 col-sm-12">
             <div class="form-group">
               <app-branch-dropdown [group]="damageEntryForm" [controlName]="'branchUUID'"
-                [isAddAll]="false"></app-branch-dropdown>
+                [isAddAll]="false" [isDefault]="isDefaultBranch"></app-branch-dropdown>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-12 col-sm-12 table-responsive">
+        <div class="col-md-12 col-sm-12  table-responsive">
             <table class="table table-striped purchanse-managed-table">
                 <thead>
                     <tr>
@@ -84,7 +84,7 @@
                         <th>{{'INVENTORY.DAMAGE_ENTRY.BARCODE'|translate}}</th>
                         <th>{{'INVENTORY.DAMAGE_ENTRY.PRODUCT_CODE'|translate}}</th>
                         <th>{{'INVENTORY.DAMAGE_ENTRY.PRODUCT_NAME_ENGLISH'|translate}}</th>
-                        <th>{{'INVENTORY.DAMAGE_ENTRY.STOCK'|translate}}</th>
+                        <!-- <th>{{'INVENTORY.DAMAGE_ENTRY.STOCK'|translate}}</th> -->
                         <th>{{'INVENTORY.DAMAGE_ENTRY.DAMAGE_QUANTITY'|translate}}</th>
                         <th>{{'INVENTORY.DAMAGE_ENTRY.UNIT_PRICE'|translate}}</th>
                         <th>{{'INVENTORY.DAMAGE_ENTRY.UNIT_NAME'|translate}}</th>
@@ -100,7 +100,7 @@
                         <td>{{item.barcode}}</td>
                         <td>{{item.product.productCode}}</td>
                         <td>{{item.product.nameEnglish}}</td>
-                        <td>{{item?.stock}}</td>
+                        <!-- <td>{{item?.stock}}</td> -->
                         <td>
                             <input class="form-control w-100" type="number" #quantityInput [(ngModel)]="item.damageQuantity" name="damageQuantity" id="{{item.damageQuantity}}" (ngModelChange)="updateAmount(item)">
                         </td>
@@ -143,11 +143,10 @@
         </div>
     </div>
     <div class="row">
-      <div class="col-md-12 m-bottom-40 text-center">
+      <div class="col-md-12 m-bottom-40 text-right">
           <!-- *hasClaim="'profile_business_update_business_profile'" -->
-          <button  type="submit" class="btn btn-success btn-sm mr-2 m-left-10" (click)="saveDamageEntry()">
-              <i class="fas fa-save"></i> {{'COMMON.SAVE' | translate}}
-          </button>
+          <button  type="submit" class="btn blue-btn mr-2 m-left-10" (click)="saveDamageEntry()">
+              {{'COMMON.SAVE' | translate}} <i class="icon61"></i></button>
           </div>
           </div>
     </div>

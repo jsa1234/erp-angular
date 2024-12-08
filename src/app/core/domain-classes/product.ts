@@ -19,6 +19,7 @@ export class Product implements IProduct {
     #_addnlCessObj: Tax;
     #_maxStockLevel: number;
     #_reorderLevel: number;
+    #_imagePath:string;
 
 
     constructor(values:IProduct) {
@@ -36,6 +37,7 @@ export class Product implements IProduct {
         this.#_addnlCessObj = values.addnlCessObj
         this.#_maxStockLevel = values.maxStockLevel
         this.#_reorderLevel = values.reorderLevel
+        this.#_imagePath = values.imagePath
     }
     nameCode?: string;
     productImage?: string;
@@ -102,7 +104,9 @@ export class Product implements IProduct {
     public get reorderLevel():number{
         return this.#_reorderLevel
     }
- 
+    public get imagePath():string{
+        return this.#_imagePath
+    }
     descriptionEnglish: string;
     descriptionArabic: string;
     hsnCode: string;
@@ -110,7 +114,6 @@ export class Product implements IProduct {
     addnlCessUUID: string;
     cessUUID: string;
     margin: number;
-    imagePath: string;
     branchUUID: string;
     isImageUpdate?: boolean;
     isUpdate?: boolean = false;

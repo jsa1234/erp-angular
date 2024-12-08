@@ -34,7 +34,7 @@ export class SaleReturnListComponent extends BaseComponent implements OnInit {
 
   searchForm:FormGroup
   dataSource: SalesReturnDataSource;
-  displayedColumns: string[] = ['action', 'invoiceDate', 'invoiceNumber', 'customerName', 'transaction', 'totalDiscount', 'totalTax', 'totalAmount'];
+  displayedColumns: string[] = [ 'invoiceDate', 'invoiceNumber', 'customerName', 'transaction', 'totalDiscount', 'totalTax', 'totalAmount','action'];
   filterColumns: string[] = ['action-search', 'invoiceDate-search', 'invoiceNumber-search', 'customerName-search', 'transaction-search', 'totalDiscount-search', 'totalTax-search', 'totalAmount-search'];
   footerToDisplayed: string[] = ['footer'];
 
@@ -77,7 +77,7 @@ export class SaleReturnListComponent extends BaseComponent implements OnInit {
     ) {
     super();
     this.salesReturnResource = new SalesReturnResourceParameter();
-    this.salesReturnResource.pageSize = 50;
+    this.salesReturnResource.pageSize = 10;
     this.salesReturnResource.orderBy = 'invoiceNumber asc'
   }
 

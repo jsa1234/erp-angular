@@ -6,15 +6,15 @@
       </div>
     </div>
     <div class="col-md-auto col-sm-auto">
-      <button *hasClaim="'sale_sale_invoice_print_sale_invoice'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
-        <i class="fas fa-receipt"></i> {{'COMMON.PRINT_INVOICE' | translate}}
+      <button *hasClaim="'sale_sale_invoice_print_sale_invoice'" class="btn blue-btn m-right-10" (click)="generateInvoice()">
+        {{'COMMON.PRINT_INVOICE' | translate}}&nbsp; <i class="fas fa-receipt"></i> 
       </button>
     </div>
   </div>
 </div>
 <br>
   <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="simplifiedSaleInvoice.branchUUID"></app-comapny-profile-heading>
-  <div class="row">
+  <div class="row card mr-1 ml-1">
     <div class="col-md-6">
       <div class="invoice-detatable table-responsive"
         [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
@@ -61,7 +61,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row card mr-1 ml-1">
 
     <div class="col-md-12">
       <div class="invoice-detatable table-responsive"
@@ -79,12 +79,12 @@
       </div>
     </div>
   </div>
-
+<br>
   <div class="content-header">
     <h1>{{'COMMON.LINE_ITEMS' | translate}}</h1>
   </div>
-  <div class="table-responsive invoice-detatable">
-    <table class="table table-bordered table-hover table-striped">
+  <div class="">
+    <table class="table-responsive">
       <thead class="head">
         <tr>
           <th style="width:1%">{{'COMMON.#' | translate}}</th>
@@ -115,7 +115,8 @@
         </tr>
       </tbody>
     </table>
-
+    <br>
+    <br>
 
 
     <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">

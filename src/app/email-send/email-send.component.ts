@@ -120,6 +120,7 @@ export class EmailSendComponent extends BaseComponent implements OnInit {
   sendEmail() {
     if (!this.emailForm.valid) {
       this.emailForm.markAllAsTouched();
+      
       return;
     }
     this.isLoading = true;

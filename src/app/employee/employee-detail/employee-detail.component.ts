@@ -53,6 +53,8 @@ export class EmployeeDetailComponent extends BaseComponent implements OnInit {
     private countryService: CountryService) { super(); }
 
   ngOnInit(): void {
+    let branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    let branchUUID = branchData.branchUUID;
     this.getCountries();
     this.createEmployeeForm();
 
@@ -212,6 +214,8 @@ export class EmployeeDetailComponent extends BaseComponent implements OnInit {
   }
 
   createBuildForm(): Employee {
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
     const employeeObj: Employee = {
       accountUUID: this.employeeForm.get("employeeUUID").value,
       nameEnglish: this.employeeForm.get("nameEnglish").value,
@@ -254,7 +258,7 @@ export class EmployeeDetailComponent extends BaseComponent implements OnInit {
       maxCreditDays: this.employeeForm.get("maxCreditDays").value,
       traySecurityRequired: this.employeeForm.get("traySecurityRequired").value,
       isActive: this.employeeForm.get("isActive").value,
-      branchUUID: environment.branchUUID,
+      branchUUID: branchUUID,
       //imageFile: this.employeeUploadImage?.src,
     }
 
@@ -301,6 +305,8 @@ export class EmployeeDetailComponent extends BaseComponent implements OnInit {
   }
 
   patchEmployee() {
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
     let countryObj: Country = this.employee.countryObj;
     //this.country = countryObj?.countryUUID
     countryObj && this.getStateByCountry(countryObj.countryUUID);
@@ -350,7 +356,7 @@ export class EmployeeDetailComponent extends BaseComponent implements OnInit {
       maxCreditDays: this.employee.maxCreditDays,
       traySecurityRequired: this.employee.traySecurityRequired,
       isActive: this.employee.isActive,
-      branchUUID: environment.branchUUID,
+      branchUUID: branchUUID,
       accountCode:this.employee.accountCode
     });
     // this.employeeForm.get('accountCode').disable()

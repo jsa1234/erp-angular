@@ -1,24 +1,32 @@
 <form [formGroup]="searchForm">
   <div [ngClass]="{'form-label-ar':translationService?.getSelectedLanguage()=='ar'}">
 
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row  details_card p-3 m-1">
+      <div class="col-md-12">
         <div class="row">
           <div class="col-md-3">
             <app-branch-dropdown [group]="searchForm" [controlName]="'branch'"
               (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
           </div>
-          <div class="col-md-3">
+          <!-- <div class="col-md-2">
             <app-device-dropdown [branch]="branchUUID" [group]="searchForm"
               [controlName]="'device'"></app-device-dropdown>
-          </div>
-          <div class="col-md-3">
+          </div> -->
+          <div class="col-md-2">
             <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'"
               [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'"
               [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+          </div>
+          <div class="col-md-3 d-flex align-items-end pb-2">
+            <button type="submit" (click)="onSearch()" class="btn blue-btn m-right-10"><i
+              class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
+          </button>
+          <button type="submit" (click)="onClear()" class="btn btn-danger m-right-10"><i class="fas fa-eraser"></i>
+            {{'COMMON.CLEAR' | translate}}
+          </button>
           </div>
           <div class="col-md-3">
             <div class="form-group">
@@ -26,27 +34,39 @@
                 (categoryUUID)="parentCategoryHandlerFunction($event)"></app-category-dropdown>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <app-subcategory-dropdown [id]="categoryUUID" [group]="searchForm" [controlName]="'subcategory'"
                 (subcategoryUUID)="parentSubcategoryHandlerFunction($event)"></app-subcategory-dropdown>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <app-brand-dropdown [group]="searchForm" [controlName]="'brand'"
                 (brandUUID)="parentBrandHandlerFunction($event)"></app-brand-dropdown>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <app-product-dropdown [group]="searchForm" [controlName]="'product'" [category]="categoryUUID"
                 [isMandatory]="true" [subcategory]="subcategoryUUID" [brand]="brandUUID"></app-product-dropdown>
             </div>
           </div>
+          <div class="col-md-3 d-flex align-items-end pb-2">
+            <ng-container *hasClaim="'report_stock_report_excel_stock_report'">
+              <button type="submit" (click)="generateExcel()" *ngIf="stockItemList.length"
+                class="btn btn-green m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+              </button>
+            </ng-container>
+            <ng-container *hasClaim="'report_stock_report_print_stock_report'">
+              <button type="submit" (click)="generatePdf()" *ngIf="stockItemList.length"
+                class="btn btn-warning m-right-10"><i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
+              </button>
+            </ng-container>
+          </div>
         </div>
       </div>
-      <div class="col-md-4 report-tool-bar">
+      <!-- <div class="col-md-4 report-tool-bar">
         <button type="submit" (click)="onSearch()" class="btn btn-primary btn-sm m-right-10"><i
             class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
         </button>
@@ -63,7 +83,7 @@
             class="btn btn-warning btn-sm m-right-10"><i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
           </button>
         </ng-container>
-      </div>
+      </div> -->
     </div>
   </div>
 </form>
@@ -81,8 +101,8 @@
         <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.DAMAGE' | translate}}</th>
         <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.STOCK_IN' | translate}}</th>
         <th colspan="2" class="text-center">{{'REPORTS.STOCK_REPORT.STOCK_OUT' | translate}}</th>
-        <th rowspan="2" class="text-right">{{'REPORTS.STOCK_REPORT.UNIT_RATE' | translate}}</th>
-        <th rowspan="2" class="text-right">{{'REPORTS.STOCK_REPORT.BALANCE' | translate}}</th>
+        <!-- <th rowspan="2" class="text-right">{{'REPORTS.STOCK_REPORT.UNIT_RATE' | translate}}</th> -->
+        <!-- <th rowspan="2" class="text-right">{{'REPORTS.STOCK_REPORT.BALANCE' | translate}}</th> -->
       </tr>
       <tr>
         <th class="text-center">{{'REPORTS.STOCK_REPORT.QTY' | translate}}</th>
@@ -102,11 +122,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngIf="stockItemList?.length>0">
+      <!-- <tr *ngIf="stockItemList?.length>0">
         <td></td>
         <td>Opening Stock</td>
         <td class="text-right" colspan="16">{{stockitemWiseReport?.openingStockQuantity}}</td>
-      </tr>
+      </tr> -->
       <tr *ngFor="let item of stockItemList">
         <td class="text-center">{{item.transactionDate | customDate}}</td>
         <td class="text-center">{{item.transactionNo}}</td>
@@ -138,8 +158,8 @@
         <td class="text-center">{{item.stockOutQuantity > 0 ? (translationService?.getSelectedLanguage() === 'en' ?
           item.unit.nameEnglish : item.unit.nameSecondLanguage) : ''}}
         </td>
-        <td class="text-right">{{item.rate}}</td>
-        <td class="text-right">{{item.balance}}</td>
+        <!-- <td class="text-right">{{item.rate}}</td> -->
+        <!-- <td class="text-right">{{item.balance}}</td> -->
       </tr>
       <tr *ngIf="stockItemList.length<=0">
         <td class="text-center" colspan="19">
@@ -164,8 +184,8 @@
         <th class="text-center"></th>
         <th class="text-center">{{stockitemWiseReport?.totalQuantityStockOut}}</th>
         <th class="text-center"></th>
-        <th class="text-center">{{stockitemWiseReport?.totalRate}}</th>
-        <th class="text-center"></th>
+        <!-- <th class="text-center">{{stockitemWiseReport?.totalRate}}</th> -->
+        <!-- <th class="text-center"></th> -->
       </tr>
     </tfoot>
   </table>

@@ -15,6 +15,7 @@ import { Bank } from '@core/domain-classes/bank.interface';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { TranslationService } from '@core/services/translation.service';
 import { ToastrService } from 'ngx-toastr';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-bank-list',
@@ -22,7 +23,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./bank-list.component.scss']
 })
 export class BankListComponent extends BaseComponent implements OnInit ,AfterViewInit {
-  displayedColumns: string[] = ['action', 'accountHeadCode', 'bankName', 'branch','accountHolder','accountNo','ifscCode'];
+  displayedColumns: string[] = [ 'accountHeadCode', 'bankName', 'branch','accountHolder','accountNo','ifscCode','action'];
   footerToDisplayed: string[] = ['footer'];
   dataSource: BankDataSource;
   bankResource: BankResourceParameter;
@@ -36,7 +37,9 @@ export class BankListComponent extends BaseComponent implements OnInit ,AfterVie
     private loader:LoaderService, 
     private commonDialogService:CommonDialogService, 
     private transalte:TranslationService,
-    private toastr:ToastrService) {
+    private toastr:ToastrService,
+    private branchService:BranchService
+  ) {
     super();
     this.bankResource = new BankResourceParameter();
     this.bankResource.pageSize = environment.initialPageSize;
@@ -44,6 +47,7 @@ export class BankListComponent extends BaseComponent implements OnInit ,AfterVie
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
     this.onLoadData()
   }

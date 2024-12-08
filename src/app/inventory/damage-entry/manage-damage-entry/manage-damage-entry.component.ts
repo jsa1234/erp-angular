@@ -34,7 +34,7 @@ export class ManageDamageEntryComponent
   barcodeValue: string;
   grandTotal: any;
   isUpdate: boolean = false;
-
+  isDefaultBranch:boolean = true;
 
   @HostListener('document:keydown', ['$event'])
   onKeyPress(event: KeyboardEvent) {
@@ -86,12 +86,14 @@ export class ManageDamageEntryComponent
           this.damageProductList = [];
           this.selectedVariantsUUID = [];
         this.isUpdate =false
+        this.isDefaultBranch= true
         this.getDocumentNumber()
 
           return;
         }
        
         this.isUpdate =true
+        this.isDefaultBranch= false
         this.damageEntryForm.patchValue(data.damageEntry);
         this.damageProductList = data.damageEntry.damageDetails
         this.selectedVariantsUUID = this.damageProductList.map((res) => res.productPriceUUID);

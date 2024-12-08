@@ -33,6 +33,7 @@ import { SupplierService } from '../supplier.service';
 import { SupplierDataSource } from './supplier-datasource';
 import { SupplierAccountResourceParameter } from '@core/domain-classes/supplier-account-resourceparameter';
 import { ISupplierAccount } from '@core/domain-classes/supplierAccount';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-supplier-list',
@@ -53,28 +54,26 @@ export class SupplierListComponent extends BaseComponent implements OnInit {
   dataSource: SupplierDataSource;
   suppliers: Supplier[] = [];
   displayedColumns: string[] = [
-    'action',
     'nameEnglish',
     // 'nameSecondLanguage',
     'email',
     'Mobile',
     'vat',
-    'reg-no',
+    //'reg-no',
     'district',
     // 'state',
-    'sales-man',
+    //'sales-man',
+    'action',
   ];
   searchColumns: string[] = [
-    'action-Search',
-    'nameEnglish-Search',
-    // 'nameSecondLanguage-Search',
-    'email-Search',
-    'mobile-Search',
-    'vat-Search',
-    'regNo-Search',
-    'district-Search',
-    // 'state-Search',
-    'salesMan-Search',
+    // 'nameEnglish-Search',
+    // 'email-Search',
+    // 'mobile-Search',
+    // 'vat-Search',
+    // 'regNo-Search',
+    // 'district-Search',
+    // 'salesMan-Search',
+    // 'action-Search',
   ];
   columnsToDisplay: string[] = ['footer'];
   countryList: Country[] = [];
@@ -160,17 +159,19 @@ export class SupplierListComponent extends BaseComponent implements OnInit {
     public translationService: TranslationService,
     private dialog: MatDialog,
     private commonService: CommonService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private branchService : BranchService
   ) {
     super();
     this.supplierResource = new SupplierAccountResourceParameter();
-    this.supplierResource.pageSize = 20;
+    this.supplierResource.pageSize = 10;
     this.supplierResource.orderBy = 'nameEnglish asc';
 
     this.dataSource = new SupplierDataSource(this.supplierService);
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     // this.dataSource = new SupplierAccountResourceParameter();
     this.dataSource = new SupplierDataSource(this.supplierService);
 

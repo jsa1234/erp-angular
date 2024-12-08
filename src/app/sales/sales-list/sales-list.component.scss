@@ -38,3 +38,63 @@ tr.example-detail-row {
 .content-header h1 span {
   margin-left: 25px;
 }
+.filter-sec{
+background-color: white;
+padding: 20px;
+border-radius: 20px;
+}
+.filter-search button {
+// height: calc(1.5em + 0.75rem + 13px) !important;
+}
+
+td.mat-cell {
+border: 0;
+border-bottom: 1px solid #dee2e6;
+z-index: 0 !important;
+}
+table {
+width: 100%;
+thead tr:last-child {
+  margin-top: -3px !important;
+}
+}
+.table tr th {
+border: none !important;
+border-bottom: 1px solid #dee2e6 !important;
+text-transform: capitalize;  
+background-color:  #F8F9FD !important;  
+padding: 15px;
+// border-radius: 20px;
+}
+.table-responsive{
+border-top-left-radius:20px;
+border-top-right-radius:20px;
+overflow: hidden;
+}
+.highlight {
+background-color: #f5f7fa !important;
+border-left: 4px solid #fdb374 !important;
+}
+.highlight > * {
+background-color: inherit !important;
+}
+hr{
+width: 80% !important;
+margin: 0 10px 0 10px;
+}
+#poCreatedDate{
+  width: 150px;
+  height: 35px;
+  background-color: #eceff5;
+  padding: 0 10px !important;
+  // &::before{
+  //   content: '<i class="fa fa-search"></i>';
+  // }
+}
+.highlight {
+  background-color: #f5f7fa !important;
+  border-left: 4px solid #fdb374 !important;
+}
+.highlight > * {
+  background-color: inherit !important;
+}

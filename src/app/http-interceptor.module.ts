@@ -33,7 +33,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     const url = req.url.lastIndexOf('api') > -1 ? req.url : 'api/' + req.url;
     if (token) {
       const newReq = req.clone({
-        headers: req.headers.set('Authorization', 'Bearer ' + token).set('Access-Control-Allow-Origin','*').set('X-Timezone-Offset',`${timezone}`),
+        headers: req.headers.set('Authorization', 'Bearer ' + token).set('Access-Control-Allow-Origin','*').set('X-Timezone-Offset',`${timezone}`).set('ngrok-skip-browser-warning',`${123}`),
         url: `${baseUrl}${url}`,
       });
       return next.handle(newReq).pipe(
@@ -43,11 +43,18 @@ export class HttpRequestInterceptor implements HttpInterceptor {
             if (err instanceof HttpErrorResponse) {
               if (err.status === 401) {
                 this.router.navigate(['login']);
-              } else if (err.error) {
+              } 
+              else if (err.status == 403){
+                this.toastrService.error("Access Denied", "", {
+                  enableHtml: true
+                });
+              }
+              else if (err.error) {
                 this.toastrService.error(err.error.join(" </br> "), "", {
                   enableHtml: true
                 });
-              } else {
+              } 
+              else {
                 this.toastrService.error(err.message, "", {
                   enableHtml: true
                 });

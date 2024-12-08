@@ -66,6 +66,7 @@ export class SupplierDetailComponent extends BaseComponent implements OnInit {
   editorConfig = EditorConfig;
   isLoading = false;
   dataSource: EmployeeListDataSource;
+  imageFile: File | null = null;
 
   public filterCityObservable$: Subject<string> = new Subject<string>();
 
@@ -88,7 +89,8 @@ export class SupplierDetailComponent extends BaseComponent implements OnInit {
     private countryService:CountryService,
     private stateService:StateService,
     private districtService:DistrictService,
-    private employeeService:EmployeeService
+    private employeeService:EmployeeService,
+    public commonServ:CommonService
   ) {
     super();
   }
@@ -211,15 +213,15 @@ export class SupplierDetailComponent extends BaseComponent implements OnInit {
     middleNameArabic :[''],
     lastNameArabic :[''],
     nameSuffixArabic :[''],
-    gstVatNo :[''],
-    regCrNo :[''],
+    gstVatNo :['',Validators.required],
+    regCrNo :['',Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]$/)],
     addRegNo :[''],
     mobileCountryCode :[''],
     mobile :[''],
     phoneCountryCode :[''],
     phone :[''],
-    email :[''],
-    website :[''],
+    email :['',[Validators.email]],
+    website :['',[Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})([\/a-zA-Z0-9.-]*)*\/?$/)]],
     fax :[''],
     imagePath :[''],
     supplierImage :[''],
@@ -359,25 +361,73 @@ export class SupplierDetailComponent extends BaseComponent implements OnInit {
     }
   }
 
-  onFileSelect($event) {
-    const fileSelected = $event.target.files[0];
+  // onFileSelect($event) {
+  //   const fileSelected = $event.target.files[0];
+  //   if (!fileSelected) {
+  //     return;
+  //   }
+  //   const mimeType = fileSelected.type;
+  //   if (mimeType.match(/image\/*/) == null) {
+  //     return;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(fileSelected);
+  //   // tslint:disable-next-line: variable-name
+  //   reader.onload = (_event) => {
+  //     this.imgSrc = fileSelected;
+  //     this.isImageUpload = true;
+  //     $event.target.value = '';
+  //   }
+  // }
+  // onFileSelect($event: any) {
+  //   const fileSelected: File = $event.target.files[0];
+  //   if (!fileSelected) {
+  //     return;
+  //   }
+    
+  //   const mimeType = fileSelected.type;
+  //   if (mimeType.match(/image\/*/) == null) {
+  //     return;
+  //   }
+  //   debugger
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(fileSelected);
+  //   // Store the file directly in the form, without Base64 conversion
+  //   reader.onload = (_event) => {
+  //     this.imgSrc = reader.result;
+  //     this.supplierForm.patchValue({
+  //       imageData: fileSelected,
+  //       logoUrl: fileSelected.name,
+  //     });
+  //   }
+   
+  
+  //   // Clear the file input value
+  //   $event.target.value = '';
+  // }
+  onFileSelect(event: any) {
+    const fileSelected = event.target.files[0];
     if (!fileSelected) {
       return;
     }
+  
     const mimeType = fileSelected.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
+  
     const reader = new FileReader();
     reader.readAsDataURL(fileSelected);
-    // tslint:disable-next-line: variable-name
-    reader.onload = (_event) => {
-      this.imgSrc = reader.result;
+  
+    reader.onload = () => {
+      this.imgSrc = reader.result; // For displaying the image
       this.isImageUpload = true;
-      $event.target.value = '';
-    }
+      this.imageFile = fileSelected; // Save the file for FormData
+    };
+  
+    event.target.value = ''; // Reset the file input
   }
-
+  
   onRemoveImage() {
     this.isImageUpload = true;
     this.imgSrc = '';
@@ -440,26 +490,73 @@ export class SupplierDetailComponent extends BaseComponent implements OnInit {
   }
 
   onSupplierSubmit() {
+    // if (this.supplierForm.valid) {
+    //   const supObj = this.createBuildForm();
+    //   supObj.supplierImage = this.imgSrc;
+    //   supObj.isImageUpdate = this.isImageUpload;
+
+    //   if (this.supplierAccount) {
+
+    //     this.isLoading = true;
+    //     this.sub$.sink = this.supplierService
+    //       .updateSupplierAccount(this.supplierAccount.accountUUID, supObj)
+    //       .subscribe((c) => {
+    //         this.isLoading = false;
+    //         this.toastrService.success('Supplier Updated Successfully');
+    //         this.router.navigate(['/supplier']);
+    //       }, () => this.isLoading = false);
+    //   } else {
+    //     this.isLoading = true;
+    //     this.sub$.sink = this.supplierService
+    //       .saveSupplierAccount(supObj)
+    //       .subscribe((c) => {
+    //         this.isLoading = false;
+    //         this.toastrService.success('Supplier Added Successfully');
+    //         this.router.navigate(['/supplier']);
+    //       }, () => this.isLoading = false);
+    //   }
+    // } else {
+    //   this.markFormGroupTouched(this.supplierForm);
+    // }
     if (this.supplierForm.valid) {
-      const supObj = this.createBuildForm();
-      supObj.supplierImage = this.imgSrc;
-      supObj.isImageUpdate = this.isImageUpload;
-
+      const supObj = this.createBuildForm(); // Get the form object
+      const formData = new FormData(); // Initialize FormData object
+  
+      for (const key in supObj) {
+        if (Object.prototype.hasOwnProperty.call(supObj, key)) {
+          const value = supObj[key];
+          if (typeof value === 'object' && value !== null) {
+            // Serialize objects to JSON strings
+            formData.append(key+'Json', JSON.stringify(value));
+          } else {
+            // Append simple values directly
+            formData.append(key, value || '');
+          }
+        }
+      }
+  
+      // Append the file only if it's selected
+      if (this.imageFile) {
+        formData.append('supplierImage', this.imageFile);
+      }
+  
+      formData.append('isImageUpdate', String(this.isImageUpload)); // Boolean as string
+  
+      this.isLoading = true;
+  
+      // Call appropriate service for saving/updating
       if (this.supplierAccount) {
-
-        this.isLoading = true;
         this.sub$.sink = this.supplierService
-          .updateSupplierAccount(this.supplierAccount.accountUUID, supObj)
-          .subscribe((c) => {
+          .updateSupplierAccount(this.supplierAccount.accountUUID, formData)
+          .subscribe(() => {
             this.isLoading = false;
             this.toastrService.success('Supplier Updated Successfully');
             this.router.navigate(['/supplier']);
           }, () => this.isLoading = false);
       } else {
-        this.isLoading = true;
         this.sub$.sink = this.supplierService
-          .saveSupplierAccount(supObj)
-          .subscribe((c) => {
+          .saveSupplierAccount(formData)
+          .subscribe(() => {
             this.isLoading = false;
             this.toastrService.success('Supplier Added Successfully');
             this.router.navigate(['/supplier']);
@@ -483,6 +580,9 @@ export class SupplierDetailComponent extends BaseComponent implements OnInit {
   createBuildForm(): ISupplierAccount {
     // const supplierAddress = this.supplierAddress.value;
     // const supplierEmails = this.supplierEmailsArray.value;
+
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
 
     const supplierObj: ISupplierAccount = {
       accountUUID: this.supplierForm.get('accountUUID').value,
@@ -527,8 +627,8 @@ export class SupplierDetailComponent extends BaseComponent implements OnInit {
       traySecurityRequired: true,
       isActive: this.supplierForm.get('isActive').value,
       imagePath: '',
-      branchUUID:environment.branchUUID,
-      supplierImage:''
+      //branchUUID:environment.branchUUID,
+      branchUUID:branchUUID
 
     };
     return supplierObj;

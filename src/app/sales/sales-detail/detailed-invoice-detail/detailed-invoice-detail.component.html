@@ -23,7 +23,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
+            <div class="invoice-detatable table-responsive">
                 <table>
                     <tr>
                         <th>{{'SALES_INVOICE.INVOICE_NO' | translate}}</th>
@@ -189,7 +189,7 @@
                     <th class="text-center" style="width:2%">{{"PRODUCT.QUANTITY" | translate}}</th>
                     <th class="text-right">{{"SALES_INVOICE.DISCOUNT" | translate}}</th>
                     <th class="text-right">{{'SALES_INVOICE.TAXABLE_AMOUNT' | translate}}</th>
-                    <th class="text-right">{{'SALES_INVOICE.TAX_RATE' | translate}}</th>
+                    <!-- <th class="text-right">{{'SALES_INVOICE.TAX_RATE' | translate}}</th> -->
                     <th class="text-right">{{'SALES_INVOICE.TAX_AMOUNT' | translate}}</th>
                     <th class="text-right">{{'SALES_INVOICE.TOTAL' | translate}}</th>
                 </tr>
@@ -203,9 +203,9 @@
                         <td class="text-center">{{saleInvoice?.quantity}} {{ translationService.getSelectedLanguage()=='en'?saleInvoice?.unitObject?.nameEnglish:saleInvoice?.unitObject?.nameEnglish}}
                             </td>
                         <td class="text-right" [innerHTML]="saleInvoice?.discountAmount | customCurrency"></td>
-                        <td class="text-right" [innerHTML]="(saleInvoice?.itemTotalAmount - saleInvoice?.vatAmount) | customCurrency"></td>
-                        <td class="text-right" >{{saleInvoice?.vatRate}} %</td>
-                        <td class="text-right" [innerHTML]="saleInvoice?.vatAmount | customCurrency"></td>
+                        <td class="text-right" [innerHTML]="(saleInvoice?.unitPrice * saleInvoice?.quantity) | customCurrency"></td>
+                        <!-- <td class="text-right" >{{saleInvoice?.vatRate}} %</td> -->
+                        <td class="text-right" [innerHTML]="(saleInvoice?.sgstAmount + saleInvoice?.cgstAmount + saleInvoice?.igstAmount + saleInvoice?.cessAmount + saleInvoice?.addnlCessAmount )| customCurrency"></td>
                         <td class="text-right" [innerHTML]="saleInvoice?.itemTotalAmount | customCurrency">
                         </td>
                     </ng-container>
@@ -222,12 +222,7 @@
                             Total Qty
                         </b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>
-                            الإجمالي (باستثناء ضريبة القيمة المضافة)
-                        </b>
-                    </td>
+                 
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice.totalQuantity | customCurrency"></b>
                     </td>
@@ -235,15 +230,10 @@
                 <tr style="border: none;">
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                         <b>
-                            Total (Excluding VAT)
+                            Total
                         </b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>
-                            الإجمالي (باستثناء ضريبة القيمة المضافة)
-                        </b>
-                    </td>
+                   
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice.subTotal | customCurrency"></b>
                     </td>
@@ -252,10 +242,7 @@
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                         <b>Discount</b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>تخفيض</b>
-                    </td>
+                    
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice.totalDiscount | customCurrency"></b>
                     </td>
@@ -263,29 +250,19 @@
                 <tr style="border: none;">
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                         <b>
-                            Total Taxable Amt (Excluding VAT)
+                            Total Taxable Amt
                         </b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>
-                            إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
-                        </b>
-                    </td>
+                   
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice.totalTaxableAmount | customCurrency"></b>
                     </td>
                 </tr>
                 <tr style="border: none;">
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
-                        <b>Total VAT</b>
+                        <b>Total TAX</b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>
-                            إجمالي ضريبة القيمة المضافة
-                        </b>
-                    </td>
+                  
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice.totalTax | customCurrency"></b>
                     </td>
@@ -294,12 +271,7 @@
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                         <b>Total Expenses</b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>
-                            إجمالي ضريبة القيمة المضافة
-                        </b>
-                    </td>
+                    
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice.totalExpenses | customCurrency"></b>
                     </td>
@@ -308,12 +280,7 @@
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                         <b>Round Off</b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>
-                            إجمالي المبلغ المستحق
-                        </b>
-                    </td>
+                  
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice?.roundOff | customCurrency"></b>
                     </td>
@@ -322,12 +289,7 @@
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                         <b>Total Amount</b>
                     </td>
-                    <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                        colspan="4">
-                        <b>
-                            إجمالي المبلغ المستحق
-                        </b>
-                    </td>
+                 
                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="detailedSaleInvoice?.totalAmount | customCurrency"></b>
                     </td>

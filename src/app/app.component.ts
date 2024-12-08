@@ -131,8 +131,8 @@ export class AppComponent extends BaseComponent implements OnInit {
         } 
         else if (
           event.url.indexOf('accountHead') > -1 ||
-          event.url.indexOf('receiptVoucher') > -1 ||
-          event.url.indexOf('paymentVoucher') > -1 ||
+        //  event.url.indexOf('receiptVoucher') > -1 ||
+        //  event.url.indexOf('paymentVoucher') > -1 ||
           event.url.indexOf('journal') > -1 || 
           event.url.indexOf('openingBalance') > -1 ||
           event.url.indexOf('payment-merchant') > -1 ||
@@ -142,6 +142,12 @@ export class AppComponent extends BaseComponent implements OnInit {
         ) {
           this.commonService.setCurrentUrl('accounts'); // setting url for accounts
         } 
+        else if (
+          event.url.indexOf('receiptVoucher') > -1 ||
+          event.url.indexOf('paymentVoucher') > -1
+        ) {
+          this.commonService.setCurrentUrl('voucher'); // setting url for accounts
+        }
         else if (event.url.indexOf('opening-stock') > -1 || event.url.indexOf('stock-transfer')>-1 || event.url.indexOf('damage-entry') > -1 ) {
           this.commonService.setCurrentUrl('inventory'); // setting url for inventory
         }
@@ -169,6 +175,7 @@ export class AppComponent extends BaseComponent implements OnInit {
           event.url.indexOf('ledger-report') > -1 ||
           event.url.indexOf('stock-report') > -1 ||
           event.url.indexOf('daily-activity-report') > -1 ||
+          event.url.indexOf('sale-return-report') > -1 ||
           event.url.indexOf('purchaseReturn-report') > -1 
         ) {
           this.commonService.setCurrentUrl('reports');

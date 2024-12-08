@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { IDevice } from '@core/domain-classes/device';
 import { TranslationService } from '@core/services/translation.service';
 import { CustomCurrencyPipe } from '@shared/pipes/custome-currency.pipe';
+import { LoaderService } from '@shared/services/loader.service';
 import { BaseComponent } from 'src/app/base.component';
+import { BranchService } from 'src/app/branch/branch.service';
 import { DeviceService } from 'src/app/device/device.service';
 
 @Component({
@@ -42,6 +44,7 @@ export class StockReportComponent extends BaseComponent implements OnInit {
   //   const nameFilter = `chemicalName##${v}`;
   //   this.filterObservable$.next(nameFilter);
   // }
+  isLoading$: boolean=false;
 
   constructor(
     // private inventoryService: InventoryService,
@@ -49,6 +52,8 @@ export class StockReportComponent extends BaseComponent implements OnInit {
     // private dialog: MatDialog,
     private deviceService:DeviceService,
     public translationService: TranslationService,
+    private branchService:BranchService,
+    private loader:LoaderService
    // private customCurrencyPipe: CustomCurrencyPipe
     )
     {
@@ -59,7 +64,9 @@ export class StockReportComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.getDevices()
+    this.loaderShowOrHide()
     // this.dataSource = new InventoryDataSource(this.inventoryService);
     // this.dataSource.loadData(this.inventoryResource);
     // this.getResourceParameter();
@@ -82,6 +89,9 @@ export class StockReportComponent extends BaseComponent implements OnInit {
     this.sub$.sink = this.deviceService.GetDevices().subscribe((res:IDevice[])=>{
       this.deviceService.SetDevices(res)
     })
+  }
+  loaderShowOrHide(){
+    this.loader.isLoading$.subscribe(isLoading => this.isLoading$ = isLoading);
   }
   // ngAfterViewInit() {
   //   this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);

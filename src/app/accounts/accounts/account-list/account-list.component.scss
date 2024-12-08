@@ -12,3 +12,23 @@ table.mat-table {
   .content-header h1 span {
     margin-left: 30px;
   }
+  td.mat-cell {
+    border: 0;
+    border-bottom: 1px solid #dee2e6;
+    z-index: 0 !important;
+  }
+  table {
+    width: 100%;
+  }
+  .table tr th {
+    border: none !important;
+      border-bottom: 1px solid #dee2e6 !important;
+      text-transform: capitalize;  
+      background-color:  #F8F9FD !important;
+      // border-radius: 20px;
+  }
+  .table-responsive{
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  

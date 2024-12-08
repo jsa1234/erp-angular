@@ -2,6 +2,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OpeningStock } from '@core/domain-classes/opening-stock';
 import { OpeningStockResourceParameter } from '@core/domain-classes/opening-stock-resourceparameter';
+import { Product } from '@core/domain-classes/product';
 import { IStockTransfer } from '@core/domain-classes/stock-transfe.interface';
 import { IStockTransferItem } from '@core/domain-classes/stock-transfer-items.interface';
 import { StockTransferResourceParameter } from '@core/domain-classes/stock-trasfer-resource-parameter';
@@ -17,14 +18,22 @@ export class InventoryService {
     const url = 'OpeningStock'
     const customParams = new HttpParams()
     .set('branchUUID', resourceParams.branch)
+    .set('productcategoryUUID',resourceParams.category)
+    .set('productUUID',resourceParams.product)
     return this.http.get<OpeningStock[]>(url,{
       params:customParams
     })
   }
-  updateOpeningStocks(payload:OpeningStock[],branchUUID:string){
+  updateOpeningStocks(payload:any,branchUUID:string){
     const url = `OpeningStock/${branchUUID}`
     return this.http.put<OpeningStock>(url,payload)
   }
+
+  getProductsByCategory(categoryUUID: string) {
+    const url = `Product_Web/GetProductByCategory/${categoryUUID}`;
+    return this.http.get<Product[]>(url); // Using GET instead of PUT
+  }
+  
 
 
 

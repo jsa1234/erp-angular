@@ -57,7 +57,7 @@ export class SupplierService {
   }
 
   getSupplierAcccountForDropdown():Observable<ISupplierAccount[]>{
-    const url = 'supplier';
+    const url = 'supplier/all?pageSize=0';
     return this.http.get<ISupplierAccount[]>(url)
 
   }
@@ -73,13 +73,13 @@ export class SupplierService {
     const url = 'supplier/' + id;
     return this.http.put<Supplier>(url, supplier);
   }
-  updateSupplierAccount(id: string, supplier: ISupplierAccount): Observable<ISupplierAccount> {
+  updateSupplierAccount(id: string, supplier: any): Observable<any> {
     const url = 'supplier/' + id;
-    return this.http.put<ISupplierAccount>(url, supplier);
+    return this.http.put<any>(url, supplier);
   }
-  saveSupplierAccount(supplier: ISupplierAccount): Observable<ISupplierAccount> {
+  saveSupplierAccount(supplier: any): Observable<any> {
     const url = 'supplier';
-    return this.http.post<ISupplierAccount>(url, supplier);
+    return this.http.post(url, supplier);
   }
   saveSupplier(supplier: Supplier): Observable<Supplier> {
     const url = 'supplier';

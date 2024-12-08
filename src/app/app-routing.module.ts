@@ -12,7 +12,8 @@ const routes: Routes = [
     path: '',
     component: AppComponent,
     resolve: { profile: CompanyProfileResolver },
-    children: [{
+    children: [
+      {
       path: 'login',
       loadChildren: () =>
         import('./login/login.module')
@@ -25,6 +26,7 @@ const routes: Routes = [
     {
       path: '',
       component: LayoutComponent,
+      resolve: { profile: CompanyProfileResolver },
       children: [
  {
           path: '',

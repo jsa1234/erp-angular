@@ -14,6 +14,7 @@ import { tap } from 'rxjs/operators';
 import { ResponseHeader } from '@core/domain-classes/response-header';
 import { POSDevice } from '@core/domain-classes/pos-device.interface';
 import { environment } from '@environments/environment';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-list-pos-device',
@@ -23,12 +24,13 @@ import { environment } from '@environments/environment';
 export class ListPosDeviceComponent extends BaseComponent implements OnInit,AfterViewInit {
   dataSource: POSDeviceDataSource;
   displayedColumns: string[] = [
+   // 'deviceCode',
+    'countername',
+    //'deviceCode',
+    //'deviceModel',
+    'isinstalled',
+    'branchName',
     'action',
-    'deviceCode',
-    'name',
-    'deviceModel',
-    'deviceId',
-    'brandName'
   ];
 
   footerToDisplayed: string[] = ['footer'];
@@ -42,7 +44,8 @@ export class ListPosDeviceComponent extends BaseComponent implements OnInit,Afte
     public translationService: TranslationService,
     private loader:LoaderService,
     private toastrService:ToastrService,
-    private commonDialogService:CommonDialogService
+    private commonDialogService:CommonDialogService,
+    private branchService:BranchService
 
   ) { 
     super()
@@ -52,6 +55,7 @@ export class ListPosDeviceComponent extends BaseComponent implements OnInit,Afte
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide();
     this.onLoadData()
   }
@@ -93,12 +97,12 @@ export class ListPosDeviceComponent extends BaseComponent implements OnInit,Afte
     );
   }
 
-  deletePOSDevice(posDevice: POSDevice) {
+  deletePOSDevice(posDevice: any) {
     this.sub$.sink = this.commonDialogService
       .deleteConformationDialog(`${this.translationService.getValue('COMMON.ARE_YOU_SURE_YOU_WANT_TO_DELETE')}`)
       .subscribe((isTrue: boolean) => {
         if (isTrue) {
-          this.sub$.sink = this.posDeviceService.deletePosDevice(posDevice.posDeviceUUID)
+          this.sub$.sink = this.posDeviceService.deletePosDevice(posDevice.counterUUID)
             .subscribe(() => {
               this.toastrService.success(this.translationService.getValue('POS_DEVICE_DELETED_SUCCESSFULLY'));
               this.paginator.pageIndex = 0;

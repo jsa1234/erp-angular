@@ -10,12 +10,19 @@ import { StockTransferListComponent } from './stock-transfer/stock-transfer-list
 import { ManageStockTransferComponent } from './stock-transfer/manage-stock-transfer/manage-stock-transfer.component';
 import { StockTransferResolver } from './stock-transfer/manage-stock-transfer/stock-transfer.resolver';
 import { StockTransferDetailComponent } from './stock-transfer/stock-transfer-detail/stock-transfer-detail.component';
+import { CurrentStockComponent } from './current-stock/current-stock.component';
 
 
 const routes: Routes = [
   {
     path: 'opening-stock',
     component: OpeningStockComponent,
+    data: { claimType: 'inventory_opening_stock_list_opening_stock' },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'current-stock',
+    component: CurrentStockComponent,
     data: { claimType: 'inventory_opening_stock_list_opening_stock' },
     canActivate: [AuthGuard]
   },

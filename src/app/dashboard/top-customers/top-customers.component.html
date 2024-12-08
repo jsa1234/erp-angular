@@ -1,11 +1,10 @@
 <div class="topcustomer-chart">
-  <h3>{{'DASHBOARD.TOP_CUSTOMERS' |translate}}</h3>
+  <!-- <h3>{{'DASHBOARD.TOP_CUSTOMERS' |translate}}</h3> -->
   <ng-container *ngIf="isLoading$">
     <app-dashboard-loader></app-dashboard-loader>
     </ng-container>
-
     <ng-container *ngIf="!isLoading$">
-    <canvas *ngIf="topCustomersList?.length>0" baseChart
+    <!-- <canvas *ngIf="topCustomersList?.length>0" baseChart
     [datasets]="barChartData"
     [labels]="barChartLabels"
     [options]="barChartOptions"
@@ -14,6 +13,33 @@
     [chartType]="barChartType"></canvas>
     <div *ngIf="topCustomersList?.length<=0" class="dummyChart">
       <label >{{'COMMON.NO_DATA_FOUND' | translate}}</label>
+    </div> -->
+    <div class="chart-container">
+      <span class="child-container">{{redeemedTotal | number}}%</span>
+      <canvas baseChart
+        [data]="chartData"
+        [type]="chartType"
+        [options]="semiDoughnutOptions">
+      </canvas>
+    </div>
+    <div class="custom-legend">
+      <div class="legend-item">
+        <div class="legend-label">
+          <span class="legend-color" style="background-color: #FC8118;"></span>
+          &nbsp;
+          <span>Redeemed</span>
+        </div>
+        <span class="legend-value">{{redeemedTotal | number}}%</span>
+      </div>
+      <div class="legend-separator"></div>
+      <div class="legend-item">
+        <div class="legend-label">
+          <span class="legend-color" style="background-color: #C5C5C5;"></span>
+          &nbsp;
+          <span>Balance</span>
+        </div>
+        <span class="legend-value">{{balanceTotal | number}}%</span>
+      </div>
     </div>
     </ng-container>
   </div>

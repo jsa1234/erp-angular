@@ -47,3 +47,42 @@
   .content-header h1 span {
     margin-left: 25px;
   }
+  .date-picker {
+    width: 26%;
+  }
+  
+  :host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #FFFFFF;  // Replace with your desired background color
+}
+:host ::ng-deep .mat-date-range-input-start-wrapper{
+    width: 44%;
+}
+
+:host ::ng-deep .mat-date-range-input-start-wrapper .mat-date-range-input-inner {
+    padding-left: 0;
+}
+
+.date-range-display{
+   // background: #FFFFFF;
+    //float: right;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border: 1px solid #DEDFE3;
+    border-radius: 9px;
+    padding: 10px;
+    &:hover{
+        cursor: pointer;
+    }
+    
+}
+.date-cls{
+   min-width: 160px;
+  //  width: 152px;
+}
+:host ::ng-deep .mat-date-range-input-separator {
+  display: none;
+}

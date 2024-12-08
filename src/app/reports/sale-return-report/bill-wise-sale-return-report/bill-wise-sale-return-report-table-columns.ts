@@ -17,6 +17,7 @@ export const BillWiseSaleReturnReportTableColumns:ColumnDisplaySettings[] =  [
     {  key: 'totalGST', name:'Total GST', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'cess', name:'CESS', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'additionalCess', name:'Additional CESS', visibleTableColumns: false, isShowCheckBox: true },
-    {  key: 'transactionMode', name:'Transaction Mode', visibleTableColumns: true, isShowCheckBox: true },
+    // {  key: 'transactionMode', name:'Transaction Mode', visibleTableColumns: true, isShowCheckBox: true },
+    {  key: 'addnlExpense', name:'Additional Expense', visibleTableColumns: true, isShowCheckBox: true },
     {  key: 'netTotal', name:'Net Total Amount', visibleTableColumns: true, isShowCheckBox: true }
   ];

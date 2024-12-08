@@ -12,6 +12,7 @@ import { debounceTime, distinctUntilChanged, first, skip, tap } from 'rxjs/opera
 import { BaseComponent } from 'src/app/base.component';
 import { SalesService } from '../sales.service';
 import { SalesInvoiceDataSource } from './sale-Invoice-datasource';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-sales-list',
@@ -28,8 +29,8 @@ import { SalesInvoiceDataSource } from './sale-Invoice-datasource';
 export class SalesListComponent extends BaseComponent implements OnInit {
   searchForm:FormGroup;
   dataSource: SalesInvoiceDataSource;
-  displayedColumns: string[] = ['action', 'docDate', 'docNo', 'supplier', 'transaction', 'totalDiscount', 'totalTax','totalExpenses', 'totalAmount'];
-  filterColumns: string[] = ['action-search', 'Date-search', 'invoiceNumber-search' ];
+  displayedColumns: string[] = [ 'docDate', 'docNo', 'supplier', 'transaction', 'totalDiscount', 'totalTax','totalExpenses', 'totalAmount','action'];
+  filterColumns: string[] = ['Date-search', 'invoiceNumber-search','action-search' ];
   transactionMode:string[]=["CASH","CREDIT"]
   footerToDisplayed: string[] = ['footer'];
   salesOrderResource: SalesInvoiceResourceParameter;
@@ -63,17 +64,19 @@ export class SalesListComponent extends BaseComponent implements OnInit {
     private fb:FormBuilder,
     private salesOrderService: SalesService,
     private cd: ChangeDetectorRef,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private branchService:BranchService
     ) {
     super();
     this.salesOrderResource = new SalesInvoiceResourceParameter();
-    this.salesOrderResource.pageSize = 50;
+    this.salesOrderResource.pageSize = 10;
     this.salesOrderResource.orderBy = 'docNo asc'
     this.salesOrderResource.branchUUID = this.branchUUID
     this.salesOrderResource.deviceUUID = ''
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.createSearchForm();
     this.onLoadData();
   }

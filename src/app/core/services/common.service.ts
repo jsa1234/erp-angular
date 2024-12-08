@@ -96,5 +96,74 @@ export class CommonService {
   getCurrencies(): Observable<Currency[]> {
     return this.httpClient.get<Currency[]>('Currency');
   }
+  validateTextBox(event: any, type: string): any {
+    let charCode = event.charCode || event.keyCode || event.which;
+
+    if (type === 'number') {
+      return (charCode >= 48 && charCode <= 57) || charCode === 8 || charCode === 32;
+    }
+    if (type === 'decimal') {
+      return (charCode >= 48 && charCode <= 57) || charCode === 8 || charCode === 32 || charCode === 46;
+    }
+    if (type === 'characters') {
+      return (
+        (charCode >= 65 && charCode <= 90) ||     // Uppercase letters
+        (charCode >= 97 && charCode <= 122) ||    // Lowercase letters
+        charCode === 8 || charCode === 32         // Backspace or space
+      );
+    }
+    if (type === 'charactersWithDot') {
+      return (
+        (charCode >= 65 && charCode <= 90) ||     // Uppercase letters
+        (charCode >= 97 && charCode <= 122) ||    // Lowercase letters
+        charCode === 8 || charCode === 32 || charCode === 46    // Backspace or space or dot
+      );
+    }
+    if (type === 'NoSpecialCharacters') {
+      return (
+        (charCode >= 65 && charCode <= 90) ||     // Uppercase letters
+        (charCode >= 97 && charCode <= 122) ||    // Lowercase letters
+        (charCode >= 48 && charCode <= 57) ||     // Numbers
+        charCode === 8 || charCode === 32         // Backspace or space
+      );
+    }
+    if (type === 'characterswoSpace') {
+      return (
+        (charCode >= 65 && charCode <= 90) ||     // Uppercase letters
+        (charCode >= 97 && charCode <= 122) ||    // Lowercase letters
+        charCode === 8          //  space
+      );
+    }
+    if (type === 'numberwospace') {
+      return (charCode >= 48 && charCode <= 57) || charCode === 8;
+    }
+
+
+    if (type === 'alphanumeric') {
+      return true
+    }
+  }
+  validateRequiredFields(form: any, id: any) {
+     let inputField = document.getElementById(id) as HTMLInputElement;
+     let minLength = inputField.getAttribute('minlength');
+     if (!form.controls[id].value || (minLength && form.controls[id].value.length < minLength)) {
+       inputField.classList.add("error");
+     } else {
+       inputField.classList.remove("error");
+     }
+     
+   }
+  authenticateEmail(data: any) {
+    if (data != "" && data != undefined) {
+      var emailreg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (emailreg.test(String(data).toLowerCase())) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return true
+    }
+  }
 
 }

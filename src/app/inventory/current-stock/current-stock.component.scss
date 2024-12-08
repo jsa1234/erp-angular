@@ -1,0 +1,142 @@
+table.mat-table {
+  border-spacing: 0;
+  display: table !important;
+  width: 100% !important;
+  margin: 0;
+}
+
+.myClass {
+  border: none;
+  outline: none;
+}
+
+.myClass:disabled {
+  background-color: #fff;
+}
+
+.content-header h1 i {
+  display: list-item;
+  position: absolute;
+  padding-right: 18px;
+  background-color: #f58220 !important;
+}
+
+.content-header h1 span {
+  margin-left: 35px;
+}
+
+.table tr th {
+  border: none !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  text-transform: capitalize;
+  background-color: #F8F9FD !important;
+}
+
+.table-responsive {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.table-filter-container {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.table-filter-container .filter-sec {
+  margin-bottom: 15px;
+}
+
+.filter-search .btn {
+  padding: 8px 20px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+}
+
+.filter-search .btn:hover {
+  background-color: #0056b3;
+}
+
+.filter-sec .row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.filter-sec .col-md-3,
+.filter-sec .col-md-4 {
+  margin-bottom: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-select {
+  width: 100%;
+}
+
+.stockitem-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stockitem-table table th,
+.stockitem-table table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.stockitem-table table th {
+  background-color: #f8f9fd;
+  font-weight: bold;
+}
+
+.stockitem-table table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.stockitem-table table tr td {
+  border-bottom: 1px solid #ddd;
+}
+
+.stockitem-table table tfoot {
+  background-color: #f9f9f9;
+}
+
+.stockitem-table table tfoot td {
+  text-align: center;
+  font-weight: bold;
+}
+
+.no-data-message {
+  font-size: 16px;
+  color: #999;
+}
+
+@media (max-width: 767px) {
+  .filter-sec .col-md-3,
+  .filter-sec .col-md-4 {
+      margin-bottom: 10px;
+  }
+
+  .filter-search .btn {
+      width: 100%;
+      margin-top: 10px;
+  }
+
+  .stockitem-table table th,
+  .stockitem-table table td {
+      font-size: 14px;
+      padding: 10px;
+  }
+}

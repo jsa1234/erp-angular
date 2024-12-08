@@ -81,7 +81,7 @@ export class ManageVoucherComponent extends BaseComponent implements OnInit {
       deviceUUID: [this.deviceUUID],
       docNo: [{value:'',disabled:true}],
       docDate: [''],
-      mode: [{ value: TransactionMode.CASH, disabled: true }],
+      transactionMode: [{ value: TransactionMode.CASH, disabled: false }],
       description: [''],
       totalAmount: [0],
       accountVoucherDetails: this.fb.array([this.createRow()]),

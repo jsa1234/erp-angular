@@ -2,19 +2,19 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon25"></i> <span>{{'SIDEBAR.STOCK_REPORT' | translate}}</span></h1>
+        <h1>{{'SIDEBAR.STOCK_REPORT' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.STOCK_REPORT' | translate}}</span>
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <span>{{'SIDEBAR.STOCK_REPORT' | translate}}</span>
     </div>
   </div>
 </div>
-<!-- <div class="loading-shade">
+<div class="loading-shade" *ngIf="isLoading$">
   <mat-spinner></mat-spinner>
-</div> -->
+</div>
 <mat-tab-group animationDuration="0ms">
   <mat-tab *hasClaim="'report_stock_report_general_stock_report'" label="{{'REPORTS.GENERAL_REPORT' | translate}}">
     <app-general-report></app-general-report>

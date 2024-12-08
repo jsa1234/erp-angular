@@ -1,62 +1,100 @@
 <form [formGroup]="searchForm">
-  <div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
-    <div class="col-md-9">
+  <div class="row details_card p-3" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+    <div class="col-md-12">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <app-branch-dropdown [group]="searchForm" [controlName]="'branch'"
             (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-3">
           <app-device-dropdown [branch]="branchUUID" [group]="searchForm"
             [controlName]="'device'"></app-device-dropdown>
-        </div>
-        <div class="col-md-4">
+        </div> -->
+        <div class="col-md-3">
           <app-supplier-dropdown [group]="searchForm" [controlName]="'supplier'"></app-supplier-dropdown>
         </div>
-        <div class="col-md-4">
+        
+        <div class="col-md-3">
           <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'"
             [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'"
             [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
             <app-transaction-mode-dropdown [group]="searchForm" [controlName]="'mode'" [isMandatory]="false"></app-transaction-mode-dropdown>
           </div>
         </div>
+        <div class="col-md-3 d-flex align-items-end pb-2">
+          <button type="submit" (click)="onSearch()" class="btn blue-btn m-right-10"><i class="fas fa-search"></i>
+            {{'COMMON.SEARCH' | translate}}
+          </button>
+          <button type="submit" (click)="onClear()" class="btn blue-btn-secondary m-right-10">
+            {{'COMMON.CLEAR' | translate}}
+          </button>
+        </div>
       </div>
 
     </div>
-    <div class="col-md-3 report-tool-bar">
-      <button type="submit" (click)="onSearch()" class="btn btn-primary btn-sm m-right-10"><i class="fas fa-search"></i>
-        {{'COMMON.SEARCH' | translate}}
-      </button>
-      <button type="submit" (click)="onClear()" class="btn btn-danger btn-sm m-right-10"><i class="fas fa-eraser"></i>
-        {{'COMMON.CLEAR' | translate}}
-      </button>
+    <!-- <div class="col-md-3 report-tool-bar">
+      <div class="row p-3">
+        <div class="col-md-12">
+
+          <button type="submit" (click)="onSearch()" class="btn blue-btn m-right-10"><i class="fas fa-search"></i>
+            {{'COMMON.SEARCH' | translate}}
+          </button>
+          <button type="submit" (click)="onClear()" class="btn btn-danger m-right-10"><i class="fas fa-eraser"></i>
+            {{'COMMON.CLEAR' | translate}}
+          </button>
+        </div>
+        <div class="row p-3">
+        <div class="col-md-12">
       <ng-container *hasClaim="'report_purchase_report_excel_purchase_report'">
         <button type="submit" (click)="generateExcel()" *ngIf="purchaseSummaryList.length"
-          class="btn btn-green btn-sm m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+          class="btn btn-green m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
         </button>
       </ng-container>
       <ng-container *hasClaim="'report_purchase_report_print_purchase_report'">
         <button type="submit" *ngIf="purchaseSummaryList.length" (click)="generatePdf()"
-          class="btn btn-warning btn-sm m-right-10"><i class="fas fa-print"></i>{{'COMMON.PRINT' | translate}}
+          class="btn btn-warning m-right-10"><i class="fas fa-print"></i>{{'COMMON.PRINT' | translate}}
         </button>
       </ng-container>
     </div>
+  </div>
+    </div>
+    </div> -->
   </div>
 </form>
 
 
 <div class="row mt-3">
   <div class="col-sm-12">
-    <div class="fiter-sec-ico">
+    <div class="fiter-sec-ico" style="border-top-left-radius: 20px;
+    border-top-right-radius: 20px;">
+    <div class="col-md-12  d-flex align-items-end justify-content-end pb-2">
+      <ng-container *hasClaim="'report_purchase_report_excel_purchase_report'">
+        <button type="submit" (click)="generateExcel()" *ngIf="purchaseSummaryList.length"
+          class="btn btn-green m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+        </button>
+      </ng-container>
+      <ng-container *hasClaim="'report_purchase_report_print_purchase_report'">
+        <button type="submit"  (click)="generatePdf()" *ngIf="purchaseSummaryList.length"
+          class="btn btn-warning m-right-10"><i class="fas fa-print"></i>{{'COMMON.PRINT' | translate}}
+        </button>
+      </ng-container>
+
+      <!-- <button mat-icon-button [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger" aria-label="Action">
       <button mat-icon-button [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger" aria-label="Action">
-        <mat-icon>filter_list</mat-icon>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="#4A4A4A" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M6 9H9.5M17 9H18M12 8V10M14.5 8V10" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 15H12M7 15H6M9.5 14V16" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
       </button>
+    </button> -->
+  </div>
 
       <mat-menu #menu="matMenu">
         <ng-container *ngFor="let column of columns; let i = index">
@@ -69,8 +107,8 @@
         </ng-container>
       </mat-menu>
     </div>
-    <div class="table-responsive table-scrolls" id="report">
-      <table class="table report-varient-table table-striped table-hover">
+    <div class="table-scrolls" id="report">
+      <table class="table">
         <thead>
           <tr>
             <ng-container *ngFor="let item of columns">
@@ -96,6 +134,7 @@
             <td class="text-center" *ngIf="columnVisibility['totalGST']" [innerHTML]="(item.cgstAmount + item.sgstAmount + item.igstAmount) | customCurrency"></td>
             <td class="text-center" *ngIf="columnVisibility['cess']" [innerHTML]="item.cessAmount | customCurrency"></td>
             <td class="text-center" *ngIf="columnVisibility['additionalCess']" [innerHTML]="item.addnlCessAmount | customCurrency"></td>
+            <td class="text-center" *ngIf="columnVisibility['addnlExpense']" [innerHTML]="item.addnlExpense | customCurrency"></td>
             <td class="text-right" *ngIf="columnVisibility['netTotal']" [innerHTML]="item.roundedNetTotalAmount | customCurrency"></td>
           </tr>
           <tr *ngIf="purchaseSummaryList.length == 0" class="text-center">
@@ -121,6 +160,7 @@
             <td class="text-center"  *ngIf="columnVisibility['totalGST']" [innerHTML]="(billWiseReport?.cgstTotalAmount + billWiseReport?.sgstTotalAmount + billWiseReport?.igstTotalAmount) | customCurrency"></td>
             <td class="text-center"  *ngIf="columnVisibility['cess']" [innerHTML]="billWiseReport?.cessTotalAmount | customCurrency"></td>
             <td class="text-center"  *ngIf="columnVisibility['additionalCess']" [innerHTML]="billWiseReport?.addnlCessTotalAmount | customCurrency"></td>
+            <td class="text-center h4"  *ngIf="columnVisibility['addnlExpense']" [innerHTML]="billWiseReport?.totalAddnlamount | customCurrency"></td>
             <td class="text-right h4"  *ngIf="columnVisibility['netTotal']" [innerHTML]="billWiseReport?.totalAmount | customCurrency"></td>
           </tr>
         </tfoot>

@@ -20,6 +20,7 @@ import { CategoryDataSource } from '../category-datasource';
 import { CategoryResourceParameter } from '@core/domain-classes/masters/category-resource-parameter';
 import { environment } from '@environments/environment';
 import { Subject } from 'rxjs';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-category-list-presentation',
@@ -38,19 +39,20 @@ intilaPageSize:number = environment.initialPageSize
   dataSource: CategoryDataSource;
   categoryResource: CategoryResourceParameter;
   displayedColumns: string[] = [
-    'action',
     'nameEnglish',
     // 'nameSecondLanguage',
     'code',
     'descriptionEnglish',
+    'nameStatus',
+    'action',
     // 'descriptionSecondLanguage',
   ];
   displayedColumnsSearch: string[] = [
-    'action-search',
     'nameEnglish-search',
     // 'nameSecondLanguage',
     'code-search',
     'descriptionEnglish-search',
+    'action-search',
     // 'descriptionSecondLanguage-search',
   ];
   footerToDisplayed: string[] = ['footer'];
@@ -68,14 +70,17 @@ intilaPageSize:number = environment.initialPageSize
     private dialog: MatDialog,
     private commonDialogService: CommonDialogService,
     private categoryService: CategoryService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private branchService: BranchService
   ) {
     super();
     this.categoryResource = new CategoryResourceParameter();
     this.categoryResource.pageSize = 10;
+    this.categoryResource.orderBy = 'nameEnglish asc';
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loadData();
   }
   loadData() {
@@ -121,7 +126,7 @@ intilaPageSize:number = environment.initialPageSize
   manageCategory(category: ProductCategory) {
     this.dialog
       .open(ManageCategoryComponent, {
-        width: '350px',
+        width: '650px',
         data: Object.assign({}, category),
       })
       .afterClosed()

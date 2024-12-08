@@ -9,21 +9,21 @@
         <div
             class="col-md-auto col-sm-auto">
             <button *hasClaim="'account_journal_print_journal'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
-                <i class="fas fa-receipt"></i> {{'ACCOUNTS.JOURNAL.PRINT_JOURNAL'  | translate}}
+                {{'ACCOUNTS.JOURNAL.PRINT_JOURNAL'  | translate}} &nbsp;<i class="fas fa-receipt"></i> 
             </button>
         </div>
     </div>
     <div class="breadcrump-pages">
         <div class="crumbs-sec">
-          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
-          <a [routerLink]="['/journal']">{{'SIDEBAR.JOURNAL' | translate}}</a> /
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i>
+          <a [routerLink]="['/journal']">{{'SIDEBAR.JOURNAL' | translate}}</a> <i class="chevron-icon"></i>
           <span>{{'ACCOUNTS.JOURNAL.JOURNAL_DETAIL' | translate}}</span>
         </div>
       </div>
 </div>
 
     <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="journal?.branchUUID"></app-comapny-profile-heading>
-
+<div class="details_card p-3 mt-4 mb-3 ml-0">
     <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
       <table>
         <tr>
@@ -36,7 +36,7 @@
         </tr>
       </table>
     </div>
-
+</div>
     <div class="page-header-main">
         <div class="row align-items-center justify-content-between">
             <div class="col-md-auto col-sm-auto">
@@ -47,8 +47,8 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped">
+    <div class="product-variant-table">
+        <table class=" ">
             <thead class="head">
                 <tr>
                     <th style="text-align: center;" rowspan="2">{{'COMMON.#'  | translate}}</th>

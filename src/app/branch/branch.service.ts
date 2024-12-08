@@ -44,12 +44,12 @@ export class BranchService {
     return this.http.get<IBranch>(url);
   }
 
-  saveBranch(data:IBranch){
+  saveBranch(data:any){
     const url = `Branch`;
     return this.http.post(url,data);
   }
-  updateBranch(data:IBranch){
-    const url = `Branch/${data.branchUUID}`;
+  updateBranch(data:any,id:string){
+    const url = `Branch/${id}`;
     return this.http.put(url,data);
   }
   deleteBranch(branchId:string){
@@ -71,9 +71,9 @@ updateBranchConfigurations(config:SystemFlagConfiguration[]):Observable<SystemFl
     return this.http.put<SystemFlagConfiguration[]>(url,config) .pipe(catchError(this.commonHttpErrorService.handleError));
 }
 
-private branchUUIDSubject$ = new BehaviorSubject<string>('');
+public branchUUIDSubject$ = new BehaviorSubject<string>('');
 public branchUUID$ = this.branchUUIDSubject$.asObservable();
-private isHeadOfficeSubject$ = new BehaviorSubject<boolean>(false);
+public isHeadOfficeSubject$ = new BehaviorSubject<boolean>(false);
 public isHeadOffice$ = this.isHeadOfficeSubject$.asObservable();
 
 

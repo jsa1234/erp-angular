@@ -5,24 +5,24 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { District } from '@core/domain-classes/district';
-import { BaseComponent } from 'src/app/base.component';
-import { ManageDistrictComponent } from '../manage-district/manage-district.component';
-import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
-import { TranslationService } from '@core/services/translation.service';
-import { LocationsResourceParameter } from '@core/domain-classes/masters/locations-resource-parameter';
-import { DistrictDataSource } from '../district-datasource';
-import { MatPaginator } from '@angular/material/paginator';
-import { DistrictService } from '../district.service';
-import { ResponseHeader } from '@core/domain-classes/response-header';
-import { tap } from 'rxjs/operators';
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { District } from "@core/domain-classes/district";
+import { BaseComponent } from "src/app/base.component";
+import { ManageDistrictComponent } from "../manage-district/manage-district.component";
+import { CommonDialogService } from "@core/common-dialog/common-dialog.service";
+import { TranslationService } from "@core/services/translation.service";
+import { LocationsResourceParameter } from "@core/domain-classes/masters/locations-resource-parameter";
+import { DistrictDataSource } from "../district-datasource";
+import { MatPaginator } from "@angular/material/paginator";
+import { DistrictService } from "../district.service";
+import { ResponseHeader } from "@core/domain-classes/response-header";
+import { tap } from "rxjs/operators";
 
 @Component({
-  selector: 'app-district-list-presentation',
-  templateUrl: './district-list-presentation.component.html',
-  styleUrls: ['./district-list-presentation.component.scss'],
+  selector: "app-district-list-presentation",
+  templateUrl: "./district-list-presentation.component.html",
+  styleUrls: ["./district-list-presentation.component.scss"],
 })
 export class DistrictListPresentationComponent
   extends BaseComponent
@@ -44,13 +44,14 @@ export class DistrictListPresentationComponent
     this.districtResource.pageSize = 10;
   }
   displayedColumns: string[] = [
-    'Action',
-    'Country',
-    'State',
-    'nameEnglish',
+    "Country",
+    "State",
+    "nameEnglish",
+    "Status",
+    "Action",
     // 'nameSecondLanguage',
   ];
-  footerToDisplayed: string[] = ['footer'];
+  footerToDisplayed: string[] = ["footer"];
 
   ngOnInit(): void {
     this.loadData();
@@ -89,7 +90,7 @@ export class DistrictListPresentationComponent
   manageDistrict(district: District) {
     this.dialog
       .open(ManageDistrictComponent, {
-        width: '450px',
+        width: "450px",
         data: Object.assign({}, district),
       })
       .afterClosed()
@@ -101,12 +102,12 @@ export class DistrictListPresentationComponent
 
   deleteDistrict(district: District): void {
     const areU = this.translationService.getValue(
-      'COMMON.ARE_YOU_SURE_YOU_WANT_TO_DELETE'
+      "COMMON.ARE_YOU_SURE_YOU_WANT_TO_DELETE"
     );
     this.sub$.sink = this.commonDialogService
       .deleteConformationDialog(
         `${areU} :: ${
-          this.translationService.getSelectedLanguage() == 'en'
+          this.translationService.getSelectedLanguage() == "en"
             ? district.nameEnglish
             : district.nameSecondLanguage
         }`

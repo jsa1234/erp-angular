@@ -2,13 +2,13 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon25"></i> <span>{{'SIDEBAR.LEDGER_REPORT' | translate}}</span></h1>
+        <h1>{{'SIDEBAR.LEDGER_REPORT' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.LEDGER_REPORT' | translate}}</span>
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <span>{{'SIDEBAR.LEDGER_REPORT' | translate}}</span>
     </div>
   </div>
 </div>
@@ -16,22 +16,23 @@
   <mat-spinner></mat-spinner>
 </div> -->
 <form [formGroup]="searchForm">
-<div class="row">
-  <div class="col-md-9 mb-3">
+<div class="row details_card m-1 mb-3 p-3">
+  <div class="col-md-12 mb-3">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
         <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
      </div>
-     <div class="col-md-3">
+     <!-- <div class="col-md-3">
         <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"></app-device-dropdown>
-     </div>
-  <div class="col-md-3">
+     </div> -->
+  <div class="col-md-2">
     <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
   </div>
-  <div class="col-md-3">
+ 
+  <div class="col-md-2">
     <div class="form-group">
       <label> {{'REPORTS.LEDGER_REPORT.ACCOUNT_GROUP' | translate}}<span class="text-danger">*</span></label>
       <mat-select class="form-control" (selectionChange)="getAllLedger($event.value)" formControlName="accountgroup">
@@ -42,6 +43,13 @@
         </mat-option>
       </mat-select>
     </div>
+  </div>
+  <div class="col-md-3 d-flex align-items-end pb-2">
+    <button type="submit"(click)="onSearch()" class="btn blue-btn m-right-10"><i class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
+    </button>
+    <button type="submit" (click)="onClear()" class="btn btn-danger m-right-10"><i class="fas fa-eraser"></i>
+      {{'COMMON.CLEAR' | translate}}
+    </button>
   </div>
   <div class="col-md-3">
     <div class="form-group">
@@ -55,7 +63,7 @@
       </mat-select>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <div class="form-group">
       <label>{{'REPORTS.LEDGER_REPORT.SUB_LEDGER' | translate}}<span class="text-danger">*</span></label>
       <mat-select class="form-control"(selectionChange)="getAllAccountHead($event.value)" formControlName="subLedger">
@@ -67,7 +75,7 @@
       </mat-select>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <div class="form-group">
       <label>{{'REPORTS.LEDGER_REPORT.ACCOUNT' | translate}}<span class="text-danger">*</span></label>
       <mat-select class="form-control" formControlName="account">
@@ -79,9 +87,21 @@
       </mat-select>
     </div>
   </div>
+  <div class="col-md-3 d-flex align-items-end pb-2 mb-2">
+    <ng-container *hasClaim="'report_ledger_report_excel_ledger_report'">
+      <button type="submit"(click)="onDownloadReport()" *ngIf="ledgerReportList.length"
+        class="btn btn-green m-right-10"><i class="fas fa-download"></i>  {{'COMMON.EXCEL' | translate}}
+      </button>
+    </ng-container>
+      <ng-container *hasClaim="'report_ledger_report_print_ledger_report'">
+      <button type="submit"(click)="generatePdf()" *ngIf="ledgerReportList.length"
+        class="btn btn-warning m-right-10"><i class="fas fa-print"></i>  {{'COMMON.PRINT' | translate}}
+      </button>
+    </ng-container>
   </div>
   </div>
-  <div class="col-md-3 report-tool-bar">
+  </div>
+  <!-- <div class="col-md-3 report-tool-bar">
     <button type="submit"(click)="onSearch()" class="btn btn-primary btn-sm m-right-10"><i class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
     </button>
     <button type="submit" (click)="onClear()" class="btn btn-danger btn-sm m-right-10"><i class="fas fa-eraser"></i>
@@ -97,12 +117,12 @@
       class="btn btn-warning btn-sm m-right-10"><i class="fas fa-print"></i>  {{'COMMON.PRINT' | translate}}
     </button>
   </ng-container>
-  </div>
+  </div> -->
   </div>
 </form>
 
-  <div class="stock-rport-table table-responsive">
-    <table class="table report-varient-table table-striped table-hover">
+  <div class="table-responsive">
+    <table class="table-scrolls">
       <thead>
       <tr>
         <th>{{'REPORTS.LEDGER_REPORT.DATE' | translate}}</th>

@@ -19,6 +19,7 @@ import { v4 as uuid } from 'uuid';
 import { InventoryService } from '../../inventory.service';
 import { ProductService } from 'src/app/product/product.service';
 import { BarcodeProductModalComponent } from '@shared/components/barcode-product-modal/barcode-product-modal.component';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-manage-stock-transfer',
@@ -65,10 +66,13 @@ export class ManageStockTransferComponent
     private toastr:ToastrService,
     private documentService:DocumentService,
     private mapperService:MapperService,
-    private productService:ProductService
+    private productService:ProductService,
+    private branchService:BranchService
   ) {
     super();
   }
+
+  
 
   ngOnInit(): void {
     this.createForm();
@@ -227,6 +231,7 @@ get stockTransferUUID(){
   }
   updateStockTransfer(stockTransferData:any){
     this.stockTransferservice.updateStockTransfer(stockTransferData).subscribe(()=>{
+      this.branchService.isHeadOfficeSubject$.next(true);
       this.toastr.success('Stock Transfer Updated Successfully')
       this.router.navigate(['/inventory/stock-transfer'], { relativeTo: this.route });
 
@@ -241,11 +246,13 @@ get stockTransferUUID(){
           this.selectedVariants = [];
           this.selectedVariantsUUID = [];
         this.isUpdate =false
+        this.branchService.isHeadOfficeSubject$.next(true);
         this.getDocumentNumber()
           return;
         }
        
         this.isUpdate =true
+        this.branchService.isHeadOfficeSubject$.next(false);
         this.stockTransferForm.patchValue(data.stockTransfer);
         this.selectedVariants =data.stockTransfer.stockTransferDetails
         this.selectedVariantsUUID = this.selectedVariants.map((res:IStockTransferItem) => res.productPriceUUID);

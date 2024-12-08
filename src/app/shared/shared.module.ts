@@ -16,6 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSortModule } from '@angular/material/sort';
+
 import { TranslateModule } from '@ngx-translate/core';
 import { QRCodeModule } from 'angularx-qrcode';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime-ex';
@@ -87,6 +89,8 @@ import { PosPrinterDetailDialogComponent } from './components/pos-printer-detail
 import { UserDropdownComponent } from './custom-dropdowns/user-dropdown/user-dropdown.component';
 import { OrderStatusDirective } from './directives/order-status.directive';
 import { BarcodeProductModalComponent } from './components/barcode-product-modal/barcode-product-modal.component';
+import { HelpModalComponent } from './components/help-modal/help-modal.component';
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -164,7 +168,11 @@ export const MY_FORMATS = {
     PosPrinterDetailDialogComponent,
     UserDropdownComponent,
     OrderStatusDirective,
-    BarcodeProductModalComponent
+    BarcodeProductModalComponent,
+    MatInputModule,
+    MatSelectModule,
+    MatSortModule,
+    MatDatepickerModule
   ],
   imports: [
     CommonModule,
@@ -194,7 +202,8 @@ export const MY_FORMATS = {
     FormsModule,
     MatRadioModule,
     MatPaginatorModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSortModule
   ],
   declarations: [
     HasClaimDirective,
@@ -260,7 +269,8 @@ export const MY_FORMATS = {
     PosPrinterDetailDialogComponent,
     UserDropdownComponent,
     OrderStatusDirective,
-    BarcodeProductModalComponent
+    BarcodeProductModalComponent,
+    HelpModalComponent
       ],
   providers:[
     {provide: DateAdapter, useClass: CustomDateAdapter},

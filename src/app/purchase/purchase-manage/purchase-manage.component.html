@@ -1,18 +1,31 @@
 <div class="page-header-main">
   <div class="row align-items-center justify-content-between">
-    <div class="col-md-4 ">
+    <div class="col-md-12 ">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon3"></i> <span>{{'PURCHASE_INVOICE.MANAGE_PURCHASE' | translate}}</span></h1>
+        <h1>{{'PURCHASE_INVOICE.MANAGE_PURCHASE' | translate}}</h1>
       </div>
-      <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
-        <div class="crumbs-sec">
-          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
-          <a [routerLink]="['/purchase-invoice/list']">{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</a> /
-          <span>{{'PURCHASE_INVOICE.MANAGE_PURCHASE' | translate}}</span>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto">
+          <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
+            <div class="crumbs-sec">
+              <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i>
+              <a [routerLink]="['/purchase-invoice/list']">{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</a> <i class="chevron-icon"></i>
+              <span>{{'PURCHASE_INVOICE.MANAGE_PURCHASE' | translate}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-auto">
+          <button class="btn-help" (click)="openHelpDialog()">
+            <i class="info"></i>
+           Help
+          </button>
         </div>
       </div>
+
+      
     </div>
-    <div class="col-md-8">
+    
+    <!-- <div class="col-md-8">
       <div class="shortcut-keys">
         <span><b>F2</b> - Focus Barcode Input</span>&nbsp;&nbsp;
         <span><b>F9 </b> - Search </span>&nbsp;&nbsp;
@@ -22,7 +35,7 @@
         <span><b>Double Click Table Row</b> - Delete </span>&nbsp;&nbsp;
         <span><b>Alt + S</b> - Save </span>&nbsp;&nbsp;
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -68,23 +81,19 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              <label>{{'PURCHASE_INVOICE.REFF_BILL_NO' | translate}}<span class="text-danger">*</span></label>
+              <label>{{'PURCHASE_INVOICE.REFF_BILL_NO' | translate}}</label>
               <input formControlName="refBillNo" class="form-control w-100" type="text">
-              <div
-              *ngIf="purchaseAddForm.get('refBillNo').errors && purchaseAddForm.get('refBillNo').touched">
-              <div class="text-danger" *ngIf="purchaseAddForm.get('refBillNo').errors?.required">
-                Please Choose Reff. Bill No
-              </div>
-            </div>
+              
             </div>
           </div>
           <div class="col-md-3">
             <div class="form-group">
               <date-input [group]="purchaseAddForm" [controlName]="'refBillDate'"
                 [label]="'PURCHASE_INVOICE.REFF_BILL_DATE'" [validationMessage]="'Please Choose Reff Bill Date'"
-                [isMandatory]="true" [isDefaultDate]="false" [defaultDate]="refBillDate"></date-input>
+                [isMandatory]="false" [isDefaultDate]="false" [defaultDate]="refBillDate"></date-input>
             </div>
           </div>
+          
           <div class="col-md-3">
             <div class="form-group">
               <app-branch-dropdown [group]="purchaseAddForm" [controlName]="'branchUUID'"
@@ -97,6 +106,33 @@
                 [controlName]="'transactionMode'"></app-transaction-mode-dropdown>
             </div>
           </div>
+          <!-- <div class="col-md-3">
+            <div class="form-group">
+              <label>{{'PURCHASE_INVOICE.INVOICE_TYPE' | translate}}<span class="text-danger">*</span></label>
+              <mat-select class="form-control w-100" formControlName="invoiceType">
+                <mat-option *ngFor="let invoiceType of invoiceTypeList; let i =index"
+                  [value]="i">{{invoiceType}}</mat-option>
+              </mat-select>
+
+              <div
+              *ngIf="purchaseAddForm.get('invoiceType').errors && purchaseAddForm.get('invoiceType').touched">
+              <div class="text-danger" *ngIf="purchaseAddForm.get('invoiceType').errors?.required">
+                Please Choose Invoice Type
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>{{'PURCHASE_INVOICE.INVOICE_NO' | translate}}<span class="text-danger">*</span></label>
+              <input formControlName="docNo" class="form-control w-100" type="text">
+            </div>
+          </div> -->
+         
+      
+         
+         
+        
         </div>
       </div>
     </div>
@@ -106,34 +142,39 @@
 <div class="row">
   <div class="col-md-6">
     <div class="section-boxed">
+      <h4 style="color: #1A1C21;">Product Details</h4>
+      <hr style="background: #ECEFF5;height: 2px;">
       <div class="row">
         <div class="col-md-3 content-flex">
           <div class="form-group">
-            Scan Barcode:
+            Enter Barcode
           </div>
         </div>
-        <div class="col-md-4">
+      </div>
+      
+      <div class="row">
+        <div class="col-md-7">
           <div class="form-group">
-            <input class="form-control w-100" type="text" [(ngModel)]="barcodeValue" #barcodeInput
+            <input class="form-control w-100" type="text" placeholder="Enter here" [(ngModel)]="barcodeValue" #barcodeInput
               [disabled]="isDisabled">
           </div>
         </div>
-        <div class="col-md-5 text-right purchanse-managed-button">
-          <button mat-raised-button color="warn" (click)="openProductDialog()" [disabled]="isDisabled">
-            <mat-icon>search</mat-icon>
-            Search Product
+        <div class="col-md-5">
+          <button (click)="openProductDialog()" [disabled]="isDisabled" class="find-btn">
+            <i class="icon-search"></i>
+            Find Product
           </button>
         </div>
       </div>
-
+      <hr style="background: #ECEFF5;height: 2px;">
       <ng-container>
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="form-group">
               Barcode <input class="form-control w-100" type="text" [value]="productDetail?.barcode || ''" disabled>
             </div>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-4">
             <div class="form-group">
               Product Name <input class="form-control w-100" type="text"
                 [value]="productDetail?.productObject?.nameEnglish" disabled>
@@ -151,8 +192,30 @@
                 disabled>
             </div>
           </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              Manufacture Date
+              <mat-form-field color="accent">
+                <input class="form-control" matInput [matDatepicker]="mfgDate" disabled="true"
+                  [(ngModel)]="productDetail.manufactureDate">
+                <mat-datepicker-toggle matSuffix [for]="mfgDate"></mat-datepicker-toggle>
+                <mat-datepicker #mfgDate [disabled]="isDisabled"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              Expiry Date
+              <mat-form-field color="accent">
+                <input class="form-control" matInput [matDatepicker]="expDate" disabled="true"
+                  [(ngModel)]="productDetail.expiryDate" [min]="productDetail.manufactureDate">
+                <mat-datepicker-toggle matSuffix [for]="expDate"></mat-datepicker-toggle>
+                <mat-datepicker #expDate [disabled]="isDisabled"></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               Quantity<input type="number" class="form-control w-100" #quantityInput
                 [(ngModel)]="productDetail.quantity" name="quantity"  id="{{productDetail?.quantity}}"
@@ -185,6 +248,9 @@
                 (ngModelChange)="updateDiscountAmount(productDetail)" [disabled]="isDisabled">
             </div>
           </div>
+        </div>
+        <div class="row" *ngIf="isExpanded">
+         
           <div class="col-md-3">
             <div class="form-group">
               Discount Amount <input class="form-control w-100" type="number" [(ngModel)]="productDetail.discountAmount"
@@ -251,7 +317,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
-              Additional CESS % <input class="form-control w-100" type="number"
+              Addn CESS % <input class="form-control w-100" type="number"
                 [(ngModel)]="productDetail.addnlCessRate" name="addnlCessRate" id="{{productDetail?.addnlCessRate}}"
                 disabled>
             </div>
@@ -268,43 +334,27 @@
                 [(ngModel)]="productDetail.itemTotalAmount" name="itemTotalAmount"
                 id="{{productDetail?.itemTotalAmount}}" disabled>
             </div>
+           
           </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              Manufacture Date
-              <mat-form-field color="accent">
-                <input class="form-control" matInput [matDatepicker]="mfgDate" disabled="true"
-                  [(ngModel)]="productDetail.manufactureDate">
-                <mat-datepicker-toggle matSuffix [for]="mfgDate"></mat-datepicker-toggle>
-                <mat-datepicker #mfgDate [disabled]="isDisabled"></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              Expiry Date
-              <mat-form-field color="accent">
-                <input class="form-control" matInput [matDatepicker]="expDate" disabled="true"
-                  [(ngModel)]="productDetail.expiryDate" [min]="productDetail.manufactureDate">
-                <mat-datepicker-toggle matSuffix [for]="expDate"></mat-datepicker-toggle>
-                <mat-datepicker #expDate [disabled]="isDisabled"></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-
         </div>
       </ng-container>
+      <hr style="background: #ECEFF5;height: 2px;">
       <div class="row">
-        <div class="col-md-6 ">
-          <button class=" w-100" mat-raised-button color="primary" (click)="addtoTable()">
-            <mat-icon>note_add</mat-icon>
-            Add
+       
+        <div class="col-md-3 text-left">
+          <button mat-button (click)="isExpanded = !isExpanded">
+            <mat-icon>{{ isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+            {{ isExpanded ? 'Less View' : 'Expand View' }}
           </button>
+         
         </div>
-        <div class="col-md-6 ">
-          <button class=" w-100" mat-raised-button color="warn" (click)="clear()">
-            <mat-icon>clear_all</mat-icon>
+        <div class="col-md-9 text-right">
+          <button type="button" class="btn blue-btn m-right-10 ml-auto" (click)="addtoTable()">
+           <i class="icon61"></i> Add to List
+          </button>
+      
+          <button type="button" class="clr-btn m-right-10" (click)="clear()">
+          <i class="delete-icon3"></i>
             Clear
           </button>
         </div>
@@ -312,11 +362,9 @@
     </div>
   </div>
 
-
-
   <div class="col-md-6">
-    <div class="section-boxed">
-      <div class="purchanse-managed-table" tabindex="0">
+    
+      <div class="varient-table table-responsive" tabindex="0">
         <table mat-table [dataSource]="matTableDataSource">
           <!-- Position Column -->
           <ng-container matColumnDef="slNo">
@@ -326,69 +374,73 @@
 
           <!-- Name Column -->
           <ng-container matColumnDef="productCode">
-            <th mat-header-cell *matHeaderCellDef> PRODUCT CODE </th>
+            <th mat-header-cell *matHeaderCellDef> Product Code </th>
             <td mat-cell *matCellDef="let element"> {{element?.productObject?.productCode}} </td>
           </ng-container>
 
           <!-- Weight Column -->
           <ng-container matColumnDef="productName">
-            <th mat-header-cell *matHeaderCellDef> PRODUCT NAME </th>
+            <th mat-header-cell *matHeaderCellDef> Product Name </th>
             <td mat-cell *matCellDef="let element"> {{element.productObject?.nameEnglish}} </td>
           </ng-container>
 
           <!-- Symbol Column -->
           <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef> QUANTITY </th>
+            <th mat-header-cell *matHeaderCellDef> Quantity </th>
             <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
           </ng-container>
           <ng-container matColumnDef="unitPrice">
-            <th mat-header-cell *matHeaderCellDef> UNIT PRICE </th>
+            <th mat-header-cell *matHeaderCellDef> Unit Price </th>
             <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
           </ng-container>
           <ng-container matColumnDef="discountAmount">
-            <th mat-header-cell *matHeaderCellDef> DISCOUNT AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> Discount Amount </th>
             <td mat-cell *matCellDef="let element"> {{element.discountAmount}} </td>
           </ng-container>
           <ng-container matColumnDef="cgstAmount">
-            <th mat-header-cell *matHeaderCellDef> CGST AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> CGST Amount </th>
             <td mat-cell *matCellDef="let element"> {{element.cgstAmount}}</td>
           </ng-container>
           <ng-container matColumnDef="sgstAmount">
-            <th mat-header-cell *matHeaderCellDef> SGST AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> SGST Amount </th>
             <td mat-cell *matCellDef="let element"> {{element.sgstAmount}}</td>
           </ng-container>
           <ng-container matColumnDef="igstAmount">
-            <th mat-header-cell *matHeaderCellDef> IGST AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> IGST Amount </th>
             <td mat-cell *matCellDef="let element"> {{element.igstAmount}}</td>
           </ng-container>
           <ng-container matColumnDef="cessAmount">
-            <th mat-header-cell *matHeaderCellDef> CESS AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> CESS Amount </th>
             <td mat-cell *matCellDef="let element"> {{element.cessAmount}}</td>
           </ng-container>
           <ng-container matColumnDef="addnlCessAmount">
-            <th mat-header-cell *matHeaderCellDef> ADDITIONAL CESS AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> Additional Cess Amount </th>
             <td mat-cell *matCellDef="let element"> {{element.addnlCessAmount}}</td>
           </ng-container>
           <ng-container matColumnDef="itemTotalAmount">
-            <th mat-header-cell *matHeaderCellDef> ITEM TOTAL AMOUNT </th>
+            <th mat-header-cell *matHeaderCellDef> Item Total Amount </th>
             <td mat-cell *matCellDef="let element"> {{element.itemTotalAmount}} </td>
+           
           </ng-container>
-
+         
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="deleteRow(row)"
             (click)="editRow(row)" [ngClass]="{'selected-row': selectedRow === row}"></tr>
         </table>
       </div>
-    </div>
-    <div class="section-boxed">
-      <div class="form-group">
-        Remarks:
-        <textarea class="form-control w-100" name="" id="" cols="30" rows="3" [(ngModel)]="remark"></textarea>
-      </div>
+    
+    
+  </div>
+  <div class="remarks-sectn">
+    <div class="form-group">
+      Remarks
+      <textarea class="form-control w-100" placeholder="Enter here" name="" id="" cols="20" rows="1"  [(ngModel)]="remark"></textarea>
     </div>
   </div>
   <div class="col-md-12">
     <div class="section-boxed">
+      <h4 style="color: #1A1C21;">Purchase Total</h4>
+      <hr style="background: #ECEFF5;height: 2px;">
       <div class="row">
         <div class="col-md-3">
           <div class="form-group">
@@ -449,30 +501,44 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            Roundoff <input class="form-control w-100" type="number" [(ngModel)]="roundoff"
+            Roundoff <input class="form-control w-100" type="number" placeholder="Enter here" [(ngModel)]="roundoff"
               (ngModelChange)="validateRoundoff()">
             <small class="text-danger" *ngIf="invalidValue">The value should be between 0 and 1.</small>
           </div>
         </div>
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <div class="form-group total-count-form">
             <p>Total :</p>
             <span>{{(itemRoundTotalAmount || 0) | customCurrency }}</span>
           </div>
+        </div> -->
+      </div>
+      <hr style="background: #ECEFF5;height: 2px;">
+      <div class="parent-container">
+        <div class="total-count">
+          <span class="spn">Total: {{(itemRoundTotalAmount || 0) | customCurrency }}</span>
         </div>
-        <div class="col-md-6 text-center">
-          <button class=" btn btn-success w-100" mat-raised-button (click)="addPurchaseInvoice()">
-            <mat-icon>save</mat-icon>
-            {{'COMMON.SAVE' | translate}}
+      </div>
+     
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="section-boxed">
+          <div class="d-flex justify-content-end">
+          <button  class="btn blue-btn m-right-10" (click)="addPurchaseInvoice()">
+            <i class="icon61"></i> {{'COMMON.SAVE' |   translate}}
           </button>
-        </div>
-        <div class="col-md-6 text-center">
-          <button class=" w-100 btn btn-danger " mat-raised-button [routerLink]="['/purchase-invoice/list']">
-            <mat-icon>cancel</mat-icon>
-            {{'COMMON.CANCEL' | translate}}
+  
+          <button  class="btn modal-cancel btn-sm m-right-10" [routerLink]="['/purchase-invoice/list']">
+            <i class="icon62"></i> {{'COMMON.CANCEL' |   translate}}
           </button>
+
         </div>
       </div>
     </div>
   </div>
+ 
+</div>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
 </div>

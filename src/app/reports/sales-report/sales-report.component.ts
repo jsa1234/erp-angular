@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslationService } from '@core/services/translation.service';
 import { LoaderService } from '@shared/services/loader.service';
 import { BaseComponent } from 'src/app/base.component';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-sales-report',
@@ -14,12 +15,14 @@ export class SalesReportComponent extends BaseComponent implements OnInit {
 
   constructor(
     public translationService: TranslationService,
-    private loader:LoaderService
+    private loader:LoaderService,
+    private branchService:BranchService
     ) {
     super();
   }
 
   ngOnInit(): void { 
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
 
    }

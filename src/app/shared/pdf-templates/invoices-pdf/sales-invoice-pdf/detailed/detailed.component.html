@@ -1,5 +1,3 @@
-
-
 <div style="position:absolute;left:-15420px">
 	<div style="width:100%;display:flex;">
         <div class="invoice-container-wrap" id ="detailed">
@@ -12,9 +10,10 @@
                                     <div
                                         style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
                                         Sales Invoice</div>
-                                    <div
+                                    <!-- <div
                                         style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">
-                                        فاتورة المبيعات</div>
+                                        فاتورة المبيعات
+                                    </div> -->
                                 </div>
                         </header>
                         <div style="display: grid;grid-template-columns: auto auto;">
@@ -29,9 +28,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
                                                 {{salesInvoice.invoiceNumber}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
-                                                رقم الفاتورة</th>
+                                                رقم الفاتورة
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -40,10 +40,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
                                                 {{salesInvoice.invoiceDate | customDate }}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -52,9 +52,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
                                                 {{salesInvoice.dateOfSupply | customDate }}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -70,9 +71,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
                                                 {{salesInvoice.poNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;font-family: 'Noto Kufi Arabic', sans-serif;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">
-                                                PO عدد</th>
+                                                PO عدد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -81,9 +83,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border: 1px solid #c9c6c6;">
                                                 {{salesInvoice.drNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;font-family: 'Noto Kufi Arabic', sans-serif;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;">
-                                                رقم D.R</th>
+                                                رقم D.R
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -92,9 +95,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
                                                 {{salesInvoice.transactionModeText}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                وضع الدفع</th>
+                                                وضع الدفع
+                                            </th> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -111,22 +115,25 @@
                                             <th
                                                 style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;border-bottom: 0;background-color: #f2f2f2;color: #535b61;">
                                                 Seller</th>
-                                            <th
+                                            <!-- <th
                                                 style="text-align: right;padding: 6px 12px;border-left: 0;border-bottom: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاجر</th>
+                                                تاجر
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
                                                 style="text-align: left;padding: 0px 12px;font-size:14px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
                                                 Name</th>
-                                            <th
+                                            <!-- <th
                                                 style="text-align: right;padding: 0px 12px;font-size:14px;border-left: 0;border-bottom: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                اسم</th>
+                                                اسم
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th colspan="2"
                                                 style="font-size:14px;text-align: center;padding: 5px 12px 12px 12px;font-size:18px;border-top: 0;border-bottom: 0;color: #535b61;">
-                                                {{translate.getSelectedLanguage()=='en'?companyProfile.nameEnglish:companyProfile.nameSecondLanguage}}</th>
+                                                {{translate.getSelectedLanguage()=='en'?companyProfile.nameEnglish:companyProfile.nameSecondLanguage}}
+                                            </th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -136,13 +143,15 @@
                                         <tr style="border: none;">
                                             <th
                                                 style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
-                                                Building No.</th>
+                                                Building No.
+                                            </th>
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{translate.getSelectedLanguage()=='en'?companyProfile.buildingNoEnglish:companyProfile.buildingNoSecondLanguage}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                رقم الفاتورة</th>
+                                                رقم الفاتورة
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -151,21 +160,23 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{translate.getSelectedLanguage()=='en'?companyProfile.streetEnglish:companyProfile.streetSecondLanguage}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
                                                 style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
-                                                District</th>
+                                                District
+                                            </th>
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{translate.getSelectedLanguage()=='en'?companyProfile.districtEnglish:companyProfile.districtSecondLanguage}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -174,10 +185,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{translate.getSelectedLanguage()=='en'?companyProfile.placeEnglish:companyProfile.placeSecondLanguage}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -186,9 +197,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{translate.getSelectedLanguage()=='en'?companyProfile.zipCodeEnglish:companyProfile.zipCodeSecondLanguage}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -197,21 +209,23 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{companyProfile.additionalNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
                                                 style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
-                                                VAT No.</th>
+                                                GST No.
+                                            </th>
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{companyProfile.vatRegNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -220,10 +234,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{companyProfile.phoneNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -232,9 +246,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-left: 0;">
                                                 {{companyProfile.mobileNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -248,17 +263,19 @@
                                             <th
                                                 style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">
                                                 Buyer</th>
-                                            <th
+                                            <!-- <th
                                                 style="text-align: right;padding: 6px 12px;border-left: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                مشتر</th>
+                                                مشتر
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
                                                 style="text-align: left;padding: 0px 12px;font-size:14px;border-right: 0;border-bottom: 0;color: #535b61;">
                                                 Name</th>
-                                            <th
+                                            <!-- <th
                                                 style="text-align: right;padding: 0px 12px;font-size:14px;border-left: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                اسم</th>
+                                                اسم
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th colspan="2"
@@ -277,9 +294,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.buildingNoEnglish}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                رقم الفاتورة</th>
+                                                رقم الفاتورة
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -288,10 +306,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.streetEnglish}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -300,9 +318,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.districtObject?.nameEnglish}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -311,10 +330,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.placeEnglish}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -323,9 +342,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.zipCode}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -334,44 +354,48 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.addRegNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
                                                 style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
-                                                VAT No.</th>
+                                                GST No.</th>
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.gstVatNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
                                                 style="font-size:14px;text-align: left;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;color: #535b61;">
-                                                Cr No</th>
+                                                Cr No
+                                            </th>
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;border-right: 0;border-top: 0;border-bottom: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.regCrNo}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;border-left: 0;border-top: 0;border-bottom: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
                                                 تاريخ الفاتورة
-                                            </th>
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
                                                 style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;color: #535b61;">
-                                                Telephone</th>
+                                                Telephone
+                                            </th>
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.PhoneNumber}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                         <tr style="border: none;">
                                             <th
@@ -380,9 +404,10 @@
                                             <td
                                                 style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border-right: 0;border-top: 0;border-left: 0;">
                                                 {{salesInvoice?.clientObject?.MobileNumber}}</td>
-                                            <th
+                                            <!-- <th
                                                 style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border-left: 0;border-top: 0;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
-                                                تاريخ التوريد</th>
+                                                تاريخ التوريد
+                                            </th> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -394,9 +419,10 @@
                             <div
                                 style="font-family: 'Inter', sans-serif;text-align: left;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;">
                                 Line Items</div>
-                            <div
+                            <!-- <div
                                 style="text-align: right;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;line-height: 25px;">
-                                قائمة المواد</div>
+                                قائمة المواد
+                            </div> -->
                         </div>
                         <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
                             <thead>
@@ -406,34 +432,50 @@
                                         SI.NO</th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: left;color: #535b61;    line-height: 16px;">
-                                        Nature of Goods Or Services <br> <span style="font-size: 12px;">منتج</span></th>
+                                        Nature of Goods Or Services <br> 
+                                        <!-- <span style="font-size: 12px;">منتج</span> -->
+                                    </th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
-                                        Unit Price <br> <span style="font-size: 12px;">سعر الوحدة</span></th>
+                                        Unit Price <br> 
+                                        <!-- <span style="font-size: 12px;">سعر الوحدة</span> -->
+                                    </th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
-                                        Quantity <br> <span style="font-size: 12px;">كمية</span></th>
+                                        Quantity <br> 
+                                        <!-- <span style="font-size: 12px;">كمية</span> -->
+                                    </th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
-                                        Discount <br> <span style="font-size: 12px;">تخفيض</span></th>
+                                        Discount <br>
+                                    <!-- <span style="font-size: 12px;">تخفيض</span> -->
+                                        </th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
-                                        Taxable Amount <br> <span style="font-size: 12px;">تخفيض</span></th>
+                                        Taxable Amount <br> 
+                                    <!-- <span style="font-size: 12px;">تخفيض</span> -->
+                                    </th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
-                                        Tax Rate <br> <span style="font-size: 12px;">معدل</span></th>
+                                        Tax Rate <br>
+                                    <!-- <span style="font-size: 12px;">معدل</span> -->
+                                    </th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
-                                        Tax Amt<br> <span style="font-size: 12px;">معدل</span></th>
+                                        Tax Amt<br>
+                                    <!-- <span style="font-size: 12px;">معدل</span> -->
+                                    </th>
                                     <th
                                         style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
-                                        Item Sub Total <br> <span style="font-size: 12px;">المبلغ الإجمالي</span></th>
+                                        Item Sub Total <br> 
+                                    <!-- <span style="font-size: 12px;">المبلغ الإجمالي</span> -->
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr style="border: none;" *ngFor="let saleInvoice of salesInvoiceList;let i=index">
                                     <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{i+1}}</td>
-                                    <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{translate.getSelectedLanguage()=='en'?saleInvoice.productObject?.nameEnglish:saleInvoice.productObject?.nameSecondLanguage}}}}</td>
+                                    <td style="text-align: left;font-size:14px;padding: 8px 12px;">{{translate.getSelectedLanguage()=='en'?saleInvoice.productObject?.nameEnglish:saleInvoice.productObject?.nameSecondLanguage}}</td>
                                     <td style="text-align: center;font-size:14px;padding: 8px 12px;" [innerHTML]="saleInvoice?.unitPrice | customCurrency"></td>
 
                                     <td style="text-align: center;font-size:14px;padding: 8px 12px;">{{saleInvoice?.quantity}} {{translate.getSelectedLanguage()=='en'?saleInvoice?.unitObject?.nameEnglish:saleInvoice?.unitObject?.nameEnglish}}</td>
@@ -457,23 +499,25 @@
                                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
                                         colspan="4"><b>Total Qty</b></td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
-                                        colspan="4"><b>إجمالي الكمية</b></td>
+                                        colspan="4">
+                                        <!-- <b>إجمالي الكمية</b> -->
+                                    </td>
                                     <td
                                         style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
-                                        <b [innerHTML]="salesInvoice.totalQuantity | customCurrency"></b></td>
+                                        <b [innerHTML]="salesInvoice.totalQuantity"></b></td>
                                 </tr>
                                 <tr style="border: none;">
                                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
                                         colspan="4">
                                         <b>
-                                            Total (Excluding VAT)
+                                            Total (Excluding TAX)
                                         </b>
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                         colspan="4">
-                                        <b>
+                                        <!-- <b>
                                             الإجمالي (باستثناء ضريبة القيمة المضافة)
-                                        </b>
+                                        </b> -->
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                         <b [innerHTML]="salesInvoice?.subTotal | customCurrency"></b>
@@ -487,7 +531,7 @@
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                         colspan="4">
-                                        <b>تخفيض</b>
+                                    <!-- <b>تخفيض</b> -->
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                         <b [innerHTML]="salesInvoice?.totalDiscount | customCurrency"></b>
@@ -497,14 +541,14 @@
                                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
                                         colspan="4">
                                         <b>
-                                            Total Taxable Amt (Excluding VAT)
+                                            Total Taxable Amt (Excluding TAX)
                                         </b>
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                         colspan="4">
-                                        <b>
+                                        <!-- <b>
                                             إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
-                                        </b>
+                                        </b> -->
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                         <b [innerHTML]="salesInvoice?.totalTaxableAmount | customCurrency"></b>
@@ -513,13 +557,13 @@
                                 <tr style="border: none;">
                                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
                                         colspan="4">
-                                        <b>Total VAT</b>
+                                        <b>Total TAX</b>
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                         colspan="4">
-                                        <b>
+                                        <!-- <b>
                                             إجمالي ضريبة القيمة المضافة
-                                        </b>
+                                        </b> -->
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                         <b [innerHTML]="salesInvoice?.totalTax | customCurrency"></b>
@@ -532,9 +576,9 @@
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                         colspan="4">
-                                        <b>
+                                        <!-- <b>
                                             إجمالي ضريبة القيمة المضافة
-                                        </b>
+                                        </b> -->
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                         <b [innerHTML]="salesInvoice.totalExpenses | customCurrency"></b>
@@ -547,9 +591,9 @@
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                         colspan="4">
-                                        <b>
+                                        <!-- <b>
                                             إجمالي المبلغ المستحق
-                                        </b>
+                                        </b> -->
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                         <b [innerHTML]="salesInvoice?.roundOff | customCurrency"></b>
@@ -562,9 +606,9 @@
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                         colspan="4">
-                                        <b>
+                                        <!-- <b>
                                             إجمالي المبلغ المستحق
-                                        </b>
+                                        </b> -->
                                     </td>
                                     <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                         <b [innerHTML]="salesInvoice?.totalAmount | customCurrency"></b>

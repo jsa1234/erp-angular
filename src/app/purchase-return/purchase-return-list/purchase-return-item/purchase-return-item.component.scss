@@ -2,4 +2,30 @@ table.mat-table {
     border-spacing: 0;
     display: table !important;
     width: 100% !important;
+    background-color: #F5F7FA;
+    border-collapse:collapse !important;
+    border-radius: 20px !important;
 }
+table.mat-table th{
+    background-color: #F5F7FA;
+}
+.table tr th,td {
+    border: none !important;
+    // border-bottom: 1px solid #dee2e6 !important;
+    // border-radius: 20px;
+  }
+  .table tbody{
+    border: none !important;
+  }
+  .table tr th {
+    border: none !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    border-top: 1px solid #dee2e6 !important;
+    text-transform: capitalize !important;
+  }
+  .table-responsive{
+    margin-top: -20px;
+  }
+  .content-header h1{
+    font-size: 16px !important;
+  }

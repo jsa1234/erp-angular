@@ -15,6 +15,7 @@ import { debounceTime, distinctUntilChanged, first, skip, tap } from 'rxjs/opera
 import { BaseComponent } from 'src/app/base.component';
 import { VoucherService } from '../voucher.service';
 import { VoucherDataSource } from './voucher.datasource';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-voucher-list',
@@ -31,8 +32,8 @@ import { VoucherDataSource } from './voucher.datasource';
 export class VoucherListComponent extends BaseComponent implements OnInit {
   dataSource: VoucherDataSource;
   searchForm:FormGroup
-  displayedColumns: string[] = ['action', 'docNo', 'docDate', 'Amount','User'];
-  filterColumns: string[] = ['action-search', 'ReceptNo-search','ReceptDate-search','Amount-search',  'User-search'];
+  displayedColumns: string[] = [ 'docNo', 'docDate', 'Amount','User','action'];
+  filterColumns: string[] = ['ReceptNo-search','ReceptDate-search','Amount-search',  'User-search','action-search'];
   footerToDisplayed: string[] = ['footer'];
   voucherResource: VoucherResourceParameter;
   loading$: Observable<boolean>;
@@ -51,7 +52,8 @@ export class VoucherListComponent extends BaseComponent implements OnInit {
     public translationService: TranslationService,
     private loader:LoaderService,
     private toastrService:ToastrService,
-    private commonDialogService:CommonDialogService
+    private commonDialogService:CommonDialogService,
+    private branchService:BranchService
   ) { 
     super();
     this.voucherResource = new VoucherResourceParameter();
@@ -61,6 +63,7 @@ export class VoucherListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
     this.createSearchForm()
     this.createFilterForm()

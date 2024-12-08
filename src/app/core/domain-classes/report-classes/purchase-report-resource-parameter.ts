@@ -2,7 +2,7 @@ import { environment } from "@environments/environment"
 
 export class ReportResourceParameter {
     device?: string = ''
-    branch?: string = environment.branchUUID
+    branch?: string = ''
     category?: string = ''
     product?: string = ''
     subcategory?: string = ''

@@ -3,15 +3,18 @@
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons"
         [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon3"></i> <span>{{'SUPPLIER.MANAGE_SUPPLIER' | translate}}</span></h1>
+        <h1> <span>{{'SUPPLIER.MANAGE_SUPPLIER' | translate}}</span></h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
-        [routerLink]="['/supplier']">{{'SIDEBAR.SUPPLIER' | translate}}</a> /
-      <span>{{'SUPPLIER.MANAGE_SUPPLIER' | translate}}</span>
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a>  <span  class="dashboard-customer"> 
+        <i class="chevron-icon"></i></span> <a
+        [routerLink]="['/supplier']">{{'SIDEBAR.SUPPLIER' | translate}}</a> <span  class="dashboard-customer"> 
+          <i class="chevron-icon"></i>
+        </span>
+      <span class="customer-manage">{{'SUPPLIER.MANAGE_SUPPLIER' | translate}}</span>
     </div>
   </div>
 </div>
@@ -31,7 +34,7 @@
           <div class="col-md-6">
             <div class="form-group ">
               <label>{{'COMMON.FIRST_NAME_ENGLISH' | translate}} </label>
-              <input formControlName="firstNameEnglish" class="form-control" type="text">
+              <input formControlName="firstNameEnglish" placeholder="Enter here" class="form-control" type="text">
               <div *ngIf="supplierForm.get('firstNameEnglish').touched && supplierForm.get('firstNameEnglish').errors">
                 <div class="text-danger" *ngIf="supplierForm.get('firstNameEnglish').errors?.required">
                   {{'VALIDATIONS.FIRST_NAME_ENGLISH_IS_REQUIRED' | translate}}
@@ -48,7 +51,7 @@
           <div class="col-md-6">
             <div class="form-group ">
               <label>{{'COMMON.LAST_NAME_ENGLISH' | translate}} </label>
-              <input formControlName="lastNameEnglish" class="form-control" type="text">
+              <input formControlName="lastNameEnglish" placeholder="Enter here" class="form-control" type="text">
               <div *ngIf="supplierForm.get('lastNameEnglish').touched && supplierForm.get('lastNameEnglish').errors">
                 <div class="text-danger" *ngIf="supplierForm.get('lastNameEnglish').errors?.required">
                   {{'VALIDATIONS.LAST_NAME_ENGLISH_IS_REQUIRED' | translate}}
@@ -92,17 +95,23 @@
               <input formControlName="nameSuffixArabic" class="form-control text-arabics" type="text">
             </div>
           </div> -->
+          
         </div>
       </div>
-
-
       <div class="section-boxed">
-        <div class="boxed-header">{{'COMMON.BUSINESS_DETAILS' | translate}}</div>
+        <div class="boxed-header  d-flex justify-content-between align-items-center">{{'COMMON.BUSINESS_DETAILS' | translate}}
+          <div class="text-right toggle-items d-flex align-items-center " style="gap: 6px;">
+            {{(supplierForm.get('isActive').value?'COMMON.ACTIVE':'COMMON.INACTIVE') | translate}}
+            <mat-slide-toggle  formControlName="isActive">
+            </mat-slide-toggle>   
+        </div>
+      </div>
+       
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group ">
               <label>{{'COMMON.BUSINESS_NAME_ENGLISH' | translate}} <span class="text-danger">*</span> </label>
-              <input formControlName="nameEnglish" class="form-control" type="text">
+              <input formControlName="nameEnglish"  placeholder="Enter here" class="form-control" type="text">
               <div *ngIf="supplierForm.get('nameEnglish').touched && supplierForm.get('nameEnglish').errors">
                 <div class="text-danger" *ngIf="supplierForm.get('nameEnglish').errors?.required">
                   {{'VALIDATIONS.BUSINESS_NAME_ENGLISH_IS_REQUIRED' | translate}}
@@ -116,10 +125,10 @@
               <input formControlName="nameSecondLanguage" class="form-control text-arabics" type="text">
             </div>
           </div> -->
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group ">
               <label>{{'COMMON.ACCOUNT_CODE' | translate}} <span class="text-danger">*</span> </label>
-              <input formControlName="accountCode" class="form-control" type="text">
+              <input formControlName="accountCode"  placeholder="Enter here" class="form-control" type="text">
               <div *ngIf="supplierForm.get('accountCode').touched && supplierForm.get('accountCode').errors">
                 <div class="text-danger" *ngIf="supplierForm.get('accountCode').errors?.required">
                   {{'VALIDATIONS.ACCOUNT_CODE_IS_REQUIRED' | translate}}
@@ -129,29 +138,37 @@
           </div>
           <div class="col-md-4">
             <div class="form-group ">
-              <label>{{'COMMON.GST_NO' | translate}}</label>
-              <input formControlName="gstVatNo" class="form-control" type="text">
+              <label>{{'COMMON.GST_NO' | translate}} <span class="text-danger">*</span></label>
+              <input formControlName="gstVatNo" class="form-control"  placeholder="Enter here" type="text"
+              [ngClass]="{'error': supplierForm.get('gstVatNo')?.invalid && supplierForm.get('gstVatNo')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'NoSpecialCharacters');" maxlength="15" minlength="15">
+              <div *ngIf="supplierForm.get('gstVatNo').touched && supplierForm.get('gstVatNo').errors">
+                <div class="text-danger" *ngIf="supplierForm.get('gstVatNo').errors?.required">
+                  {{'VALIDATIONS.GST_REQUIRED' | translate}}
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group ">
               <label>PAN No</label>
-              <input formControlName="regCrNo" class="form-control" type="text">
+              <input formControlName="regCrNo" minlength="10" maxlength="10" class="form-control" style="text-transform: uppercase"   placeholder="Enter here" type="text"
+              [ngClass]="{'error': supplierForm.get('regCrNo')?.invalid && supplierForm.get('regCrNo')?.touched}">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group ">
+              <label>FSSAI No</label>
+              <input formControlName="addRegNo" class="form-control"  placeholder="Enter here" type="text">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group ">
-              <label>FSSAI No</label>
-              <input formControlName="addRegNo" class="form-control" type="text">
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group ">
               <label>{{'COMMON.OPENING_BALANCE' | translate}}</label>
-              <input formControlName="openingBalance" class="form-control" type="text" (keypress)="onlyNumbers($event)">
+              <input formControlName="openingBalance" class="form-control"  placeholder="Enter here" type="text" (keypress)="onlyNumbers($event)">
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <mat-radio-group aria-label="Select an option" formControlName="debitCredit">
               <mat-radio-button value="0">{{'COMMON.DR' | translate}}</mat-radio-button>
               <mat-radio-button value="1">{{'COMMON.CR' | translate}}</mat-radio-button>
@@ -160,30 +177,30 @@
           <div class="col-md-4">
             <div class="form-group ">
               <label>{{'COMMON.CREDIT_LIMIT' | translate}}</label>
-              <input formControlName="creditLimit" class="form-control" type="text" (keypress)="onlyNumbers($event)">
+              <input formControlName="creditLimit"  placeholder="Enter here" class="form-control" type="text" (keypress)="onlyNumbers($event)">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group ">
               <label>{{'COMMON.MAX_CREDIT_DAYS' | translate}}</label>
-              <input formControlName="maxCreditDays" class="form-control" type="text" (keypress)="onlyNumbers($event)">
+              <input formControlName="maxCreditDays" class="form-control"  placeholder="Enter here" type="text" (keypress)="onlyNumbers($event)">
             </div>
           </div>
-          <div class="col-md-5">
+          <!-- <div class="col-md-4">
             <div class="form-group">
               <label>{{'COMMON.SALESMAN' | translate}}</label>
-              <mat-select placeholder="" class="w-100 form-control" formControlName="salesManUUID">
+              <mat-select placeholder="" class="w-100 form-control" formControlName="salesManUUID"  placeholder="enter here">
                 <mat-option [value]="item.accountUUID" *ngFor="let item of employees">
                   {{translationService.getSelectedLanguage() == 'en'?item.nameEnglish:item.nameSecondLanguage}}
                 </mat-option>
               </mat-select>
             </div>
-          </div>
-          <div class="col-md-3">
+          </div> -->
+         <!--  <div class="col-md-3">
             <mat-slide-toggle class="supplier-active" formControlName="isActive">
               {{(supplierForm.get('isActive').value?'COMMON.ACTIVE':'COMMON.INACTIVE') | translate}}
             </mat-slide-toggle>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -192,12 +209,43 @@
       <div class="section-boxed">
         <div class="boxed-header">{{'COMMON.ADDRESS_DETAILS' | translate}}</div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-4">
+           
+            <label>
+              {{'COMMON.UPLOAD_LOGO' | translate}}
+            </label>
+            <mat-card class="cus-mat-card-manage">
+              <input hidden (change)="onFileSelect($event)" #fileInput name="logo" type="file" name="Profile Image"
+                fxFlex="30">
+                <div class="customer-edit">
+                  <div class="image-wrapper">
+                    <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" />
+                    <img *ngIf="!imgSrc" class="full-width" src="../../../assets/images/company-logo.jpg" />
+                    <img *ngIf="!imgSrc" class="edit-icons" (click)="fileInput.click()" src="../../../assets/images/edit.svg" />
+                  </div>
+                </div>
+              <mat-card-actions style="margin-top: 5px;margin-left: 26px;">
+                <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm mb-2 "
+                  (click)="fileInput.click()">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="add-icon" width="16" height="15" viewBox="0 0 16 15" fill="none" >
+                    <path d="M8 5.00012V10.0001M10.5 7.50012H5.5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.25 7.50012C14.25 4.04834 11.4517 1.25012 8 1.25012C4.54822 1.25012 1.75 4.04834 1.75 7.50012C1.75 10.9519 4.54822 13.7501 8 13.7501C11.4517 13.7501 14.25 10.9519 14.25 7.50012Z" stroke="white"/>
+                  </svg>{{'COMMON.ADD_LOGO' | translate}}</button>
+                <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm m-right-10"
+                  (click)="fileInput.click()">
+                  <i class="far fa-image"></i> {{'COMMON.CHANGE_LOGO' | translate}}</button>
+                <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm">
+                  <i class="fas fa-trash-alt"></i> {{'COMMON.REMOVE_LOGO' | translate}}</button>
+              </mat-card-actions>
+            </mat-card>
+          
+        </div>
+        <div class="col-md-8">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group ">
                   <label>{{'COMMON.BUILDING_NUMBER_ENGLISH' | translate}}</label>
-                  <input formControlName="buildingNoEnglish" class="form-control" type="text">
+                  <input formControlName="buildingNoEnglish" class="form-control" type="text" placeholder="Enter here">
                 </div>
               </div>
               <!-- <div class="col-md-6">
@@ -206,10 +254,10 @@
                   <input formControlName="buildingNoArabic" class="form-control text-arabics" type="text">
                 </div>
               </div> -->
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>{{'COMMON.COUNTRY' | translate}}</label>
-                  <mat-select placeholder="" class="w-100 form-control" formControlName="country"
+                  <mat-select  class="w-100 form-control" formControlName="country" placeholder="Enter here"
                     (selectionChange)="onCoutryChange($event.value)">
                     <mat-option [value]="item.countryUUID" *ngFor="let item of countries">
                       {{translationService.getSelectedLanguage() == 'en'?item.nameEnglish:item.nameSecondLanguage}}
@@ -217,10 +265,10 @@
                   </mat-select>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>{{'COMMON.STATE' | translate}}</label>
-                  <mat-select placeholder="" class="w-100 form-control" formControlName="state"
+                  <mat-select placeholder="Enter here" class="w-100 form-control" formControlName="state"
                     (selectionChange)="onStateChange($event.value)">
                     <mat-option [value]="item.stateUUID" *ngFor="let item of states">
                       {{translationService.getSelectedLanguage() == 'en'?item.nameEnglish:item.nameSecondLanguage}}
@@ -228,20 +276,20 @@
                   </mat-select>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>{{'COMMON.DISTRICT' | translate}}</label>
-                  <mat-select placeholder="" class="w-100 form-control" formControlName="district">
+                  <mat-select placeholder="Enter here" class="w-100 form-control" formControlName="district">
                     <mat-option [value]="item.districtUUID" *ngFor="let item of districts">
                       {{translationService.getSelectedLanguage() == 'en'?item.nameEnglish:item.nameSecondLanguage}}
                     </mat-option>
                   </mat-select>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>{{'COMMON.PLACE_ENGLISH' | translate}}</label>
-                  <input formControlName="placeEnglish" class="form-control" type="text">
+                  <input formControlName="placeEnglish" class="form-control" type="text" placeholder="Enter here">
                 </div>
               </div>
               <!-- <div class="col-md-6">
@@ -250,10 +298,10 @@
                   <input formControlName="placeArabic" class="form-control text-arabics" type="text">
                 </div>
               </div> -->
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group ">
                   <label>{{'COMMON.STREET_NAME_ENGLISH' | translate}}</label>
-                  <input formControlName="streetEnglish" class="form-control" type="text">
+                  <input formControlName="streetEnglish" class="form-control" type="text" placeholder="Enter here">
                 </div>
               </div>
               <!-- <div class="col-md-6">
@@ -265,10 +313,12 @@
               <div class="col-md-6">
                 <div class="form-group ">
                   <label>{{'COMMON.ZIP_CODE' | translate}}</label>
-                  <input formControlName="zipCode" class="form-control" type="text" (keypress)="onlyNumbers($event)">
+                  <input formControlName="zipCode" placeholder="Enter here" class="form-control" type="text" (keypress)="onlyNumbers($event)"
+                  [ngClass]="{'error': supplierForm.get('zipCode')?.invalid && supplierForm.get('zipCode')?.touched}"
+                   maxlength="6" minlength="6">
                 </div>
               </div>
-              <div class="col-md-6">
+             <!--  <div class="col-md-6">
                 <label>
                   {{'COMMON.UPLOAD_LOGO' | translate}}
                 </label>
@@ -288,9 +338,10 @@
                       <i class="fas fa-trash-alt"></i> {{'COMMON.REMOVE_LOGO' | translate}}</button>
                   </mat-card-actions>
                 </mat-card>
-              </div>
+              </div> -->
             </div>
-          </div>
+            </div>
+         
         </div>
       </div>
     </div>
@@ -300,60 +351,66 @@
         <div class="row">
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>{{'COMMON.CODE' | translate}}</label>
-                  <mat-select placeholder="" class="w-100 form-control" formControlName="mobileCountryCode">
+                  <mat-select placeholder="Enter here" class="w-100 form-control" formControlName="mobileCountryCode">
                     <mat-option [value]="item.countryCode" *ngFor="let item of countries">
                       {{item.countryCode}}
                     </mat-option>
                   </mat-select>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <div class="form-group ">
                   <label>{{'COMMON.MOBILE' | translate}}</label>
-                  <input formControlName="mobile" class="form-control" type="text" (keypress)="onlyNumbers($event)">
+                  <input formControlName="mobile" minlength="10" maxlength="10" placeholder="Enter here" class="form-control" type="text" (keypress)="onlyNumbers($event)"
+                  [ngClass]="{'error': supplierForm.get('mobile')?.invalid && supplierForm.get('mobile')?.touched}">
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>{{'COMMON.CODE' | translate}}</label>
-                  <mat-select placeholder="" class="w-100 form-control" formControlName="phoneCountryCode">
+                  <mat-select placeholder="Enter here" class="w-100 form-control" formControlName="phoneCountryCode">
                     <mat-option [value]="item.countryCode" *ngFor="let item of countries">
                       {{item.countryCode}}
                     </mat-option>
                   </mat-select>
                 </div>
               </div>
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <div class="form-group ">
                   <label>{{'COMMON.PHONE_NO' | translate}}</label>
-                  <input formControlName="phone" class="form-control" type="text" (keypress)="onlyNumbers($event)">
+                  <input formControlName="phone" placeholder="Enter here" class="form-control" type="text"
+                  maxlength="10" (keypress)="onlyNumbers($event)">
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+        <!--   <div class="col-md-4">
             <div class="form-group ">
               <label>{{'COMMON.FAX_NO' | translate}}</label>
               <input formControlName="fax" class="form-control" type="text" (keypress)="onlyNumbers($event)">
             </div>
-          </div>
-          <div class="col-md-4">
+          </div> -->
+          <div class="col-md-6">
             <div class="form-group ">
               <label>{{'COMMON.EMAIL' | translate}}</label>
-              <input formControlName="email" class="form-control" type="text">
+              <input formControlName="email" class="form-control" placeholder="Enter here" type="text">
+              <div *ngIf="supplierForm.get('email').touched && supplierForm.get('email').errors?.email" class="text-danger">
+                Please enter a valid email address.
+              </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group ">
               <label>{{'COMMON.WEBSITE' | translate}}</label>
-              <input formControlName="website" class="form-control" type="text">
+              <input formControlName="website" class="form-control" placeholder="Enter here" type="text"
+              [ngClass]="{'error': supplierForm.get('website')?.invalid && supplierForm.get('website')?.touched}">
             </div>
           </div>
         </div>
@@ -362,12 +419,17 @@
   </div>
 
 
-  <div class="row">
-    <div class="m-top-10 m-bottom-40 col-md-12 text-center">
-      <button type="submit" class="btn btn-success btn-sm m-right-10 m-left-10"><i class="fas fa-save"></i>
-        {{'COMMON.SAVE' |
-        translate}}</button>
-      <button type="button" class="btn btn-danger btn-sm" (click)="onSupplierList()"><i class="fas fa-times-circle"></i>
+  <div class="row customer-save">
+    <div class="m-top-10 m-bottom-40 col-md-12 text-right  section-boxed ">
+      <button type="submit" class="btn btn-success btn-sm m-right-10 m-left-10 customer-save-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+          <path d="M3 9.50047V11.4085C3 13.8423 3 15.0592 3.66455 15.8834C3.79881 16.0499 3.95048 16.2016 4.117 16.3359C4.94123 17.0005 6.15811 17.0005 8.59185 17.0005C9.12105 17.0005 9.38557 17.0005 9.6279 16.915C9.6783 16.8971 9.72765 16.8767 9.77587 16.8536C10.0077 16.7428 10.1947 16.5557 10.5689 16.1815L14.1213 12.6291C14.5549 12.1956 14.7716 11.9788 14.8858 11.7031C15 11.4275 15 11.1209 15 10.5078V8.00047C15 5.17201 15 3.7578 14.1213 2.87912C13.327 2.08475 12.0949 2.00853 9.77587 2.00122M9.75 16.6255V16.2505C9.75 14.1291 9.75 13.0684 10.409 12.4094C11.068 11.7505 12.1287 11.7505 14.25 11.7505H14.625" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 4.99976H3M6 1.99976V7.99975" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{'COMMON.SAVE' | translate}}</button>
+      <button type="button" class="btn  btn-sm customer-close-button" (click)="onSupplierList()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+        <path d="M15.1725 14.4939C15.498 14.8193 15.498 15.3469 15.1725 15.6724C14.8471 15.9978 14.3194 15.9978 13.994 15.6724L9.99995 11.6784L6.00601 15.6724C5.68058 15.9978 5.15294 15.9978 4.8275 15.6724C4.50206 15.3469 4.50206 14.8193 4.82749 14.4939L8.82143 10.4999L4.82733 6.50583C4.50189 6.18039 4.50189 5.65276 4.82733 5.32733C5.15277 5.00189 5.68041 5.00189 6.00585 5.32733L9.99993 9.32134L13.9939 5.32734C14.3193 5.0019 14.8469 5.0019 15.1724 5.32733C15.4978 5.65277 15.4978 6.1804 15.1724 6.50584L11.1784 10.4998L15.1725 14.4939Z" fill="#6B5C58"/>
+      </svg>
         {{'COMMON.CANCEL' | translate}}</button>
     </div>
   </div>

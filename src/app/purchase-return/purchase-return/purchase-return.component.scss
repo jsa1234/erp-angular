@@ -41,3 +41,17 @@
   border: 1px solid #d6d6d6;
   padding: 10px;
 }
+.details_table{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  table {
+    margin-bottom: 50px;
+    // padding: 20px;
+    thead{
+    background-color: #8E8F93;
+    color: white;
+   tr th{
+    padding: 20px;
+   }
+  }}
+}

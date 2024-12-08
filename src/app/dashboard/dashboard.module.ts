@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TopCustomersComponent } from './top-customers/top-customers.component';
@@ -23,9 +23,10 @@ import { TopSellingProductsComponent } from './top-selling-products/top-selling-
 import { FinancialInsightsChartComponent } from './financial-insights-chart/financial-insights-chart.component';
 import { InventoryOverviewComponent } from './inventory-overview/inventory-overview.component';
 import { MatSelectModule } from '@angular/material/select';
+import { RevenueChartComponent } from './revenue-chart/revenue-chart.component';
 
 @NgModule({
-  declarations: [DashboardComponent, TopCustomersComponent, TopUsersComponent, TopSellingProductsComponent, FinancialInsightsChartComponent, InventoryOverviewComponent],
+  declarations: [DashboardComponent, TopCustomersComponent, TopUsersComponent, TopSellingProductsComponent, FinancialInsightsChartComponent, InventoryOverviewComponent, RevenueChartComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -39,7 +40,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatMenuModule,
     SharedModule,
-    ChartsModule,
+    NgChartsModule,
     MatSelectModule,
     ReactiveFormsModule,
     CalendarModule.forRoot({

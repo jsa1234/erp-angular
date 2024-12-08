@@ -87,7 +87,9 @@ export class BillWisePurchaseReturnReportComponent extends BaseComponent impleme
       fromDate:'',
       toDate:'',
       mode:'',
-      accountUUID:''
+      accountUUID:'',
+      supplier:'',
+      branch:['']
     })
     this.searchForm.markAsUntouched()
   }

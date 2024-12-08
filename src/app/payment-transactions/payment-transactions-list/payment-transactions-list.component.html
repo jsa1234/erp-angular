@@ -1,114 +1,262 @@
 <div class="page-header-main">
-    <div class="row align-items-center justify-content-between">
-      <div class="col-md-auto col-sm-auto">
-        <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
-          <h1><i class="icon1"></i> <span>{{'SIDEBAR.PAYMENT_TRANSACTIONS' | translate}}</span> </h1>
-        </div>
-      </div>
-    </div>
-    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
-      <div class="crumbs-sec">
-        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.PAYMENT_TRANSACTIONS' | translate}}</span>
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div
+        class="content-header svg-icons"
+        [ngClass]="{
+          'content-header-ar': translate.getSelectedLanguage() == 'ar'
+        }"
+      >
+        <h1>
+          <span>{{ "SIDEBAR.PAYMENT_TRANSACTIONS" | translate }}</span>
+        </h1>
       </div>
     </div>
   </div>
-  
-  <div class="loading-shade" *ngIf="dataSource.loading$ | async">
-    <mat-spinner></mat-spinner>
+  <div
+    class="breadcrump-pages"
+    [ngClass]="{
+      'breadcrump-pages-ar': translate.getSelectedLanguage() == 'ar'
+    }"
+  >
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{ "SIDEBAR.DASHBOARD" | translate }}</a>
+      <svg
+        width="16"
+        height="17"
+        viewBox="0 0 16 17"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_229_1686)">
+          <path
+            d="M6 4.5L10 8.5L6 12.5"
+            stroke="#4A4A4A"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_229_1686">
+            <rect
+              width="16"
+              height="16"
+              fill="white"
+              transform="translate(0 0.5)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+      <span>{{ "SIDEBAR.PAYMENT_TRANSACTIONS" | translate }}</span>
+    </div>
   </div>
+</div>
 
-  <form autocomplete="off" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()" [ngClass]="{'form-label-ar':translate.getSelectedLanguage()=='ar'}">
-    <div class="filter-sec mb-4">
-      <div class="row">
-        <div class="col-md-10">
-          <div class="row">
-            <div class="col-md-3">
-               <app-branch-dropdown [group]="searchForm" [controlName]="'branchUUID'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
-            </div>
-            <div class="col-md-3">
-               <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'deviceUUID'"></app-device-dropdown>
-            </div>
-            <div class="col-md-3">
-              <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
-            </div> 
-            <div class="col-md-3">
-              <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
-            </div>
+<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form
+  autocomplete="off"
+  [formGroup]="searchForm"
+  (ngSubmit)="onSearchSubmit()"
+  [ngClass]="{ 'form-label-ar': translate.getSelectedLanguage() == 'ar' }"
+>
+  <div class="filter-sec mb-4">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-3">
+            <app-branch-dropdown
+              [group]="searchForm"
+              [controlName]="'branchUUID'"
+              (branchUUID)="parentBranchHandlerFunction($event)"
+            ></app-branch-dropdown>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="filter-search">
-          <button type="submit"  class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
+          <div class="col-md-3">
+            <app-device-dropdown
+              [branch]="branchUUID"
+              [group]="searchForm"
+              [controlName]="'deviceUUID'"
+            ></app-device-dropdown>
+          </div>
+          <div class="col-md-3">
+            <date-input
+              [group]="searchForm"
+              [controlName]="'fromDate'"
+              [label]="'COMMON.FROM'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'"
+              [isMandatory]="true"
+            ></date-input>
+          </div>
+          <div class="col-md-3">
+            <date-input
+              [group]="searchForm"
+              [controlName]="'toDate'"
+              [label]="'COMMON.TO'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'"
+              [isMandatory]="true"
+            ></date-input>
           </div>
         </div>
       </div>
-    </div>
-  </form>
-
-  <div class="table-responsive">
-    <table mat-table [dataSource]="dataSource"  class="table table-bordered table-hover" matSort matSortActive="transactionDate">
-
-      <ng-container matColumnDef="action">
-        <th class="pr-5" mat-header-cell *matHeaderCellDef>
-        </th>
-        <td mat-cell *matCellDef="let pt" class="table-column-130">
-          <button  mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
-            <mat-icon>more_vert</mat-icon>
+      <div class="col-md-2">
+        <div class="filter-search">
+          <button type="submit" class="btn blue-btn btn-sm m-right-10">
+            {{ "COMMON.SEARCH" | translate }}
           </button>
-
-          <mat-menu #menu="matMenu">
-            <button  mat-menu-item (click)="deletePaymentTransaction(pt)">
-              <mat-icon>delete</mat-icon>
-              <span>{{'COMMON.DELETE' | translate}}</span>
-            </button>
-          </mat-menu>
-        </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="transactionDate">
-        <th class="table-column-100" mat-header-cell *matHeaderCellDef  mat-sort-header > {{'PAYMENT_TRANSACTIONS.TRANSACTION_DATE' | translate}} </th>
-        <td class="table-column-100" mat-cell *matCellDef="let pt">{{pt.transactionDate | customDate}}  </td>
-      </ng-container>
-      <ng-container matColumnDef="transactionNo">
-        <th class="table-column-100" mat-header-cell *matHeaderCellDef  mat-sort-header > {{'PAYMENT_TRANSACTIONS.TRANSACTION_NO' | translate}}  </th>
-        <td class="table-column-100" mat-cell *matCellDef="let pt">{{pt.transactionNo}}  </td>
-      </ng-container>
-      <ng-container matColumnDef="transactionAmount">
-        <th class="table-column-100" mat-header-cell *matHeaderCellDef  mat-sort-header > {{'PAYMENT_TRANSACTIONS.TRANSACTION_AMOUNT' | translate}}  </th>
-        <td class="table-column-100" mat-cell *matCellDef="let pt">{{pt.transactionAmount | customCurrency}}  </td>
-      </ng-container>
-      <ng-container matColumnDef="trasactionDocumentNo">
-        <th class="table-column-100" mat-header-cell *matHeaderCellDef  mat-sort-header > {{'PAYMENT_TRANSACTIONS.TRANSACTION_DOCUMENT_NO' | translate}}  </th>
-        <td class="table-column-100" mat-cell *matCellDef="let pt">{{pt.trasactionDocumentNo}}  </td>
-      </ng-container>
-      <ng-container matColumnDef="transactionMode">
-        <th class="table-column-100" mat-header-cell *matHeaderCellDef  mat-sort-header > {{'PAYMENT_TRANSACTIONS.TRANSACTION_MODE' | translate}}  </th>
-        <td class="table-column-100" mat-cell *matCellDef="let pt">{{pt.transactionMode}}  </td>
-      </ng-container>
-      <ng-container matColumnDef="transactionStatus">
-        <th class="table-column-100" mat-header-cell *matHeaderCellDef  mat-sort-header > {{'PAYMENT_TRANSACTIONS.TRANSACTION_STATUS' | translate}}  </th>
-        <td class="table-column-100" mat-cell *matCellDef="let pt">{{pt.transactionStatus}}  </td>
-      </ng-container>
-      <ng-container matColumnDef="transactionSignature">
-        <th class="table-column-100" mat-header-cell *matHeaderCellDef  mat-sort-header > {{'PAYMENT_TRANSACTIONS.TRANSACTION_SIGNATURE' | translate}}  </th>
-        <td class="table-column-100" mat-cell *matCellDef="let pt">{{pt.transactionSignature}}  </td>
-      </ng-container>
-
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
-            {{'COMMON.NO_DATA_FOUND' | translate}}
-        </td>
-      </tr>
-
-      <ng-container matColumnDef="footer">
-        <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>
-          <mat-paginator [length]="resourceParams.totalCount" [pageSize]="resourceParams.pageSize"   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
-          </mat-paginator>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      <tr mat-footer-row *matFooterRowDef="footerColumn;sticky: true"></tr>  
-    </table>
+        </div>
+      </div>
+    </div>
   </div>
+</form>
+
+<div class="table-responsive">
+  <div class="filter-group">
+    <div class="form">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control form-input" placeholder="Search" />
+    </div>
+  </div>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="table table-bordered table-hover"
+    matSort
+    matSortActive="transactionDate"
+  >
+    <ng-container matColumnDef="action">
+      <th class="pr-5" mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let pt" class="table-column-130">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="deletePaymentTransaction(pt)">
+            <mat-icon>delete</mat-icon>
+            <span>{{ "COMMON.DELETE" | translate }}</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="transactionDate">
+      <th
+        class="table-column-100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        {{ "PAYMENT_TRANSACTIONS.TRANSACTION_DATE" | translate }}
+      </th>
+      <td class="table-column-100" mat-cell *matCellDef="let pt">
+        {{ pt.transactionDate | customDate }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="transactionNo">
+      <th
+        class="table-column-100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        {{ "PAYMENT_TRANSACTIONS.TRANSACTION_NO" | translate }}
+      </th>
+      <td class="table-column-100" mat-cell *matCellDef="let pt">
+        {{ pt.transactionNo }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="transactionAmount">
+      <th
+        class="table-column-100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        {{ "PAYMENT_TRANSACTIONS.TRANSACTION_AMOUNT" | translate }}
+      </th>
+      <td class="table-column-100" mat-cell *matCellDef="let pt">
+        {{ pt.transactionAmount | customCurrency }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="trasactionDocumentNo">
+      <th
+        class="table-column-100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        {{ "PAYMENT_TRANSACTIONS.TRANSACTION_DOCUMENT_NO" | translate }}
+      </th>
+      <td class="table-column-100" mat-cell *matCellDef="let pt">
+        {{ pt.trasactionDocumentNo }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="transactionMode">
+      <th
+        class="table-column-100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        {{ "PAYMENT_TRANSACTIONS.TRANSACTION_MODE" | translate }}
+      </th>
+      <td class="table-column-100" mat-cell *matCellDef="let pt">
+        {{ pt.transactionMode }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="transactionStatus">
+      <th
+        class="table-column-100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        {{ "PAYMENT_TRANSACTIONS.TRANSACTION_STATUS" | translate }}
+      </th>
+      <td class="table-column-100" mat-cell *matCellDef="let pt">
+        {{ pt.transactionStatus }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="transactionSignature">
+      <th
+        class="table-column-100"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        {{ "PAYMENT_TRANSACTIONS.TRANSACTION_SIGNATURE" | translate }}
+      </th>
+      <td class="table-column-100" mat-cell *matCellDef="let pt">
+        {{ pt.transactionSignature }}
+      </td>
+    </ng-container>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+        {{ "COMMON.NO_DATA_FOUND" | translate }}
+      </td>
+    </tr>
+
+    <ng-container matColumnDef="footer">
+      <td
+        mat-footer-cell
+        [attr.colspan]="displayedColumns.length"
+        *matFooterCellDef
+      >
+        <mat-paginator
+          [length]="resourceParams.totalCount"
+          [pageSize]="resourceParams.pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-footer-row *matFooterRowDef="footerColumn; sticky: true"></tr>
+  </table>
+</div>

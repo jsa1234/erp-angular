@@ -42,11 +42,13 @@ export class AccountDetailComponent extends BaseComponent implements OnInit {
   operation: string;
   symbol = '  -  ';
   submitted: boolean;
-
+  isLoading: boolean = false;
   getAccountHeadTree() {
+    this.isLoading=true
     this.sub$.sink = this.accountHeadService
       .getAccountHeadTree()
       .subscribe((resp: AccountHeadTree[]) => {
+        this.isLoading=false
         this.accountHeadTree = resp;
         this.dataSource.data = this.accountHeadTree ? this.accountHeadTree : [];
       });
@@ -81,7 +83,7 @@ export class AccountDetailComponent extends BaseComponent implements OnInit {
           .subscribe((res) => {
             this.AccountHeadForm.reset();
             this.getAccountHeadTree();
-            this.toastrService.success('AccountHead updated Successfully');
+            this.toastrService.success('Account Head updated Successfully');
             this.disableForm();
             this.formTitle = '';
           });
@@ -94,7 +96,7 @@ export class AccountDetailComponent extends BaseComponent implements OnInit {
           .subscribe((res: AccountHead) => {
             this.AccountHeadForm.reset();
             this.getAccountHeadTree();
-            this.toastrService.success('AccountHead Created Successfully');
+            this.toastrService.success('Account Head Created Successfully');
             this.disableForm();
             this.formTitle = '';
           });
@@ -169,7 +171,7 @@ export class AccountDetailComponent extends BaseComponent implements OnInit {
             .deleteAccountHeadTree(accountUUID)
             .subscribe((res) => {
               this.getAccountHeadTree();
-              this.toastrService.success('AccountHead deleted successfully');
+              this.toastrService.success('Account Head deleted successfully');
             });
         }
       });

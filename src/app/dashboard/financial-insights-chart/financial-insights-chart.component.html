@@ -1,19 +1,45 @@
 <div class="topcustomer-chart">
-  <h3>{{'DASHBOARD.PURCHASE_SALES_OTHER_EXPENSE_OTHER_INCOME' |translate}}</h3>
+  <!-- <h3>Sales & Purchase</h3> -->
+  <div class="chart-wrapper">
   <ng-container *ngIf="isLoading$">
     <app-dashboard-loader></app-dashboard-loader>
-    </ng-container>
-    <ng-container *ngIf="!isLoading$">
-  <canvas *ngIf="financialInsightDataList?.length>0" baseChart 
-    [data]="chartData" 
-    [labels]="chartLabels" 
-    [chartType]="pieChartType"
-    [options]="pieChartOptions" 
-    [colors]="pieChartColors" 
-    [legend]="pieChartLegend">
-  </canvas>
-      <div *ngIf="financialInsightDataList?.length<=0" class="dummyChart">
-      <label >{{'COMMON.NO_DATA_FOUND' | translate}}</label>
-    </div>
   </ng-container>
+  <ng-container *ngIf="!isLoading$">
+      
+  <div class="chart-container">
+    <span class="title">Sales & Purchase</span>
+  <canvas baseChart 
+    [data]="chartData" 
+    [type]="pieChartType"
+    [options]="pieChartOptions">
+  </canvas>
+    </div>
+    <div class="custom-legend">
+      <div class="legend-item">
+       
+        <div class="legend-label">
+          <span class="legend-color" style="background-color: #FC8118;"></span>
+          &nbsp;
+          <span>Total Sales</span>
+        </div>
+       
+        <span class="legend-value">₹{{salesTotal | number}}</span>
+      </div>
+      <div class="legend-separator"></div>
+
+      <div class="legend-item">
+        
+        <div class="legend-label">
+          <span class="legend-color" style="background-color: #46332E;"></span>
+          &nbsp;
+          <span>Total Purchase</span>
+       
+        </div>
+        
+        <span class="legend-value">₹{{purchaseTotal | number}}</span>
+      </div>
+    </div>
+    
+  </ng-container>
+  </div>
 </div>

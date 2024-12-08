@@ -24,7 +24,7 @@ export class MapperService{
 
     mapToStockTransferItem(productBarcode: ProductBarcode , stcockTransferUUID:string,isBarcodeScanned:boolean): IStockTransferItem {
 
-      const product = productBarcode.productObject ;
+      const product = productBarcode.product ;
 
       const amount  = isBarcodeScanned? productBarcode.unitPrice* productBarcode.quantity :  productBarcode.amount
         const stockTransferItem: IStockTransferItem = {
@@ -61,7 +61,7 @@ export class MapperService{
       }
 
       mapToDamageEntryItem(productBarcode: ProductBarcode,damageUUID:string,isBarcodeScanned:boolean):IDamageEntryDetail{
-        const product = productBarcode.productObject;
+        const product = productBarcode.product;
 
         const amount  = isBarcodeScanned? productBarcode.unitPrice* productBarcode.quantity :  productBarcode.amount
         const stockTransferItem: IDamageEntryDetail = {

@@ -30,7 +30,6 @@ export class DeviceDropdownComponent
   controleNameLabel: string;
   @Input() isAddAll:boolean = true
   @Input() isMandatory:boolean = false
-
   constructor(
     private deviceService: DeviceService,
     public translate: TranslationService,

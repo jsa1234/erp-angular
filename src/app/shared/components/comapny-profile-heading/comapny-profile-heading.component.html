@@ -1,10 +1,8 @@
-
-
 <ng-container [ngSwitch]="type">
-    <div *ngSwitchCase="0" style="display: grid;grid-template-columns: auto auto auto;border-bottom: 1px solid #cfd3dc;
-    margin-bottom: 10px; padding: 0px 100px;">
+    <div *ngSwitchCase="0" style="display: flex;justify-content: center; align-items: center;border-bottom: 1px solid #cfd3dc;
+    margin-bottom: 10px; padding: 0px 100px;text-align: center;">
         <div
-            style="text-align: center;font-size:18px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;width: 100%;">
+            style="font-size:18px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;width: 100%;">
             <p>  {{companyProfile.nameEnglish}}<br>
                 {{companyProfile.addressEnglish}}<br>
                 Phone: {{companyProfile.phoneNo}}<br>
@@ -28,10 +26,10 @@
             </div>
         </div>
     </div>
-    <div *ngSwitchCase="3" style="display: grid;grid-template-columns: auto auto auto;border-bottom: 1px solid #cfd3dc;
-    margin-bottom: 10px; padding: 0px 100px;">
+    <div *ngSwitchCase="3" style="display: flex;justify-content: center; align-items: center;border-bottom: 1px solid #cfd3dc;
+    margin-bottom: 10px; padding: 0px 100px;text-align: center;">
         <div
-            style="text-align: center;font-size:18px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;width: 100%;">
+            style="font-size:18px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;width: 100%;">
             <p>  {{branchName}}<br>
                 {{branchAddress}}<br>
                 Phone: {{branchPhoneNo}}<br>
@@ -45,7 +43,7 @@
 
     <div *ngSwitchCase="4" class="row">
         <div class="col-md-12">
-            <div class="ouraddress-en text-center">
+            <div class="ouraddress-en text-center" style=" border-radius: 20px;border:none;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
                 <b> {{branchName}}</b><br>
                 {{branchAddress}}<br><br>
                 Phone: {{branchPhoneNo}}<br>

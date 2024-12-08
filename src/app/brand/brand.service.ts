@@ -14,7 +14,7 @@ export class BrandService{
     }
 
     getBrands(resourceParams:BrandResourceParameter):Observable<HttpResponse<Brand[]>>{
-        const url ='Brands'
+        const url ='Brand_Web/Brands'
         const customParams = new HttpParams()
         .set('Fields', resourceParams.fields)
         .set('OrderBy', resourceParams.orderBy)
@@ -23,23 +23,23 @@ export class BrandService{
         return this.http.get<Brand[]>(url,{params:customParams,observe:'response'})
     }
     getActiveBrands():Observable<Brand[]>{
-        const url = 'Brand/GetActiveBrands'
+        const url = 'Brand_Web/Brand/GetActiveBrands'
         return this.http.get<Brand[]>(url).pipe(
             map(item => item.sort((a, b) => a.nameEnglish.localeCompare(b.nameEnglish)))
           );
       }
     add(brandData:Brand){
-        const url = 'Brand'
+        const url = 'Brand_Web/Brand'
         return this.http.post(url,brandData)
     }
 
     update(brandData:Brand){
-        const url = `Brand/${brandData.brandUUID}`
+        const url = `Brand_Web/Brand/${brandData.brandUUID}`
         return this.http.put(url,brandData)
     }
 
     delete(id:string){
-        const url = `Brand/${id}`
+        const url = `Brand_Web/Brand/${id}`
         return this.http.delete(url)
     }
 }

@@ -2,20 +2,40 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon55"></i> <span>{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</span></h1>
+        <h1><span>{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</span></h1>
       </div>
     </div>
     <div class="col-md-auto col-sm-auto">
       <!-- *hasClaim="'product_product_create_product'" -->
       <button  class="btn blue-btn btn-sm m-right-10"
         [routerLink]="['/inventory/damage-entry/manage/add']">
-        <i class="fas fa-plus"></i> {{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}
+        {{'INVENTORY.DAMAGE_ENTRY.MANAGE_DAMAGE_ENTRY' | translate}}
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 8V16M16 12H8"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z"
+            stroke="white"
+            stroke-width="1.5"
+          />
+        </svg>
       </button>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.DAMAGE_ENTRY' |
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <span>{{'SIDEBAR.DAMAGE_ENTRY' |
         translate}}</span>
     </div>
   </div>
@@ -45,7 +65,7 @@
         </div>
         <div class="col-md-2">
           <div class="filter-search">
-          <button type="submit"  class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
+          <button type="submit"  class="btn blue-btn btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
           </div>
         </div>
       </div>
@@ -57,6 +77,14 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="table-responsive">
+
+        <div class="filter-group">
+          <div class="form">
+            <i class="fa fa-search"></i>
+            <input type="text" class="form-control form-input" placeholder="Search Doc No ..." [(ngModel)]="docNoFilter"/>
+          </div>
+        </div>
+        
         <table mat-table [dataSource]="dataSource" multiTemplateDataRows
           class="table table-bordered table-hover grid-height" matSort matSortActive="docNo">
           <ng-container matColumnDef="action">
@@ -98,15 +126,15 @@
             <td class="table-column-150" mat-cell *matCellDef="let damageEntry"> {{damageEntry.docNo }} </td>
           </ng-container>
           <ng-container matColumnDef="branch">
-            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'INVENTORY.DAMAGE_ENTRY.BRANCH' | translate}} </th>
+            <th class="table-column-100" mat-header-cell *matHeaderCellDef> {{'INVENTORY.DAMAGE_ENTRY.BRANCH' | translate}} </th>
             <td class="table-column-100" mat-cell *matCellDef="let damageEntry"> {{damageEntry.branch.nameEnglish}} </td>
           </ng-container>
           <ng-container matColumnDef="grandTotal">
-            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>{{'INVENTORY.DAMAGE_ENTRY.GRAND_TOTAL' | translate}} </th>
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef >{{'INVENTORY.DAMAGE_ENTRY.GRAND_TOTAL' | translate}} </th>
             <td class="table-column-150" mat-cell *matCellDef="let damageEntry"> {{damageEntry.netTotalAmount }} </td>
           </ng-container>
           <ng-container matColumnDef="remarks">
-            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header> {{'INVENTORY.DAMAGE_ENTRY.REMARK' | translate}} </th>
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef > {{'INVENTORY.DAMAGE_ENTRY.REMARK' | translate}} </th>
             <td class="table-column-100" mat-cell *matCellDef="let damageEntry"> {{damageEntry?.remarks}}
             </td>
           </ng-container>
@@ -127,7 +155,7 @@
           <ng-container matColumnDef="docNo-search">
             <th mat-header-cell *matHeaderCellDef>
               <input placeholder="" type="text" class="form-control w-90"
-                [(ngModel)]="docNoFilter">
+              formControlName="docNoFilter">
             </th>
           </ng-container>
           <ng-container matColumnDef="branch-search">
@@ -172,7 +200,7 @@
         </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true">
+          <!-- <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true"> -->
           <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
           <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>

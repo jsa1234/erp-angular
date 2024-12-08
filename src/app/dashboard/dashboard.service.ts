@@ -47,7 +47,18 @@ getTopUsers(resourceParams: DashboardResourceParameter): Observable<TopUsers | C
   const url = 'Dashboard/GetTopUsers';
   return this.getDashboardData<TopUsers>(url, resourceParams);
 }
-
+getAverageSales(resourceParams:DashboardResourceParameter):Observable<any | CommonError>{
+  const url = 'Dashboard/average-sales';
+  return this.getDashboardData<any>(url,resourceParams);
+}
+getReturns(resourceParams: DashboardResourceParameter): Observable<any | CommonError> {
+  const url = 'Dashboard/returns-summary';
+  return this.getDashboardData<any>(url, resourceParams);
+}
+getRevenue(resourceParams: DashboardResourceParameter): Observable<any | CommonError>{
+  const url = 'Dashboard/revenue';
+  return this.getDashboardData<any>(url,resourceParams);
+}
 getTopSellingProducts(resourceParams: DashboardResourceParameter): Observable<TopSellingProducts | CommonError> {
   const url = 'Dashboard/GetTopSellingProducts';
   return this.getDashboardData<TopSellingProducts>(url, resourceParams);
@@ -57,5 +68,8 @@ getFinancialInsightsChartData(resourceParams: DashboardResourceParameter): Obser
   const url = 'Dashboard/GetFinancialInsightsChartData';
   return this.getDashboardData<BudgetAnalyzer>(url, resourceParams);
 }
-
+getFinancialInsights(resourceParams:DashboardResourceParameter):Observable<any | CommonError>{
+  const url = 'Dashboard/sales-purchase-summary';
+  return this.getDashboardData<any>(url,resourceParams);
+}
 }

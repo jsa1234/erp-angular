@@ -46,6 +46,7 @@ import { PriceUpdateDialogComponent } from './price-update-dialog/price-update-d
 import { PriceObject } from './price.type';
 import { PurchaseForm } from './purchaseForm.interface';
 import { BarcodeProductModalComponent } from '@shared/components/barcode-product-modal/barcode-product-modal.component';
+import { HelpModalComponent } from '@shared/components/help-modal/help-modal.component';
 @Component({
   selector: 'app-purchase-manage',
   templateUrl: './purchase-manage.component.html',
@@ -81,9 +82,9 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
   totalAddnlCess: number = 0;
   itemTotalAmount: number = 0;
   selectedRow: PurchaseInvoiceDetail;
-  otherExpense: number = 0;
-  transExpense: number = 0;
-  roundoff: number = 0;
+  otherExpense: number=0;
+  transExpense: number=0;
+  roundoff: number=0;
   purchaseAddForm: FormGroup;
   selectedVariantsUUID: string[] = [];
   subtotal: number = 0;
@@ -105,6 +106,8 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
   isInvalidQuantity: boolean = false;
   docDate: Date = null;
   refBillDate: Date = null;
+  isExpanded = false;
+   isLoading: boolean = false;
   @HostListener('document:keydown', ['$event'])
   onKeyPress(event: KeyboardEvent) {
     if (event.key === 'Enter') {
@@ -156,7 +159,7 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
       invoiceType: ['', Validators.required],
       docNo: [{ value: '', disabled: true }],
       docDate: [new Date(), Validators.required],
-      refBillNo: ['', Validators.required],
+      refBillNo: [''],
       refBillDate: ['', Validators.required],
       branchUUID: ['', Validators.required],
       deviceUUID: [this.deviceUUID],
@@ -224,6 +227,7 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
       return;
     }
     const formData: PurchaseForm = this.purchaseAddForm.getRawValue();
+    this.isLoading = true;
     const purchaseInvoiceItems: PurchaseInvoiceDetail[] =
       this.matTableDataSource.data.map((item) => ({
         ...item,
@@ -242,6 +246,7 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
       this.purchaseService
         .updatePurchaseInvoice(purchaseInvoice)
         .subscribe((res: any) => {
+          this.isLoading=false;
           this.toastr.success('Purchase Updated Successfully');
           this.router.navigate(['/purchase-invoice/list'], {
             relativeTo: this.route,
@@ -251,6 +256,7 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
       this.purchaseService
         .addPurchaseInvoice(purchaseInvoice)
         .subscribe((res: IPurchaseInvoice) => {
+          this.isLoading=false;
           this.toastr.success('Purchase Added Successfully');
           const isPriceUpdated = res.purchaseInvoiceDetails.some(
             (x) => x.priceUpdated === true
@@ -431,6 +437,11 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
     }, 100);
   }
   addtoTable() {
+    if(this.productDetail.manufactureDate > this.productDetail.expiryDate){
+      this.toastr.warning('Manufacturer date cannot be after expiry date');
+      return;
+
+    }
     if (!this.productDetail.productPriceUUID) {
       return;
     }
@@ -647,6 +658,12 @@ export class PurchaseManageComponent extends BaseComponent implements OnInit {
       input.reset(0); // Set the value to 0 if it's empty
     }
   }
-
+  openHelpDialog(){
+    this.dialog
+    .open(HelpModalComponent, {
+      //width: '550px'
+    })
+    .afterClosed()
+  }
 
 }

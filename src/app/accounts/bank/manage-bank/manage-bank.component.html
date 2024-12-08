@@ -2,13 +2,17 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons">
-        <h1><i class="icon57"></i> <span>Manage Bank Details</span> </h1>
+        <h1>Manage Bank Details</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">Dashboard</a> / <a [routerLink]="['/bank']">Bank</a> / <span>Manage Bank Details</span>
+      <a [routerLink]="['/']">Dashboard</a>
+      <i class="chevron-icon"></i>
+      <a [routerLink]="['/bank']">Bank</a>
+      <i class="chevron-icon"></i>
+        <span>Manage Bank Details</span>
     </div>
   </div>
 </div>
@@ -20,7 +24,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="text-dark">Bank</label>
+              <label class="text-dark">Bank  <span class="text-danger">*</span></label>
               <mat-select placeholder="" class="w-100 form-control" formControlName="bankType" (selectionChange)="setBankNameAndImage($event.value)">
                 <mat-option  *ngFor="let item of bankTypes" [value]="item.value">{{item.text}}</mat-option>
               </mat-select>
@@ -28,7 +32,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="text-dark">Account Head Code</label>
+              <label class="text-dark">Account Head Code <span class="text-danger">*</span></label>
               <input formControlName="accountCode" class="form-control w-100" type="text">
             </div>
           </div>
@@ -40,26 +44,30 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="text-dark">Branch</label>
+              <label class="text-dark">Branch  <span class="text-danger">*</span></label>
               <input formControlName="namePrefixEnglish" class="form-control w-100" type="text">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="text-dark">Account Holder Name</label>
+              <label class="text-dark">Account Holder Name <span class="text-danger">*</span></label>
               <input formControlName="firstNameEnglish" class="form-control w-100" type="text">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="text-dark">Account Number</label>
-              <input formControlName="accountNo" class="form-control w-100" type="text">
+              <label class="text-dark">Account Number <span class="text-danger">*</span></label>
+              <input formControlName="accountNo" class="form-control w-100" type="text"
+              [ngClass]="{'error': bankForm.get('accountNo')?.invalid && bankForm.get('accountNo')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'number');" maxlength="18">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="text-dark">IFSC Code</label>
-              <input formControlName="ifscCode" class="form-control w-100" type="text">
+              <label class="text-dark">IFSC Code  <span class="text-danger">*</span></label>
+              <input formControlName="ifscCode"  class="form-control w-100" type="text"
+              [ngClass]="{'error': bankForm.get('ifscCode')?.invalid && bankForm.get('ifscCode')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'NoSpecialCharacters');" maxlength="11" minlength="11">
             </div>
           </div>
           <div class="col-md-6">
@@ -76,12 +84,15 @@
             <div class="form-group">
               <label class="text-dark">Email</label>
               <input formControlName="email" class="form-control w-100" type="text">
+              <div *ngIf="bankForm.get('email').touched && bankForm.get('email').errors?.email" class="text-danger">
+                Please enter a valid email address.
+              </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label class="text-dark">Phone Number</label>
-              <input formControlName="phone" class="form-control w-100" type="text">
+              <input formControlName="phone" class="form-control w-100" type="text" maxlength="10" (keypress)="commonServ.validateTextBox($event,'number');">
             </div>
           </div>
           <div class="col-md-4">
@@ -104,7 +115,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label class="text-dark">Country</label>
+              <label class="text-dark">Country <span class="text-danger">*</span></label>
               <mat-select placeholder="" class="w-100 form-control" formControlName="countryUUID" (selectionChange)="getStateByCountry($event.value)">
                 <mat-option  *ngFor="let item of countries" [value]="item.countryUUID">{{item.nameEnglish}}</mat-option>
               </mat-select>
@@ -112,7 +123,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label class="text-dark">State</label>
+              <label class="text-dark">State <span class="text-danger">*</span></label>
               <mat-select placeholder="" class="w-100 form-control" formControlName="stateUUID" (selectionChange)="getDistrictByState($event.value)">
                 <mat-option  *ngFor="let item of states" [value]="item.stateUUID">{{item.nameEnglish}}</mat-option>
               </mat-select>
@@ -120,7 +131,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label class="text-dark">District</label>
+              <label class="text-dark">District <span class="text-danger">*</span></label>
               <mat-select placeholder="" class="w-100 form-control" formControlName="districtUUID">
                 <mat-option  *ngFor="let item of districts" [value]="item.districtUUID">{{item.nameEnglish}}</mat-option>
               </mat-select>
@@ -129,17 +140,31 @@
           <div class="col-md-4">
             <div class="form-group">
               <label class="text-dark">Pincode</label>
-              <input formControlName="zipCode" class="form-control w-100" type="text">
+              <input formControlName="zipCode" class="form-control w-100" type="text"
+              [ngClass]="{'error': bankForm.get('zipCode')?.invalid && bankForm.get('zipCode')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'number');" maxlength="6" minlength="6">
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12 m-bottom-40 text-center">
             <button  type="submit" class="btn btn-success btn-sm mr-2 m-left-10">
                 <i class="fas fa-save"></i> Save
             </button>
         </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="section-boxed">
+          <div class="text-right">
+          <button type="submit" class="btn blue-btn m-right-10"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9.00047V10.9085C3 13.3423 3 14.5592 3.66455 15.3834C3.79881 15.5499 3.95048 15.7016 4.117 15.8359C4.94123 16.5005 6.15811 16.5005 8.59185 16.5005C9.12105 16.5005 9.38557 16.5005 9.6279 16.415C9.6783 16.3971 9.72765 16.3767 9.77587 16.3536C10.0077 16.2428 10.1947 16.0557 10.5689 15.6815L14.1213 12.1291C14.5549 11.6956 14.7716 11.4788 14.8858 11.2031C15 10.9275 15 10.6209 15 10.0078V7.50047C15 4.67201 15 3.2578 14.1213 2.37912C13.327 1.58475 12.0949 1.50853 9.77587 1.50122M9.75 16.1255V15.7505C9.75 13.6291 9.75 12.5684 10.409 11.9094C11.068 11.2505 12.1287 11.2505 14.25 11.2505H14.625" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 4.49976H3M6 1.49976V7.49975" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg> {{'COMMON.SAVE' |   translate}}</button>
+        </div>
+        </div>
+      </div>
     </div>
     </div>
   </div>

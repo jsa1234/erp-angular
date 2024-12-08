@@ -8,7 +8,7 @@
   </div>
   <div class="breadcrump-pages">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/product']">{{'SIDEBAR.PRODUCT' | translate}}</a> / <span>Product Details</span>
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i>  <a [routerLink]="['/product']">{{'SIDEBAR.PRODUCT' | translate}}</a> <i class="chevron-icon"></i>  <span>Product Details</span>
     </div>
   </div>
 </div>
@@ -48,12 +48,12 @@
             <th>Additional Cess Rate</th>
             <td>{{product?.addnlCessName}}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th>Maximum Stock Level</th>
             <td>{{product?.maxStockLevel}}</td>
             <th>Reorder Level</th>
             <td>{{product?.reorderLevel}}</td>
-          </tr>
+          </tr> -->
         </table>
       </div>
     </div>
@@ -63,7 +63,7 @@
 <div class="section-boxed">
   <h5>Product Variant</h5>
   <div class="product-variant-table table-responsive">
-    <table class="table table-bordered table-hover">
+    <table class="">
       <thead>
         <tr>
           <th>Printed Barcode</th>

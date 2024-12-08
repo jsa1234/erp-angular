@@ -2,13 +2,13 @@
     <div class="row align-items-center justify-content-between">
       <div class="col-md-auto col-sm-auto">
         <div class="content-header svg-icons">
-          <h1><i class="icon59"></i> <span>Manage POS Device</span> </h1>
+          <h1>Manage Counter</h1>
         </div>
       </div>
     </div>
     <div class="breadcrump-pages">
       <div class="crumbs-sec">
-        <a [routerLink]="['/']" >Dashboard</a> / <a [routerLink]="['/pos-device']" >POS Device</a> / <span>Manage POS Device</span>
+        <a [routerLink]="['/']" >Dashboard</a>  <i class="chevron-icon"></i> <a [routerLink]="['/pos-device']" >Accounts</a> <i class="chevron-icon"></i> <span>Manage Counter</span>
       </div>
     </div>
   </div>
@@ -17,165 +17,45 @@
     <mat-spinner></mat-spinner>
   </div>
 
-
-  <form [formGroup]="posDeviceForm" (ngSubmit)="savePosDevice()">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="section-boxed">
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">POS Device Code</label>
-                <input formControlName="posDeviceCode" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Name</label>
-                <input formControlName="nameEnglish" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Device Model</label>
-                <input formControlName="deviceModel" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Device Id</label>
-                <input formControlName="serialNo" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">App Key</label>
-                <input formControlName="appKey" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">User Name</label>
-                <input formControlName="username" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Password</label>
-                <input autocomplete="new-password" formControlName="password" class="form-control w-100" type="password">
-              </div>
-            </div>
-            <div class="col-md-3 content-flex">
-              <mat-slide-toggle formControlName="haveRearCamera"> Have Rear Camera</mat-slide-toggle>
-            </div>
-            <div class="col-md-3 content-flex">
-              <mat-slide-toggle formControlName="haveFrontCamera"> Have Front Camera</mat-slide-toggle>
-            </div>
-            <div class="col-md-3 content-flex">
-              <mat-slide-toggle formControlName="haveUsb"> Have USB</mat-slide-toggle>
-            </div>
-            <div class="col-md-3 content-flex">
-              <mat-slide-toggle formControlName="haveWifi"> Have Wifi</mat-slide-toggle>
-            </div>
-            <div class="col-md-3">
-              <mat-slide-toggle formControlName="haveSim"> Have Sim</mat-slide-toggle>
-            </div>
-            <div class="col-md-3">
-              <mat-slide-toggle formControlName="havePrinter"> Have Printer</mat-slide-toggle>
-            </div>
-
-            <div class="col-md-3">
-              <mat-slide-toggle formControlName="haveNfc"> Have Nfc</mat-slide-toggle>
-            </div>
-            <div class="col-md-3">
-              <mat-slide-toggle formControlName="haveMagneticCardReader"> Have Magnetic Card Reader</mat-slide-toggle>
-            </div>
-            <div class="col-md-3">
-              <mat-slide-toggle formControlName="haveBattery"> Have Battery</mat-slide-toggle>
-            </div>
-            <div class="col-md-3">
-              <mat-slide-toggle formControlName="haveBluetooth"> Have Bluetooth</mat-slide-toggle>
-            </div>
-            <div class="col-md-3">
-              <mat-slide-toggle formControlName="haveUpiEnabled"> Have Upi Enabled</mat-slide-toggle>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">IMEI1</label>
-                <input formControlName="imeI1" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">IMEI2</label>
-                <input formControlName="imeI2" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Bluetooth Mac</label>
-                <input formControlName="bluetoothMac" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Wifi Mac</label>
-                <input formControlName="wifiMac" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Brand Name</label>
-                <input formControlName="brandName" class="form-control w-100" type="text">
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="text-dark">Printing Paper Size</label>
-                <input formControlName="printingPaperSize" class="form-control w-100" type="text">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col-md-3 col-12">
+  <form [formGroup]="counterForm" (ngSubmit)="saveCounter()">
+    <div class="row section-boxed m-1 p-3">
+      <div class="col-md-12">
         <div class="row">
-          <div class="col-md-12 col-md-3">
-            <mat-card class="cus-mat-card text-center">
-              <input hidden (change)="onFileSelect($event)" #fileInput name="logo" type="file" name="Profile Photo"
-                fxFlex="30">
-              <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" />
-              <img *ngIf="!imgSrc" class="full-width" src="../../../assets/images/dummy.jpg" />
-              <mat-card-actions>
-                <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm m-right-10"
-                  (click)="fileInput.click()">
-                  <i class="far fa-image"></i> {{'COMMON.ADD_IMAGE' | translate}}</button>
-                <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm m-right-10"
-                  (click)="fileInput.click()">
-                  <i class="far fa-image"></i> {{'COMMON.CHANGE_IMAGE' | translate}}</button>
-                <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm">
-                  <i class="fas fa-trash-alt"></i> {{'COMMON.REMOVE_IMAGE' | translate}}</button>
-              </mat-card-actions>
-            </mat-card>
+          <div class="col-md-3">
+            <div class="form-group">
+               <label class="text-dark" for="name">Counter Name<span class="text-danger">*</span></label>
+                  <input formControlName="name" id="name" name="name" required class="form-control w-100" type="text">
+                  <div *ngIf="counterForm.get('name')?.invalid && counterForm.get('name')?.touched" class="text-danger">
+                    Counter Name is required.
+                  </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <app-branch-dropdown [group]="counterForm" [controlName]="'branchUUID'"
+                [isAddAll]="false" [isDefault]="isDefaultBranch"></app-branch-dropdown>
+            </div>
+          </div>
+          <div *ngIf="isUpdate" class="form-group">
+            <label class="text-dark" for="name">MAC Address</label>
+            <input formControlName="mac" id="mac" name="mac"  class="form-control w-100" type="text">
+
           </div>
         </div>
       </div>
-
-
     </div>
-    <div class="row ">
-      <div class="col-md-12 m-bottom-40 text-center">
-        <button type="submit" class="btn btn-success btn-sm mr-2 m-left-10">
-          <i class="fas fa-save"></i> Save
+    <div class="row section-boxed m-1 p-3">
+      <div class="col-md-12 m-bottom-40 text-right">
+        <button type="submit"  class="btn blue-btn mr-2 m-left-10">
+          <i class="icon61"></i> Save
         </button>
-        <button [routerLink]="['/pos-device']" type="button" class="btn btn-danger btn-sm">
-          <i class="fas fa-times-circle"></i> Cancel
+        <button [routerLink]="['/pos-device']" type="button" class="btn btn-danger">
+          <i class="fas fa-times"></i> Cancel
         </button>
       </div>
     </div>
   </form>
+ 
   
 
   

@@ -1,8 +1,9 @@
-  <label>{{'COMMON.DEVICE' | translate}} <span class="text-danger" *ngIf="isMandatory">*</span></label>
+
+<label>{{'COMMON.DEVICE' | translate}} <span class="text-danger" *ngIf="isMandatory">*</span></label>
   <div class="">
     <mat-form-field [formGroup]="group">
-      <mat-select class="form-control" [formControlName]="controlName">
-        <input class="form-control w-100"  focused="'true'" type="text"
+      <mat-select class="form-control" [formControlName]="controlName" disabled="true">
+        <input class="form-control w-100"  focused="'true'" type="text" 
         autocomplete="off" placeholder="search device">
         <mat-option *ngFor="let device of devices" [value]="device.deviceUUID">
           {{device.deviceCode?device.deviceCode + ' '+'-':''}}  {{translate.getSelectedLanguage()=='en'?device.nameEnglish:device.nameSecondLanguage}}

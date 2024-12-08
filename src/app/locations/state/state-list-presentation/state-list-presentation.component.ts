@@ -5,24 +5,24 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { BaseComponent } from 'src/app/base.component';
-import { ManageStateComponent } from '../manage-state/manage-state.component';
-import { State } from '@core/domain-classes/state';
-import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
-import { TranslationService } from '@core/services/translation.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { LocationsResourceParameter } from '@core/domain-classes/masters/locations-resource-parameter';
-import { StateDataSource } from '../state-datasource';
-import { StateService } from '../state.service';
-import { ResponseHeader } from '@core/domain-classes/response-header';
-import { tap } from 'rxjs/operators';
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { BaseComponent } from "src/app/base.component";
+import { ManageStateComponent } from "../manage-state/manage-state.component";
+import { State } from "@core/domain-classes/state";
+import { CommonDialogService } from "@core/common-dialog/common-dialog.service";
+import { TranslationService } from "@core/services/translation.service";
+import { MatPaginator } from "@angular/material/paginator";
+import { LocationsResourceParameter } from "@core/domain-classes/masters/locations-resource-parameter";
+import { StateDataSource } from "../state-datasource";
+import { StateService } from "../state.service";
+import { ResponseHeader } from "@core/domain-classes/response-header";
+import { tap } from "rxjs/operators";
 
 @Component({
-  selector: 'app-state-list-presentation',
-  templateUrl: './state-list-presentation.component.html',
-  styleUrls: ['./state-list-presentation.component.scss'],
+  selector: "app-state-list-presentation",
+  templateUrl: "./state-list-presentation.component.html",
+  styleUrls: ["./state-list-presentation.component.scss"],
 })
 export class StateListPresentationComponent
   extends BaseComponent
@@ -44,12 +44,13 @@ export class StateListPresentationComponent
     this.stateResource.pageSize = 10;
   }
   displayedColumns: string[] = [
-    'action',
-    'country',
-    'nameEnglish',
+    "country",
+    "nameEnglish",
+"status",
+    "action",
     // 'nameArab'
   ];
-  footerToDisplayed: string[] = ['footer'];
+  footerToDisplayed: string[] = ["footer"];
 
   ngOnInit(): void {
     this.loadData();
@@ -87,12 +88,12 @@ export class StateListPresentationComponent
   }
   deleteState(state: State): void {
     const areU = this.translationService.getValue(
-      'COMMON.ARE_YOU_SURE_YOU_WANT_TO_DELETE'
+      "COMMON.ARE_YOU_SURE_YOU_WANT_TO_DELETE"
     );
     this.sub$.sink = this.commonDialogService
       .deleteConformationDialog(
         `${areU} :: ${
-          this.translationService.getSelectedLanguage() == 'en'
+          this.translationService.getSelectedLanguage() == "en"
             ? state.nameEnglish
             : state.nameSecondLanguage
         }`
@@ -107,7 +108,7 @@ export class StateListPresentationComponent
   manageState(state: State) {
     this.dialog
       .open(ManageStateComponent, {
-        width: '450px',
+        width: "450px",
         data: Object.assign({}, state),
       })
       .afterClosed()

@@ -1,78 +1,146 @@
 <form [formGroup]="searchForm">
- <div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
-  <div class="col-md-9">
-    <div class="row">
-      <div class="col-md-3">
-        <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
-     </div>
-     <div class="col-md-3">
-        <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"></app-device-dropdown>
-     </div>
-  <div class="col-md-3">
-    <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
-  </div>
-  <div class="col-md-3">
-    <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
-  </div>
-  </div>
-  </div>
-  <div class="col-md-3 report-tool-bar">
-    <button type="submit" (click)="onSearch()" class="btn btn-primary btn-sm m-right-10"><i class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
-    </button>
-    <button type="submit" (click)="onClear()" class="btn btn-danger btn-sm m-right-10"><i class="fas fa-eraser"></i>
-      {{'COMMON.CLEAR' | translate}}
-    </button>
-    <button type="submit"(click)="onDownloadReport()" *ngIf="generalStockReportList.length"
-      class="btn btn-green btn-sm m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
-    </button>
-    <button type="submit"*ngIf="generalStockReportList.length" (click)="generatePdf()"
-      class="btn btn-warning btn-sm m-right-10"><i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
-    </button>
-  </div>
+  <div
+    class="row  details_card p-3 mt-1 mb-3 ml-1 mr-1"
+    [ngClass]="{
+      'form-label-ar': translationService.getSelectedLanguage() == 'ar'
+    }"
+  >
+    <div class="col-md-8 ">
+      <div class="row">
+        <div class="col-md-4">
+          <app-branch-dropdown
+            [group]="searchForm"
+            [controlName]="'branch'"
+            (branchUUID)="parentBranchHandlerFunction($event)"
+          ></app-branch-dropdown>
+        </div>
+        <!-- <div class="col-md-2">
+          <app-device-dropdown
+            [branch]="branchUUID"
+            [group]="searchForm"
+            [controlName]="'device'"
+          ></app-device-dropdown>
+        </div> -->
+        <!-- <div class="col-md-3">
+          <date-input
+            [group]="searchForm"
+            [controlName]="'fromDate'"
+            [label]="'COMMON.FROM'"
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'"
+            [isMandatory]="true"
+          ></date-input>
+        </div>
+        <div class="col-md-3">
+          <date-input
+            [group]="searchForm"
+            [controlName]="'toDate'"
+            [label]="'COMMON.TO'"
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'"
+            [isMandatory]="true"
+          ></date-input>
+        </div> -->
+      </div>
+    </div>
+    <div class="col-md-4 report-tool-bar">
+      <button
+        type="submit"
+        (click)="onSearch()"
+        class="btn blue-btn m-right-10"
+      >
+        <i class="fas fa-search"></i> {{ "COMMON.SEARCH" | translate }}
+      </button>
+      <button
+        type="submit"
+        (click)="onClear()"
+        class="btn btn-danger m-right-10"
+      >
+        <i class="fas fa-eraser"></i>
+        {{ "COMMON.CLEAR" | translate }}
+      </button>
+      <button
+        type="submit"
+        (click)="onDownloadReport()"
+        *ngIf="generalStockReportList.length"
+        class="btn btn-green m-right-10 ng-star-inserted"
+      >
+        <i class="fas fa-download"></i> {{ "COMMON.EXCEL" | translate }}
+      </button>
+      <button
+        type="submit"
+        *ngIf="generalStockReportList.length"
+        (click)="generatePdf()"
+        class="btn btn-warning m-right-10 ng-star-inserted"
+      >
+        <i class="fas fa-print"></i> {{ "COMMON.PRINT" | translate }}
+      </button>
+    </div>
   </div>
 </form>
+<!-- <div class="loading-shade">
+  <mat-spinner></mat-spinner>
+</div> -->
+<div class="stock-rport-table table-responsive table-scrolls">
+  <table class="table report-varient-table table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">{{ "COMMON.#" | translate }}</th>
+        <th class="text-center">
+          {{ "REPORTS.STOCK_REPORT.PRODUCT_ID" | translate }}
+        </th>
+        <th>{{ "REPORTS.STOCK_REPORT.ITEM_NAME" | translate }}</th>
+        <!-- <th class="text-center">
+          {{ "REPORTS.STOCK_REPORT.OPENING_STOCK" | translate }}
+        </th>
+        <th class="text-right">
+          {{ "REPORTS.STOCK_REPORT.OPENING_STOCK_VALUE" | translate }}
+        </th> -->
+        <th class="text-center">
+          {{ "REPORTS.STOCK_REPORT.CURRENT_STOCK" | translate }}
+        </th>
+        <th class="text-right">
+          {{ "REPORTS.STOCK_REPORT.CURRENT_STOCK_COST" | translate }}
+        </th>
+        <!-- <th class="text-right">
+          {{ "REPORTS.STOCK_REPORT.STOCK_VALUE" | translate }}
+        </th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of generalStockReportList; let i = index">
+        <td class="text-center">{{ i + 1 }}</td>
+        <td class="text-center">{{ item?.product?.productCode }}</td>
+        <td>
+          {{
+            translationService.getSelectedLanguage() == "en"
+              ? item?.product?.nameEnglish
+              : item?.product?.nameSecondLanguage
+          }}
+        </td>
+        <!-- <td class="text-center">{{ item?.openingStockQuantity }}</td>
+        <td class="text-right">{{ item?.openingStockValue }}</td> -->
+        <td class="text-center">{{ item?.currentStock }}</td>
+         <td class="text-right">{{ item?.currentCost }}</td>
+       <!-- <td class="text-right">{{ item?.stockValue }}</td> -->
+      </tr>
+      <tr *ngIf="generalStockReportList.length <= 0">
+        <td colspan="8" class="text-center">
+          {{ "COMMON.NO_DATA_FOUND" | translate }}
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="3" class="text-center">
+          {{ "REPORTS.STOCK_REPORT.TOTAL" | translate }}
+        </th>
+        <th colspan="5" class="text-center">{{ generalReport?.subtotal }}</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
-  <div class="stock-rport-table table-responsive table-scrolls">
-    <table class="table report-varient-table table-striped table-hover">
-      <thead>
-        <tr>
-        <th class="text-center">{{'COMMON.#' | translate}}</th>
-        <th class="text-center">{{'REPORTS.STOCK_REPORT.PRODUCT_ID' | translate}}</th>
-        <th>{{'REPORTS.STOCK_REPORT.ITEM_NAME' | translate}}</th>
-        <th class="text-center">{{'REPORTS.STOCK_REPORT.OPENING_STOCK' | translate}}</th>
-        <th class="text-right">{{'REPORTS.STOCK_REPORT.OPENING_STOCK_VALUE' | translate}}</th>
-        <th class="text-center">{{'REPORTS.STOCK_REPORT.CURRENT_STOCK' | translate}}</th>
-        <th class="text-right">{{'REPORTS.STOCK_REPORT.CURRENT_STOCK_COST' | translate}}</th>
-        <th class="text-right">{{'REPORTS.STOCK_REPORT.STOCK_VALUE' | translate}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of generalStockReportList; let i=index">
-        <td class="text-center">{{i+1}}</td>
-        <td class="text-center">{{item?.product?.productCode}}</td>
-        <td>{{translationService.getSelectedLanguage()=='en'?item?.product?.nameEnglish:item?.product?.nameSecondLanguage}}</td>
-        <td class="text-center">{{item?.openingStockQuantity}}</td>
-        <td class="text-right">{{item?.openingStockValue}}</td>
-        <td class="text-center">{{item?.currentStock}}</td>
-        <td class="text-right">{{item?.currentCost}}</td>
-        <td class="text-right">{{item?.stockValue}}</td>
-        </tr>
-        <tr *ngIf="generalStockReportList.length<=0">
-          <td  colspan="8" class="text-center">
-            {{'COMMON.NO_DATA_FOUND' | translate}}
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <th colspan="3" class="text-center">{{'REPORTS.STOCK_REPORT.TOTAL' | translate}}</th>
-          <th colspan="5" class="text-center">{{generalReport?.subtotal}}</th>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-
-  <ng-container *ngIf="generalReportPdf">
-    <app-general-stock-report-pdf [generalstockWiseReport]="generalReportPdf"></app-general-stock-report-pdf>
+<ng-container *ngIf="generalReportPdf">
+  <app-general-stock-report-pdf
+    [generalstockWiseReport]="generalReportPdf"
+  ></app-general-stock-report-pdf>
 </ng-container>
-

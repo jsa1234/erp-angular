@@ -1,5 +1,13 @@
 .primary-message {
-    font: 400 16px/28px Roboto,Helvetica Neue,sans-serif !important;
+    font: 400 16px/28px Inter,Helvetica Neue,sans-serif !important;
     letter-spacing: normal !important;
     margin: 0 0 16px !important;
 }
+.btn-danger{
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }

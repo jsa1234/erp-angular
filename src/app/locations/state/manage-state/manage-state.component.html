@@ -1,62 +1,137 @@
 <div class="modal-content1">
-    <div class="modal-header">
-        <div class="d-flex w-100 align-items-center justify-content-between">
-            <div class="col-md-9 col">
-                <h4 class="modal-title">
-                    {{'LOCATIONS.STATE.MANAGE_STATE' |translate}}
-                </h4>
-            </div>
-            <div class="col-sm-auto col-auto ml-auto">
-                <button type="button" class="close" data-dismiss="modal" (click)="onCancel(false)" >
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
+  <div class="modal-header">
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <div class="col-md-9 col">
+        <h4 class="modal-title">
+          {{ "LOCATIONS.STATE.MANAGE_STATE" | translate }}
+        </h4>
+      </div>
+      <div class="col-sm-auto col-auto ml-auto">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          (click)="onCancel(false)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="21"
+            viewBox="0 0 20 21"
+            fill="none"
+          >
+            <path
+              d="M15.1725 14.4939C15.498 14.8193 15.498 15.3469 15.1725 15.6724C14.8471 15.9978 14.3194 15.9978 13.994 15.6724L9.99995 11.6784L6.00601 15.6724C5.68058 15.9978 5.15294 15.9978 4.8275 15.6724C4.50206 15.3469 4.50206 14.8193 4.82749 14.4939L8.82143 10.4999L4.82733 6.50583C4.50189 6.18039 4.50189 5.65276 4.82733 5.32733C5.15277 5.00189 5.68041 5.00189 6.00585 5.32733L9.99993 9.32134L13.9939 5.32734C14.3193 5.0019 14.8469 5.0019 15.1724 5.32733C15.4978 5.65277 15.4978 6.1804 15.1724 6.50584L11.1784 10.4998L15.1725 14.4939Z"
+              fill="#000"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
-    <form [formGroup]="stateForm">
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="">{{'LOCATIONS.STATE.COUNTRY' |translate}} <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <mat-select placeholder="" class="form-control"
-                                class="form-control" formControlName="countryUUID">
-                                <mat-option *ngFor="let item of country" [value]="item.countryUUID">{{translationService.getSelectedLanguage() == 'en'?item.nameEnglish:item.nameSecondLanguage}}
-                                </mat-option>
-                            </mat-select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">{{'LOCATIONS.STATE.STATE_NAME_ENGLISH' |translate}}<span class="text-danger">*</span></label>
-                        <input formControlName="nameEnglish" type="text" class="form-control" id="">
-                    </div>
-                    <!-- <div class="form-group">
+  </div>
+  <form [formGroup]="stateForm">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for=""
+              >{{ "LOCATIONS.STATE.COUNTRY" | translate }}
+              <span class="text-danger">*</span></label
+            >
+            <div class="input-group">
+              <mat-select
+                placeholder=""
+                class="form-control"
+                class="form-control"
+                formControlName="countryUUID"
+              >
+                <mat-option
+                  *ngFor="let item of country"
+                  [value]="item.countryUUID"
+                  >{{
+                    translationService.getSelectedLanguage() == "en"
+                      ? item.nameEnglish
+                      : item.nameSecondLanguage
+                  }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for=""
+              >{{ "LOCATIONS.STATE.STATE_NAME_ENGLISH" | translate
+              }}<span class="text-danger">*</span></label
+            >
+            <input
+              formControlName="nameEnglish"
+              type="text"
+              class="form-control"
+              id=""
+            />
+          </div>
+          <!-- <div class="form-group">
                         <label for="">{{'LOCATIONS.STATE.STATE_NAME_ARABIC' |translate}}<span class="text-danger">*</span></label>
                         <input formControlName="nameSecondLanguage" type="text" class="form-control text-arabics" id="">
                     </div> -->
-                    <div class="form-group" *ngIf="isEdit">
-                        <label for="unitName">{{"COMMON.IS_ACTIVE" | translate}}</label>
-                        <mat-slide-toggle formControlName="isActive" class="active-togle">{{ (isActive ? 'COMMON.ACTIVE' : 'COMMON.INACTIVE') | translate }}</mat-slide-toggle>
-                    </div>
-                </div>
-            </div>
+          <div class="form-group" *ngIf="isEdit">
+            <label for="unitName">{{ "COMMON.IS_ACTIVE" | translate }}</label>
+            <mat-slide-toggle formControlName="isActive" class="active-togle">{{
+              (isActive ? "COMMON.ACTIVE" : "COMMON.INACTIVE") | translate
+            }}</mat-slide-toggle>
+          </div>
         </div>
-        <div class="modal-footer">
-            <div class="form-row w-100">
-                <div class="col-md-auto col-auto">
-                    <ng-container>
-                        <button class="btn btn-success btn-sm m-right-10" (click)="saveState()">
-                            <i class="fas fa-save"></i>
-                            {{"COMMON.SAVE" | translate}}
-                        </button>
-                    </ng-container>
-                    <button class="btn btn-danger btn-sm" (click)="onCancel(false)">
-                        <i class="fas fa-times-circle"></i>
-                        {{"COMMON.CANCEL" | translate}}
-                    </button>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="form-row w-100">
+        <div class="col-md-auto col-auto">
+          <ng-container>
+            <button
+              class="btn blue-btn m-right-10"
+              (click)="saveState()"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 9.00047V10.9085C3 13.3423 3 14.5592 3.66455 15.3834C3.79881 15.5499 3.95048 15.7016 4.117 15.8359C4.94123 16.5005 6.15811 16.5005 8.59185 16.5005C9.12105 16.5005 9.38557 16.5005 9.6279 16.415C9.6783 16.3971 9.72765 16.3767 9.77587 16.3536C10.0077 16.2428 10.1947 16.0557 10.5689 15.6815L14.1213 12.1291C14.5549 11.6956 14.7716 11.4788 14.8858 11.2031C15 10.9275 15 10.6209 15 10.0078V7.50047C15 4.67201 15 3.2578 14.1213 2.37912C13.327 1.58475 12.0949 1.50853 9.77587 1.50122M9.75 16.1255V15.7505C9.75 13.6291 9.75 12.5684 10.409 11.9094C11.068 11.2505 12.1287 11.2505 14.25 11.2505H14.625"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9 4.49976H3M6 1.49976V7.49975"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              {{ "COMMON.SAVE" | translate }}
+            </button>
+          </ng-container>
+          <button class="btn btn-cancel" (click)="onCancel(false)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="21"
+              viewBox="0 0 20 21"
+              fill="none"
+            >
+              <path
+                d="M15.1725 14.4939C15.498 14.8193 15.498 15.3469 15.1725 15.6724C14.8471 15.9978 14.3194 15.9978 13.994 15.6724L9.99995 11.6784L6.00601 15.6724C5.68058 15.9978 5.15294 15.9978 4.8275 15.6724C4.50206 15.3469 4.50206 14.8193 4.82749 14.4939L8.82143 10.4999L4.82733 6.50583C4.50189 6.18039 4.50189 5.65276 4.82733 5.32733C5.15277 5.00189 5.68041 5.00189 6.00585 5.32733L9.99993 9.32134L13.9939 5.32734C14.3193 5.0019 14.8469 5.0019 15.1724 5.32733C15.4978 5.65277 15.4978 6.1804 15.1724 6.50584L11.1784 10.4998L15.1725 14.4939Z"
+                fill="#000"
+              />
+            </svg>
+            {{ "COMMON.CANCEL" | translate }}
+          </button>
         </div>
-    </form>
+      </div>
+    </div>
+  </form>
 </div>

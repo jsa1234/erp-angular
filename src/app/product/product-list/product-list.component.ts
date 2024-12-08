@@ -22,6 +22,7 @@ import {
   animate,
 } from '@angular/animations';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-product-list',
@@ -42,23 +43,23 @@ export class ProductListComponent extends BaseComponent implements OnInit {
   dataSource: ProductDataSource;
   products: Product[] = [];
   displayedColumns: string[] = [
-    'action',
     'productCode',
     'nameEnglish',
     // 'nameSecondLanguage',
     'category',
     'sub-category',
     'brand',
+    'action',
     // 'partNo',
   ];
   searchHeaders: string[] = [
-    'action-search',
     'code-search',
-    'nameEnglish-search',
+  //  'nameEnglish-search',
     // 'nameSecondLanguage-search',
     'category-search',
     'sub-search',
     'brand-search',
+    'action-search',
     // 'part-search',
   ];
   footerToDisplayed: string[] = ['footer'];
@@ -80,7 +81,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     private router: Router,
     public translationService: TranslationService,
     private cd: ChangeDetectorRef,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private branchService: BranchService
   ) {
     super();
     this.productResource = new ProductResourceParameter();
@@ -89,12 +91,14 @@ export class ProductListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     this.branchService.isHeadOfficeSubject$.next(true);
       this.createFilterForm()
       this.onLoadData()
   }
 
 
   onLoadData(){
+
     this.dataSource = new ProductDataSource(this.productService);
     this.dataSource.loadData(this.productResource);
     this.getResourceParameter();
@@ -155,6 +159,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 
 
   ngAfterViewInit() {
+
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     this.sub$.sink = merge(this.sort.sortChange, this.paginator.page)
@@ -220,4 +225,17 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     this.expandedElement = this.expandedElement === product ? null : product;
     this.cd.detectChanges();
   }
+  //for enter key search...
+  // onFilterApply(): void {
+  //   const formValues = this.filterForm.getRawValue();
+  //   this.productResource.skip = 0;
+  //   this.productResource.nameEnglish = formValues.nameEnglish;
+  //   this.productResource.category = formValues.category;
+  //   this.productResource.subCategory = formValues.subCategory;
+  //   this.productResource.brand = formValues.brand;
+  //   this.productResource.productCode = formValues.productCode;
+  //   this.dataSource.loadData(this.productResource);
+  // }
+  
+  
 }

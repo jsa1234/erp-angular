@@ -12,3 +12,26 @@ table.mat-table {
   .content-header h1 span {
     margin-left: 25px;
   }
+  td.mat-cell {
+    border: 0;
+    border-bottom: 1px solid #dee2e6;
+    z-index: 0 !important;
+  }
+  table {
+    width: 100%;
+  }
+  .table tr th {
+    border: none;
+    border-bottom: 1px solid #dee2e6 !important;
+    border-top: 1px solid #dee2e6 !important;
+    border-block-end: 1px solid #dee2e6 !important;
+    background-color: #F8F9FD;
+ 
+  }
+  .table-responsive{
+    border-radius: 20px;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }

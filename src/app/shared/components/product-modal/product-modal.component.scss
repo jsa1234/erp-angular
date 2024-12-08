@@ -19,3 +19,20 @@ mat-radio-group.mat-radio-group {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.highlight {
+  padding: 20px;
+  background-color: #f5f7fa !important;
+  border-left: 4px solid #fdb374 !important;
+  table{
+    thead{
+      background-color: transparent !important;
+    }
+  }
+  .table th, .table td {
+    padding: 1.2rem;
+    vertical-align: middle !important;
+}
+}
+.highlight > * {
+  background-color: inherit !important;
+}

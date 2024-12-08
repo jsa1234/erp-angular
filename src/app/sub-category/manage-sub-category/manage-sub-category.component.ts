@@ -82,8 +82,10 @@ export class ManageSubCategoryComponent
       return;
     }
     const subcategoryData: ProductSubcategory = this.subcategoryForm.getRawValue();
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
     // subcategoryData.categoryUUID = subcategoryData.productCategory?.categoryUUID
-    subcategoryData.branchUUID = subcategoryData.branchUUID ||  environment.branchUUID;
+    subcategoryData.branchUUID = subcategoryData.branchUUID ||  branchUUID;
 
     if (this.data.isUpdate) {
       this.productSubcategoryService.update(subcategoryData).subscribe(() => {

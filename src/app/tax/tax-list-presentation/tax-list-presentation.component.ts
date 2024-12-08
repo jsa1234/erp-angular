@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { Tax } from '@core/domain-classes/tax';
 import { TranslationService } from '@core/services/translation.service';
 import { BaseComponent } from 'src/app/base.component';
 import { ManageTaxComponent } from '../manage-tax/manage-tax.component';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-tax-list-presentation',
@@ -19,9 +20,9 @@ export class TaxListPresentationComponent
   @Input() loading: boolean = false;
   @Output() deleteTaxHandler: EventEmitter<string> = new EventEmitter<string>();
   displayedColumns: string[] = [
-    'action',
+   
     'taxType',
-    'taxBehaviour',
+    //'taxBehaviour',
     'code',
     'nameEnglish',
     // 'nameSecondLanguage',
@@ -29,16 +30,21 @@ export class TaxListPresentationComponent
     'cgst',
     'sgst',
     'igst',
+    'status',
+    'action',
   ];
   constructor(
     private dialog: MatDialog,
     private commonDialogService: CommonDialogService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private branchService: BranchService
   ) {
     super();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
+  }
 
   deleteTax(tax: Tax): void {
     const taxName =

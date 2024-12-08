@@ -4,10 +4,10 @@
     font-weight: bold;
 }
 
-.head {
-    background-color: #ececec;
-    text-align: center;
-}
+// .head {
+//     background-color: #ececec;
+//     text-align: center;
+// }
 .invoivce-logoimg img {
     width: 60%;
 }
@@ -41,3 +41,27 @@
   border: 1px solid #d6d6d6;
   padding: 10px;
 }
+// .table{
+//     thead{
+//       background-color: #ae9393 !important;
+//     }
+//   }
+  .product-variant-table {
+      display: block !important;
+      table {
+        border-top-left-radius: 20px !important;
+        border-top-right-radius: 20px !important;
+      thead {
+        background-color: #8E8F93 !important;
+        color:#fff;
+      }
+      tr th {
+        padding: 10px;
+        // border: 1px solid #d4d4d4;
+        border: none;
+      }
+      tr td{
+        border: none;
+      }
+    }
+  }

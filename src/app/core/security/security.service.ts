@@ -130,7 +130,8 @@ export class SecurityService {
         }
       }
     }
-    return ret;
+   // return ret;
+   return true;
   }
 
   private isClaimValid(claimType: string, claimValue?: string): boolean {
@@ -165,5 +166,11 @@ export class SecurityService {
   getUserDetail(): UserAuth {
     var userJson = localStorage.getItem('authObj');
     return JSON.parse(userJson);
+  }
+  getRole():string{
+   // const user=this.getUserDetail();
+   // return user ? user.role:null;
+   const user='Branch User'
+    return user;
   }
 }

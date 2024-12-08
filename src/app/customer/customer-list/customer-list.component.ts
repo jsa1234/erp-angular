@@ -24,7 +24,7 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
   dataSource: CustomerDataSource;
   customers: ICustomerAccount[] = [];
   displayedColumns: string[] = [
-    'action',
+    
     'nameEnglish',
     // 'nameSecondLanguage',
     'email',
@@ -32,13 +32,18 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
     'state',
     'district',
     'salesman',
+    'action',
   ];
   searchHeader: string[] = [
-    'action-search',
+   
     'nameEnglish-search',
     // 'nameSecondLanguage-search',
     'email-search',
     'mobNo-search',
+    'sales-search',
+    'sales-search',
+    'sales-search',
+    'action-search',
   ];
   columnsToDisplay: string[] = ['footer'];
   isLoadingResults = true;

@@ -2,18 +2,27 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon39"></i> <span>{{'CURRENT_ONLINE_USERS.ONLINE_USERS' | translate}}</span></h1>
+        <h1> {{'CURRENT_ONLINE_USERS.ONLINE_USERS' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'CURRENT_ONLINE_USERS.ONLINE_USERS' | translate}}</span>
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+        <g clip-path="url(#clip0_202_698)">
+        <path d="M6 4.5L10 8.5L6 12.5" stroke="#4A4A4A" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_202_698">
+        <rect width="16" height="16" fill="white" transform="translate(0 0.5)"/>
+        </clipPath>
+        </defs>
+        </svg> <span>{{'CURRENT_ONLINE_USERS.ONLINE_USERS' | translate}}</span>
     </div>
   </div>
 </div>
-<div class="table-responsive">
-  <table class="table table-bordered table-hover">
+<div class="table-responsive session-table-user">
+  <table class="table ">
     <thead>
       <tr>
         <th> {{'COMMON.EMAIL' | translate}}</th>

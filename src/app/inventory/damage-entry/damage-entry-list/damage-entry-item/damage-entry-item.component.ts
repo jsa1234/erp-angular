@@ -17,7 +17,7 @@ isLoading:boolean = false;
   constructor(public translate:TranslationService,private damageService: DamageEntryService,) {
     super();
   }
-  displayedColumns: string[] = ['slNo', 'productCode','productName','barcode','stock',  'damageQuantity',  'avgRate', 'unit','decription','total'];
+  displayedColumns: string[] = ['slNo', 'productCode','productName','barcode',  'damageQuantity',  'avgRate', 'unit','decription','total'];
 
 
   ngOnInit(): void {

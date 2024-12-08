@@ -12,6 +12,8 @@ export class OpeningStock {
   branchUUID: string;
   baseUnitNameEnglish: string;
   baseUnitNameArabic: string;
+  productCategoryNameEnglish:string;
+  productSubCategoryNameEnglish:string;
   openingStockProductDetails: OpeningStockProductDetail[];
   productCategory: ProductCategory;
   productSubCategory: ProductSubcategory;
@@ -37,6 +39,8 @@ export class OpeningStock {
     this.nameSecondLanguage = value.nameSecondLanguage;
     this.baseUnitNameArabic = value.baseUnitNameArabic;
     this.baseUnitNameEnglish = value.baseUnitNameEnglish;
+    this.productCategoryNameEnglish=value.productCategoryNameEnglish;
+    this.productSubCategoryNameEnglish=value.productSubCategoryNameEnglish;
     this.openingStockProductDetails = value.openingStockProductDetails;
     this.productCategory = value.productCategory;
     this.productSubCategory = value.productSubCategory;

@@ -31,6 +31,7 @@ export class ManageCategoryComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.createForm();
     if (this.data.categoryUUID) {
       this.data.isUpdate = true
@@ -43,6 +44,7 @@ export class ManageCategoryComponent extends BaseComponent implements OnInit {
 
   createForm() {
     let uuid = Guid()
+    
     this.categoryForm = this.fb.group({
       categoryUUID: [uuid],
       nameEnglish :['', Validators.required],
@@ -50,9 +52,10 @@ export class ManageCategoryComponent extends BaseComponent implements OnInit {
       descriptionEnglish :[''],
       // descriptionSecondLanguage :[''],
       code :[''],
-      branchUUID:[environment.branchUUID],
+      branchUUID:[''],
       allowNonStock:[false],
       allowZeroPrice:[false],
+      isTop:[false],
       isActive:[true]
 
 
@@ -61,6 +64,8 @@ export class ManageCategoryComponent extends BaseComponent implements OnInit {
   get isActive():boolean {return this.categoryForm.get('isActive').value}
   get allowNonStock():boolean {return this.categoryForm.get('allowNonStock').value}
   get allowZeroPrice():boolean {return this.categoryForm.get('allowZeroPrice').value}
+  get isTop():boolean {return this.categoryForm.get('isTop').value}
+
   onCancel(isLoad:boolean): void {
     this.dialogRef.close(isLoad);
   }
@@ -71,7 +76,9 @@ export class ManageCategoryComponent extends BaseComponent implements OnInit {
       return;
     }
     const categoryData: ProductCategory = this.categoryForm.getRawValue();
-    categoryData.branchUUID = categoryData.branchUUID || environment.branchUUID
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
+    categoryData.branchUUID = categoryData.branchUUID || branchUUID
     
     if (this.data.isUpdate) {
       this.productCategoryService.update(categoryData).subscribe(() => {

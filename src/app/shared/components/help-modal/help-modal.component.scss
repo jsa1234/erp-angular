@@ -1,0 +1,81 @@
+.modal-container {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 8px;
+    font-family: 'Inter', sans-serif;
+    width: 550px;
+    top: 194px;
+    left: 677px;
+    gap: 0px;
+    opacity: 0px;
+
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border: none;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .close-button {
+    color: #333;
+    font-size: 20px;
+    border: none;
+    background: none;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-spacing: 0;
+    margin-top: 20px;
+  }
+  
+  .custom-table thead th {
+    
+    background: #DEDFE3;
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+  
+  }
+  
+  .custom-table tbody tr td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .custom-table tbody tr:nth-child(odd) {
+    background: #F8F9FD;
+
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+    border: none;
+  }
+  
+  .close-btn {
+    background: none;
+    border-radius: 5px;
+    border:1px solid;
+    color: #333;
+    padding: 10px 14px;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  
+  .close-btn mat-icon {
+    font-size: 16px;
+    margin-right: 5px;
+  }
+  .mat-dialog-container {
+    display: inline !important;
+  }

@@ -2,21 +2,18 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon19"></i> <span>{{'INVENTORY.STOCK_TRANSFER.MANAGE_STOCK_TRANSFER' | translate}}</span></h1>
+        <h1>{{'INVENTORY.STOCK_TRANSFER.MANAGE_STOCK_TRANSFER' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
-        [routerLink]="['/inventory/stock-transfer']">{{'SIDEBAR.STOCK_TRANSFER' | translate}}</a> /
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i>  <a
+        [routerLink]="['/inventory/stock-transfer']">{{'SIDEBAR.STOCK_TRANSFER' | translate}}</a> <i class="chevron-icon"></i> 
       <span>{{'INVENTORY.STOCK_TRANSFER.MANAGE_STOCK_TRANSFER' | translate}}</span>
     </div>
   </div>
 </div>
-
-
-
 
 <form [formGroup]="stockTransferForm">
   <div class="row">
@@ -90,13 +87,15 @@
           <div class="col-md-4 col-sm-12">
             <div class="form-group">
               <app-branch-dropdown [group]="stockTransferForm" [controlName]="'sourceBranchUUID'" [isAddAll]="false"
-                [label]="'INVENTORY.STOCK_TRANSFER.SOURCE_BRANCH'" [isMandatory]="true" [isDefault]="false"></app-branch-dropdown>
+                [label]="'INVENTORY.STOCK_TRANSFER.SOURCE_BRANCH'" [isMandatory]="true" 
+                [isDisabled]="isUpdate" [isDefault]="false"></app-branch-dropdown>
             </div>
           </div>
           <div class="col-md-4 col-sm-12">
             <div class="form-group">
               <app-branch-dropdown [group]="stockTransferForm" [controlName]="'destinationBranchUUID'"
-                [isAddAll]="false" [label]="'INVENTORY.STOCK_TRANSFER.DESTINATION_BRANCH'" [isMandatory]="true"  [isDefault]="false"></app-branch-dropdown>
+                [isAddAll]="false" [label]="'INVENTORY.STOCK_TRANSFER.DESTINATION_BRANCH'"
+                 [isMandatory]="true"   [isDisabled]="isUpdate" [isDefault]="false"></app-branch-dropdown>
             </div>
           </div>
           <div class="col-md-4 col-sm-12">
@@ -194,8 +193,8 @@
 
         </table>
       </div>
-      <div class="text-center">
-        <button class="btn btn-success btn-sm mr-2 m-left-10 mt-2" (click)="save()">submit</button>
+      <div class="text-right">
+        <button class="btn blue-btn mr-2 m-left-10 mt-2" (click)="save()">Submit <i class="icon61"></i></button>
       </div>
     </div>
   </div>

@@ -43,3 +43,38 @@ table.mat-table {
 .content-header h1 span {
   margin-left: 30px;
 }
+.filter-search button {
+  // height: calc(1.5em + 0.75rem + 13px) !important;
+}
+td.mat-cell {
+  border: 0;
+  border-bottom: 1px solid #dee2e6;
+  z-index: 0 !important;
+}
+table {
+  width: 100%;
+}
+.table tr th {
+  border: none;
+  border-bottom: 1px solid #dee2e6 !important;
+  border-top: 1px solid #dee2e6 !important;
+  border-block-end: 1px solid #dee2e6 !important;
+  background-color: #F8F9FD;
+
+}
+.table-responsive{
+  border-radius: 20px;
+  //overflow: hidden;
+}
+hr{
+  width: 90% !important;
+  margin: 0 10px 0 10px;
+  }
+
+  .highlight {
+  background-color: #f5f7fa !important;
+  border-left: 4px solid #fdb374 !important;
+}
+.highlight > * {
+  background-color: inherit !important;
+}

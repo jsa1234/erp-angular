@@ -17,6 +17,7 @@ import { InventoryService } from '../../inventory.service';
 import { StockTransferDataSource } from './stock-transfer-datasource';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from '@shared/services/loader.service';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-stock-transfer-list',
@@ -44,7 +45,7 @@ export class StockTransferListComponent extends BaseComponent implements OnInit 
   _docNoFilter: string;
   expandedElement: IStockTransfer | null;
 
-  displayedColumns: string[] = ['action', 'docDate', 'docNo','refInvDate','refInvNo','sourceBranch','destinationBranch'];
+  displayedColumns: string[] = [ 'docDate', 'docNo','refInvDate','refInvNo','sourceBranch','destinationBranch','action'];
   filterColumns: string[] = ['action-search', 'docDate-search', 'docNo-search','refInvDate-search','refInvNo-search','sourceBranch-search','destinationBranch-search'];
   footerToDisplayed: string[] = ['footer'];
   isLoading$: any;
@@ -78,7 +79,9 @@ export class StockTransferListComponent extends BaseComponent implements OnInit 
     private cd: ChangeDetectorRef,
     private commonDialogService:CommonDialogService,
     private loader:LoaderService,
-    private toastrService:ToastrService) {
+    private toastrService:ToastrService,
+    private branchService:BranchService
+  ) {
     super()
     this.stockTransferResource = new StockTransferResourceParameter();
     this.stockTransferResource.pageSize = this.defaultPageSize;
@@ -148,6 +151,7 @@ onLoadData()
       }
       this.dataSource.loadData(this.stockTransferResource);
     });
+    this.branchService.isHeadOfficeSubject$.next(true);
 }
 
 ngAfterViewInit() {

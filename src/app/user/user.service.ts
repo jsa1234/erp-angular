@@ -8,68 +8,56 @@ import { catchError } from 'rxjs/operators';
 import { UserClaim } from '@core/domain-classes/user-claim';
 import { UserResource } from '@core/domain-classes/user-resource';
 import { SystemFlagConfiguration } from '@core/domain-classes/device-configuration.interface';
-
 @Injectable({ providedIn: 'root' })
 export class UserService {
-
   constructor(
     private httpClient: HttpClient,
     private commonHttpErrorService: CommonHttpErrorService) { }
-
-  updateUser(user: User): Observable<User | CommonError> {
-    const url = `user/${user.id}`;
-    return this.httpClient.put<User>(url, user)
+  updateUser(user: any,id:string): Observable<any | CommonError> {
+    const url = `user/${id}`;
+    return this.httpClient.put<any>(url, user)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
-  addUser(user: User): Observable<User | CommonError> {
+  addUser(user: any): Observable<any | CommonError> {
     const url = `user`;
-    return this.httpClient.post<User>(url, user)
+    return this.httpClient.post<any>(url, user)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   deleteUser(id: string): Observable<void | CommonError> {
     const url = `user/${id}`;
     return this.httpClient.delete<void>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   getUser(id: string): Observable<User | CommonError> {
     const url = `user/${id}`;
     return this.httpClient.get<User>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   updateUserClaim(userClaims: UserClaim[], userId: string): Observable<User | CommonError> {
     const url = `UserClaim/${userId}`;
     return this.httpClient.put<User>(url, { userClaims })
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   resetPassword(user: User): Observable<User | CommonError> {
     const url = `user/resetpassword`;
     return this.httpClient.post<User>(url, user)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   changePassword(user: User): Observable<User | CommonError> {
     const url = `user/changepassword`;
     return this.httpClient.post<User>(url, user)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   updateUserProfile(user: User): Observable<User | CommonError> {
     const url = `user/profile`;
     return this.httpClient.put<User>(url, user)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   getUserProfile(): Observable<User | CommonError> {
     const url = `user/profile`;
     return this.httpClient.get<User>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   getUsers(resource: UserResource): Observable<HttpResponse<User[]> | CommonError> {
     const url = `user/GetUsers`;
     const customParams = new HttpParams()
@@ -79,25 +67,21 @@ export class UserService {
       .set('Skip', resource.skip.toString())
       .set('SearchQuery', resource.searchQuery)
       .set('name', resource.name.toString())
-
     return this.httpClient.get<User[]>(url, {
       params: customParams,
       observe: 'response'
     }).pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   getRecentlyRegisteredUsers(): Observable<User[] | CommonError> {
     const url = `user/GetRecentlyRegisteredUsers`;
     return this.httpClient.get<User[]>(url)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   updateProfilePhoto(form: FormData): Observable<User | CommonError> {
     const url = `user/UpdateUserProfilePhoto`;
     return this.httpClient.post<User>(url, form)
       .pipe(catchError(this.commonHttpErrorService.handleError));
   }
-
   getUserConfigurations(id:string):Observable<SystemFlagConfiguration[] | CommonError>{
     const url = `User/GetUserSystemFlags/${id}`;
     return this.httpClient.get<SystemFlagConfiguration[]>(url).pipe(catchError(this.commonHttpErrorService.handleError));

@@ -9,6 +9,7 @@ export class UserAuth {
   lastName: string = '';
   email: string = '';
   phoneNumber: string = '';
+  role:string;
   bearerToken: string = '';
   isAuthenticated: boolean = false;
   profilePhoto?: string;

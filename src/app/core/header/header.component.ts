@@ -65,7 +65,9 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   languages: LanguageFlag[] = [];
   profilePath = '';
   logoImage = '';
+  currentTime: Date = new Date();
   branchForm:FormGroup;
+  version=environment.version;
   constructor(
     private router: Router,
     private securityService: SecurityService,
@@ -76,7 +78,11 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     private branchService:BranchService
   ) {
     super();
+    setInterval(() => {
+      this.currentTime = new Date();
+    }, 1000); 
   }
+
 
   ngOnInit(): void {
     this.languages = Languages.languages;

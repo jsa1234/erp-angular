@@ -219,8 +219,8 @@ export class PurchaseService {
        igstAmount: igstAmount,
        igstRate: prodcutItem.igstRate || 0,
        itemTotalAmount: itemTotalAmount,
-       product: JSON.stringify(prodcutItem?.productObject),
-       productObject: prodcutItem?.productObject,
+       product: JSON.stringify(prodcutItem?.product),//bug fix
+       productObject: prodcutItem?.product,//bug fix
        productPriceUUID: prodcutItem?.productPriceUUID,
        productUUID: prodcutItem?.productUUID,
        purchaseInvoiceDetailUUID: uuid(),
@@ -376,7 +376,7 @@ createPurchaseInvoiceData(formData:PurchaseForm,purchaseItem:PurchaseInvoiceDeta
   
 
   UpdatePrices(purchaseInvoiceDetail:PurchaseInvoiceDetail[]):Observable<any>{
-    const url = 'Product/UpdatePrices'
+    const url = 'Product_Web/UpdatePrices'
     return this.http.put<any>(url,purchaseInvoiceDetail)
   }
 }

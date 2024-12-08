@@ -28,6 +28,7 @@ import {
 import { BaseComponent } from 'src/app/base.component';
 import { JournalService } from '../journal.service';
 import { JournalDataSource } from './journal.datasource';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-journal-list',
@@ -49,18 +50,20 @@ export class JournalListComponent extends BaseComponent implements OnInit {
   filterForm: FormGroup;
   dataSource: JournalDataSource;
   displayedColumns: string[] = [
-    'action',
+   
     'docNo',
     'docDate',
     'totalCrAmount',
     'totalDrAmount',
+    'action',
   ];
   filterColumns: string[] = [
-    'action-search',
+   
     'journalNo-search',
     'journalDate-search',
     'totalCrAmount-search',
     'totalDrAmount-search',
+    'action-search',
   ];
   pageSizeOptions:number[];
   footerToDisplayed: string[] = ['footer'];
@@ -71,7 +74,7 @@ export class JournalListComponent extends BaseComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   expandedElement: IJournal | null;
   branchUUID: any;
-
+  selectedValue=-1;
 
   constructor(
     private fb: FormBuilder,
@@ -80,7 +83,8 @@ export class JournalListComponent extends BaseComponent implements OnInit {
     public translationService: TranslationService,
     private loader:LoaderService,
     private toastrService:ToastrService,
-    private commonDialogService:CommonDialogService
+    private commonDialogService:CommonDialogService,
+    private branchService:BranchService
   ) {
     super();
     this.journalResource = new JournalResourceParameter();
@@ -91,6 +95,7 @@ export class JournalListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
     this.createSearchForm();
     this.createFilterForm();

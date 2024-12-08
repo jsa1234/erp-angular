@@ -1,60 +1,95 @@
 <form [formGroup]="searchForm">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-4">
-            <app-branch-dropdown [group]="searchForm" [controlName]="'branch'"
-              (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
-          </div>
-          <div class="col-md-4">
-            <app-device-dropdown [branch]="branchUUID" [group]="searchForm"
-              [controlName]="'device'"></app-device-dropdown>
-          </div>
-          <div class="col-md-4">
-            <app-customer-dropdown [group]="searchForm" [controlName]="'customer'" ></app-customer-dropdown>
-          </div>
-          <div class="col-md-4">
-            <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'"
-              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
-          </div>
-          <div class="col-md-4">
-            <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'"
-              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <app-transaction-mode-dropdown [group]="searchForm" [controlName]="'mode'" [isMandatory]="false"></app-transaction-mode-dropdown>
-            </div>
+  <div class="row details_card p-3 m-1">
+    <div class="col-md-12">
+      <div class="row">
+        <!-- Branch Dropdown -->
+        <div class="col-md-3">
+          <app-branch-dropdown 
+            [group]="searchForm" 
+            [controlName]="'branch'" 
+            (branchUUID)="parentBranchHandlerFunction($event)">
+          </app-branch-dropdown>
+        </div>
+
+        <!-- Transaction Mode Dropdown -->
+        <div class="col-md-3">
+          <div class="form-group">
+            <app-transaction-mode-dropdown 
+              [group]="searchForm" 
+              [controlName]="'mode'" 
+              [isMandatory]="false">
+            </app-transaction-mode-dropdown>
           </div>
         </div>
+
+        <!-- From Date -->
+        <div class="col-md-3">
+          <date-input 
+            [group]="searchForm" 
+            [controlName]="'fromDate'" 
+            [label]="'COMMON.FROM'" 
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" 
+            [isMandatory]="true">
+          </date-input>
+        </div>
+
+        <!-- To Date -->
+        <div class="col-md-3">
+          <date-input 
+            [group]="searchForm" 
+            [controlName]="'toDate'" 
+            [label]="'COMMON.TO'" 
+            [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" 
+            [isMandatory]="true">
+          </date-input>
+        </div>
       </div>
-      <div class="col-md-3 report-tool-bar">
-        <button type="submit" (click)="onSearch()" class="btn btn-primary btn-sm m-right-10"><i class="fas fa-search"></i>
-          {{'COMMON.SEARCH' | translate}}
-        </button>
-        <button type="submit" (click)="onClear()" class="btn btn-danger btn-sm m-right-10"><i class="fas fa-eraser"></i>
-          {{'COMMON.CLEAR' | translate}}
-        </button>
-        <ng-container *hasClaim="'report_sale_report_excel_sale_report'">
-          <button type="submit" (click)="onDownloadReport()" *ngIf="saleReturnSummaryList.length"
-            class="btn btn-green btn-sm m-right-10"><i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+
+      <!-- Buttons Row -->
+      <div class="row mt-3 justify-content-end">
+        <!-- Search and Clear Buttons -->
+        <div class="col-auto d-flex align-items-end">
+          <button type="submit" (click)="onSearch()" class="btn blue-btn m-right-10">
+            <i class="fas fa-search"></i> {{'COMMON.SEARCH' | translate}}
           </button>
-        </ng-container>
-        <ng-container *hasClaim="'report_sale_report_print_sale_report'">
-          <button type="submit" *ngIf="saleReturnSummaryList.length" (click)="generatePdf()"
-            class="btn btn-warning btn-sm m-right-10"><i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
+          <button type="submit" (click)="onClear()" class="btn btn-danger m-right-10">
+            <i class="fas fa-eraser"></i> {{'COMMON.CLEAR' | translate}}
           </button>
-        </ng-container>
+        </div>
+
+        <!-- Excel and Print Buttons -->
+        <div class="col-auto d-flex align-items-end">
+          <ng-container *hasClaim="'report_sale_report_excel_sale_report'">
+            <button 
+              type="submit" 
+              (click)="onDownloadReport()" 
+              *ngIf="saleReturnSummaryList.length" 
+              class="btn btn-green m-right-10">
+              <i class="fas fa-download"></i> {{'COMMON.EXCEL' | translate}}
+            </button>
+          </ng-container>
+          <ng-container *hasClaim="'report_sale_report_print_sale_report'">
+            <button 
+              type="submit" 
+              *ngIf="saleReturnSummaryList.length" 
+              (click)="generatePdf()" 
+              class="btn btn-warning m-right-10">
+              <i class="fas fa-print"></i> {{'COMMON.PRINT' | translate}}
+            </button>
+          </ng-container>
+        </div>
       </div>
     </div>
-  </form>
+  </div>
+</form>
+
 
 
   <div class="row mt-3">
     <div class="col-sm-12">
       <div class="fiter-sec-ico">
         <button mat-icon-button [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger" aria-label="Action">
-          <mat-icon>filter_list</mat-icon>
+          <i class="filter-icon"></i>
         </button>
 
         <mat-menu #menu="matMenu">
@@ -95,7 +130,8 @@
               <td class="text-center" *ngIf="columnVisibility['totalGST']" [innerHTML]="(item?.cgstAmount + item?.sgstAmount + item?.igstAmount) | customCurrency"></td>
               <td class="text-center" *ngIf="columnVisibility['cess']" [innerHTML]="item?.cessAmount | customCurrency"></td>
               <td class="text-center" *ngIf="columnVisibility['additionalCess']" [innerHTML]="item?.addnlCessAmount | customCurrency"></td>
-              <td class="text-center" *ngIf="columnVisibility['transactionMode']" >{{item?.transactionModeText}}</td>
+              <!-- <td class="text-center" *ngIf="columnVisibility['transactionMode']" >{{item?.transactionModeText}}</td> -->
+              <td class="text-center" *ngIf="columnVisibility['addnlExpense']" [innerHTML]="item.addnlExpense | customCurrency"></td>
               <td class="text-right" *ngIf="columnVisibility['netTotal']" [innerHTML]="item?.roundednetTotalAmount | customCurrency"></td>
             </tr>
             <tr *ngIf="saleReturnSummaryList.length == 0" class="text-center">
@@ -121,7 +157,8 @@
               <td class="text-center"  *ngIf="columnVisibility['totalGST']" [innerHTML]="(billWiseReport?.cgstTotalAmount + billWiseReport?.sgstTotalAmount + billWiseReport?.igstTotalAmount) | customCurrency"></td>
               <td class="text-center"  *ngIf="columnVisibility['cess']" [innerHTML]="billWiseReport?.cessTotalAmount | customCurrency"></td>
               <td class="text-center"  *ngIf="columnVisibility['additionalCess']" [innerHTML]="billWiseReport?.addnlCessTotalAmount | customCurrency"></td>
-              <td class="text-center"  *ngIf="columnVisibility['transactionMode']" ></td>
+              <td class="text-center h4"  *ngIf="columnVisibility['addnlExpense']" [innerHTML]="billWiseReport?.totalAddnlamount | customCurrency"></td>
+              <!-- <td class="text-center"  *ngIf="columnVisibility['transactionMode']" ></td> -->
               <td class="text-right h4"  *ngIf="columnVisibility['netTotal']" [innerHTML]="billWiseReport?.totalAmount | customCurrency"></td>
             </tr>
           </tfoot>

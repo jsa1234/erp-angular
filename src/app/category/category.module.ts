@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDialogModule,
     MatSlideToggleModule,
     MatPaginatorModule,
+    MatInputModule,    
+    MatSelectModule,
     FormsModule
   ]
 })

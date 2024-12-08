@@ -3,6 +3,7 @@
     "DASHBOARD": "Dashboard",
     "PRODUCT": "Product",
     "CATEGORY": "Category",
+    "COUNTER":"Counter",
     "SUBCATEGORY": "Sub Category",
     "BRANCH": "Branch",
     "BRAND": "Brand",
@@ -34,7 +35,7 @@
     "COUNTRY": "Country",
     "STATE": "State",
     "DISTRICT": "District",
-    "ROLES": "Roles",
+    "ROLES": "User Roles",
     "USERS": "Users",
     "USER_ROLES": "User Roles",
     "CURRENT_ONLINE_USERS": "Current Online Users",
@@ -51,22 +52,25 @@
     "LOGIN_AUDIT": "Login Audit",
     "ERROR_LOGS": "Error Logs",
     "DAMAGE_ENTRY": "Damage Entry",
+    "CURRENT_STOCK": "Current Stock",
     "STOCK_TRANSFER": "Stock Transfer",
-    "DOCUMENT_NUMBERS":"Document Numbers",
-    "OPENING_BALANCE":"Opening Balance",
-    "PAYMENT_TRANSACTIONS":"Payment Transaction",
-    "SALE_RETURN_REPORT":"Sale Return Report",
-    "COMPANY_CONFIGURATIONS":"Company Configurations",
-    "BANK":"Bank",
-    "POS_MERCHANT_ACCOUNT":"POS Merchant Account",
-    "POS_DEVICE":"POS Device",
+    "DOCUMENT_NUMBERS": "Document Numbers",
+    "OPENING_BALANCE": "Opening Balance",
+
+    "PAYMENT_TRANSACTIONS": "Payment Transaction",
+    "SALE_RETURN_REPORT": "Sale Return Report",
+    "COMPANY_CONFIGURATIONS": "Company Configurations",
+    "BANK": "Bank",
+    "POS_MERCHANT_ACCOUNT": "POS Merchant Account",
+    "POS_DEVICE": "POS Device",
     "POS_PRINTER": "POS Printer",
-    "SALE_ORDER":"Sale Order"
+    "SALE_ORDER": "Sale Order"
   },
   "COMMON": {
     "#": "#",
     "ACCOUNT_CODE": "Account Code",
     "ACTION": "Action",
+    "STATUS": "Status",
     "ACTIVE": "Active",
     "ADD_IMAGE": "Add Image",
     "ADD_LOGO": "Add Logo",
@@ -92,11 +96,11 @@
     "CLEAR": "Clear",
     "CODE": "Code",
     "CONTACT_DETAILS": "Contact Details",
-    "COUNTRY_CODE": "Country Code",
+    "COUNTRY_CODE": " Code",
     "COUNTRY": "Country",
     "CR": "CR",
     "CREATE": "Create",
-    "CONFIGURATIONS":"Configurations",
+    "CONFIGURATIONS": "Configurations",
     "CREDIT_LIMIT": "Credit Limit",
     "CUSTOMER_NAME": "Customer Name",
     "CUSTOMER": "Customer",
@@ -120,7 +124,7 @@
     "INACTIVE": "Inactive",
     "INVOICE_DATE": "Invoice Date",
     "INVOICE_NO": "Invoice No",
-    "IS_ACTIVE": "Is Active",
+    "IS_ACTIVE": "Active",
     "IS_BASE_UNIT": "Is Base Unit",
     "LAST_NAME_ARABIC": "Last Name in Second Language",
     "LAST_NAME_ENGLISH": "Last Name",
@@ -147,7 +151,7 @@
     "PERSONAL_DETAILS": "Personal Details",
     "PHONE_NO": "Phone Number",
     "PLACE_ARABIC": "Place Second Language",
-    "PLACE_ENGLISH": "Place English",
+    "PLACE_ENGLISH": "Place",
     "PRINT_INVOICE": "Print Invoice",
     "PRINT": "Print",
     "PRODUCT_NAME": "Product Name",
@@ -178,13 +182,15 @@
     "TRANSACTION_MODE": "Transaction Mode",
     "UNIT": "Unit",
     "UPDATE": "Update",
-    "UPLOAD_LOGO": "Upload Logo",
+    "UPLOAD_LOGO": "Upload Product Image",
     "USER": "User",
     "GST_NO": "GST Number",
+    "PAN_NO": "PAN NO",
+    "FSSAI_NO": "FSSAI NO",
     "TAX_TOTAL": "Tax Total",
     "WEBSITE": "Website",
     "YES": "Yes",
-    "ZIP_CODE": "ZIP Code",
+    "ZIP_CODE": "Post Code",
     "BUILDING_NO": "Building No.",
     "STREET_NAME": "Street Name",
     "CITY": "City",
@@ -198,7 +204,7 @@
     "SCAN_BARCODE": "Scan Barcode",
     "SEARCH_PRODUCT": "Search Product",
     "REMARKS": "Remarks",
-    "USER_CONFIGURATIONS":"User Configurations"
+    "USER_CONFIGURATIONS": "User Configurations"
   },
   "DASHBOARD": {
     "TOTAL_SALES": "Total Sales",
@@ -258,7 +264,7 @@
     "RENEWAL_DATE": "Renewal date",
     "YES": "Yes",
     "NO": "No",
-    "BRANCH_CONFIGURATIONS":"Branch Configurations"
+    "BRANCH_CONFIGURATIONS": "Branch Configurations"
   },
   "PRODUCT": {
     "ADD_PRODUCT": "Add Product",
@@ -268,7 +274,7 @@
     "CODE": "Product  Code",
     "MANAGE_PRODUCT": "Manage Product",
     "MAXIMUM_STOCK_LEVEL": "Maximum Stock Level",
-    "MRP": "Mrp (Printed on the product)",
+    "MRP": "Mrp",
     "NAME_ARABIC": "Product Name Second Language",
     "NAME_ENGLISH": "Product Name",
     "PART_NO": "Part No",
@@ -282,8 +288,8 @@
     "WHOLESALE_RATE": "Wholesale Rate",
     "CESS_RATE": "Cess Rate",
     "ADDITIONAL_CESS_RATE": "Additional Cess Rate",
-    "BULK_IMPORT":"Bulk Import",
-    "HSN_CODE":"HSN Code"
+    "BULK_IMPORT": "Bulk Import",
+    "HSN_CODE": "HSN Code"
   },
   "CATEGORY": {
     "ADD_CATEGORY": "Add Category",
@@ -405,15 +411,15 @@
       "MANAGE_JOURNAL": "Manage Journal",
       "ADD_JOURNAL": "Add Journal"
     },
-    "BANK":{
-      "ADD_BANK":"Add Bank",
-      "ACCOUNT_CODE":"Account Code",
-      "BANK_NAME":"Bank Name",
-      "BRANCH_NAME":"Branch Name",
-      "ACCOUNT_HOLDER_NAME":"Account Holder Name",
-      "ACCOUNT_NO":"Account No",
-      "IFSC_CODE":"IFSC Code",
-      "PHONE_NO":"Phone No"
+    "BANK": {
+      "ADD_BANK": "Add Bank",
+      "ACCOUNT_CODE": "Account Code",
+      "BANK_NAME": "Bank Name",
+      "BRANCH_NAME": "Branch Name",
+      "ACCOUNT_HOLDER_NAME": "Account Holder Name",
+      "ACCOUNT_NO": "Account No",
+      "IFSC_CODE": "IFSC Code",
+      "PHONE_NO": "Phone No"
     }
   },
   "INVENTORY": {
@@ -522,9 +528,9 @@
     "IGST": "IGST",
     "CESS": "CESS",
     "ADDITIONAL_CESS": "Additional CESS",
-    "INVOICE_TYPE":"Invoice Type",
-    "PURCHASE_INVOICE_NO":"Purchase Invoice No",
-    "PURCHASE_INVOICE_DATE":"Purchase Invoice Date"
+    "INVOICE_TYPE": "Invoice Type",
+    "PURCHASE_INVOICE_NO": "Purchase Invoice No",
+    "PURCHASE_INVOICE_DATE": "Purchase Invoice Date"
   },
   "SALES_INVOICE": {
     "INVOICE_DATE": "Invoice Date",
@@ -678,9 +684,9 @@
       "UNIT_RATE": "Unit/Rate",
       "UNIT": "Unit",
       "TOTAL": "Total",
-      "DAMAGE":"Damage",
-      "STOCK_IN":"Stock In",
-      "STOCK_OUT":"Stock Out"
+      "DAMAGE": "Damage",
+      "STOCK_IN": "Stock In",
+      "STOCK_OUT": "Stock Out"
     },
     "DAILY_ACTIVITY_REPORT": {
       "BILL_NO": "Bill No",
@@ -714,14 +720,14 @@
       "VOUCHER_NO": "Voucher No"
     }
   },
-  "PAYMENT_TRANSACTIONS":{
-    "TRANSACTION_DATE":"Transaction Date",
-    "TRANSACTION_NO":"Transaction No",
-    "TRANSACTION_AMOUNT":"Transaction Amount",
-    "TRANSACTION_DOCUMENT_NO":"Trasaction Document No",
-    "TRANSACTION_MODE":"Transaction Mode",
-    "TRANSACTION_STATUS":"Transaction Status",
-    "TRANSACTION_SIGNATURE":"Transaction Signature"
+  "PAYMENT_TRANSACTIONS": {
+    "TRANSACTION_DATE": "Transaction Date",
+    "TRANSACTION_NO": "Transaction No",
+    "TRANSACTION_AMOUNT": "Transaction Amount",
+    "TRANSACTION_DOCUMENT_NO": "Trasaction Document No",
+    "TRANSACTION_MODE": "Transaction Mode",
+    "TRANSACTION_STATUS": "Transaction Status",
+    "TRANSACTION_SIGNATURE": "Transaction Signature"
   },
   "LOCATIONS": {
     "COUNTRY": {
@@ -747,13 +753,13 @@
       "MANAGE_DISTRICT": "Manage District"
     }
   },
-  "DOCUMENT_NUMBERS":{
-    "DOC_PREFIX":"Document Prefix",
-    "LAST_DOC_NO":"Last Document No",
-    "DEVICE_CODE":"Device Code",
-    "DOCUMENT_NAME":"Document Name",
-    "CONSOLIDATED_DOCUMENT_NO":"Consolidated Document No",
-    "MANAGE_DOCUMENT_NUMBERS":"Manage Document Numbers"
+  "DOCUMENT_NUMBERS": {
+    "DOC_PREFIX": "Document Prefix",
+    "LAST_DOC_NO": "Last Document No",
+    "DEVICE_CODE": "Device Code",
+    "DOCUMENT_NAME": "Document Name",
+    "CONSOLIDATED_DOCUMENT_NO": "Consolidated Document No",
+    "MANAGE_DOCUMENT_NUMBERS": "Manage Document Numbers"
   },
   "ROLES": {
     "ADD_ROLE": "Add Role",
@@ -933,6 +939,7 @@
       "MODEL_NO": "Model No",
       "DEVICE_ID": "Device ID",
       "DEFAULT_POS_DEVICE":"Default POS Device"
+      
     },
     "POS_PRINTER": {
       "POS_PRINTER": "Pos Printer",
@@ -1024,7 +1031,8 @@
     "PLEASE_ENTER_ROLE_NAME": "Please enter role name",
     "PLEASE_SELECT_AT_LEAT_ONE_PERMISSION": "Please Select atlesat One Permission",
     "PLEASE_SELECT_AT_LEAST_ONE_PERMISSION": "Please select at least one permission",
-    "YOU_HAVE_TO_ENTER_AT_LEAST_6_DIGIT": "You have to enter at least 6 digit",
+    "YOU_HAVE_TO_ENTER_AT_LEAST_6_DIGIT": "You have to enter at least 6 digits",
+    "MAX_LENGTH":"Password should not exceed more than 6 digits",
     "CONFIRM_PASSWORD_IS_REQUIRED": "Confirm password is required",
     "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
     "FIRST_NAME_IS_REQUIRED": "First Name is Required",
@@ -1062,7 +1070,10 @@
     "CGST_REQUIRED": "CGST Required",
     "SGST_REQUIRED": "SGST Required",
     "IGST_REQUIRED": "IGST Required",
-    "TAX_TYPE_REQUIRED": "Tax Type Required"
+    "TAX_TYPE_REQUIRED": "Tax Type Required",
+    "GST_REQUIRED": "GST Required",
+    "USERNAME_IS_REQUIRED": "UserName is Required"
+    
   },
   "RESPONSE_MESSAGE": {
     "ROLE_SAVED_SUCCESSFULLY": "Role Saved Successfully",
@@ -1104,11 +1115,11 @@
     "BRANCH_CREATED_SUCCESSFULLY": "Branch Created Successfully",
     "BRANCH_UPDATED_SUCCESSFULLY": "Branch Updated Successfully",
     "BRANCH_DELETED_SUCCESSFULLY": "Branch Deleted Successfully",
-    "USER_ADDED_SUCCESSFULLY_TO_ROLE":"User Added Successfully to Role",
-    "ERROR_WHILE_ADDING_USER_TO_ROLE":"Error While Adding User To Role",
-    "USER_REMOVED_SUCCESSFULLY_FROM_ROLE":"User Removed Successfully From Role",
-    "ERROR_WHILE_REMOVING_USER_FROM_ROLE":"Error While Removing User From Role",
-    "ARE_YOU_SURE_YOU_WANT_TO_FORCE_LOGOUT_USER":"Are You Sure You Want To Force Logout User"
+    "USER_ADDED_SUCCESSFULLY_TO_ROLE": "User Added Successfully to Role",
+    "ERROR_WHILE_ADDING_USER_TO_ROLE": "Error While Adding User To Role",
+    "USER_REMOVED_SUCCESSFULLY_FROM_ROLE": "User Removed Successfully From Role",
+    "ERROR_WHILE_REMOVING_USER_FROM_ROLE": "Error While Removing User From Role",
+    "ARE_YOU_SURE_YOU_WANT_TO_FORCE_LOGOUT_USER": "Are You Sure You Want To Force Logout User"
   },
   "LOGOUT": "Logout"
 }

@@ -17,6 +17,7 @@ import { IPurchaseReturn } from '@core/domain-classes/purchase-order/purchase-re
 import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
 import { PurchaseReturnService } from '../purchase-return.service';
 import { ToastrService } from 'ngx-toastr';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-purchase-return-list',
@@ -33,8 +34,8 @@ import { ToastrService } from 'ngx-toastr';
 export class PurchaseReturnListComponent extends BaseComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['action', 'docDate', 'docNo', 'supplierName', 'transactionMode', 'totalDiscount', 'totalTax', 'totalAmount'];
-  filterColumns: string[] = ['action-search', 'docDate-search', 'docNo-search', 'supplierName-search', 'transactionMode-search', 'totalDiscount-search', 'totalTax-search', 'totalAmount-search'];
+  displayedColumns: string[] = [ 'docDate', 'docNo', 'supplierName', 'transactionMode', 'totalDiscount', 'totalTax', 'totalAmount','action'];
+  filterColumns: string[] = [ 'docDate-search', 'docNo-search', 'supplierName-search', 'transactionMode-search', 'totalDiscount-search', 'totalTax-search', 'totalAmount-search','action-search'];
   footerToDisplayed: string[] = ['footer'];
   dataSource: PurchaseReturnDataSource;
   purchaseReturnResource: PurchaseReturnResourceParameter;
@@ -72,7 +73,9 @@ export class PurchaseReturnListComponent extends BaseComponent implements OnInit
     public translationService: TranslationService,
     public commonDialogService: CommonDialogService,
     public toastr: ToastrService,
-    private loader:LoaderService) {
+    private loader:LoaderService,
+    private branchService:BranchService
+  ) {
     super();
     this.purchaseReturnResource = new PurchaseReturnResourceParameter();
     this.purchaseReturnResource.pageSize = 10;
@@ -82,6 +85,7 @@ export class PurchaseReturnListComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
     this.createSearchForm();
     this.onLoadData();

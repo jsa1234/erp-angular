@@ -4,6 +4,7 @@ import { IBranch } from '@core/domain-classes/branch';
 import { Company, ICompany } from '@core/domain-classes/company';
 import { IDevice } from '@core/domain-classes/device';
 import { SecurityService } from '@core/security/security.service';
+import { Observable } from 'rxjs';
 import { BaseComponent } from 'src/app/base.component';
 import { BranchService } from 'src/app/branch/branch.service';
 
@@ -46,10 +47,18 @@ export class BranchDropdownComponent extends BaseComponent implements OnInit, On
    this.enableOrDisableBranchDropdown()
   }
 getBranches(){
-this.sub$.sink = this.branchService.getAllBranchesForDropdown(this.companyProfile.companyUUID).subscribe((res)=>{
-  this.branches =this.isAddAll?[this.all,...res]:[...res]
-},
-()=>console.log('branch get failed'))
+  const branch = JSON.parse(localStorage.getItem('branch') || '{}'); // Parse the branch object from localStorage
+  const companyUUID = branch.companyUUID; // Get the companyUUID from branch
+  if(companyUUID){
+    this.sub$.sink = this.branchService.getAllBranchesForDropdown(companyUUID).subscribe((res)=>{
+      this.branches =this.isAddAll?[this.all,...res]:[...res]
+    },
+    ()=>console.log('branch get failed'))
+  }
+  else{
+    console.log('Company UUID not found in localStorage');
+  }
+
 }
 
 ngOnDestroy(): void {
@@ -61,7 +70,7 @@ ngOnChanges(changes: SimpleChanges): void {
   }
 }
 
-subScribeCompanyProfile() {
+subScribeCompanyProfile(){
   this.securityService.companyProfile.subscribe((data:ICompany) => {
     this.companyProfile = new Company(data);
     this.getBranches();

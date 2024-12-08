@@ -17,13 +17,14 @@ import { LoaderService } from '@shared/services/loader.service';
   styleUrls: ['./manage-pos-device.component.scss'],
 })
 export class ManagePosDeviceComponent extends BaseComponent implements OnInit {
-  posDeviceForm: FormGroup;
   deviceUUID:string = '';
   branchUUID:string = '';
-  imgSrc:string | ArrayBuffer = null;
+  counterUUID:string='';
   isUpdate: boolean = false;
-  isImageUpdate: boolean = false;
   isLoading$:Observable<boolean> = of(false)
+  name:string = '';
+  isDefaultBranch:boolean = true;
+  counterForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     private securityService:SecurityService, 
@@ -41,73 +42,52 @@ export class ManagePosDeviceComponent extends BaseComponent implements OnInit {
     this.getPOSDeviceDetails()
     this.loaderShowOrHide()
   }
+  createForm():void{
+    this.counterForm = this.fb.group({
 
-  createForm(): void {
-    this.posDeviceForm = this.fb.group({
-      posDeviceUUID: [uuid()],
-      posDeviceCode: [''],
-      nameEnglish: [''],
-      deviceModel: [''],
-      serialNo: [''],
-      appKey: [''],
-      username: [''],
-      password: [''],
-      haveRearCamera: [false],
-      haveFrontCamera: [false],
-      haveWifi: [false],
-      haveSim: [false],
-      havePrinter: [false],
-      haveUsb: [false],
-      printingPaperSize: [''],
-      haveNfc: [false],
-      haveMagneticCardReader: [false],
-      haveBattery: [false],
-      haveBluetooth: [false],
-      haveUpiEnabled: [false],
-      imeI1: [''],
-      imeI2: [''],
-      bluetoothMac: [''],
-      wifiMac: [''],
-      brandName: [''],
-      branchUUID: [this.branchUUID],
-      deviceUUID: [this.branchUUID],
-      deviceImage: [''],
-      imagePath: [''],
-    });
+      branchUUID:[''],
+      name:[''],
+      mac:['']
+    })
+  }
+ 
+  
+  saveCounter(){
+    if(this.counterForm.valid){
+      this.loader.show();
+      const counterDevice={
+        name: this.counterForm.get('name')?.value,
+        branchUUID: this.counterForm.get('branchUUID')?.value,
+        macaddress:this.counterForm.get('mac')?.value
+        //branchUUID:[''],
+      }
+      const updateCounterDevice={
+        name: this.counterForm.get('name')?.value,
+        branchUUID: this.counterForm.get('branchUUID')?.value,
+        counterUUID: this.counterUUID,
+        macaddress:this.counterForm.get('mac')?.value
+      }
+      this.isUpdate?this.updateCounter(updateCounterDevice):this.createCounter(counterDevice)
+    }
+    
   }
 
-  savePosDevice(){
-    if(this.posDeviceForm.invalid){
-      this.posDeviceForm.markAllAsTouched();
-      return;
-    }
-    this.loader.show();
-    const posDeviceDetail:POSDevice = this.posDeviceForm.getRawValue()
-    // posDeviceDetail.isImageUpdate = false;
-
-    if(this.isImageUpdate){
-      posDeviceDetail.deviceImage = this.imgSrc || '';
-      posDeviceDetail.isImageUpdate = true;
-    }
-    this.isUpdate?this.updatePOSDevice(posDeviceDetail):this.createPOSDevice(posDeviceDetail)
-  }
-
-  createPOSDevice(posDevice:POSDevice):void{
-    this.sub$.sink = this.posDeviceService.createPosDevice(posDevice).subscribe(()=>{
-      this.toastr.success('POS Device Created Successfully');
+  createCounter(counterSave:any):void{
+    this.sub$.sink = this.posDeviceService.createPosDevice(counterSave).subscribe(()=>{
+      this.toastr.success('Counter Created Successfully');
       this.router.navigate(['/pos-device']);
       this.loader.hide();
 
     },
     ()=>{
-      this.toastr.error('POS Device Created Failed');
+      this.toastr.error('Counter Creation Failed');
     this.loader.hide();
       
     })
   }
-  updatePOSDevice(posDevice:POSDevice):void{
-    this.sub$.sink = this.posDeviceService.updatePosDevice(posDevice).subscribe(()=>{
-      this.toastr.success('POS Device Updated Successfully');
+  updateCounter(counterUpdate:any):void{
+    this.sub$.sink = this.posDeviceService.updatePosDevice(counterUpdate).subscribe(()=>{
+      this.toastr.success('Counter Updated Successfully');
       this.router.navigate(['/pos-device']);
       this.loader.hide();
 
@@ -118,44 +98,30 @@ export class ManagePosDeviceComponent extends BaseComponent implements OnInit {
       
     })
   }
-  onFileSelect($event:Event) {
-    const fileInput = $event.target as HTMLInputElement;
-    const fileSelected = fileInput.files[0];
-    if (!fileSelected) {
-      return;
-    }
-
-    const mimeType = fileSelected.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.readAsDataURL(fileSelected);
-    reader.onload = (_event) => {
-      this.imgSrc = reader.result;
-      this.isImageUpdate = true;
-      fileInput.value = null;
-    };
-  }
-
-  onRemoveImage() {
-    this.isImageUpdate = true;
-    this.imgSrc = null;
-  }
+ 
 
 
   getPOSDeviceDetails(): void {
-    this.route.data.subscribe((data: { posDevice: POSDevice }) => {
+    this.route.data.subscribe((data: { posDevice: any }) => {
       this.createForm();
       if (!data.posDevice) {
         this.isUpdate = false;
+        this.isDefaultBranch= true
         return;
       }
       this.isUpdate = true;
-      const posDevice = data.posDevice
-      this.posDeviceForm.patchValue(posDevice);
-      this.imgSrc = posDevice.imagePath?(environment.apiUrl+posDevice.imagePath) : null
+      this.isDefaultBranch= false
+      
+      this.name = data.posDevice.data.name;
+      this.counterUUID=data.posDevice.data.counterUUID;
+      this.branchUUID =data.posDevice.data.branchUUID;
+      const mac = data.posDevice.data.macAddress;
+      this.counterForm.patchValue({
+        name:this.name,
+        branchUUID:this.branchUUID,
+        mac:mac
+      })
+     // form.patchValue(posDevice);
     });
   }
   loaderShowOrHide(){

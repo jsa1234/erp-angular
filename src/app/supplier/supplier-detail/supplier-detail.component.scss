@@ -10,19 +10,25 @@
     height: 150px;
   }
   .display-none{
-    display: none;;
+    display: none;
   }
   .mt-10{
     margin-top: 10px;
   }
-  .content-header h1 i {
+ /*  .content-header h1 i {
     display: list-item;
     position: absolute;
     padding-right: 18px;
     background-color: #f58220 !important;
-  }
+
+  } */
   .content-header h1 span {
-    margin-left: 35px;
+    margin-top: 25px;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+   
   }
   .mat-focus-indicator img {
     height: 160px;
@@ -30,4 +36,84 @@
   }
   .section-boxed mat-card {
     height: 220px;
+}
+.customer-manage{
+  color: #f58220;
+}
+/* .edit-icon {
+  position: absolute;
+  top: -54px;
+  right: 10px;
+  width: 50px;
+} */
+
+.customer-edit {
+  position: relative;
+  display: inline-block;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.full-width {
+  width: 100%;
+  height: auto;
+}
+
+.edit-icons {
+  position: absolute;
+  top: -64px;
+  right: -21px;
+  width: 50px; 
+  cursor: pointer;
+}
+.customer_button {
+  display: flex;
+  width: 92px;
+  padding: 4px 3px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 56px;
+  background: #00ac45;
+  margin-left: 50px;
+  margin-bottom: 19px;
+  margin-top: 5px;
+}
+
+.customer-save-button {
+  padding: 10px 25px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    gap: 4px;
+    border-radius: 8px;
+    border: 1px solid #fd9a46;
+    background: var(--pay, radial-gradient(311.13% 122.5% at 0% 0%, #fd9a46 0%, #fc8118 100%)) !important;
+  
+}
+.customer-close-button {
+  padding: 10px 25px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  border: 1px solid #6b5c58;
+}
+.customer-save{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -3px;
+  margin-left: -3px;
+}
+.mat-card-actions{
+  padding: 0px !important;
+}
+.cus-mat-card-manage{
+  height: 100%;
+}
+.error{
+  border: 2px solid red;
 }

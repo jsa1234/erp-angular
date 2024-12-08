@@ -14,8 +14,8 @@
     </div>
     <div class="breadcrump-pages">
         <div class="crumbs-sec">
-          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
-          <a [routerLink]="['/purchase-invoice/list']">{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</a> /
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i>
+          <a [routerLink]="['/purchase-invoice/list']">{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</a> <i class="chevron-icon"></i>
           <span>{{'PURCHASE_INVOICE.PURCHASE_INVOICE_DETAIL' | translate}}</span>
         </div>
       </div>
@@ -23,16 +23,16 @@
 <br>
 <ng-container >
 <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="purchaseInvoice.branchUUID"></app-comapny-profile-heading>
-    <div class="row">
+    <div class="row details_card mt-3 mb-3 ml-1 mr-1">
         <div class="col-md-6">
             <div class="invoice-detatable table-responsive" >
                 <table>
                     <tr>
-                        <th>{{'PURCHASE_INVOICE.DOC_DATE' | translate}}</th>
+                        <th>{{'PURCHASE_INVOICE.DOC_NO' | translate}}</th>
                         <td>{{purchaseInvoice.invoiceNumber}}</td>
                     </tr>
                     <tr>
-                        <th>{{'PURCHASE_INVOICE.DOC_NO' | translate}}</th>
+                        <th>{{'PURCHASE_INVOICE.DOC_DATE' | translate}}</th>
                         <td>{{purchaseInvoice.invoiceDate | customDate}}</td>
                     </tr>
                     <tr>
@@ -62,8 +62,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row details_card mt-3 mb-3 ml-1 mr-1 d-flex align-items-start">
+        <div class="col-md-12">
     <div class="invoice-detatables table-responsive" [ngClass]="{'invoice-detatables-ar':translationService.getSelectedLanguage()=='ar'}">
         <table>
             <tr>
@@ -93,9 +93,10 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped">
-            <thead class="head">
+    <div class="product-variant-table table-responsive" style="border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;">
+        <table class="table-bordered table-hover table-striped mb-5">
+            <thead class="">
                 <tr>
                     <th style="width:1%">{{'COMMON.#' |translate}}</th>
                     <th style="width:20%">{{'COMMON.PRODUCT_NAME' | translate}}</th>
@@ -199,6 +200,7 @@
                 <tr style="border: none;">
                     <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;"
                         colspan="4"><b>Round Off</b></td>
+                        
                     <td
                         style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                         <b [innerHTML]="purchaseInvoice?.roundOff | customCurrency"></b></td>

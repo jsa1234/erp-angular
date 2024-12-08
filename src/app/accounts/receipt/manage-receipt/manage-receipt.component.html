@@ -1,19 +1,93 @@
 <div class="page-header-main">
-    <div class="row align-items-center justify-content-between">
-      <div class="col-md-auto col-sm-auto">
-        <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translate.getSelectedLanguage()=='ar'}">
-          <h1><i class="icon19"></i> <span>{{'ACCOUNTS.RECEIPT_VOUCHER.MANAGE_RECEIPT_VOUCHER' | translate}}</span></h1>
-        </div>
-      </div>
-    </div>
-    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translate.getSelectedLanguage()=='ar'}">
-      <div class="crumbs-sec">
-        <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a
-          [routerLink]="['/receiptVoucher']">{{'SIDEBAR.RECEIPT_VOUCHER' | translate}}</a> /
-        <span>{{'ACCOUNTS.RECEIPT_VOUCHER.MANAGE_RECEIPT_VOUCHER' | translate}}</span>
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div
+        class="content-header svg-icons"
+        [ngClass]="{
+          'content-header-ar': translate.getSelectedLanguage() == 'ar'
+        }"
+      >
+        <h1>
+          <i class="icon19"></i>
+          <span>{{
+            "ACCOUNTS.RECEIPT_VOUCHER.MANAGE_RECEIPT_VOUCHER" | translate
+          }}</span>
+        </h1>
       </div>
     </div>
   </div>
+  <div
+    class="breadcrump-pages"
+    [ngClass]="{
+      'breadcrump-pages-ar': translate.getSelectedLanguage() == 'ar'
+    }"
+  >
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{ "SIDEBAR.DASHBOARD" | translate }}</a>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="17"
+        viewBox="0 0 16 17"
+        fill="none"
+      >
+        <g clip-path="url(#clip0_202_698)">
+          <path
+            d="M6 4.5L10 8.5L6 12.5"
+            stroke="#4A4A4A"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_202_698">
+            <rect
+              width="16"
+              height="16"
+              fill="white"
+              transform="translate(0 0.5)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+      <a [routerLink]="['/receiptVoucher']">{{
+        "SIDEBAR.RECEIPT_VOUCHER" | translate
+      }}</a>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="17"
+        viewBox="0 0 16 17"
+        fill="none"
+      >
+        <g clip-path="url(#clip0_202_698)">
+          <path
+            d="M6 4.5L10 8.5L6 12.5"
+            stroke="#4A4A4A"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_202_698">
+            <rect
+              width="16"
+              height="16"
+              fill="white"
+              transform="translate(0 0.5)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+      <span>{{
+        "ACCOUNTS.RECEIPT_VOUCHER.MANAGE_RECEIPT_VOUCHER" | translate
+      }}</span>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="receiptVoucherForm">
+  
 
   <form [formGroup]="receiptVoucherForm">
     <div class="row">
@@ -22,28 +96,47 @@
           <div class="row">
             <div class="col-md-4 col-sm-12">
               <div class="form-group">
-                <label>{{'ACCOUNTS.RECEIPT_VOUCHER.RECEIPT_VOUCHER_NO' | translate}}<span class="text-danger">*</span></label>
-                <input formControlName="docNo" class="form-control w-100" type="text">
+                <label
+                  >{{ "ACCOUNTS.RECEIPT_VOUCHER.RECEIPT_VOUCHER_NO" | translate
+                  }}<span class="text-danger">*</span></label
+                >
+                <input
+                  formControlName="docNo"
+                  class="form-control w-100"
+                  type="text"
+                />
               </div>
             </div>
 
             <div class="col-md-4 col-sm-12">
               <div class="form-group">
-                <date-input [group]="receiptVoucherForm" [controlName]="'docDate'"
+                <date-input
+                  [group]="receiptVoucherForm"
+                  [controlName]="'docDate'"
                   [label]="'ACCOUNTS.RECEIPT_VOUCHER.RECEIPT_VOUCHER_DATE'"
-                  [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
+                  [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'"
+                  [isMandatory]="true"
+                ></date-input>
               </div>
             </div>
             <div class="col-md-4 col-sm-12">
               <div class="form-group">
-                <app-transaction-mode-dropdown [controlName]="'mode'"  [group]="receiptVoucherForm"></app-transaction-mode-dropdown>
+                <app-transaction-mode-dropdown
+                  [controlName]="'transactionMode'"
+                  [group]="receiptVoucherForm"
+                ></app-transaction-mode-dropdown>
               </div>
             </div>
 
             <div class="col-md-12 col-sm-12">
               <div class="form-group">
-                <label>{{'COMMON.REMARKS' | translate}}</label>
-                <textarea class="form-control w-100" cols="30" rows="2" formControlName="description"></textarea>
+                <label>{{ "COMMON.REMARKS" | translate }}</label>
+                <textarea
+                  class="form-control w-100"
+                  cols="30"
+                  rows="2"
+                  formControlName="description"
+                ></textarea>
               </div>
             </div>
           </div>
@@ -58,13 +151,119 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Account Head</th>
+                  <th style="width: 35%">Account Head</th>
                   <th>Amount</th>
                   <th>Remarks</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody formArrayName="accountVoucherDetails">
+                <tr
+                  *ngFor="let row of tableRows.controls; let i = index"
+                  [formGroupName]="i"
+                >
+                  <td>
+                    <div class="form-group">
+                      <mat-select
+                        placeholder=""
+                        class="w-100 form-control"
+                        formControlName="accountUUID"
+                      >
+                        <input
+                          class="form-control w-100"
+                          (keydown.space)="$event.stopPropagation()"
+                          type="text"
+                          autocomplete="off"
+                          placeholder="search by code or name"
+                          [formControl]="searchControl"
+                        />
+                        <mat-option
+                          *ngFor="let item of accountHeadList"
+                          [value]="item.accountUUID"
+                          >{{ item.accountCode }} -
+                          {{ item.nameEnglish }}</mat-option
+                        >
+                      </mat-select>
+                      <div
+                        *ngIf="
+                          receiptVoucherForm
+                            .get('accountVoucherDetails')
+                            .get(i.toString())
+                            .get('accountUUID')
+                            .hasError('required') &&
+                          receiptVoucherForm
+                            .get('accountVoucherDetails')
+                            .get(i.toString())
+                            .get('accountUUID').touched
+                        "
+                      >
+                        <small class="text-danger">
+                          Account Head is required</small
+                        >
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input
+                        class="form-control w-100"
+                        formControlName="amount"
+                        type="number"
+                      />
+                      <div
+                        *ngIf="
+                          receiptVoucherForm
+                            .get('accountVoucherDetails')
+                            .get(i.toString())
+                            .get('amount')
+                            .hasError('required') &&
+                          receiptVoucherForm
+                            .get('accountVoucherDetails')
+                            .get(i.toString())
+                            .get('amount').touched
+                        "
+                      >
+                        <small class="text-danger"> Amount is required</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <textarea
+                        class="form-control w-100"
+                        cols="30"
+                        rows="2"
+                        formControlName="description"
+                      ></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="col-md-12 m-bottom-40 text-center">
+                      <button
+                        class="btn btn-success btn-sm m-right-10 rounded-pill"
+                        class="btn btn-success btn-sm m-right-10 rounded-pill"
+                        mat-mini-fab
+                        color="primary"
+                        aria-label="Example icon button with a menu icon"
+                        (click)="addRow()"
+                      >
+                        <mat-icon>add_circle_outline</mat-icon>
+                      </button>
+                      <button
+                        class="btn Delete-btn btn-sm m-left-10 rounded-pill"
+                        *ngIf="tableRows.controls.length > 1"
+                        mat-mini-fab
+                        color="warn"
+                        aria-label="Example icon button with a menu icon"
+                        (click)="removeRow(i)"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <!--  <tbody formArrayName="accountVoucherDetails">
                 <tr *ngFor="let row of tableRows.controls; let i = index" [formGroupName]="i">
                   <td>
                     <div class="form-group">
@@ -76,44 +275,51 @@
                       <div  *ngIf="receiptVoucherForm.get('accountVoucherDetails').get(i.toString()).get('accountUUID').hasError('required') && receiptVoucherForm.get('accountVoucherDetails').get(i.toString()).get('accountUUID').touched">
                       <small class="text-danger"> Account Head is required</small> 
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-group">
-                      <input class="form-control w-100" formControlName="amount" type="number" />
-                      <div  *ngIf="receiptVoucherForm.get('accountVoucherDetails').get(i.toString()).get('amount').hasError('required') && receiptVoucherForm.get('accountVoucherDetails').get(i.toString()).get('amount').touched">
-                        <small class="text-danger"> Amount is required</small> 
-                        </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="form-group">
-                      <textarea class="form-control w-100" cols="30" rows="2" formControlName="description"></textarea>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="col-md-12 m-bottom-40 text-center">
-                      <button class="manage-add-btn" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
-                        (click)="addRow()">
-                        <mat-icon>add_circle_outline</mat-icon>
-                      </button>
-                      <button class="manage-delete-btn" *ngIf="tableRows.controls.length>1" mat-mini-fab color="warn"
-                        aria-label="Example icon button with a menu icon" (click)="removeRow(i)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <textarea class="form-control w-100" cols="30" rows="2" formControlName="description"></textarea>
+                  </div>
+                </td>
+                <td>
+                  <div class="col-md-12 m-bottom-40 text-center">
+                    <button class="manage-add-btn" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                      (click)="addRow()">
+                      <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                    <button class="manage-delete-btn" *ngIf="tableRows.controls.length>1" mat-mini-fab color="warn"
+                      aria-label="Example icon button with a menu icon" (click)="removeRow(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody> -->
             </table>
           </div>
+          <!-- <div class="manage-voucher text-center">
+          <button *hasClaim="['account_receipt_voucher_create_receipt_voucher','account_receipt_voucher_edit_receipt_voucher']" mat-raised-button class="btn-success" (click)="saveVoucher()">
+            <mat-icon>save</mat-icon>
+            {{'COMMON.SAVE'|translate}}
+          </button>
+        </div> -->
           <div class="manage-voucher text-center">
-            <button *hasClaim="['account_receipt_voucher_create_receipt_voucher','account_receipt_voucher_edit_receipt_voucher']" mat-raised-button class="btn-success" (click)="saveVoucher()">
+            <button
+              *hasClaim="[
+                'account_receipt_voucher_create_receipt_voucher',
+                'account_receipt_voucher_edit_receipt_voucher'
+              ]"
+              mat-raised-button
+              class="btn-success"
+              (click)="saveVoucher()"
+            >
               <mat-icon>save</mat-icon>
-              {{'COMMON.SAVE'|translate}}
+              {{ "COMMON.SAVE" | translate }}
             </button>
           </div>
         </div>
       </div>
     </div>
   </form>
+</form>

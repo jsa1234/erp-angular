@@ -406,7 +406,10 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
     });
   }
 
+
   createBuildForm(): ICustomerAccount {
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
     const customerObj: ICustomerAccount = {
       accountUUID: this.customerForm.get('accountUUID').value,
       nameEnglish: this.customerForm.get('nameEnglish').value,
@@ -449,7 +452,7 @@ export class CustomerDetailComponent extends BaseComponent implements OnInit {
       traySecurityRequired: true,
       isActive: this.customerForm.get('isActive').value,
       imagePath: '',
-      branchUUID:environment.branchUUID,
+      branchUUID:branchUUID,
       accountCode:this.customerForm.get('accountCode').value,
       clientImage:''
     };

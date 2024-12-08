@@ -5,24 +5,24 @@ import {
   OnInit,
   Output,
   ViewChild,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { CommonDialogService } from '@core/common-dialog/common-dialog.service';
-import { Country } from '@core/domain-classes/country';
-import { TranslationService } from '@core/services/translation.service';
-import { BaseComponent } from 'src/app/base.component';
-import { ManageCountryComponent } from '../manage-country/manage-country.component';
-import { CountryDataSource } from '../country-datasource';
-import { LocationsResourceParameter } from '@core/domain-classes/masters/locations-resource-parameter';
-import { MatPaginator } from '@angular/material/paginator';
-import { CountryService } from '../country.service';
-import { tap } from 'rxjs/operators';
-import { ResponseHeader } from '@core/domain-classes/response-header';
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { CommonDialogService } from "@core/common-dialog/common-dialog.service";
+import { Country } from "@core/domain-classes/country";
+import { TranslationService } from "@core/services/translation.service";
+import { BaseComponent } from "src/app/base.component";
+import { ManageCountryComponent } from "../manage-country/manage-country.component";
+import { CountryDataSource } from "../country-datasource";
+import { LocationsResourceParameter } from "@core/domain-classes/masters/locations-resource-parameter";
+import { MatPaginator } from "@angular/material/paginator";
+import { CountryService } from "../country.service";
+import { tap } from "rxjs/operators";
+import { ResponseHeader } from "@core/domain-classes/response-header";
 
 @Component({
-  selector: 'app-country-list-presentation',
-  templateUrl: './country-list-presentation.component.html',
-  styleUrls: ['./country-list-presentation.component.scss'],
+  selector: "app-country-list-presentation",
+  templateUrl: "./country-list-presentation.component.html",
+  styleUrls: ["./country-list-presentation.component.scss"],
 })
 export class CountryListPresentationComponent
   extends BaseComponent
@@ -34,12 +34,13 @@ export class CountryListPresentationComponent
   @Output() deleteCountryHandler: EventEmitter<string> =
     new EventEmitter<string>();
   displayedColumns: string[] = [
-    'action',
-    'code',
-    'nameEnglish',
+    "nameEnglish",
+    "code",
+    "status",
+    "action",
     // 'nameSecondLanguage',
   ];
-  footerToDisplayed: string[] = ['footer'];
+  footerToDisplayed: string[] = ["footer"];
 
   constructor(
     private dialog: MatDialog,
@@ -90,7 +91,7 @@ export class CountryListPresentationComponent
   manageCountry(country: Country): void {
     this.dialog
       .open(ManageCountryComponent, {
-        width: '450px',
+        width: "450px",
         data: Object.assign({}, country),
       })
       .afterClosed()
@@ -102,12 +103,12 @@ export class CountryListPresentationComponent
 
   deleteUnit(country: Country): void {
     const areU = this.translationService.getValue(
-      'COMMON.ARE_YOU_SURE_YOU_WANT_TO_DELETE'
+      "COMMON.ARE_YOU_SURE_YOU_WANT_TO_DELETE"
     );
     this.sub$.sink = this.commonDialogService
       .deleteConformationDialog(
         `${areU} :: ${
-          this.translationService.getSelectedLanguage() == 'en'
+          this.translationService.getSelectedLanguage() == "en"
             ? country.nameEnglish
             : country.nameSecondLanguage
         }`

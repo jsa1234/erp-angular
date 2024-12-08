@@ -86,8 +86,8 @@ export class DetailedPurchaseReturnReportComponent extends BaseComponent impleme
       device: '',
       fromDate: '',
       toDate: '',
-      
-      supplier: '' ,
+      branch:['']
+,      supplier: '' ,
       product: '',
     });
   }

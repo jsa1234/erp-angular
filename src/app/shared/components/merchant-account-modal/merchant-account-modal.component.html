@@ -13,13 +13,14 @@
       </div>
     </div>
   </div>
+  
 
   <mat-dialog-content>
     <form [formGroup]="modalForm">
       <div class="modal-body bank-select">
         <div class="row">
           <ng-container *ngIf="data.isDevice">
-            <div class="col-md-12">
+            <div class="col-md-9">
               <div class="form-group">
                 <mat-label>POS Device</mat-label>
                 <mat-select class="form-control" formControlName="posDevices" [multiple]="data.isDeviceMultiple">
@@ -29,7 +30,7 @@
             </div>
           </ng-container>
           <ng-container *ngIf="data.isBank">
-          <div class="col-md-12">
+          <div class="col-md-9">
             <div class="form-group">
               <mat-label>Banks</mat-label>
               <mat-select class="form-control" formControlName="banks" [multiple]="data.isBankMultiple">
@@ -37,9 +38,9 @@
               </mat-select>
             </div>
           </div>
-        </ng-container>
+          </ng-container>
           <ng-container *ngIf="data.isPosPrinter">
-          <div class="col-md-12">
+          <div class="col-md-9">
             <div class="form-group">
               <mat-label>POS Printer</mat-label>
               <mat-select class="form-control" formControlName="posPrinters" [multiple]="data.isPosPrinterMultiple">
@@ -47,22 +48,24 @@
               </mat-select>
             </div>
           </div>
-        </ng-container>
+          </ng-container>
+        <div class="col-md-3">
+          <div class="">
+            <ng-container>
+              <mat-label>&nbsp;&nbsp;&nbsp;</mat-label>
+              <button class="btn blue-btn m-right-10" type="button" (click)="add()">
+                <i class="icon61"></i>
+                {{'COMMON.ADD' |translate}}
+              </button>
+            </ng-container>
+    
+          </div>
+        </div>
         </div>
       </div>
     </form>
   </mat-dialog-content>
-  <mat-dialog-actions>
-    <div class="form-row w-100">
-      <div class="text-center w-100">
-        <ng-container>
-          <button class="btn btn-success btn-sm m-right-10" type="button" (click)="add()">
-            <i class="fas fa-save"></i>
-            {{'COMMON.ADD' |translate}}
-          </button>
-        </ng-container>
-
-      </div>
-    </div>
-  </mat-dialog-actions>
+  <!-- <mat-dialog-actions>
+    
+  </mat-dialog-actions> -->
 </div>

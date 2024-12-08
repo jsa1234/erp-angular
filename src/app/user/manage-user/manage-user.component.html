@@ -2,26 +2,76 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1 *ngIf="!isEditMode"><i class="icon3"></i> <span>{{'USERS.ADD_USER' | translate}}</span></h1>
-        <h1 *ngIf="isEditMode"><i class="icon3"></i> <span>{{'USERS.EDIT_USER' | translate}}</span></h1>
+        <h1 *ngIf="!isEditMode"> {{'USERS.ADD_USER' | translate}}</h1>
+        <h1 *ngIf="isEditMode"> {{'USERS.EDIT_USER' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/users']" >{{'SIDEBAR.USERS' | translate}}</a> / <span>{{(isEditMode?'USERS.EDIT_USER':'USERS.ADD_USER') | translate}}</span>
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a>  <svg
+      width="16"
+      height="17"
+      viewBox="0 0 16 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clip-path="url(#clip0_229_1686)">
+        <path
+          d="M6 4.5L10 8.5L6 12.5"
+          stroke="#4A4A4A"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_229_1686">
+          <rect
+            width="16"
+            height="16"
+            fill="white"
+            transform="translate(0 0.5)"
+          />
+        </clipPath>
+      </defs>
+    </svg><a [routerLink]="['/users']" >{{'SIDEBAR.USERS' | translate}}</a>  <svg
+    width="16"
+    height="17"
+    viewBox="0 0 16 17"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clip-path="url(#clip0_229_1686)">
+      <path
+        d="M6 4.5L10 8.5L6 12.5"
+        stroke="#4A4A4A"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_229_1686">
+        <rect
+          width="16"
+          height="16"
+          fill="white"
+          transform="translate(0 0.5)"
+        />
+      </clipPath>
+    </defs>
+  </svg> <span>{{(isEditMode?'USERS.EDIT_USER':'USERS.ADD_USER') | translate}}</span>
     </div>
   </div>
 </div>
 
 <form [formGroup]="userForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
-  <div class="row">
+  <div class="row manage-user">
     <div class="col-md-9 manage-user-form1">
           <div class="form-row">
             <div class="col-md-4">
               <div class="form-group">
                 <label >{{'USERS.FIRST_NAME' | translate}}<span class="text-danger">*</span></label>
-                <input formControlName="firstName" class="form-control" type="text">
+                <input formControlName="firstName" class="form-control" type="text" placeholder="Enter here">
                 <div *ngIf="userForm.get('firstName').touched && userForm.get('firstName').errors">
                   <div class="text-danger" *ngIf="userForm.get('firstName').errors?.required">
                     {{'VALIDATIONS.FIRST_NAME_IS_REQUIRED' | translate}}
@@ -32,7 +82,7 @@
             <div class="col-md-4">
               <div class="form-group ">
                 <label >{{'USERS.LAST_NAME' | translate}}<span class="text-danger">*</span></label>
-                <input formControlName="lastName" class="form-control" type="text">
+                <input formControlName="lastName" class="form-control" type="text" placeholder="Enter here">
                 <div *ngIf="userForm.get('lastName').touched && userForm.get('lastName').errors">
                   <div class="text-danger" *ngIf="userForm.get('lastName').errors?.required">
                     {{'VALIDATIONS.LAST_NAME_IS_REQUIRED' | translate}}
@@ -40,21 +90,21 @@
                 </div>
               </div>
             </div>
-        <div class="col-md-4">
-          <div class="form-group ">
-            <label >{{'USERS.PHONE_NUMBER' | translate}} <span class="text-danger">*</span></label>
-            <input formControlName="phoneNumber" class="form-control" type="number" appNumericOnly>
-            <div *ngIf="userForm.get('phoneNumber').touched && userForm.get('phoneNumber').errors">
-              <div class="text-danger" *ngIf="userForm.get('phoneNumber').errors?.required">
-                {{'VALIDATIONS.PHONE_NUMBER_IS_REQUIRED' | translate}}
+            <div class="col-md-4">
+              <div class="form-group ">
+                <label >{{'USERS.PHONE_NUMBER' | translate}} <span class="text-danger">*</span></label>
+                <input formControlName="phoneNumber" class="form-control" maxlength="10" type="text" placeholder="Enter here" appNumericOnly>
+                <div *ngIf="userForm.get('phoneNumber').touched && userForm.get('phoneNumber').errors">
+                  <div class="text-danger" *ngIf="userForm.get('phoneNumber').errors?.required">
+                    {{'VALIDATIONS.PHONE_NUMBER_IS_REQUIRED' | translate}}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
         <div class="col-md-4">
           <div class="form-group">
             <label >{{'USERS.EMAIL' | translate}} <span class="text-danger">*</span></label>
-            <input [attr.disabled]="isEditMode ? '' : null" formControlName="email" class="form-control" type="email">
+            <input [attr.disabled]="isEditMode ? '' : null" formControlName="email" class="form-control" type="email" placeholder="Enter here">
             <div *ngIf="userForm.get('email').touched && userForm.get('email').errors">
               <div class="text-danger" *ngIf="userForm.get('email').errors?.required">
                 {{'VALIDATIONS.EMAIL_IS_REQUIRED' | translate}}
@@ -68,7 +118,7 @@
         <div *ngIf="!isEditMode" class="col-md-4">
               <div class="form-group">
                 <label >{{'USERS.PASSWORD' | translate}} <span class="text-danger">*</span></label>
-                <input autocomplete="new-password" formControlName="password" class="form-control" type="password">
+                <input autocomplete="new-password" formControlName="password" class="form-control" type="password" placeholder="Enter here">
                 <div *ngIf="userForm.get('password').touched && userForm.get('password').errors">
                   <div class="text-danger" *ngIf="userForm.get('password').errors?.required">
                     {{'VALIDATIONS.PASSWORD_IS_REQUIRED' | translate}}
@@ -76,13 +126,16 @@
                   <div class="text-danger" *ngIf="userForm.get('password').errors?.minlength">
                     {{'VALIDATIONS.YOU_HAVE_TO_ENTER_AT_LEAST_6_DIGIT' | translate}}
                   </div>
+                  <div class="text-danger" *ngIf="userForm.get('password').errors?.maxlength">
+                    {{'VALIDATIONS.MAX_LENGTH' | translate}}
+                  </div>
                 </div>
               </div>
             </div>
             <div *ngIf="!isEditMode" class="col-md-4">
               <div class="form-group">
                 <label >{{'USERS.CONFIRM_PASSWORD' | translate}} <span class="text-danger">*</span></label>
-                <input autocomplete="new-password" formControlName="confirmPassword" class="form-control"
+                <input autocomplete="new-password" placeholder="Enter here" formControlName="confirmPassword" class="form-control"
                   type="password">
                 <div *ngIf="userForm.get('confirmPassword').touched && userForm.get('confirmPassword').errors">
                   <div class="text-danger" *ngIf="userForm.get('confirmPassword').errors?.required">
@@ -95,7 +148,7 @@
                 </div>
               </div>
         </div>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label>{{'USERS.ROLES' | translate}}</label>
               <mat-select class="form-control" [(value)]="selectedRoles" multiple>
                 <mat-select-trigger>
@@ -108,16 +161,23 @@
                 </mat-select-trigger>
                 <mat-option *ngFor="let role of roleList" [value]="role">{{role.name}}</mat-option>
               </mat-select>
+            </div> -->
+            <div class="form-group col-md-4">
+              <label>{{'USERS.ROLES' | translate}} <span class="text-danger">*</span></label>
+              <mat-select  formControlName="selectedRoles"  class="form-control" (selectionChange)="getUser($event.value)" >
+                <mat-option *ngFor="let role of roleList" [isMandatory]="true" [value]="role"> {{role.name}}</mat-option>
+              </mat-select>
             </div>
             <div class="form-group col-md-4">
-              <app-branch-dropdown [group]="userForm" [controlName]="'branch'" [isMandatory]="true"></app-branch-dropdown>
+              <app-branch-dropdown [group]="userForm" [controlName]="'branch'" [isMandatory]="true"
+              [isDefault]="isDefaultBranch"  [isAddAll]="false"></app-branch-dropdown>
             </div>
             <div class="form-group col-md-3 status-switch mt-8">
               <mat-slide-toggle formControlName="isActive">
                 <span >{{(userForm.get('isActive').value?'COMMON.ACTIVE':'COMMON.INACTIVE') | translate}}</span>
               </mat-slide-toggle>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-12">
               <div class="form-group">
                 <label>{{'USERS.ADDRESS' | translate}}</label>
                 <textarea formControlName="address" class="form-control"></textarea>
@@ -126,26 +186,29 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <mat-card class="cus-mat-card">
+      <!-- <div class="row"> -->
+        <div class="col-md-12 text-center card-full-manage">
+          <mat-card class="cus-mat-card-manage">
             <input hidden (change)="onFileSelect($event)" #fileInput name="logo" type="file" name="Profile Photo"
               fxFlex="30">
             <img *ngIf="imgSrc" class="full-width" [src]="imgSrc" />
             <img *ngIf="!imgSrc" class="full-width" src="../../../assets/images/user-profile.jpg" />
             <mat-card-actions class="image-user-upload">
-              <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm" (click)="fileInput.click()">
-                <i class="far fa-image"></i> {{'COMMON.ADD_IMAGE' |translate}}</button>
-              <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm mb-2" (click)="fileInput.click()">
+              <button type="button" *ngIf="!imgSrc" class="btn btn-success btn-sm " (click)="fileInput.click()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="add-icon" width="16" height="15" viewBox="0 0 16 15" fill="none" >
+                  <path d="M8 5.00012V10.0001M10.5 7.50012H5.5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M14.25 7.50012C14.25 4.04834 11.4517 1.25012 8 1.25012C4.54822 1.25012 1.75 4.04834 1.75 7.50012C1.75 10.9519 4.54822 13.7501 8 13.7501C11.4517 13.7501 14.25 10.9519 14.25 7.50012Z" stroke="white"/>
+                </svg> {{'COMMON.ADD_IMAGE' |translate}}</button>
+              <button type="button" *ngIf="imgSrc" class="btn btn-success btn-sm mb-2 " (click)="fileInput.click()">
                 <i class="far fa-image"></i> {{'COMMON.CHANGE_IMAGE' |translate}}</button>
               <button *ngIf="imgSrc" type="button" (click)="onRemoveImage()" class="btn btn-danger btn-sm">
                 <i class="fas fa-trash-alt"></i> {{'COMMON.REMOVE_IMAGE' |translate}}</button>
             </mat-card-actions>
           </mat-card>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
-    <div class="m-top-10 col-md-12 text-center">
+   <!--  <div class="m-top-10 col-md-12 text-center">
       <ng-container *ngIf="isEditMode">
 
         <button  class="btn btn-success btn-sm m-right-10 m-left-10" (click)="saveUser()"
@@ -158,6 +221,27 @@
       </ng-container>
       <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/users']"><i class="fas fa-times-circle"></i>
         {{'COMMON.CANCEL' | translate}}</button>
+    </div> -->
+  </div>
+
+  <div class="row customer-save">
+    <div class="m-top-10 m-bottom-40 col-md-12 text-right  section-boxed ">
+      <button type="submit" class="btn btn-success  m-right-10 m-left-10 customer-save-button " (click)="saveUser()"   cdkFocusInitial>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+          <path d="M3 9.50047V11.4085C3 13.8423 3 15.0592 3.66455 15.8834C3.79881 16.0499 3.95048 16.2016 4.117 16.3359C4.94123 17.0005 6.15811 17.0005 8.59185 17.0005C9.12105 17.0005 9.38557 17.0005 9.6279 16.915C9.6783 16.8971 9.72765 16.8767 9.77587 16.8536C10.0077 16.7428 10.1947 16.5557 10.5689 16.1815L14.1213 12.6291C14.5549 12.1956 14.7716 11.9788 14.8858 11.7031C15 11.4275 15 11.1209 15 10.5078V8.00047C15 5.17201 15 3.7578 14.1213 2.87912C13.327 2.08475 12.0949 2.00853 9.77587 2.00122M9.75 16.6255V16.2505C9.75 14.1291 9.75 13.0684 10.409 12.4094C11.068 11.7505 12.1287 11.7505 14.25 11.7505H14.625" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 4.99976H3M6 1.99976V7.99975" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{'COMMON.SAVE' | translate}}
+      </button>
+      <button type="button" class="btn     customer-close-button"  [routerLink]="['/users']">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+          <path d="M15.1725 14.4939C15.498 14.8193 15.498 15.3469 15.1725 15.6724C14.8471 15.9978 14.3194 15.9978 13.994 15.6724L9.99995 11.6784L6.00601 15.6724C5.68058 15.9978 5.15294 15.9978 4.8275 15.6724C4.50206 15.3469 4.50206 14.8193 4.82749 14.4939L8.82143 10.4999L4.82733 6.50583C4.50189 6.18039 4.50189 5.65276 4.82733 5.32733C5.15277 5.00189 5.68041 5.00189 6.00585 5.32733L9.99993 9.32134L13.9939 5.32734C14.3193 5.0019 14.8469 5.0019 15.1724 5.32733C15.4978 5.65277 15.4978 6.1804 15.1724 6.50584L11.1784 10.4998L15.1725 14.4939Z" fill="#6B5C58"/>
+        </svg>
+        {{'COMMON.CANCEL' | translate}}</button>
+     
     </div>
   </div>
 </form>
+<div class="loading-shade" *ngIf="isLoading">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>

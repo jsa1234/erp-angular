@@ -2,6 +2,7 @@
   margin-right: 5px;
   padding: 0 !important;
   margin-bottom: 0 !important;
+
 }
 .manage-add-btn .mat-icon {
   line-height: 0;
@@ -17,6 +18,7 @@
   padding-top: 11px;
 }
 .manage-voucher-table th {
-  background-color: #f58220 !important;
+  background: var(--f1, #8E8F93);
   color: #FFF;
+  
 }

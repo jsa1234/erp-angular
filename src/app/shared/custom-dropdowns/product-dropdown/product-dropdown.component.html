@@ -4,7 +4,9 @@
       <mat-select class="form-control" [formControlName]="controlName">
         <input class="form-control w-100"  (keydown.space)="$event.stopPropagation()" type="text"
         autocomplete="off" placeholder="search by name or code" [formControl]="searchControl">
-        
+        <mat-option *ngIf="showAllOption" [value]="">
+          All
+        </mat-option>
         <mat-option *ngFor="let product of products" [value]="product.productUUID">
           {{product.productCode}} - {{product.nameEnglish}}
         </mat-option>

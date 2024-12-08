@@ -57,7 +57,7 @@
         </ng-container>
         <ng-container matColumnDef="taxes">
             <th mat-header-cell *matHeaderCellDef>{{'PURCHASE_RETURN.TAX_AMOUNT' | translate}}  </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element?.vatAmount | customCurrency">
+            <td mat-cell *matCellDef="let element" [innerHTML]="element?.cgstAmount + element?.sgstAmount + element?.igstAmount + element?.addnlCessAmount + element?.cessAmount  | customCurrency">
             </td>
         </ng-container>
        

@@ -1,4 +1,4 @@
-<div class="topcustomer-chart">
+<!-- <div class="topcustomer-chart">
     <h3>{{'DASHBOARD.TOP_SELLING_PRODUCTS' |translate}}</h3>
     <ng-container *ngIf="isLoading$">
       <app-dashboard-loader></app-dashboard-loader>
@@ -15,4 +15,22 @@
       <label >{{'COMMON.NO_DATA_FOUND' | translate}}</label>
     </div>
   </ng-container>
+  </div> -->
+
+  <div class="topcustomer-chart">
+    <!-- <span class="adv-rpt">Advanced Report<i class="vector"></i></span> -->
+    <div class="chart-wrapper">
+      <ng-container *ngIf="isLoading$">
+        <app-dashboard-loader></app-dashboard-loader>
+        </ng-container>
+        <ng-container *ngIf="!isLoading$">
+          <canvas baseChart *ngIf="topSellingProductsList?.monthlyPurchaseReturnCurrentYear?.length > 0 || topSellingProductsList?.monthlySalesReturnCurrentYear?.length > 0"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend"
+          [type]="lineChartType">
+        </canvas>
+        </ng-container>
+    </div>
   </div>

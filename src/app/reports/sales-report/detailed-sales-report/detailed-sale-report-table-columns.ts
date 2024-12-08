@@ -13,7 +13,7 @@ export const DetailedSaleReportTableColumns: ColumnDisplaySettings[] = [
     {  key: 'customerName', name:'Customer Name', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'gstNo', name:'GST No', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'subTotal', name:'Sub Total', visibleTableColumns: false, isShowCheckBox: true },
-    {  key: 'discount', name:'Discount', visibleTableColumns: false, isShowCheckBox: true },
+    {  key: 'discount', name:'Discount', visibleTableColumns: false, isShowCheckBox: false },
     {  key: 'taxableAmount', name:'Taxable Amount', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'cgst', name:'CGST', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'sgst', name:'SGST', visibleTableColumns: false, isShowCheckBox: true },
@@ -21,6 +21,6 @@ export const DetailedSaleReportTableColumns: ColumnDisplaySettings[] = [
     {  key: 'totalGST', name:'Total GST', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'cess', name:'CESS', visibleTableColumns: false, isShowCheckBox: true },
     {  key: 'additionalCess', name:'Additional CESS', visibleTableColumns: false, isShowCheckBox: true },
-    {  key: 'transactionMode', name:'Transaction Mode', visibleTableColumns: true, isShowCheckBox: true },
+    {  key: 'transactionMode', name:'Transaction Mode', visibleTableColumns: false, isShowCheckBox: false },
     {  key: 'netTotal', name:'Net Total Amount', visibleTableColumns: true, isShowCheckBox: true }
   ];

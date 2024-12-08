@@ -2,18 +2,27 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon38"></i> <span>{{'ROLES.ROLE_USER' | translate}}</span></h1>
+        <h1>{{'ROLES.ROLE_USER' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'ROLES.ROLE_USER' | translate}}</span>
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+        <g clip-path="url(#clip0_202_698)">
+        <path d="M6 4.5L10 8.5L6 12.5" stroke="#4A4A4A" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_202_698">
+        <rect width="16" height="16" fill="white" transform="translate(0 0.5)"/>
+        </clipPath>
+        </defs>
+        </svg> <span>{{'ROLES.ROLE_USER' | translate}}</span>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-5">
     <div class="form-group">
       <mat-label>{{'ROLES.SELECT_ROLE' | translate}}</mat-label>
       <mat-select class="form-control" name="selectedRole" [(ngModel)]="selectedRoleId" (selectionChange)="onRoleChange()">
@@ -25,7 +34,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-12" [ngClass]="{'text-right':translationService.getSelectedLanguage()=='ar'}">
+  <div class="col-sm-12" [ngClass]="{'text-right':translationService.getSelectedLanguage()=='ar'}" style="margin-bottom: 4px; margin-top: 15px;">
     <span class="font-weight-bold text-danger">
       {{'ROLES.NOTE_IN_ORDER_TO_ADD_USER_TO_ROLE_PLEASE_DRAG_IT_FROM_ALL_USERS_TO_ROLE_USERS' | translate}}
     </span>
@@ -34,7 +43,7 @@
 
 <div *ngIf="selectedRole" class="row">
   <div class="col-sm-5">
-    <h5 class="text-primary">{{'ROLES.ALL_USERS' | translate}}</h5>
+    <h5 class="" style="color: black;">{{'ROLES.ALL_USERS' | translate}}</h5>
     <div cdkDropList #doneList="cdkDropList" cdkDropListLockAxis="true" [cdkDropListData]="otherUsers"
       [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="removeUser($event)">
       <div class="example-box" *ngFor="let item of otherUsers" cdkDrag>
@@ -43,7 +52,7 @@
     </div>
   </div>
   <div class="col-sm-5">
-    <h5 class="text-primary">{{'ROLES.ROLE_USERS' | translate}}</h5>
+    <h5 class=""style="color: black;">{{'ROLES.ROLE_USERS' | translate}}</h5>
     <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="roleUsers" [cdkDropListConnectedTo]="[doneList]"
       class="example-list" (cdkDropListDropped)="addUser($event)">
       <div class="example-box" *ngFor="let item of roleUsers" cdkDrag>

@@ -8,21 +8,71 @@
         <div
             class="col-md-auto col-sm-auto">
             <button *hasClaim="'account_payment_voucher_print_payment_voucher'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
-                <i class="fas fa-receipt"></i> {{'ACCOUNTS.PAYMENT_VOUCHER.PRINT_PAYMENT_VOUCHER'  | translate}}
+                {{'ACCOUNTS.PAYMENT_VOUCHER.PRINT_PAYMENT_VOUCHER'  | translate}}&nbsp;&nbsp;&nbsp;<i class="fas fa-receipt"></i> 
             </button>
         </div>
     </div>
     <div class="breadcrump-pages">
         <div class="crumbs-sec">
-          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> /
-          <a [routerLink]="['/paymentVoucher']">{{'SIDEBAR.RECEIPT_VOUCHER' | translate}}</a> /
+          <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="17"
+          viewBox="0 0 16 17"
+          fill="none"
+        >
+          <g clip-path="url(#clip0_202_698)">
+            <path
+              d="M6 4.5L10 8.5L6 12.5"
+              stroke="#4A4A4A"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_202_698">
+              <rect
+                width="16"
+                height="16"
+                fill="white"
+                transform="translate(0 0.5)"
+              />
+            </clipPath>
+          </defs></svg>
+          <a [routerLink]="['/paymentVoucher']">{{'SIDEBAR.RECEIPT_VOUCHER' | translate}}</a>
+          <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="17"
+          viewBox="0 0 16 17"
+          fill="none"
+        >
+          <g clip-path="url(#clip0_202_698)">
+            <path
+              d="M6 4.5L10 8.5L6 12.5"
+              stroke="#4A4A4A"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_202_698">
+              <rect
+                width="16"
+                height="16"
+                fill="white"
+                transform="translate(0 0.5)"
+              />
+            </clipPath>
+          </defs></svg>
           <span>{{'ACCOUNTS.PAYMENT_VOUCHER.PAYMENT_VOUCHER_DETAIL' | translate}}</span>
         </div>
       </div>
 </div>
 
     <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="voucher?.branchUUID"></app-comapny-profile-heading>
-    <div class="row">
+    <div class="row details_card ml-1 mr-1">
         <div class="col-md-6">
             <div class="invoice-detatable table-responsive" [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
                 <table>
@@ -54,7 +104,7 @@
             </div>
         </div>
     </div>
-
+<br>
 
 
 <ng-container *hasClaim="'account_payment_voucher_list_payment_voucher_items'">
@@ -68,8 +118,8 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped">
+    <div class="variant-table table-responsive">
+        <table class="">
             <thead class="head">
                 <tr>
                     <th style="width:1%">{{'COMMON.#'  | translate}}</th>

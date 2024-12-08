@@ -3,13 +3,13 @@
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons"
         [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon45"></i> <span>{{'SIDEBAR.COMPANY_PROFILE' | translate}}</span></h1>
+        <h1>{{'SIDEBAR.COMPANY_PROFILE' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.COMPANY_PROFILE' |
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <span>{{'SIDEBAR.COMPANY_PROFILE' |
         translate}}</span>
     </div>
   </div>
@@ -31,7 +31,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="form-group">
               <label >{{'COMPANY_PROFILE.COMPANY_CODE'|translate}} <span class="text-danger">*</span></label>
               <input formControlName="companyCode" class="form-control w-100" type="text">
@@ -42,64 +42,80 @@
               </div>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <label >Country Code</label>
-              <input formControlName="mobileCountryCode" class="form-control w-100" type="text">
+              <input formControlName="mobileCountryCode" class="form-control w-100" type="text" maxlength="4">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label >{{'COMPANY_PROFILE.MOBILE_NO'|translate}}</label>
-              <input formControlName="mobileNo" class="form-control w-100" type="text">
+              <input formControlName="mobileNo" class="form-control w-100" type="text" minlength="10" maxlength="10"
+              (keypress)="commonServ.validateTextBox($event,'number');" 
+               [ngClass]="{'error': companyProfileForm.get('mobileNo')?.invalid && companyProfileForm.get('mobileNo')?.touched}">
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <label >Country Code</label>
-              <input formControlName="phoneCountryCode" class="form-control w-100" type="text">
+              <input formControlName="phoneCountryCode" class="form-control w-100" type="text" maxlength="4">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label >{{'COMPANY_PROFILE.PHONE_NO'|translate}}</label>
-              <input formControlName="phoneNo" class="form-control w-100" type="text">
+              <input formControlName="phoneNo" class="form-control w-100" type="text" maxlength="10"
+              (keypress)="commonServ.validateTextBox($event,'number');" 
+               [ngClass]="{'error': companyProfileForm.get('phoneNo')?.invalid && companyProfileForm.get('phoneNo')?.touched}">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="form-group">
               <label >{{'COMPANY_PROFILE.EMAIL'|translate}}</label>
               <input formControlName="email" class="form-control w-100" type="text">
+              <div *ngIf="companyProfileForm.get('email').touched && companyProfileForm.get('email').errors?.email" class="text-danger">
+                Please enter a valid email address.
+              </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label >{{'COMPANY_PROFILE.WEBSITE'|translate}}</label>
-              <input formControlName="website" class="form-control w-100" type="text">
+              <input formControlName="website" class="form-control w-100" type="text"
+              [ngClass]="{'error': companyProfileForm.get('website')?.invalid && companyProfileForm.get('website')?.touched}">
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label > {{'COMPANY_PROFILE.GST_NO'|translate}}</label>
-              <input formControlName="gstVatNo" class="form-control w-100" type="text">
+              <input formControlName="gstVatNo" class="form-control w-100" type="text"
+              [ngClass]="{'error': companyProfileForm.get('gstVatNo')?.invalid && companyProfileForm.get('gstVatNo')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'NoSpecialCharacters');" maxlength="15" minlength="15">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label >TIN No</label>
-              <input formControlName="registrationNo" class="form-control w-100" type="text">
+              <input formControlName="registrationNo" class="form-control w-100" type="text"
+              [ngClass]="{'error': companyProfileForm.get('registrationNo')?.invalid && companyProfileForm.get('registrationNo')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'number');" maxlength="11" minlength="11">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label > PIN No</label>
-              <input formControlName="additionalNo" class="form-control w-100" type="text">
+              <input formControlName="additionalNo" class="form-control w-100" type="text"
+              [ngClass]="{'error': companyProfileForm.get('additionalNo')?.invalid && companyProfileForm.get('additionalNo')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'number');" maxlength="6" minlength="6">
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label > FSSAI No</label>
-              <input formControlName="fssaiNumber" class="form-control w-100" type="text">
+              <input formControlName="fssaiNumber" class="form-control w-100" type="text"
+              [ngClass]="{'error': companyProfileForm.get('fssaiNumber')?.invalid && companyProfileForm.get('fssaiNumber')?.touched}"
+              (keypress)="commonServ.validateTextBox($event,'number');" maxlength="14" minlength="14">
             </div>
           </div>
         </div>
@@ -189,7 +205,9 @@
           <div class="col-md-4">
             <div class="form-group">
               <label > Whatsapp No</label>
-              <input formControlName="whatsappNo" class="form-control w-100" type="text">
+              <input formControlName="whatsappNo" class="form-control w-100" type="text" maxlength="10"
+              (keypress)="commonServ.validateTextBox($event,'number');" 
+              [ngClass]="{'error': companyProfileForm.get('whatsappNo')?.invalid && companyProfileForm.get('whatsappNo')?.touched}">
             </div>
           </div>
           <div class="col-md-4">
@@ -210,7 +228,7 @@
               <input formControlName="twiterUrl" class="form-control w-100" type="text">
             </div>
           </div>
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <date-input [group]="companyProfileForm" [controlName]="'startDate'" [label]="'COMPANY_PROFILE.START_DATE'"
               [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_START_DATE'" [isMandatory]="true"  [isCustomRange]="true" [isDefaultDate]="false" [defaultDate]="company?.startDate"></date-input>
           </div>
@@ -221,9 +239,9 @@
           <div class="col-md-4">
             <date-input [group]="companyProfileForm" [controlName]="'renewalDate'" [label]="'COMPANY_PROFILE.RENEWAL_DATE'"
               [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_RENEWAL_DATE'" [isMandatory]="true" [isCustomRange]="true" [isDefaultDate]="false" [defaultDate]="company?.renewalDate"></date-input>
-          </div>
+          </div> -->
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-6">
             <label>Color Logo</label>
             <mat-card class="cus-mat-card upload-complogo">
@@ -232,7 +250,7 @@
               <img *ngIf="polyChromeSrc" class="full-width" [src]="polyChromeSrc" />
               <img *ngIf="!polyChromeSrc" class="full-width" src="../../assets/images/dummy.jpg" />
               <mat-card-actions>
-                <button type="button" class="btn btn-success btn-sm mb-2" (click)="polychrome.click()">
+                <button type="button" class="btn btn-success btn-sm mb-2 rounded-pill" (click)="polychrome.click()">
                   <i class="far fa-image"></i> {{'COMMON.CHANGE_LOGO' | translate}}</button>
               </mat-card-actions>
             </mat-card>
@@ -245,23 +263,23 @@
               <img *ngIf="monoChromeSrc" class="full-width" [src]="monoChromeSrc" />
               <img *ngIf="!monoChromeSrc" class="full-width" src="../../assets/images/dummy.jpg" />
               <mat-card-actions>
-                <button type="button" class="btn btn-success btn-sm mb-2" (click)="monochrome.click()">
+                <button type="button" class="btn btn-success btn-sm mb-2 rounded-pill" (click)="monochrome.click()">
                   <i class="far fa-image"></i> {{'COMMON.CHANGE_LOGO' | translate}}</button>
               </mat-card-actions>
             </mat-card>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12 m-bottom-40 text-center">
+  <div class="row details_card p-4 m-1">
+    <div class="col-md-12 m-bottom-40 text-right">
       <button *hasClaim="'profile_business_update_business_profile'" type="submit"
-        class="btn btn-success btn-sm mr-2 m-left-10">
-        <i class="fas fa-save"></i> {{'COMMON.SAVE' | translate}}
+        class="btn blue-btn mr-2 m-left-10">
+        <i class="icon61"></i> {{'COMMON.SAVE' | translate}}
       </button>
-      <button [routerLink]="['/dashboard']" type="button" class="btn btn-danger btn-sm">
-        <i class="fas fa-times-circle"></i> {{'COMMON.CANCEL' | translate}}
+      <button [routerLink]="['/dashboard']" type="button" class="btn btn-danger">
+        <i class="fas fa-times"></i> {{'COMMON.CANCEL' | translate}}
       </button>
     </div>
   </div>

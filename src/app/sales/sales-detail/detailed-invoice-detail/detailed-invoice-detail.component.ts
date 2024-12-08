@@ -42,6 +42,8 @@ detailedSaleInvoiceForPdf:ISalesInvoice
   }
  }
  generateInvoice() {
+  debugger
+  console.log(this.saleInvoicePdf);
    this.detailedSaleInvoiceForPdf =this.clonerService.deepClone<ISalesInvoice>(this.saleInvoicePdf)
    this.companyProfileForPdf =this.clonerService.deepClone<ICompany>(this.company)
 }

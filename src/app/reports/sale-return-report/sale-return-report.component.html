@@ -2,13 +2,13 @@
     <div class="row align-items-center justify-content-between">
       <div class="col-md-auto col-sm-auto">
         <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-          <h1><i class="icon25"></i> <span>{{'SIDEBAR.SALE_RETURN_REPORT' | translate}}</span></h1>
+          <h1>{{'SIDEBAR.SALE_RETURN_REPORT' | translate}}</h1>
         </div>
       </div>
     </div>
     <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
       <div class="crumbs-sec">
-        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.SALE_RETURN_REPORT' | translate}}</span>
+        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <span>{{'SIDEBAR.SALE_RETURN_REPORT' | translate}}</span>
       </div>
     </div>
   </div>

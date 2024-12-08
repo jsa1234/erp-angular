@@ -26,6 +26,7 @@ export class ManageTaxComponent extends BaseComponent implements OnInit {
   taxTypes:TaxTypes[]
   taxTypeEnum = TaxTypes
   taxBehaviours: TaxBehaviour[];
+  isLoading: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<ManageTaxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Tax,
@@ -65,8 +66,8 @@ export class ManageTaxComponent extends BaseComponent implements OnInit {
       igst:['',[Validators.required,Validators.max(100),Validators.min(0),]],
       taxType:[this.taxTypeEnum.TAX],
       taxBehaviour:[''],
-      saleMappingAccountUUID:['',Validators.required],
-      purchaseMappingAccountUUID:['',Validators.required],
+      saleMappingAccountUUID:[''],
+      purchaseMappingAccountUUID:[''],
       taxValidFrom:[''],
       taxValidTo:[''],
       isGlobal:[false]
@@ -90,18 +91,33 @@ export class ManageTaxComponent extends BaseComponent implements OnInit {
       this.taxForm.markAllAsTouched();
       return;
     }
+    const sgst = this.taxForm.get('sgst')?.value;
+    const cgst = this.taxForm.get('cgst')?.value;
+    const igst = this.taxForm.get('igst')?.value;
+    
+    if (sgst !== cgst) {
+      this.toastrService.warning('SGST must be equal to CGST.');
+      return;
+    }
+    if(igst !== sgst + cgst){
+      this.toastrService.warning('IGST must be the sum of SGST and CGST');
+      return
+    }
     this.isDisable = true
     const tax: Tax = this.taxForm.getRawValue();
     tax.branchUUID = tax.branchUUID
     tax.taxType === this.taxTypeEnum.TAX ? (tax.percentage = 0) : (tax.sgst = tax.cgst = tax.igst = 0);
+    this.isLoading=true;
     if (this.data.taxUUID) {
       this.taxService.update(tax).subscribe(() => {
+        this.isLoading=false;
         this.toastrService.success('Tax Updated Successfully.');
         this.onCancel()
       },(err)=>{    this.isDisable = false});
     } else {
      
       this.taxService.add(tax).subscribe(() => {
+        this.isLoading=false;
         this.toastrService.success('Tax Added Successfully.');
         this.onCancel()
       },(err)=>{    this.isDisable = false});

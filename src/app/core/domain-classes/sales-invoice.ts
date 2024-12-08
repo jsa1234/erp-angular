@@ -34,6 +34,7 @@ export class SalesInvoice implements ISalesInvoice {
    this.#_docNo = values.docNo
    this.#_totalTax = values.taxAmount
    this.#_totalDiscount = values.discountAmount
+   this.#_totalDiscount = values.billDiscount
    this.#_totalAmount = values.netTotalAmount
    this.#_saleInvoiceUUID = values.saleInvoiceUUID
    this.#_clientObject = values.clientObject
@@ -139,6 +140,7 @@ export interface ISalesInvoice{
     drNo?:                  string;
     subTotal?:              number;
     discountAmount?:        number;
+    billDiscount?:          number;
     grossAmount?:           number;
     taxAmount?:             number;
     otherExpense?:          number;

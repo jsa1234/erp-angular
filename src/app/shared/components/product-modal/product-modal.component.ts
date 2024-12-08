@@ -150,9 +150,26 @@ ngAfterViewInit() {
 }
 
 onSearch(): void {
-  this.productResource = new ProductResourceParameter();
-  this.productResource.searchQuery = this.searchText;
-  this.getAllProducts();
+  // this.productResource = new ProductResourceParameter();
+  // this.productResource.searchQuery = this.searchText;
+  // this.getAllProducts();
+  const trimmedSearchText = this.searchText.trim();
+  
+  if (trimmedSearchText) {
+    this.productResource = new ProductResourceParameter(); // Reset the resource parameter
+    this.productResource.searchQuery = trimmedSearchText; // Set the search query
+    this.productResource.pageSize = environment.initialPageSize; // Set initial page size (if required)
+    this.getAllProducts(); // Call the API
+  } else {
+    // Optionally, handle empty searches by either clearing the products list or showing a message
+    this.products = [];
+    console.warn('Search text is empty. No API call made.');
+  }
 }
 isMulti:boolean = true
+
+onKeyUp(event: KeyboardEvent): void {
+  // Optional: Handle other key events if needed
+  console.log('Key pressed:', (event.target as HTMLInputElement).value);
+}
 }

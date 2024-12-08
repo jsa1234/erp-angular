@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BankTypes } from '@core/domain-classes/bank-types.interface';
 import { LoaderService } from '@shared/services/loader.service';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,7 @@ import { District } from '@core/domain-classes/district';
 import { Bank } from '@core/domain-classes/bank.interface';
 import { SecurityService } from '@core/security/security.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonService } from '@core/services/common.service';
 type ApiResponse<T> = T[] | CommonError;
 
 @Component({
@@ -42,7 +43,10 @@ export class ManageBankComponent extends BaseComponent implements OnInit {
     private stateService:StateService,
     private loader:LoaderService,
     private router:Router,
-    private route:ActivatedRoute) {
+    private route:ActivatedRoute,
+    public commonServ:CommonService
+  ) 
+  {
     super();
     this.branchUUID = securityService.getUserDetail().branchUUID
   }
@@ -55,23 +59,23 @@ export class ManageBankComponent extends BaseComponent implements OnInit {
   createForm():void{
     this.bankForm = this.fb.group({
       accountUUID: [uuid()],
-      accountCode: [''],
+      accountCode: ['',[Validators.required]],
       branchUUID:[this.branchUUID],
       bankType: [],
       nameEnglish: [{value:'',disabled:true}],
-      namePrefixEnglish: [''],
-      firstNameEnglish: [''],
+      namePrefixEnglish: ['',[Validators.required]],
+      firstNameEnglish: ['',Validators.required],
       buildingNoEnglish: [''],
       streetEnglish: [''],
       placeEnglish: [''],
       zipCode: [''],
       phone: [''],
-      email: [''],
+      email:  ['', [Validators.email]],
       districtUUID: [''],
       stateUUID: [''],
       countryUUID: [''],
-      accountNo: [''],
-      ifscCode: ['']
+      accountNo: ['',[Validators.required]],
+      ifscCode: ['',[Validators.required]]
     });
 
   }

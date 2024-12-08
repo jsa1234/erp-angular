@@ -2,19 +2,19 @@
     <div class="row align-items-center justify-content-between">
       <div class="col-md-auto col-sm-auto">
         <div class="content-header svg-icons">
-          <h1><i class="icon59"></i> <span>POS Device</span> </h1>
+          <h1>Counter </h1>
         </div>
       </div>
       <div class="col-md-auto col-sm-auto">
         <button  class="btn blue-btn btn-sm m-right-10"
           [routerLink]="['/pos-device/manage/add']">
-          <i class="fas fa-plus"></i> Manage POS Device Details
+          Add Counter &nbsp;<i class="new-add"></i> 
         </button>
       </div>
     </div>
     <div class="breadcrump-pages">
       <div class="crumbs-sec">
-        <a [routerLink]="['/']" >Dashboard</a> / <span>POS Device</span>
+        <a [routerLink]="['/']" >Dashboard</a> <i class="chevron-icon"></i> <span>Counter</span>
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
       <div class="table-responsive">
 
         <table mat-table [dataSource]="dataSource" multiTemplateDataRows
-          class="table table-bordered table-hover grid-height" matSort >
+          class="table table-bordered" matSort >
 
           <ng-container matColumnDef="action">
             <th class="table-column-150" mat-header-cell *matHeaderCellDef>
@@ -42,18 +42,15 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
+              
                 <button  mat-menu-item
-                  [routerLink]="['/pos-device/detail/', posDevice.posDeviceUUID]">
-                  <mat-icon>info</mat-icon>
-                  <span>{{'COMMON.DETAIL' | translate}}</span>
-                </button>
-                <button  mat-menu-item
-                [routerLink]="['/pos-device/manage/', posDevice.posDeviceUUID]">
-                <mat-icon>edit</mat-icon>
+                [routerLink]="['/pos-device/manage/', posDevice.counterUUID]">
+                <i class="edit-icon"></i>
                 <span>{{'COMMON.EDIT' | translate}}</span>
               </button>
+              <hr />
                 <button   mat-menu-item (click)="deletePOSDevice(posDevice)">
-                  <mat-icon>delete</mat-icon>
+                  <i class="delete-icon"></i>
                   <span>{{'COMMON.DELETE' | translate}}</span>
                 </button>
               </mat-menu>
@@ -61,27 +58,27 @@
           </ng-container>
 
           <ng-container matColumnDef="deviceCode">
-            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>Device Code</th>
-            <td class="table-column-100" mat-cell *matCellDef="let posDevice"> {{posDevice.posDeviceCode}} </td>
+            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</th>
+            <td class="table-column-150" mat-cell *matCellDef="let posDevice"> {{posDevice.posDeviceCode}} </td>
           </ng-container>
-          <ng-container matColumnDef="name">
-            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-            <td class="table-column-150" mat-cell *matCellDef="let posDevice">
-             {{posDevice.nameEnglish}}
+          <ng-container matColumnDef="countername">
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Counter Name</th>
+            <td class="table-column-250" mat-cell *matCellDef="let posDevice">
+             {{posDevice.name}}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="deviceModel">
-            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Device Model</th>
-            <td class="table-column-100" mat-cell *matCellDef="let posDevice"> {{posDevice.deviceModel}} </td>
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Device Model</th>
+            <td class="table-column-250" mat-cell *matCellDef="let posDevice"> {{posDevice.deviceModel}} </td>
           </ng-container>
-          <ng-container matColumnDef="deviceId">
-            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Device Id</th>
-            <td class="table-column-100" mat-cell *matCellDef="let posDevice"> {{posDevice.serialNo}} </td>
+          <ng-container matColumnDef="isinstalled">
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Is Installed</th>
+            <td class="table-column-250" mat-cell *matCellDef="let posDevice"> {{posDevice.isInstalled}} </td>
           </ng-container>
-          <ng-container matColumnDef="brandName">
-            <th class="table-column-150" mat-header-cell *matHeaderCellDef mat-sort-header>Brand Name</th>
-            <td class="table-column-100" mat-cell *matCellDef="let posDevice"> {{posDevice.brandName}} </td>
+          <ng-container matColumnDef="branchName">
+            <th class="table-column-250" mat-header-cell *matHeaderCellDef mat-sort-header>Branch Name</th>
+            <td class="table-column-250" mat-cell *matCellDef="let posDevice"> {{posDevice.branchName}} </td>
           </ng-container>
 
   

@@ -12,9 +12,9 @@ html {
 
 body {
   color: $gray;
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   height: 100%;
-  background-color: #e7e7e7 !important;
+  background-color: #F4F7FE !important;
   font-size: 15px;
 }
 
@@ -165,7 +165,7 @@ body {
 .mat-focus-indicator img {
   height: 290px;
   object-fit: contain;
-  background-color: #f0f0f0;
+ 
   padding: 10px;
   border-radius: 10px;
 }
@@ -609,21 +609,45 @@ table.mat-table {
 }
 
 .mat-table {
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 .mat-select {
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 .mat-paginator,
 .mat-paginator-page-size .mat-select-trigger {
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 .blue-btn {
-  background-color: $primary-blue !important;
+  // background-color: $primary-blue !important;
+  background: var(--pay, radial-gradient(311.13% 122.5% at 0% 0%, #fd9a46 0%, #fc8118 100%)) !important;
   color: white !important;
+  border:2px solid var(--pay, radial-gradient(311.13% 122.5% at 0% 0%, #fd9a46 0%, #fc8118 100%)) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  height: 38px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+.btn-blue {
+  // background-color: $primary-blue !important;
+  background: var(--pay, radial-gradient(311.13% 122.5% at 0% 0%, #fd9a46 0%, #fc8118 100%)) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+.blue-btn-secondary {
+  background-color: $white-bg !important;
+  color: $primary !important;
+  font-weight: 600 !important;
+  border: 1px solid #FDB374 !important;
+  border-radius: 8px !important;
+  height: 38px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
 }
 
 .dropdown-item:focus,
@@ -649,7 +673,7 @@ table.mat-table {
     font-size: 17px;
     line-height: 22px;
     padding-left: 0;
-    color: $primary-blue;
+    color: $modal-title;
     overflow: hidden;
     white-space: nowrap;
     // text-overflow: ellipsis;
@@ -660,13 +684,14 @@ table.mat-table {
     align-items: center;
     justify-content: space-between;
     padding: 0.7rem;
-    border-bottom: 1px solid #eeeeee;
+    border: none;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    
     .close {
       margin: 0 !important;
       padding: 3px 0 3px 25px !important;
-      color: #df0b0b;
+     // color: #df0b0b;
       .fas {
         font-size: 17px;
       }
@@ -701,12 +726,13 @@ table.mat-table {
     padding: 20px 20px 0 20px;
   }
 }
+
 .purchanse-managed-modal-table {
   max-height: calc(80vh - 170px);
     overflow: auto;
 }
 .cus-mat-card {
-  max-height: 470px;
+  
 }
 
 .page-header-main {
@@ -732,7 +758,7 @@ table.mat-table {
       font-size: 17px;
       line-height: 22px;
       padding-left: 0;
-      color: $primary-blue;
+      color: $modal-title;
       overflow: hidden;
       white-space: nowrap;
       // text-overflow: ellipsis;
@@ -780,9 +806,9 @@ table.mat-table {
 	background-color: transparent;
 }
 .purchanse-managed-table th {
-  background-color: #f58220 !important;
-  color: #FFF !important;
-  border: 1px solid #FFF !important;
+  background-color: #8E8F93 !important;
+    color: #FFF;
+  
   padding-top: 15px !important;
   padding-bottom: 15px !important;
   padding-right: 10px !important;
@@ -796,7 +822,7 @@ table.mat-table {
 }
 .purchanse-managed-button button {
   background-color: #f58220 !important;
-  border-radius: 0;
+  border-radius: 8px;
   padding: 3px 25px;
   margin-bottom: 25px !important;
 }
@@ -821,11 +847,31 @@ table.mat-table {
   padding: 0;
   padding-left: 0 !important;
 }
-.purchanse-managed-searchbar input {
+.purchanse-managed-searchbar {
   border: 1px solid #ccc;
+  width: 300px;
+  border-radius: 10px;
   padding: 7px 35px;
   margin-right: 5px;
   margin-bottom: 25px;
+  input{
+    width: 100%;
+    height: 25px;
+    border: none;
+    &:focus{
+      border: none;
+    }
+  }
+}
+h5.prod-variants-header{
+  margin-top: 10px;
+}
+table.prod-inner-table{
+  margin:0 0 20px 5px;
+}
+table.prod-inner-table thead{
+border-top: 1px solid rgb(199, 199, 199);
+border-bottom: 1px solid rgb(199, 199, 199);
 }
 .purchanse-managed-table tfoot th {
   background-color: #FFF !important;
@@ -833,11 +879,11 @@ table.mat-table {
   font-size: 17px;
 }
 .purchanse-managed-modal-table th {
-  background-color: #f58220 !important;
-  color: #FFF;
+  background-color: #F8F9FD !important;
+  color: #000000;
 }
 .bg-product-modal th {
-  background-color: #ffddc0 !important;
+  background-color:#FFFFFF !important;
   color: #4b4b4b;
 }
 ul ul {
@@ -845,10 +891,15 @@ ul ul {
 }
 .purchanse-managed-searchbar {
   position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
 }
-.purchanse-managed-searchbar mat-icon {
-  position: absolute;
-  top: 7px;
+.purchanse-managed-searchbar i {
+  // position: absolute;
+  // top: 7px;
+  // left:35px;
   // right: 21%;
   color: #f58220;
 }
@@ -858,4 +909,86 @@ ul ul {
 }
 .headoffice-bottom {
   margin-bottom: 0 !important;
+}
+
+.filter-group {
+  height: 60px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  flex-direction: row;
+  justify-content: flex-end;
+  label {
+    margin: 0 20px;
+  }
+
+  .form {
+    width: 350px;
+    position: relative;
+  }
+  .filter-dropdown {
+    width: 200px;
+    height: 35px;
+
+    .mat-select {
+      background-color: #F8F9FD;
+      border-radius: 6px;
+    }
+  }
+  .form input {
+    background-color: #eceff5;
+  }
+  .form .fa-search {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: #9ca3af;
+  }
+
+  .form span {
+    position: absolute;
+    right: 17px;
+    top: 8px;
+    padding: 0px;
+    border-left: 1px solid #d1d5db;
+  }
+
+  .left-pan {
+    padding-left: 4px;
+  }
+
+  .left-pan i {
+    padding-left: 5px;
+  }
+
+  .form-input {
+    border: none;
+    height: 35px;
+    text-indent: 33px;
+    border-radius: 6px;
+  }
+
+  .form-input:focus {
+    box-shadow: none;
+    border: none;
+  }
+}
+.table-scrolls{
+  table {
+    margin-bottom: 50px;
+    thead{
+        color: white;
+        tr th{
+       background-color: #8E8F93 !important;
+    padding:10px 20px;
+    text-transform: capitalize;
+   }
+  }}
+}
+
+.fiter-sec-ico{
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+     
 }

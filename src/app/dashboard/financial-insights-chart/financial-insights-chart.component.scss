@@ -1,0 +1,161 @@
+// .chart-container{
+//     display: flex;
+//     justify-content: center;
+//      align-items: center;
+//     width: 100%;  
+//     height: 200px;
+// }
+// canvas {
+//     width: 143px;  
+//     height: 143px; 
+//   }
+
+//   .custom-legend {
+//     display: flex;
+//     justify-content: space-around;
+//     border-radius: 15px;
+//     height: 75px;
+//     background: #FFFFFF;
+//     box-shadow: 0px 18px 40px 0px #7090B01F;
+//     gap: 30px;
+
+//   }
+  
+//   .legend-item {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     margin-top: 18px;
+//   }
+//   .legend-label {
+//     display: flex; 
+//     align-items: center; 
+//     margin-bottom: 5px;
+//   }
+  
+//   .legend-color {
+//     display: inline-block;
+//     width: 10px;
+//     height: 10px;
+//     border-radius: 50%;
+//     margin-bottom: 5px;
+//   }
+  
+//   .legend-value {
+//     font-weight: bold;
+//     font-size: 18px;
+//   }
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 28px;
+    width: 100%; /* Take full width of the container */
+    height: 199px; /* Allow flexible height based on the content */
+
+    /* Add responsiveness for different screen sizes */
+    @media (max-width: 1200px) {
+        height: 250px; /* Adjust height for larger tablets */
+    }
+
+    @media (max-width: 768px) {
+        height: 200px; /* Reduce height for smaller tablets */
+    }
+
+    @media (max-width: 576px) {
+        height: 180px; /* Further reduce height for mobile */
+    }
+}
+
+/* Adjust canvas size for better responsiveness */
+canvas {
+    width: 100%; /* Responsive width */
+    max-width: 150px;  /* Maximum size for larger screens */
+    margin-bottom: 31px;
+}
+
+.custom-legend {
+    display: flex;
+    justify-content: space-around;
+    background: #FFFFFF;
+    box-shadow: 0px 18px 40px 0px #7090B01F;
+    border-radius: 15px;
+
+    /* Make the legend responsive on smaller screens */
+    @media (max-width: 768px) {
+        flex-direction: row; /* Stack legend items vertically */
+    }
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* Adjust margin for smaller screens */
+    @media (max-width: 768px) {
+        margin-top: 10px;
+    }
+
+    /* Further reduce margin for mobile screens */
+    @media (max-width: 576px) {
+        margin-top: 8px;
+    }
+}
+
+.legend-label {
+    display: flex; /* Aligns the color and label in one row */
+    align-items: center; /* Vertically centers the content */
+    margin-bottom: 5px;
+
+    /* Adjust alignment for smaller screens */
+    @media (max-width: 768px) {
+        justify-content: center; /* Center label and color */
+    }
+}
+
+.legend-color {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+
+    /* Increase color dot size for better visibility on smaller screens */
+    @media (max-width: 768px) {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.legend-value {
+    font-weight: bold;
+    font-size: 18px;
+
+    /* Adjust font size for smaller screens */
+    @media (max-width: 576px) {
+        font-size: 16px;
+    }
+
+    /* Further reduce font size for mobile screens */
+    @media (max-width: 576px) {
+        font-size: 14px;
+    }
+}
+.title{
+   
+  position: absolute;
+  top: -25px;  
+  left: 0;
+  font-family: 'DM Sans';
+  font-size: 14px;
+  font-weight: 700;
+  color: #262626;
+}
+.legend-separator {
+    width: 1px;
+    border: 1px solid #F4F7FE;
+    opacity: 0.5; /* Adjust opacity if needed */
+  }

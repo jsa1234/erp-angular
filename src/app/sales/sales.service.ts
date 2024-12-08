@@ -37,7 +37,6 @@ export class SalesService {
       .set('toDate', resourceParams.toDate ? resourceParams.toDate.toDateString() : '')
       .set('branchUUID', resourceParams.branchUUID ? resourceParams.branchUUID : '')
       .set('deviceUUID', resourceParams.deviceUUID ? resourceParams.deviceUUID: '')
-
     return this.http.get<ISalesInvoice[]>(url, {
       params: customParams,
       observe: 'response'

@@ -7,4 +7,23 @@
   .content-header span {
     margin-left: 30px;
   }
-  
+  .table tr th {
+    border: none !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    text-transform: capitalize;  
+    background-color:  #F8F9FD !important;
+    width: 100%;
+    padding: 20px;
+    // border-radius: 20px;
+  }
+  .table-responsive{
+      border-top-left-radius: 20px !important;
+      border-top-right-radius: 20px !important;
+      
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  .table tr td {
+    border: 0 !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    z-index: 0 !important;
+  }

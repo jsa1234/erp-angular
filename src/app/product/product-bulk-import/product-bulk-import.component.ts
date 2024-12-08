@@ -7,7 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from 'src/app/base.component';
 import { ProductService } from '../product.service';
 import { Observable, of } from 'rxjs';
-
 @Component({
   selector: 'app-product-bulk-import',
   templateUrl: './product-bulk-import.component.html',
@@ -16,17 +15,18 @@ import { Observable, of } from 'rxjs';
 export class ProductBulkImportComponent extends BaseComponent implements OnInit {
   selectedFile: File | null = null;
   @ViewChild('fileInputRef') fileInputRef!: ElementRef<HTMLInputElement>;
-  productList: ProductUploadInfo[] = [];
+  productList: any[] = [];
+  failedCnt:number=0;
   isLoading$:Observable<boolean> = of(false);
   constructor(
-    public translationService:TranslationService, 
-    private productService:ProductService, 
+    public translationService:TranslationService,
+    private productService:ProductService,
     private toastr:ToastrService,
     private loader:LoaderService,
-    private router:Router) {
+    private router:Router,
+  ) {
     super();
   }
-
   ngOnInit(): void {
   }
   onFileSelected(event: Event): void {
@@ -35,8 +35,6 @@ export class ProductBulkImportComponent extends BaseComponent implements OnInit 
       this.selectedFile = inputElement.files[0];
     }
   }
-
-
   uploadFile() {
     if (!this.selectedFile) {
       this.toastr.warning('Please choose file');
@@ -49,66 +47,79 @@ export class ProductBulkImportComponent extends BaseComponent implements OnInit 
           this.toastr.success('Upload Complete Successfully');
           this.reset()
                this.isLoading$ = of(false)
-
         },
         error => {
           this.toastr.error('Upload Failed');
                this.isLoading$ = of(false)
-
         });
 }
-  downloadExcel(){
-    this.sub$.sink =  this.productService.downloadFile().subscribe((blob: Blob) => {
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'OloBillzProductBulkUpload.xlsx';
-      link.click();
-    });
+  // downloadExcel(){
+  //   this.sub$.sink =  this.productService.downloadFile().subscribe((blob: Blob) => {
+  //     const link = document.createElement('a');
+  //     link.href = window.URL.createObjectURL(blob);
+  //     link.download = 'OloBillzProductBulkUpload.xlsx';
+  //     link.click();
+  //   });
+  // }
+  downloadExcel() {
+    const filePath = 'assets/excel/ProductBulkUpload.xlsx'; // Adjust the path if stored in a subfolder
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = 'ProductBulkUpload.xlsx'; // Filename for download
+    link.click();
   }
-
   reset(){
     if (!this.fileInputRef) return;
     this.fileInputRef.nativeElement.value = '';
     this.selectedFile = undefined;
   }
-
-
   saveProducts(){
     if(this.isSave()){
       return;
     }
     this.isLoading$ = of(true)
-
     this.sub$.sink = this.productService.saveBulkProducts(this.productList).subscribe((res:any)=>{
      this.isLoading$ = of(false)
      if(res.failedCount == 0){
       this.toastr.success(`Out of ${res.totalCount} items, ${res.insertedCount} were successfully inserted, and ${res.failedCount} items failed.`);
-
-     }else if(res.insertedCount == 0){
+      this.router.navigateByUrl('/product');
+     }
+     else if(res.failedCount>0){
+      this.failedCnt=res.failedCount
+      // res.failedProducts.forEach(failedProduct => {
+      //   debugger
+      //   const matchingProduct = this.productList.find(
+      //     product => product.productCode  === failedProduct.productCode
+      //   );
+      //   if (matchingProduct) {
+      //     matchingProduct.failureReason = failedProduct.failureReason;
+      //   }
+      // });
+      // this.productList = this.productList.filter(
+      //   (product: any) => product.failureReason
+      // );
+      this.productList = res.failedProducts.map(failedProduct => ({
+        ...failedProduct // Spread the entire failedProduct object
+      }));
+      this.toastr.warning(`Out of ${res.totalCount} items, ${res.insertedCount} were successfully inserted, and ${res.failedCount} items failed.`);
+     }
+     else if(res.insertedCount == 0){
       this.toastr.error(`Out of ${res.totalCount} items, ${res.insertedCount} were successfully inserted, and ${res.failedCount} items failed.`);
      }
      else{
-
-     }
       this.toastr.warning(`Out of ${res.totalCount} items, ${res.insertedCount} were successfully inserted, and ${res.failedCount} items failed.`);
-      this.router.navigateByUrl('/product');
+     }
+    //  this.router.navigateByUrl('/product');
     },
     error=>{
      this.isLoading$ = of(false)
-
       this.toastr.error('Product Import Failed');
     })
-
   }
-
   deleteRow(index:number){
     this.productList.splice(index,1)
   }
-
-
   isSave(): boolean {
     return !(this.productList && this.productList.length > 0 && this.productList.every(product => !product.isEdit));
   }
-
-
 }

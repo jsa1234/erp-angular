@@ -2,19 +2,19 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons">
-        <h1><i class="icon58"></i> <span>POS Merchant Account</span> </h1>
+        <h1>POS Merchant Account</h1>
       </div>
     </div>
     <div class="col-md-auto col-sm-auto">
       <button  class="btn blue-btn btn-sm m-right-10"
         [routerLink]="['/payment-merchant/manage/add']">
-        <i class="fas fa-plus"></i> Manage POS Merchant Account
+        Manage POS Merchant Account <i class="new-add"></i> 
       </button>
     </div>
   </div>
   <div class="breadcrump-pages">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >Dashboard</a> / <span>POS Merchant Account</span>
+      <a [routerLink]="['/']" >Dashboard</a> <i class="chevron-icon"></i> <span>POS Merchant Account</span>
     </div>
   </div>
 </div>
@@ -50,28 +50,28 @@
     </ng-container>
 
     <ng-container matColumnDef="merchantName" >
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>Merchant Name </th>
-      <td class="table-column-100" mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.nameEnglish}} </td>
+      <th class="table-column-270" mat-header-cell *matHeaderCellDef mat-sort-header>Merchant Name </th>
+      <td class="table-column-270" mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.nameEnglish}} </td>
     </ng-container>
     <ng-container matColumnDef="merchantType" >
-      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Type </th>
-      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.posMerchantType}} </td>
+      <th class="table-column-150 " mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Type </th>
+      <td class="table-column-150 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.posMerchantType}} </td>
     </ng-container>
     <ng-container matColumnDef="deviceCount" >
-      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header> 
+      <th class="table-column-150 " mat-header-cell *matHeaderCellDef mat-sort-header> 
       Device Count  
       </th>
-      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.deviceCount}} </td>
+      <td class="table-column-150 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.deviceCount}} </td>
     </ng-container>
     <ng-container matColumnDef="merchantIdNo" >
-      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header> 
-        Mercchant Identification Number
+      <th class="table-column-300 " mat-header-cell *matHeaderCellDef mat-sort-header> 
+        Merchant Identification Number
       </th>
-      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.merchantIdentificationnumber}} </td>
+      <td class="table-column-300 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.merchantIdentificationnumber}} </td>
     </ng-container>
     <ng-container matColumnDef="terminalIdNo" >
-      <th class="table-column-100 " mat-header-cell *matHeaderCellDef mat-sort-header>Terminal Identification Number </th>
-      <td class="table-column-100 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.terminalIdentificationNumber}} </td>
+      <th class="table-column-340 " mat-header-cell *matHeaderCellDef mat-sort-header>Terminal Identification Number </th>
+      <td class="table-column-340 " mat-cell *matCellDef="let merchantAccount"> {{merchantAccount.terminalIdentificationNumber}} </td>
     </ng-container>
 
     <ng-container matColumnDef="footer">

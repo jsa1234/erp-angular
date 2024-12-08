@@ -30,6 +30,7 @@ import { ManageStockTransferComponent } from './stock-transfer/manage-stock-tran
 import { StockTransferListComponent } from './stock-transfer/stock-transfer-list/stock-transfer-list.component';
 import { StockTransferItemComponent } from './stock-transfer/stock-transfer-list/stock-transfer-item/stock-transfer-item.component';
 import { StockTransferDetailComponent } from './stock-transfer/stock-transfer-detail/stock-transfer-detail.component';
+import { CurrentStockComponent } from './current-stock/current-stock.component';
 
 
 
@@ -38,6 +39,7 @@ import { StockTransferDetailComponent } from './stock-transfer/stock-transfer-de
 
     InventorySourcePipe,
     OpeningStockComponent,
+    CurrentStockComponent,
     DamageEntryListComponent,
     ManageDamageEntryComponent,
     DamageEntryDetailsComponent,

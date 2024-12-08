@@ -1,0 +1,16 @@
+<div class="topcustomer-chart">
+    <!-- <span class="adv-rpt">Advanced Report<i class="vector"></i></span> -->
+    <div class="chart-wrapper">
+        <ng-container *ngIf="isLoading$">
+            <app-dashboard-loader></app-dashboard-loader>
+        </ng-container>
+        <canvas baseChart
+        [datasets]="barChartData"
+        [type]="barChartType"
+        [options]="barChartOptions"
+        [labels]="barChartLabels">
+            
+        </canvas>
+    </div>
+
+</div>

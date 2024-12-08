@@ -2,20 +2,49 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-md-auto col-sm-auto col">
             <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-                <h1><i class="icon13"></i> <span>{{'SIDEBAR.ACCOUNT_HEAD' | translate}}</span></h1>
+                <h1>{{'SIDEBAR.ACCOUNT_HEAD' | translate}}</h1>
             </div>
         </div>
         <div class="col-md-auto col-sm-auto col-auto">
             <button *hasClaim="'account_account_head_view_account_head'" class="btn blue-btn btn-sm m-right-10" routerLink="/accountHead/add">
                 <!-- (click)="manageUnit({}) -->
-                <i class="fas fa-plus"></i>
+              
                 {{'ACCOUNTS.ACCOUNT_HEAD.ADD_ACCOUNT_HEAD' | translate}}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 8V16M16 12H8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="white" stroke-width="1.5"/>
+                  </svg>
             </button>
         </div>
     </div>
     <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
       <div class="crumbs-sec">
-        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.ACCOUNT_HEAD' | translate}}</span>
+        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a>     <svg
+        width="16"
+        height="17"
+        viewBox="0 0 16 17"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#clip0_229_1686)">
+          <path
+            d="M6 4.5L10 8.5L6 12.5"
+            stroke="#4A4A4A"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_229_1686">
+            <rect
+              width="16"
+              height="16"
+              fill="white"
+              transform="translate(0 0.5)"
+            />
+          </clipPath>
+        </defs>
+      </svg><span>{{'SIDEBAR.ACCOUNT_HEAD' | translate}}</span>
       </div>
     </div>
 </div>
@@ -24,14 +53,14 @@
 </div>
 
 <form autocomplete="off" (ngSubmit)="onSearch()" [formGroup]="searchForm" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
-  <div class="filter-sec mb-4">
+  <div class="filter-sec mb-4" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
     <div class="row">
       <div class="col-md-10">
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
               <label>{{'ACCOUNTS.GROUP' | translate}}</label>
-              <mat-select placeholder="" formControlName="group" (selectionChange)="getAllLedger($event.value)"  class="w-100 form-control">
+              <mat-select placeholder="Group" formControlName="group" (selectionChange)="getAllLedger($event.value)"  class="w-100 form-control">
                 <mat-option *ngFor="let item of groupList" [value]="item.accountUUID"> {{translationService.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</mat-option>
               </mat-select>
             </div>
@@ -39,7 +68,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>{{'ACCOUNTS.LEDGER' | translate}}</label>
-              <mat-select placeholder="" formControlName="ledger" (selectionChange)="getAllSubLedger($event.value)" class="w-100 form-control">
+              <mat-select placeholder="Ledger" formControlName="ledger" (selectionChange)="getAllSubLedger($event.value)" class="w-100 form-control">
                 <mat-option *ngFor="let item of ledgerList" [value]="item.accountUUID">{{translationService.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</mat-option>
               </mat-select>
             </div>
@@ -47,7 +76,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>{{'ACCOUNTS.SUB_LEDGER' | translate}}</label>
-              <mat-select placeholder="" formControlName="subledger" class="w-100 form-control">
+              <mat-select placeholder="Sub_ledger" formControlName="subledger" class="w-100 form-control">
                 <mat-option *ngFor="let item of subledgerList" [value]="item.accountUUID">{{translationService.getSelectedLanguage()=='en'?item.nameEnglish:item.nameSecondLanguage}}</mat-option>
               </mat-select>
             </div>
@@ -56,7 +85,7 @@
       </div>
       <div class="col-md-2">
         <div class="filter-search">
-          <button type="submit" class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' 
+          <button type="submit" class="btn blue-btn btn-sm m-right-10">{{'COMMON.SEARCH' 
             | translate}}</button>
         </div>
       </div>
@@ -96,12 +125,12 @@
           </ng-container>
           <ng-container matColumnDef="code-search">
             <th mat-header-cell *matHeaderCellDef>
-              <input class="form-control" id=""   placeholder="" [(ngModel)]="AccountCodeFilter">
+              <input class="form-control" id=""   placeholder="Search" [(ngModel)]="AccountCodeFilter">
             </th>
           </ng-container>
           <ng-container matColumnDef="nameEnglish-search">
             <th mat-header-cell *matHeaderCellDef>
-              <input placeholder="" type="text" class="form-control w-90" [(ngModel)]="NameEnglishFilter">
+              <input placeholder="Search" type="text" class="form-control w-90" [(ngModel)]="NameEnglishFilter">
             </th>
           </ng-container>
           <ng-container matColumnDef="nameSecondLanguage-search">

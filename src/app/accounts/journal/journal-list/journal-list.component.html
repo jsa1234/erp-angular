@@ -1,87 +1,197 @@
 <div class="page-header-main">
-    <div class="row align-items-center justify-content-between">
-        <div class="col-md-auto col-sm-auto col">
-            <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-                <h1><i class="icon16"></i> <span>{{'SIDEBAR.JOURNAL' | translate}}</span></h1>
-            </div>
-        </div>
-        <div class="col-md-auto col-sm-auto">
-          <button *hasClaim="'account_journal_create_journal'" class="btn blue-btn btn-sm m-right-10"
-            [routerLink]="['/journal/manage/add']">
-            <i class="fas fa-plus"></i> {{'ACCOUNTS.JOURNAL.ADD_JOURNAL' | translate}}
-          </button>
-        </div>
-    </div>
-    <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
-      <div class="crumbs-sec">
-        <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.JOURNAL' | translate}}</span>
+  <div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto col">
+      <div
+        class="content-header svg-icons"
+        [ngClass]="{
+          'content-header-ar': translationService.getSelectedLanguage() == 'ar'
+        }"
+      >
+        <h1>{{ "SIDEBAR.JOURNAL" | translate }}</h1>
       </div>
     </div>
+    <div class="col-md-auto col-sm-auto">
+      <button
+        *hasClaim="'account_journal_create_journal'"
+        class="btn blue-btn btn-sm m-right-10"
+        [routerLink]="['/journal/manage/add']"
+      >
+        {{ "ACCOUNTS.JOURNAL.ADD_JOURNAL" | translate }}
+        <i class="new-add"></i>
+      </button>
+    </div>
+  </div>
+  <div
+    class="breadcrump-pages"
+    [ngClass]="{
+      'breadcrump-pages-ar': translationService.getSelectedLanguage() == 'ar'
+    }"
+  >
+    <div class="crumbs-sec">
+      <a [routerLink]="['/']">{{ "SIDEBAR.DASHBOARD" | translate }}</a>
+      <i class="chevron-icon"></i>
+      <span>{{ "SIDEBAR.JOURNAL" | translate }}</span>
+    </div>
+  </div>
 </div>
 
-<div class="loading-shade" *ngIf="(dataSource.loading$ | async) ||isLoading$">
+<div class="loading-shade" *ngIf="(dataSource.loading$ | async) || isLoading$">
   <mat-spinner></mat-spinner>
 </div>
 
 <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-<div class="filter-sec mb-4">
-  <div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
-    <div class="col-md-10">
-      <div class="row">
-        <div class="col-md-3">
-          <app-branch-dropdown [group]="searchForm" [controlName]="'branch'" (branchUUID)="parentBranchHandlerFunction($event)"></app-branch-dropdown>
-       </div>
-       <div class="col-md-3">
-          <app-device-dropdown [branch]="branchUUID" [group]="searchForm" [controlName]="'device'"></app-device-dropdown>
-       </div>
-        <div class="col-md-3">
-          <date-input [group]="searchForm" [controlName]="'fromDate'" [label]="'COMMON.FROM'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'" [isMandatory]="true"></date-input>
-        </div>
-        <div class="col-md-3">
-          <date-input [group]="searchForm" [controlName]="'toDate'" [label]="'COMMON.TO'" [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'" [isMandatory]="true"></date-input>
+  <div class="filter-sec mb-4">
+    <div class="row ml-1 mr-1">
+      <div class="col-md-10">
+        <div
+          class="row"
+          [ngClass]="{
+            'form-label-ar': translationService.getSelectedLanguage() == 'ar'
+          }"
+        >
+          <div class="col-md-3">
+            <app-branch-dropdown
+              [group]="searchForm"
+              [controlName]="'branch'"
+              (branchUUID)="parentBranchHandlerFunction($event)"
+            ></app-branch-dropdown>
+          </div>
+          <!-- <div class="col-md-3">
+            <app-device-dropdown
+              [branch]="branchUUID"
+              [group]="searchForm"
+              [controlName]="'device'"
+            ></app-device-dropdown>
+          </div> -->
+          <div class="col-md-3">
+            <date-input
+              [group]="searchForm"
+              [controlName]="'fromDate'"
+              [label]="'COMMON.FROM'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_FROM_DATE'"
+              [isMandatory]="true"
+            ></date-input>
+          </div>
+          <div class="col-md-3">
+            <date-input
+              [group]="searchForm"
+              [controlName]="'toDate'"
+              [label]="'COMMON.TO'"
+              [validationMessage]="'VALIDATIONS.PLEASE_CHOOSE_TO_DATE'"
+              [isMandatory]="true"
+            ></date-input>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <div class="filter-search">
-      <button type="submit"  class="btn btn-success btn-sm m-right-10">{{'COMMON.SEARCH' | translate}}</button>
+      <div class="col-md-2">
+        <div class="filter-search">
+          <button type="submit" class="btn blue-btn m-right-10">
+            {{ "COMMON.SEARCH" | translate }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </form>
 
 <div class="row">
-    <div class="col-sm-12">
-      <div class="table-responsive">
-
-        <table mat-table [dataSource]="dataSource" multiTemplateDataRows
-          class="table table-bordered table-hover grid-height" matSort matSortActive="docNo">
-          <ng-container matColumnDef="action">
-            <th class="table-column-150" mat-header-cell *matHeaderCellDef>
-            </th>
-            <td class="table-column-150" mat-cell *matCellDef="let so">
-              <ng-container *hasClaim="'account_journal_list_journal_items'">
-              <i  class="fas fa-chevron-right btn" *ngIf="so != expandedElement" (click)="toggleRow(so)"></i>
-              <i  class="fas fa-chevron-down btn" *ngIf="so == expandedElement" (click)="toggleRow(so)"></i>
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <div class="filter-group" [formGroup]="filterForm">
+        <div class="form">
+          <i class="fa fa-search"></i>
+          <input
+            type="text"
+            class="form-control form-input"
+            placeholder="Search Journal No"
+            formControlName="journalNo"
+          />
+        </div>
+        <!-- <label for="choose">Sort by</label>
+          <mat-form-field class="filter-dropdown" #choose>
+            <mat-select [(value)]="selectedValue" class="form-control">
+               <div class="select-item-op">
+              <mat-option  [value]="-1" >
+               Choose
+              </mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+          &nbsp; -->
+        <!-- <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="#4A4A4A" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M6 9H9.5M17 9H18M12 8V10M14.5 8V10" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18 15H12M7 15H6M9.5 14V16" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Filters -->
+      </div>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        class="table table-bordered table-hover grid-height"
+        matSort
+        matSortActive="docNo"
+      >
+        <ng-container matColumnDef="action">
+          <th class="table-column-150" mat-header-cell *matHeaderCellDef></th>
+          <td class="table-column-150" mat-cell *matCellDef="let so">
+            
+            <button
+              *hasClaim="[
+                'account_journal_view_journal',
+                'account_journal_edit_journal',
+                'account_journal_delete_journal'
+              ]"
+              class="ml-4"
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              aria-label="Action"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <ng-container *hasClaim="'account_journal_list_journal_items'">
+              <i
+                class="fas fa-chevron-right btn"
+                *ngIf="so != expandedElement"
+                (click)="toggleRow(so)"
+              ></i>
+              <i
+                class="fas fa-chevron-down btn"
+                *ngIf="so == expandedElement"
+                (click)="toggleRow(so)"
+              ></i>
             </ng-container>
-                  <button *hasClaim="['account_journal_view_journal','account_journal_edit_journal','account_journal_delete_journal']" class="ml-4"
-                mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button *hasClaim="'account_journal_view_journal'"  mat-menu-item
-                  [routerLink]="['/journal/detail/', so.journalUUID]">
-                  <mat-icon>info</mat-icon>
+            <mat-menu #menu="matMenu">
+              <button
+                *hasClaim="'account_journal_view_journal'"
+                mat-menu-item
+                [routerLink]="['/journal/detail/', so.journalUUID]"
+              >
+                  <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.6668 8.49998C14.6668 4.81808 11.682 1.83331 8.00016 1.83331C4.31826 1.83331 1.3335 4.81808 1.3335 8.49998C1.3335 12.1818 4.31826 15.1666 8.00016 15.1666C11.682 15.1666 14.6668 12.1818 14.6668 8.49998Z" stroke="#141B34"/>
+                    <path d="M8.1613 11.8333V8.49998C8.1613 8.18571 8.1613 8.02858 8.06363 7.93091C7.96603 7.83331 7.8089 7.83331 7.49463 7.83331" stroke="#141B34" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7.99463 5.83331H8.00149" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                   <span>{{'COMMON.DETAIL' | translate}}</span>
                 </button>
+                <hr>
                 <button *hasClaim="'account_journal_edit_journal'"  mat-menu-item
                 [routerLink]="['/journal/manage/', so.journalUUID]">
-                <mat-icon>edit</mat-icon>
+                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.1426 4.48828L11.077 3.55377C11.5932 3.03766 12.43 3.03766 12.9461 3.55377C13.4622 4.06989 13.4622 4.90667 12.9461 5.42279L12.0116 6.35729M10.1426 4.48828L4.65332 9.97755C3.95646 10.6744 3.60801 11.0228 3.37075 11.4474C3.13348 11.872 2.89477 12.8746 2.6665 13.8334C3.62523 13.6051 4.62783 13.3664 5.05243 13.1291C5.47703 12.8918 5.82546 12.5434 6.52234 11.8466L12.0116 6.35729M10.1426 4.48828L12.0116 6.35729" stroke="#141B34" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7.3335 13.8333H11.3335" stroke="#141B34" stroke-linecap="round"/>
+                  </svg>
                 <span>{{'COMMON.EDIT' | translate}}</span>
               </button>
+              <hr>
                 <button  *hasClaim="'account_journal_delete_journal'" mat-menu-item (click)="deleteJournal(so)">
-                  <mat-icon>delete</mat-icon>
+                  <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 4.16669L12.5869 10.8501C12.4813 12.5576 12.4285 13.4114 12.0005 14.0253C11.7889 14.3288 11.5165 14.5849 11.2005 14.7774C10.5614 15.1667 9.706 15.1667 7.99513 15.1667C6.28208 15.1667 5.42553 15.1667 4.78603 14.7766C4.46987 14.5838 4.19733 14.3272 3.98579 14.0232C3.55792 13.4084 3.5063 12.5534 3.40307 10.8435L3 4.16669" stroke="#141B34" stroke-linecap="round"/>
+                    <path d="M2 4.16665H14M10.7038 4.16665L10.2487 3.2278C9.9464 2.60415 9.7952 2.29233 9.53447 2.09785C9.47667 2.05471 9.4154 2.01634 9.35133 1.98311C9.0626 1.83331 8.71607 1.83331 8.023 1.83331C7.31253 1.83331 6.95733 1.83331 6.66379 1.98939C6.59873 2.02399 6.53665 2.06391 6.47819 2.10876C6.21443 2.31111 6.06709 2.63435 5.77241 3.28082L5.36861 4.16665" stroke="#141B34" stroke-linecap="round"/>
+                    <path d="M6.3335 11.5V7.5" stroke="#141B34" stroke-linecap="round"/>
+                    <path d="M9.6665 11.5V7.5" stroke="#141B34" stroke-linecap="round"/>
+                    </svg>
                   <span>{{'COMMON.DELETE' | translate}}</span>
                 </button>
               </mat-menu>
@@ -98,63 +208,116 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="totalCrAmount">
-            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'ACCOUNTS.JOURNAL.TOTAL_CR_AMOUNT'  | translate}}</th>
-            <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.totalCrAmount}} </td>
-          </ng-container>
-          <ng-container matColumnDef="totalDrAmount">
-            <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'ACCOUNTS.JOURNAL.TOTAL_DR_AMOUNT'  | translate}}</th>
-            <td class="table-column-100" mat-cell *matCellDef="let so"> {{so.totalDrAmount}} </td>
-          </ng-container>
+        <ng-container matColumnDef="totalCrAmount">
+          <th
+            class="table-column-100"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            {{ "ACCOUNTS.JOURNAL.TOTAL_CR_AMOUNT" | translate }}
+          </th>
+          <td class="table-column-100 text-center" mat-cell *matCellDef="let so">
+            {{ so.totalCrAmount }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="totalDrAmount">
+          <th
+            class="table-column-100"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header
+          >
+            {{ "ACCOUNTS.JOURNAL.TOTAL_DR_AMOUNT" | translate }}
+          </th>
+          <td class="table-column-100 text-center" mat-cell *matCellDef="let so">
+            {{ so.totalDrAmount }}
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="action-search">
-            <th mat-header-cell *matHeaderCellDef> </th>
-          </ng-container>
-          <form [formGroup]="filterForm">
+        <ng-container matColumnDef="action-search">
+          <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
+        <form [formGroup]="filterForm">
           <ng-container matColumnDef="journalNo-search">
             <th mat-header-cell *matHeaderCellDef>
-              <input class="form-control" placeholder="Journal No" formControlName="journalNo">
+              <input
+                class="form-control"
+                placeholder="Journal No"
+                formControlName="journalNo"
+              />
             </th>
           </ng-container>
           <ng-container matColumnDef="journalDate-search">
             <th mat-header-cell *matHeaderCellDef>
               <div class="filterDate col-md-12">
-                <date-input [group]="filterForm" [controlName]="'journalDate'" [label]="''" [isShowLabel]="false" [isDefaultDate]="false"></date-input>
+                <date-input
+                  [group]="filterForm"
+                  [controlName]="'journalDate'"
+                  [label]="''"
+                  [isShowLabel]="false"
+                  [isDefaultDate]="false"
+                ></date-input>
               </div>
-              <button class="dateRemove" mat-icon-button color="warn" (click)="removeDate()" *ngIf ="filterForm.get('journalDate').value">
+              <button
+                class="dateRemove"
+                mat-icon-button
+                color="warn"
+                (click)="removeDate()"
+                *ngIf="filterForm.get('journalDate').value"
+              >
                 <mat-icon>cancel</mat-icon>
               </button>
             </th>
           </ng-container>
         </form>
 
-          <ng-container matColumnDef="totalCrAmount-search">
-            <th mat-header-cell *matHeaderCellDef></th>
-          </ng-container>
-          <ng-container matColumnDef="totalDrAmount-search">
-            <th mat-header-cell *matHeaderCellDef></th>
-          </ng-container>
+        <ng-container matColumnDef="totalCrAmount-search">
+          <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
+        <ng-container matColumnDef="totalDrAmount-search">
+          <th mat-header-cell *matHeaderCellDef></th>
+        </ng-container>
 
+        <tr class="mat-row" *matNoDataRow>
+          <td
+            class="mat-cell text-center"
+            [attr.colspan]="displayedColumns.length"
+          >
+            {{ "COMMON.NO_DATA_FOUND" | translate }}
+          </td>
+        </tr>
 
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
-                {{'COMMON.NO_DATA_FOUND' | translate}}
-            </td>
-          </tr>
-
-          <ng-container matColumnDef="footer">
-            <td mat-footer-cell [attr.colspan]="displayedColumns.length" *matFooterCellDef>
-              <mat-paginator [length]="journalResource.totalCount" [pageSize]="journalResource.pageSize"
-                [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
-              </mat-paginator>
-            </td>
-          </ng-container>
-          <ng-container *hasClaim="'account_journal_list_journal_items'" >
+        <ng-container matColumnDef="footer">
+          <td
+            mat-footer-cell
+            [attr.colspan]="displayedColumns.length"
+            *matFooterCellDef
+          >
+            <mat-paginator
+              [length]="journalResource.totalCount"
+              [pageSize]="journalResource.pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              showFirstLastButtons
+            >
+            </mat-paginator>
+          </td>
+        </ng-container>
+        <ng-container *hasClaim="'account_journal_list_journal_items'">
           <ng-container matColumnDef="expandedDetail">
-            <td mat-cell *matCellDef="let soObject" [attr.colspan]="displayedColumns.length">
+            <td
+              mat-cell
+              *matCellDef="let soObject"
+              [attr.colspan]="displayedColumns.length"
+              [ngClass]="{ highlight: soObject == expandedElement }"
+            >
               <ng-container *ngIf="soObject == expandedElement">
-                <div class="example-element-detail"
-                  [@detailExpand]="soObject == expandedElement ? 'expanded' : 'collapsed'">
+                <div
+                  class="example-element-detail"
+                  [@detailExpand]="
+                    soObject == expandedElement ? 'expanded' : 'collapsed'
+                  "
+                >
                   <div class="inner-table mat-elevation-z8">
                     <app-journal-item [journalId]="soObject.journalUUID">
                     </app-journal-item>
@@ -164,14 +327,24 @@
             </td>
           </ng-container>
         </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true">
-          <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
-          <ng-container *hasClaim="'account_journal_list_journal_items'">
-          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <!-- <tr mat-header-row *matHeaderRowDef="filterColumns;sticky: true"> -->
+        <tr
+          mat-footer-row
+          *matFooterRowDef="footerToDisplayed; sticky: true"
+        ></tr>
+        <ng-container *hasClaim="'account_journal_list_journal_items'">
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['expandedDetail']"
+            class="example-detail-row"
+          ></tr>
         </ng-container>
-        </table>
-      </div>
+      </table>
     </div>
   </div>
+</div>

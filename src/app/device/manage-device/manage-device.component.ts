@@ -28,7 +28,7 @@ export class ManageDeviceComponent extends BaseComponent implements OnInit  {
     private deviceService:DeviceService,
     private fb:FormBuilder,
     private toastr:ToastrService,
-    securityService:SecurityService) {
+    private securityService:SecurityService) {
     super();
     this.branchUUID = securityService.getUserDetail().branchUUID
   }

@@ -60,7 +60,9 @@ export class ManageBrandComponent extends BaseComponent implements OnInit {
       return;
     }
     const brandData: Brand = this.brandForm.getRawValue();
-    brandData.branchUUID = brandData.branchUUID || environment.branchUUID
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
+    brandData.branchUUID = brandData.branchUUID || branchUUID
     
     if (this.data.isUpdate) {
       // brandData.branchUUID = environment.branchUUID

@@ -2,6 +2,7 @@ table.mat-table {
     border-spacing: 0;
     display: table !important;
     width: 100% !important;
+
 }
 .content-header h1 i {
     display: list-item;
@@ -12,3 +13,20 @@ table.mat-table {
   .content-header h1 span {
     margin-left: 35px;
   }
+  thead{
+    background-color: #8E8F93 !important;
+    color: white;
+    tr th{
+    padding:15px;}
+  }
+  tfoot {
+    border-top: 1px solid rgb(202, 201, 201);
+    background-color: white !important;
+    tr th{
+      padding:15px;}
+  }
+.table-responsive{
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  background-color: white;
+}

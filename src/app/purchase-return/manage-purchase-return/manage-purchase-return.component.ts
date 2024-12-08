@@ -26,6 +26,7 @@ import { PurchaseReturnService } from '../purchase-return.service';
 import { PurchaseReturnTableColumns } from './purchase-return-table-columns';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-manage-purchase-return',
@@ -64,7 +65,9 @@ export class ManagePurchaseReturnComponent extends BaseComponent implements OnIn
     private documentService:DocumentService,
     private router: Router,
     private route: ActivatedRoute,
-    private purchaseReturnServicew:PurchaseReturnService) {
+    private purchaseReturnServicew:PurchaseReturnService,
+    private branchService:BranchService
+  ) {
     super();
     this.deviceUUID = securityService.getUserDetail().deviceUUID;
     this.companyGSTIN = securityService.getUserDetail().companyGSTIN;
@@ -210,6 +213,7 @@ export class ManagePurchaseReturnComponent extends BaseComponent implements OnIn
 
     if (this.selectedPurchase) {
       this.purchaseReturnForm.get('refInvDate').setValue(new Date(this.selectedPurchase.refInvDate));
+      this.purchaseReturnForm.get('branchUUID').setValue(purchase.branchUUID);
     }
     this.getPurchaseItems(purchase.purchaseInvoiceUUID)
   }
@@ -282,8 +286,11 @@ export class ManagePurchaseReturnComponent extends BaseComponent implements OnIn
   validateReturnQuantity(item: PurchaseReturnDetail) {
     if (item.returnQuantity > item.quantity) {
       this.validationMessages[item.productPriceUUID] = 'Return Quantity cannot be greater than Quantity.';
-    } else if(item.returnQuantity <=0) {
-      this.validationMessages[item.productPriceUUID] = 'Return Quantity cannot be Zero or Negative Value.';
+    } else if(item.returnQuantity <0) {
+      this.validationMessages[item.productPriceUUID] = 'Return Quantity cannot be Negative Value.';
+    }
+    else if(item.returnQuantity==null){
+      this.validationMessages[item.productPriceUUID] = 'Return Quantity cannot be empty.';
     }
     else{
       this.validationMessages[item.productPriceUUID] = '';
@@ -301,6 +308,14 @@ export class ManagePurchaseReturnComponent extends BaseComponent implements OnIn
       this.toastr.warning('choose atleaset one item to return');
       return;
     }
+    const allReturnQuantitiesZero = this.purchaseReturnItems.every(
+      (item) => item.returnQuantity === 0
+    );
+    if (allReturnQuantitiesZero) {
+      this.toastr.error('At least one item must have a return quantity greater than 0.');
+      return;
+    }
+
     const hasValidationErrors = Object.values(this.validationMessages).some(message => message !== '');
     if (hasValidationErrors) {
       this.toastr.error('Validation errors. Please fix the issues before saving.');
@@ -337,8 +352,8 @@ export class ManagePurchaseReturnComponent extends BaseComponent implements OnIn
   updatePurchaseReturn(purchaseReturnItem:IPurchaseReturn){
     this.purchaseReturnServicew.updatePurchaseReturn(purchaseReturnItem).subscribe(
       (response) => {
-        this.toastr.success('Purchase return Updated successfully');
-    this.isLoading$ = of(false)
+      this.toastr.success('Purchase return Updated successfully');
+      this.isLoading$ = of(false)
 
         this.router.navigate(['/purchase-return/list'], {
           relativeTo: this.route,
@@ -434,12 +449,14 @@ export class ManagePurchaseReturnComponent extends BaseComponent implements OnIn
           if(!data.purchaseReturn){
             this.createForm();
             this.isUpdate = false
+            this.branchService.isHeadOfficeSubject$.next(false);
             this.purchaseReturnItems = []
           this.calculateTotal()
     
             return;
           }
           this.isUpdate = true
+          this.branchService.isHeadOfficeSubject$.next(false);
           this.purchaseReturnForm.patchValue(data.purchaseReturn)
           this.getPurchaseInvoicesBySupplier(data.purchaseReturn.accountUUID)
           this.purchaseReturnItems = data.purchaseReturn.purchaseReturnDetails
@@ -447,5 +464,13 @@ export class ManagePurchaseReturnComponent extends BaseComponent implements OnIn
           this.selectedPurchase.roundOff =  this.selectedPurchase.roundOff || 0
           this.calculateTotal()
         })
+      }
+      restrictToInteger(event: KeyboardEvent): void {
+        const charCode = event.which ? event.which : event.keyCode;
+      
+        // Allow only digits (0-9) and control keys like backspace
+        if (charCode < 48 || charCode > 57) {
+          event.preventDefault();
+        }
       }
 }

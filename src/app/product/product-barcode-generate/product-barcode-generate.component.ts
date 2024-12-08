@@ -12,6 +12,7 @@ import { GenerateBarcode, UpdateBarcodeConfigurations } from '@shared/helpers/ba
 import { map, mergeMap } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/base.component';
 import { BranchService } from 'src/app/branch/branch.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-barcode-generate',
@@ -40,7 +41,8 @@ export class ProductBarcodeGenerateComponent extends BaseComponent implements On
     private route: ActivatedRoute, 
     private clonerService: ClonerService, 
     private branchService:BranchService, 
-    private securityService:SecurityService) {
+    private securityService:SecurityService,
+    private toastrService: ToastrService) {
     super();
   }
 
@@ -59,6 +61,7 @@ export class ProductBarcodeGenerateComponent extends BaseComponent implements On
     }) => {
       const { barcode } = data;
       this.barcodeProfiles = barcode.barcodeProfiles || [];
+      this.barcodeProfiles.sort((a, b) => a.profileName.localeCompare(b.profileName));
       this.product = barcode.product || null
       this.productVariants = barcode.product.productPrices || [];
       this.barcodeProfileConfigurations = barcode.barcodeProfileConfigurations || [];
@@ -66,6 +69,10 @@ export class ProductBarcodeGenerateComponent extends BaseComponent implements On
   }
 
   getSingleProfileConfiguration(): void {
+    if(this.mfgDate>this.expDate){
+      this.toastrService.error('Manufacturer date cannot be after expiry date');
+      return;
+    }
     if (!this.selectedProfile || !this.selectedProductVariant) {
       console.log('Please choose both profile and variant');
       return;
@@ -74,7 +81,7 @@ export class ProductBarcodeGenerateComponent extends BaseComponent implements On
     this.isShowConfiguration = true;
     this.variantBarcodeImages = {};
     this.selectedProfileConfiguration = this.clonerService.deepClone<IBarcodeProfileConfigurations>(
-      this.barcodeProfileConfigurations.find((p) => p.profileId === this.selectedProfile.barcodeProfileEnum)
+      this.barcodeProfileConfigurations.find((p) => p.profileId === this.selectedProfile.barcodeProfileEnum+1)//plus 1 added because of barcodeProfileEnum starts with 0 index
     );
     this.variantBarcodeImages = GenerateBarcode(
       this.selectedProfile,

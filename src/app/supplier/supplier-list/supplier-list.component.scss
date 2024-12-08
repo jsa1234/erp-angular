@@ -14,3 +14,84 @@ table.mat-table {
     margin-left: 25px;
   }
 
+  .table-container {
+    overflow: auto;
+    // border-radius: 20px; /* Set the border radius on the container */
+  
+    // overflow: scroll; /* Ensure the corners are rounded */
+    width: 100%; /* Full width */
+  }
+  
+  .sticky-head,
+  .mat-footer-row {
+    position: sticky;
+    top: -3px;
+    background-color: white; /* Adjust as needed */
+    z-index: 2;
+  }
+  .sticky-headfilter {
+    position: sticky;
+    top: 49px;
+    background-color: white; /* Adjust as needed */
+    z-index: 2;
+  }
+  .mat-table thead,
+  .mat-table tbody,
+  .mat-table tfoot,
+  mat-header-row,
+  mat-row,
+  mat-footer-row,
+  [mat-header-row],
+  [mat-row],
+  [mat-footer-row],
+  .mat-table-sticky {
+    height: 50px;
+  }
+  .highlight {
+    background-color: #f5f7fa !important;
+    border-left: 4px solid #fdb374 !important;
+  }
+  .highlight > * {
+    background-color: inherit !important;
+  }
+  td.mat-cell {
+    border: 0;
+    border-bottom: 1px solid #dee2e6;
+    z-index: 0 !important;
+  }
+  table {
+    width: 100%;
+    thead tr:last-child {
+      margin-top: -3px !important;
+    }
+  }
+  // table tbody{
+  //   overflow: scroll !important;
+  // }
+  .table tr th {
+    border: none !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    text-transform: capitalize;  
+    background-color:  #F8F9FD !important;
+    // border-radius: 20px;
+  }
+  
+  
+  .table-filter-container{
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    overflow: hidden;
+  }
+  
+  .mat-menu-item{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 18px;
+    height: 30px;
+  }
+  hr{
+  width: 90% !important;
+  margin: 0 10px 0 10px;
+  }
+

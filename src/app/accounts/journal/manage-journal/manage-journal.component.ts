@@ -16,6 +16,7 @@ import { DocumentService } from 'src/app/document/document.service';
 import { v4 as uuid } from 'uuid';
 import { AccountHeadService } from '../../accounts/account-head.service';
 import { JournalService } from '../journal.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-manage-journal',
@@ -30,12 +31,14 @@ deviceUUID = this.securityService.getUserDetail().deviceUUID
   crAccountHeadList: AccountHeadTree[] = [];
   drAccountHeadList: AccountHeadTree[] = [];
   isDefaultBranch:boolean = true;
+  isDefaultDate: boolean = true;
   destroy$: Subject<void> = new Subject<void>();
   users: User[] = [];
   isLoading$:Observable<boolean> = of(false)
   selectedUser: string;
   crSearchControl: FormControl = new FormControl('');
   drSearchControl: FormControl = new FormControl('');
+  docDate: Date = null;
 
   constructor(public translate: TranslationService,
     private fb: FormBuilder,
@@ -197,11 +200,13 @@ deviceUUID = this.securityService.getUserDetail().deviceUUID
       if (!data.journal) {
         this.isUpdate = false;
         this.isDefaultBranch= true
+        this.isDefaultDate = true;
         return;
       }
-  
       this.isUpdate = true;
       this.isDefaultBranch= false
+      this.isDefaultDate = false;
+      this.docDate = data.journal.docDate;
       this.journalForm.patchValue(data.journal);
       const dynamicArrayData = data.journal.journalDetails; 
       while (this.tableRows.length) {

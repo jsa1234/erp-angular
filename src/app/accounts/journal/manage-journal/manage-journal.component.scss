@@ -1,22 +1,24 @@
-.manage-add-btn {
-  margin-right: 5px;
-  padding: 0 !important;
+.manage-add-btn,.manage-delete-btn {
+  // margin-right: 5px;
+  padding:2px 20px !important;
+  margin-top: 48px;
   margin-bottom: 0 !important;
+  background-color: #00AC45;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap:10px;
 }
-.manage-add-btn .mat-icon {
-  line-height: 0;
-  padding-top: 11px;
+.manage-delete-btn{
+  background-color: red;
 }
-.manage-delete-btn {
-  margin-right: 5px;
-  padding: 0 !important;
-  margin-bottom: 0 !important;
-}
-.manage-delete-btn .mat-icon {
-  line-height: 0;
-  padding-top: 11px;
-}
+
 .manage-voucher-table th {
-  background-color: #f58220 !important;
-  color: #FFF;
+  background-color: #8E8F93 !important;
+  color: #FFFFFF;
+}
+.varient-table tr:hover {
+  background-color: unset;
 }

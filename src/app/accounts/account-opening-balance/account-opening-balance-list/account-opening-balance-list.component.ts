@@ -14,6 +14,7 @@ import { SecurityService } from '@core/security/security.service';
 import { AccountOpeningBalance } from '@core/domain-classes/accoun-opening-balance.interface';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from '@shared/services/loader.service';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-account-opening-balance-list',
@@ -33,6 +34,7 @@ export class AccountOpeningBalanceListComponent extends BaseComponent implements
     private loader:LoaderService,
     private fb:FormBuilder,
     public translationService: TranslationService,
+    private branchService:BranchService
 
   ) { 
     super();
@@ -40,6 +42,7 @@ export class AccountOpeningBalanceListComponent extends BaseComponent implements
     this.financialYearUUID = this.securityService.getUserDetail().financialYear.financialYearUUID
   }
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.loaderShowOrHide()
     this.createSearchForm()
   }
@@ -87,7 +90,7 @@ export class AccountOpeningBalanceListComponent extends BaseComponent implements
   }
 
   clear(){
-    this.searchForm.get('branchUUID').reset()
+   // this.searchForm.get('branchUUID').reset()
     this.accountOpeningBalanceList = []
     this.accountHeadResource = new AccountOpeningBalanceResourceParameter()
   }

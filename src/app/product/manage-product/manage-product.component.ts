@@ -22,6 +22,7 @@ import { SubCategoryService } from 'src/app/sub-category/sub-category.service';
 import { UnitService } from 'src/app/unit/unit.service';
 import { v4 as uuid } from 'uuid';
 import { ProductService } from '../product.service';
+import { CommonService } from '@core/services/common.service';
 
 @Component({
   selector: 'app-manage-product',
@@ -54,6 +55,7 @@ export class ManageProductComponent extends BaseComponent implements OnInit {
   selectedUnits: string[];
   cessRate: Tax[];
   categoryUUID:string = ''
+  isLoading: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -65,7 +67,8 @@ export class ManageProductComponent extends BaseComponent implements OnInit {
     private categoryService: CategoryService,
     private subcategoryService: SubCategoryService,
     private taxService: TaxService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    public commonServ:CommonService
   ) {
     super();
   }
@@ -158,7 +161,7 @@ getProductDetail():void{
       cessUUID: [''],
       maxStockLevel: ['',Validators.min(0)],
       reorderLevel: ['',Validators.min(0)],
-      imagePath: [''],
+      imageData: [''],
       branchUUID: [''],
       allowZeroPrice:[false],
       allowNonStock:[false]
@@ -208,34 +211,62 @@ createProductPricesForm():void{
   }
   
 
-  onFileSelect($event) {
-    const fileSelected = $event.target.files[0];
+  // onFileSelect($event) {
+  //   const fileSelected = $event.target.files[0];
+  //   if (!fileSelected) {
+  //     return;
+  //   }
+  //   const mimeType = fileSelected.type;
+  //   if (mimeType.match(/image\/*/) == null) {
+  //     return;
+  //   }
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(fileSelected);
+  //   reader.onload = (_event) => {
+  //     this.imgSrc = reader.result;
+  //     this.isImageUpdate = true;
+  //     this.chemicalUploadImage = Object.assign(
+  //       {},
+  //       {
+  //         src: reader.result,
+  //         uid: fileSelected.uid,
+  //       }
+  //     );
+  //     $event.target.value = '';
+  //   };
+  // }
+
+  onFileSelect($event: any) {
+    const fileSelected: File = $event.target.files[0];
     if (!fileSelected) {
       return;
     }
+  
     const mimeType = fileSelected.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
+  
     const reader = new FileReader();
     reader.readAsDataURL(fileSelected);
+    // Store the file directly in the form, without Base64 conversion
     reader.onload = (_event) => {
       this.imgSrc = reader.result;
       this.isImageUpdate = true;
-      this.chemicalUploadImage = Object.assign(
-        {},
-        {
-          src: reader.result,
-          uid: fileSelected.uid,
-        }
-      );
-      $event.target.value = '';
-    };
+      this.productForm.patchValue({
+        imageData: fileSelected,
+        logoUrl: fileSelected.name,
+      });
+    }
+   
+  
+    // Clear the file input value
+    $event.target.value = '';
   }
 
-
-
   buildProductObj(): IProduct {
+    const branchData = JSON.parse(localStorage.getItem('branch') || '{}');
+    const branchUUID = branchData.branchUUID;
     let {
       productUUID,
       productCode,
@@ -280,7 +311,7 @@ createProductPricesForm():void{
       maxStockLevel,
       reorderLevel,
       imagePath,
-      branchUUID: environment.branchUUID,
+      branchUUID: branchUUID,
       productPrices: Array.isArray(productVarient) ? productVarient : [],
       isUpdate: this.product?.isUpdate || false,
     };
@@ -359,18 +390,45 @@ updateSelectedUnits(){
     }
   
     const successMessage = productObj.isUpdate?this.translationService.getValue('RESPONSE_MESSAGE.PRODUCT_UPDATED_SUCCESSFULLY'):this.translationService.getValue('RESPONSE_MESSAGE.PRODUCT_ADDED_SUCCESSFULLY');
-
-    const saveOrUpdate = (productUuid: string, product: IProduct): Observable<any> => {
-      return productObj.isUpdate ? this.productService.updateProduct(productUuid, product):this.productService.saveProduct(product);
+    const formData = new FormData();
+    this.isLoading=true;
+    Object.keys(this.productForm.controls).forEach(key => {
+      let value = this.productForm.get(key)?.value;
+        if (key === 'imageData' && value) {
+        formData.append(key, value);
+      // }else if(key === 'productPrices' && value){
+      //   formData.append(key,JSON.stringify(value))
+       }
+      else{
+        formData.append(key, value ? value.toString() : '');
+      }
+    })
+    if (this.productVarient && this.productVarient.length > 0) {
+      // formData.append('productPrices', this.productVarient);
+      formData.append('productPricesJson', JSON.stringify(this.productVarient));
     }
-    
-    this.sub$.sink = saveOrUpdate(productObj.productUUID, productObj).subscribe(
-      () => {
+    // const saveOrUpdate = (productUuid: string, product: IProduct): Observable<any> => {
+    //   return productObj.isUpdate ? this.productService.updateProduct(productUuid, product):this.productService.saveProduct(product);
+    // }
+    const saveOrUpdate = (productUuid: string, formData): Observable<any> => {
+      return productObj.isUpdate ? this.productService.updateProduct(productUuid, formData):this.productService.saveProduct(formData);
+    }
+    this.sub$.sink = saveOrUpdate(productObj.productUUID, formData).subscribe({
+      next: () => {
+        this.isLoading = false; // Set to false on success
         this.toastrService.success(successMessage);
         this.onProductList();
-      }
-    );
-    
+      },
+      error: (err) => {
+        this.isLoading = false; // Set to false on error
+        console.error(err);
+       
+      },
+      complete: () => {
+        this.isLoading = false; // Ensures it's set to false after the observable completes
+      },
+    });
+   
   }
   
   onToggle(ev) {
@@ -394,6 +452,26 @@ updateSelectedUnits(){
       this.productPricesForm.markAllAsTouched()
       return;
     } 
+    const unitCost = this.productPricesForm.get('unitCost')?.value;
+    const wholeSaleRate = this.productPricesForm.get('wholeSaleRate')?.value;
+    const sellingPrice = this.productPricesForm.get('sellingPrice')?.value;
+    const mrp = this.productPricesForm.get('mrp')?.value;
+
+    if (unitCost > wholeSaleRate) {
+      this.toastrService.error('Unit cost cannot be greater than wholesale rate.');
+      return;
+    }
+  
+    if (wholeSaleRate > sellingPrice) {
+      this.toastrService.error('Wholesale rate cannot be greater than selling price.');
+      return;
+    }
+  
+    if (sellingPrice > mrp) {
+      this.toastrService.error('Selling price cannot be greater than MRP.');
+      return;
+    }
+
     this.productPricesForm.get('qtyConversion').enable();
     const varient:ProductPrice = this.productPricesForm.value
     this.copyUnitName(varient)

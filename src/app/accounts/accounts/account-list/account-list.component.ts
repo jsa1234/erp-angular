@@ -13,6 +13,7 @@ import { BaseComponent } from 'src/app/base.component';
 import { StatementOfAccountsService } from 'src/app/reports/statement-of-accounts/statement-of-accounts.service';
 import { AccountHeadDataSource } from '../account-head-datasource';
 import { AccountHeadService } from '../account-head.service';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-account-list',
@@ -87,7 +88,8 @@ export class AccountListComponent extends BaseComponent implements OnInit {
 
     private fb: FormBuilder,
 
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private branchService:BranchService
   ) {
     super();
     this.accountHeadResource = new AccountHeadResourceParameter();
@@ -96,6 +98,7 @@ export class AccountListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.onLoadData();
     this.getAllAccountGroup();
     this.createSearchForm();

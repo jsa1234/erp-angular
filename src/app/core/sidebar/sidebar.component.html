@@ -1,19 +1,46 @@
 <div class="left-sidenav">
-  <div class="main-menu-inner" id="style-1"
-    [ngClass]="{'main-menu-inner-ar':translationService.getSelectedLanguage()=='ar'}">
+  <div
+    class="main-menu-inner"
+    id="style-1"
+    [ngClass]="{
+      'main-menu-inner-ar': translationService.getSelectedLanguage() == 'ar'
+    }"
+  >
     <div class="menu-body sidebar-nav">
-      <ul class="nav svg-icons" data-widget="treeview" role="menu" data-accordion="false">
+      <div class="bn-btn-wrapper">
+        <button class="bn-btn" (click)="openBusinessNetwork()">
+          <img
+            src="/assets/images/new/saturn.svg"
+            height="30"
+            width="30"
+            alt="Business Network"
+          />
+          <span>Business Network</span>
+        </button>
+      </div>
+
+      <ul
+        class="nav svg-icons"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false"
+      >
         <li class="nav-item" *hasClaim="'dashboard_dashboard_view_dashboard'">
-          <a [routerLink]="['/']" [ngClass]="{'active': currentUrl == 'dashboard'}" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact:true}" class="nav-link">
+          <a
+            [routerLink]="['/']"
+            [ngClass]="{ active: currentUrl == 'dashboard' }"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+          >
             <i class="icon"></i>
             <p>
-              {{'SIDEBAR.DASHBOARD' | translate}}
+              {{ "SIDEBAR.DASHBOARD" | translate }}
             </p>
           </a>
         </li>
 
-      <!-- <li
+        <!-- <li
       data-toggle="collapse" data-target="#claim" aria-controls="collapseOne" class="collapsed">
       <a class="nav-link" [ngClass]="{'active': currentUrl == 'claim'}" routerLinkActive="active">
         <i class="icon53"></i>
@@ -52,150 +79,197 @@
       </li>
     </ul> -->
 
-
-      <li *hasClaim="['branch_branch_list_branch','branch_branch_create_branch']"
-      data-toggle="collapse" data-target="#branch" aria-controls="collapseOne" class="collapsed">
-      <a class="nav-link" [ngClass]="{'active': currentUrl == 'branch'}" routerLinkActive="active">
-        <i class="icon53"></i>
-        <span>{{'SIDEBAR.BRANCH' | translate}}</span>
-        <span class="fas fa-angle-down rotate-arrow"
-          [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
-      </a>
-    </li>
-    <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'branch'}" id="branch">
-      <li *hasClaim="'branch_branch_list_branch'" class="nav-item">
-        <a [routerLink]="['/branch']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-          class="nav-link">
-          <i class="icon2"></i>
-          <p>{{'COMMON.LIST' | translate}}</p>
-        </a>
-      </li>
-      <li *hasClaim="'branch_branch_create_branch'" class="nav-item">
-        <a [routerLink]="['/branch/manage/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-          class="nav-link">
-          <i class="icon3"></i>
-          <p>{{'COMMON.ADD_NEW' | translate}}</p>
-        </a>
-      </li>
-    </ul>
-
-
-
+        <li class="menu-category">
+          <div>Master Settings</div>
+        </li>
 
         <li
-          *hasClaim="['product_product_list_product','product_product_create_product','product_category_list_category','product_category_list_category','product_subcategory_list_subcategory','product_brand_list_brand','product_unit_list_unit','product_vat_list_vat']"
-          data-toggle="collapse" data-target="#product" aria-controls="collapseOne" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'product'}" routerLinkActive="active">
+          class="nav-item"
+          *hasClaim="[
+            'branch_branch_list_branch',
+            'branch_branch_create_branch'
+          ]"
+        >
+          <a
+            [routerLink]="['/branch']"
+            [ngClass]="{ active: currentUrl == 'branch' }"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+          >
+            <i class="icon53"></i>
+            <p>{{ "SIDEBAR.BRANCH" | translate }}</p>
+          </a>
+        </li>
+        <!-- <ng-container  *ngIf="appUserAuth.role === 'super Admin'"> -->
+          <ng-container>
+        <li 
+          *hasClaim="[
+            'product_product_list_product',
+            'product_product_create_product',
+            'product_category_list_category',
+            'product_category_list_category',
+            'product_subcategory_list_subcategory',
+            'product_brand_list_brand',
+            'product_unit_list_unit',
+            'product_vat_list_vat'
+          ]"
+          data-toggle="collapse"
+          data-target="#product"
+          aria-controls="collapseOne"
+          class="collapsed"
+        >
+          <a
+            class="nav-link"
+            [ngClass]="{ active: currentUrl == 'product' }"
+            routerLinkActive="active"
+          >
             <i class="icon1"></i>
-            <span>{{'SIDEBAR.PRODUCT' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.PRODUCT" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'product'}" id="product">
-          <li *hasClaim="'product_product_list_product'" class="nav-item">
-            <a [routerLink]="['/product']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
+      </ng-container>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'product' }"
+          id="product"
+        >
+          <li *hasClaim="'product_product_list_product'" class="nav-item nav-p">
+            <a
+              [routerLink]="['/product']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon2"></i> -->
+              <p>Products</p>
             </a>
           </li>
-          <li *hasClaim="'product_product_create_product'" class="nav-item">
-            <a [routerLink]="['/product/manage/add']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active"
-              class="nav-link">
+          <!-- <li
+            *hasClaim="'product_product_create_product'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/product/manage/add']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLinkActive="active"
+              class="nav-link"
+            >
               <i class="icon3"></i>
-              <p>{{'COMMON.ADD_NEW' | translate}}</p>
+              <p>{{ "COMMON.ADD_NEW" | translate }}</p>
+            </a>
+          </li> -->
+          <li
+            *hasClaim="'product_category_list_category'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/category']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon4"></i> -->
+              <p>{{ "SIDEBAR.CATEGORY" | translate }}</p>
             </a>
           </li>
-          <li *hasClaim="'product_category_list_category'" class="nav-item">
-            <a [routerLink]="['/category']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon4"></i>
-              <p>{{'SIDEBAR.CATEGORY' | translate}}</p>
+          <li
+            *hasClaim="'product_subcategory_list_subcategory'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/subcategory']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon5"></i> -->
+              <p>{{ "SIDEBAR.SUBCATEGORY" | translate }}</p>
             </a>
           </li>
-          <li *hasClaim="'product_subcategory_list_subcategory'" class="nav-item">
-            <a [routerLink]="['/subcategory']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon5"></i>
-              <p>{{'SIDEBAR.SUBCATEGORY' | translate}}</p>
+          <li *hasClaim="'product_brand_list_brand'" class="nav-item nav-p">
+            <a
+              [routerLink]="['/brand']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon6"></i> -->
+              <p>{{ "SIDEBAR.BRAND" | translate }}</p>
             </a>
           </li>
-          <li *hasClaim="'product_brand_list_brand'" class="nav-item">
-            <a [routerLink]="['/brand']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon6"></i>
-              <p>{{'SIDEBAR.BRAND' | translate}}</p>
+          <li *hasClaim="'product_unit_list_unit'" class="nav-item nav-p">
+            <a
+              [routerLink]="['/unit']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon7"></i> -->
+              <p>{{ "SIDEBAR.UNIT" | translate }}</p>
             </a>
           </li>
-          <li *hasClaim="'product_unit_list_unit'" class="nav-item">
-            <a [routerLink]="['/unit']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon7"></i>
-              <p>{{'SIDEBAR.UNIT' | translate}}</p>
-            </a>
-          </li>
-          <li *hasClaim="'product_tax_list_tax'" class="nav-item">
-            <a [routerLink]="['/tax']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon8"></i>
-              <p>{{'SIDEBAR.TAX' | translate}}</p>
+          <li *hasClaim="'product_tax_list_tax'" class="nav-item nav-p">
+            <a
+              [routerLink]="['/tax']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon8"></i> -->
+              <p>{{ "SIDEBAR.TAX" | translate }}</p>
             </a>
           </li>
         </ul>
 
-        <li *hasClaim="['account_supplier_list_supplier','account_supplier_create_supplier']" data-toggle="collapse"
-          data-target="#Supplier" aria-controls="collapseOne" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'supplier'}">
+        <!-- supplier menu -->
+
+        <li
+          class="nav-item"
+          *hasClaim="[
+            'account_supplier_list_supplier',
+            'account_supplier_create_supplier'
+          ]"
+        >
+          <a
+            class="nav-link"
+            [ngClass]="{ active: currentUrl == 'supplier' }"
+            [routerLink]="['/supplier']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+          >
             <i class="icon9"></i>
-            <span>{{'SIDEBAR.SUPPLIER' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <p>{{ "SIDEBAR.SUPPLIER" | translate }}</p>
           </a>
         </li>
 
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'supplier'}" id="Supplier">
-          <li *hasClaim="'account_supplier_list_supplier'" class="nav-item">
-            <a [routerLink]="['/supplier']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
-            </a>
-          </li>
-          <li *hasClaim="'account_supplier_create_supplier'" class="nav-item">
-            <a [routerLink]="['/supplier/manage/addItem']" routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
-              <i class="icon3"></i>
-              <p>{{'COMMON.ADD_NEW' | translate}}</p>
-            </a>
-          </li>
-        </ul>
-
-        <li *hasClaim="['account_customer_list_customer','account_customer_create_customer']" data-toggle="collapse"
-          data-target="#Customer" aria-controls="collapseOne" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'customer'}">
+        <!-- <li
+          class="nav-item"
+          *hasClaim="[
+            'account_customer_list_customer',
+            'account_customer_create_customer'
+          ]"
+        >
+          <a
+            class="nav-link"
+            [ngClass]="{ active: currentUrl == 'customer' }"
+            [routerLink]="['/customer']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+          >
             <i class="icon10"></i>
-            <span>{{'SIDEBAR.CUSTOMER' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <p>{{ "SIDEBAR.CUSTOMER" | translate }}</p>
           </a>
-        </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'customer'}" id="Customer">
-          <li *hasClaim="'account_customer_list_customer'" class="nav-item">
-            <a [routerLink]="['/customer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
-            </a>
-          </li>
-          <li *hasClaim="'account_customer_create_customer'" class="nav-item">
-            <a [routerLink]="['/customer/manage/addItem']" routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
-              <i class="icon3"></i>
-              <p>{{'COMMON.ADD_NEW' | translate}}</p>
-            </a>
-          </li>
-        </ul>
+        </li> -->
 
         <!-- <li *hasClaim="['account_employee_list_employee','account_employee_create_employee']" data-toggle="collapse"
           data-target="#Employee" aria-controls="collapseOne" class="collapsed">
@@ -223,186 +297,339 @@
           </li>
         </ul> -->
 
-        <li
-          *hasClaim="['account_account_head_list_account_head','account_journal_list_journal','account_receipt_voucher_list_receipt_voucher','account_payment_voucher_list_payment_voucher','account_opening_balance_list_opening_balance','account_bank_list_bank','account_pos_merchant_account_list_pos_merchant_account','account_pos_device_list_pos_device']"
-          data-toggle="collapse" data-target="#Accounts" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'accounts'}">
+        <!-- accounts menu -->
+        <ng-container  *ngIf="appUserAuth.role === 'Super Admin' || appUserAuth.role === 'Admin'">
+        <li 
+          *hasClaim="[
+            'account_account_head_list_account_head',
+            'account_journal_list_journal',
+            'account_opening_balance_list_opening_balance',
+            'account_bank_list_bank',
+            'account_pos_merchant_account_list_pos_merchant_account',
+            'account_pos_device_list_pos_device'
+          ]"
+          data-toggle="collapse"
+          data-target="#Accounts"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'accounts' }">
             <i class="icon12"></i>
-            <span>{{'SIDEBAR.ACCOUNTS' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.ACCOUNTS" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'accounts'}" id="Accounts">
-          <li *hasClaim="'account_account_head_list_account_head'" class="nav-item">
-            <a [routerLink]="['/accountHead']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon13"></i>
-              <p>{{'SIDEBAR.ACCOUNT_HEAD' | translate}}</p>
-            </a>
-          <li *hasClaim="'account_opening_balance_list_opening_balance'"  class="nav-item">
-            <a [routerLink]="['/openingBalance']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon56"></i>
-              <p>{{'SIDEBAR.OPENING_BALANCE' | translate}}</p>
-            </a>
-          </li>
-          <li *hasClaim="'account_payment_voucher_list_payment_voucher'" class="nav-item">
-            <a [routerLink]="['/paymentVoucher']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon14"></i>
-              <p>{{'SIDEBAR.PAYMENT_VOUCHER' | translate}}</p>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'accounts' }"
+          id="Accounts"
+        >
+          <li
+            *hasClaim="'account_account_head_list_account_head'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/accountHead']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon13"></i> -->
+              <p>{{ "SIDEBAR.ACCOUNT_HEAD" | translate }}</p>
             </a>
           </li>
-          <li *hasClaim="'account_receipt_voucher_list_receipt_voucher'" class="nav-item">
-            <a [routerLink]="['/receiptVoucher']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon15"></i>
-              <p>{{'SIDEBAR.RECEIPT_VOUCHER' | translate}}</p>
+
+          <li
+            *hasClaim="'account_opening_balance_list_opening_balance'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/openingBalance']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon56"></i> -->
+              <p>{{ "SIDEBAR.OPENING_BALANCE" | translate }}</p>
             </a>
           </li>
-          <li *hasClaim="'account_journal_list_journal'" class="nav-item">
-            <a [routerLink]="['journal']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon16"></i>
-              <p>{{'SIDEBAR.JOURNAL' | translate}}</p>
+
+          <li *hasClaim="'account_journal_list_journal'" class="nav-item nav-p">
+            <a
+              [routerLink]="['journal']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon16"></i> -->
+              <p>{{ "SIDEBAR.JOURNAL" | translate }}</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a [routerLink]="['bank']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon57"></i>
-              <p>{{'SIDEBAR.BANK' | translate}}</p>
+          <li class="nav-item nav-p">
+            <a
+              [routerLink]="['bank']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon57"></i> -->
+              <p>{{ "SIDEBAR.BANK" | translate }}</p>
             </a>
           </li>
-          <li  class="nav-item">
-            <a [routerLink]="['payment-merchant']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon58"></i>
-              <p>{{'SIDEBAR.POS_MERCHANT_ACCOUNT' | translate}}</p>
+          <!-- <li class="nav-item nav-p">
+            <a
+              [routerLink]="['payment-merchant']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+             
+              <p>{{ "SIDEBAR.POS_MERCHANT_ACCOUNT" | translate }}</p>
+            </a>
+          </li> -->
+          <li class="nav-item nav-p">
+            <a
+              [routerLink]="['pos-device']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon59"></i> -->
+              <p>{{ "SIDEBAR.COUNTER" | translate }}</p>
             </a>
           </li>
-          <li  class="nav-item">
-            <a [routerLink]="['pos-device']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon59"></i>
-              <p>{{'SIDEBAR.POS_DEVICE' | translate}}</p>
+          <!-- <li class="nav-item nav-p">
+            <a
+              [routerLink]="['pos-printer']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+             
+              <p>{{ "SIDEBAR.POS_PRINTER" | translate }}</p>
             </a>
-          </li>
-          <li  class="nav-item">
-            <a [routerLink]="['pos-printer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon60"></i>
-              <p>{{'SIDEBAR.POS_PRINTER' | translate}}</p>
-            </a>
-          </li>
+          </li> -->
         </ul>
+      </ng-container>
+        <li class="menu-category">
+          <div>Stocks</div>
+        </li>
 
+        <!-- inventory menu -->
 
-        <li *hasClaim="['inventory_opening_stock_list_opening_stock']" data-toggle="collapse" data-target="#Inventories"
-          class="collapsed">
-          <a class="nav-link"[ngClass]="{'active': currentUrl == 'inventory'}" >
+        <li
+          *hasClaim="['inventory_opening_stock_list_opening_stock']"
+          data-toggle="collapse"
+          data-target="#Inventories"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'inventory' }">
             <i class="icon17"></i>
-            <span>{{'SIDEBAR.INVENTORY' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.INVENTORY" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'inventory'}" id="Inventories">
-          <li *hasClaim="'inventory_opening_stock_list_opening_stock'" class="nav-item">
-            <a [routerLink]="['inventory/opening-stock']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon18"></i>
-              <p>{{'SIDEBAR.OPENING_STOCK' | translate}}</p>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'inventory' }"
+          id="Inventories"
+        >
+          <li
+            *hasClaim="'inventory_opening_stock_list_opening_stock'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['inventory/opening-stock']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon18"></i> -->
+              <p>{{ "SIDEBAR.OPENING_STOCK" | translate }}</p>
             </a>
           </li>
-          <li  class="nav-item">
-            <a [routerLink]="['inventory/stock-transfer']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon54"></i>
-              <p>{{'SIDEBAR.STOCK_TRANSFER' | translate}}</p>
+          <li class="nav-item nav-p">
+            <a
+              [routerLink]="['inventory/stock-transfer']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon54"></i> -->
+              <p>{{ "SIDEBAR.STOCK_TRANSFER" | translate }}</p>
             </a>
           </li>
-          <li  class="nav-item">
-            <a [routerLink]="['inventory/damage-entry']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon55"></i>
-              <p>{{'SIDEBAR.DAMAGE_ENTRY' | translate}}</p>
+          <li class="nav-item nav-p">
+            <a
+              [routerLink]="['inventory/damage-entry']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon55"></i> -->
+              <p>{{ "SIDEBAR.DAMAGE_ENTRY" | translate }}</p>
+            </a>
+          </li>
+          <li class="nav-item nav-p">
+            <a
+              [routerLink]="['inventory/current-stock']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon55"></i> -->
+              <p>{{ "SIDEBAR.CURRENT_STOCK" | translate }}</p>
             </a>
           </li>
         </ul>
 
+        <li class="menu-category">
+          <div>Pages</div>
+        </li>
 
+        <!-- Purchase menu -->
 
-        <li *hasClaim="'purchase_purchase_invoice_list_purchase_invoice'" data-toggle="collapse" data-target="#PO"
-          class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'purchase-invoice'}">
+        <li
+          *hasClaim="[
+            'purchase_purchase_invoice_list_purchase_invoice',
+            'purchase_purchase_return_list_purchase_return'
+          ]"
+          data-toggle="collapse"
+          data-target="#PO"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'purchases' }">
             <i class="icon19"></i>
-            <span>{{'SIDEBAR.PURCHASE_INVOICE' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>Purchases</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'purchase-invoice'}" id="PO">
-          <li *hasClaim="'purchase_purchase_invoice_list_purchase_invoice'" class="nav-item">
-            <a [routerLink]="['/purchase-invoice/list']" routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'purchases' }"
+          id="PO"
+        >
+          <li
+            *hasClaim="'purchase_purchase_invoice_list_purchase_invoice'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/purchase-invoice/list']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon2"></i> -->
+              <p>{{ "SIDEBAR.PURCHASE_INVOICE" | translate }}</p>
             </a>
           </li>
-          <li class="nav-item" >
-            <a [routerLink]="['/purchase-invoice/manage/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon3"></i>
-              <p>{{'COMMON.ADD_NEW' | translate}}</p>
+          <li
+            *hasClaim="'purchase_purchase_return_list_purchase_return'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/purchase-return/list']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon2"></i> -->
+              <p>{{ "SIDEBAR.PURCHASE_RETURN" | translate }}</p>
             </a>
           </li>
         </ul>
 
-        <li *hasClaim="'purchase_purchase_return_list_purchase_return'" data-toggle="collapse" data-target="#PORE"
-          class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'purchase-return'}">
-            <i class="icon20"></i>
-            <span>{{'SIDEBAR.PURCHASE_RETURN' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
-          </a>
-        </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'purchase-return'}" id="PORE">
-          <li *hasClaim="'purchase_purchase_return_list_purchase_return'" class="nav-item">
-            <a [routerLink]="['/purchase-return/list']" routerLinkActive="active"
-              [routerLinkActiveOptions]="{exact:true}" class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
-            </a>
-          </li>
-          <li class="nav-item" >
-            <a [routerLink]="['/purchase-return/manage/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon3"></i>
-              <p>{{'COMMON.ADD_NEW' | translate}}</p>
-            </a>
-          </li>
-        </ul>
+        <!-- Sales menu -->
 
-        <li  *hasClaim="'sale_sale_order_list_sale_order'" data-toggle="collapse" data-target="#SO"
-          class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'sale-order'}">
+        <li
+          *hasClaim="[
+            'sale_sale_order_list_sale_order',
+            'sale_sale_order_list_sale_order',
+            'sale_sale_invoice_list_sale_invoice'
+          ]"
+          data-toggle="collapse"
+          data-target="#SO"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'sales' }">
             <i class="icon21"></i>
-            <span>{{'SIDEBAR.SALE_ORDER' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>Sales</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" id="SO" [ngClass]="{'show': currentUrl == 'sale-order'}">
-          <li *hasClaim="'sale_sale_order_list_sale_order'"  class="nav-item">
-            <a [routerLink]="['/sale-order/list']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
+        <ul
+          class="sub-menu collapse"
+          id="SO"
+          [ngClass]="{ show: currentUrl == 'sales' }"
+        >
+          <!-- <li
+            *hasClaim="'sale_sale_order_list_sale_order'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/sale-order/list']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+            
+              <p>{{ "SIDEBAR.SALE_ORDER" | translate }}</p>
+            </a>
+          </li> -->
+
+          <li
+            *hasClaim="'sale_sale_invoice_list_sale_invoice'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/sales-invoice/list']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon2"></i> -->
+              <p>{{ "SIDEBAR.SALES_INVOICE" | translate }}</p>
             </a>
           </li>
+
+          <li
+            *hasClaim="'sale_sale_return_list_sale_return'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/sales-return/list']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon2"></i> -->
+              <p>{{ "SIDEBAR.SALES_RETURN" | translate }}</p>
+            </a>
+          </li>
+
           <!-- <li class="nav-item" >
             <a [routerLink]="['/sale-order/manage/add']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
               class="nav-link">
@@ -412,116 +639,166 @@
           </li> -->
         </ul>
 
-
-        <li *hasClaim="'sale_sale_invoice_list_sale_invoice'" data-toggle="collapse" data-target="#SI"
-          class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'sales-invoice'}">
-            <i class="icon21"></i>
-            <span>{{'SIDEBAR.SALES_INVOICE' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
-          </a>
-        </li>
-        <ul class="sub-menu collapse" id="SI" [ngClass]="{'show': currentUrl == 'sales-invoice'}">
-          <li *hasClaim="'sale_sale_invoice_list_sale_invoice'" class="nav-item">
-            <a [routerLink]="['/sales-invoice/list']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
-            </a>
-          </li>
-        </ul>
-
-        <li *hasClaim="'sale_sale_return_list_sale_return'" data-toggle="collapse" data-target="#SORE"
-          class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'sales-return'}">
-            <i class="icon22"></i>
-            <span>{{'SIDEBAR.SALES_RETURN' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
-          </a>
-        </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'sales-return'}" id="SORE">
-          <li *hasClaim="'sale_sale_return_list_sale_return'" class="nav-item">
-            <a [routerLink]="['/sales-return/list']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
-            </a>
-          </li>
-        </ul>
-
         <li
-          *hasClaim="['report_sale_report_product_wise_sale_report','report_sale_report_customer_wise_sale_report','report_sale_report_bill_wise_sale_report','report_sale_report_detailed_sale_report','report_purchase_report_product_wise_purchase_report','report_purchase_report_supplier_wise_purchase_report','report_purchase_report_bill_wise_purchase_report','report_purchase_report_detailed_purchase_report','report_vat_report_vat_report_summary','report_vat_report_output_statement','report_vat_report_input_statement','report_stock_report_general_stock_report','report_stock_report_product_wise_stock_report','report_ledger_report_ledger_report','report_daily_activity_report_daily_activity_report']"
-          id="ReportsHeading" data-toggle="collapse" data-target="#Reports" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'reports'}">
+          *hasClaim="[
+            'report_sale_report_product_wise_sale_report',
+            'report_sale_report_customer_wise_sale_report',
+            'report_sale_report_bill_wise_sale_report',
+            'report_sale_report_detailed_sale_report',
+            'report_purchase_report_product_wise_purchase_report',
+            'report_purchase_report_supplier_wise_purchase_report',
+            'report_purchase_report_bill_wise_purchase_report',
+            'report_purchase_report_detailed_purchase_report',
+            'report_vat_report_vat_report_summary',
+            'report_vat_report_output_statement',
+            'report_vat_report_input_statement',
+            'report_stock_report_general_stock_report',
+            'report_stock_report_product_wise_stock_report',
+            'report_ledger_report_ledger_report',
+            'report_daily_activity_report_daily_activity_report'
+          ]"
+          id="ReportsHeading"
+          data-toggle="collapse"
+          data-target="#Reports"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'reports' }">
             <i class="icon23"></i>
-            <span>{{'SIDEBAR.REPORTS' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.REPORTS" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'reports'}" id="Reports">
-          <li *hasClaim="['report_purchase_report_product_wise_purchase_report','report_purchase_report_supplier_wise_purchase_report','report_purchase_report_bill_wise_purchase_report','report_purchase_report_detailed_purchase_report']" class="nav-item">
-            <a [routerLink]="['/purchase-report']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon24"></i>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'reports' }"
+          id="Reports"
+        >
+          <li
+            *hasClaim="[
+              'report_purchase_report_product_wise_purchase_report',
+              'report_purchase_report_supplier_wise_purchase_report',
+              'report_purchase_report_bill_wise_purchase_report',
+              'report_purchase_report_detailed_purchase_report'
+            ]"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/purchase-report']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon24"></i> -->
               <p>
-                {{'SIDEBAR.PURCHASE_REPORT' | translate}}
+                {{ "SIDEBAR.PURCHASE_REPORT" | translate }}
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a [routerLink]="['/purchaseReturn-report']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon24"></i>
+          <li class="nav-item nav-p">
+            <a
+              [routerLink]="['/purchaseReturn-report']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon24"></i> -->
               <p>
-                {{'SIDEBAR.PURCHASE_RETURN_REPORT' | translate}}
+                {{ "SIDEBAR.PURCHASE_RETURN_REPORT" | translate }}
               </p>
             </a>
           </li>
-          <li *hasClaim="['report_sale_report_product_wise_sale_report','report_sale_report_customer_wise_sale_report','report_sale_report_bill_wise_sale_report','report_sale_report_detailed_sale_report']" class="nav-item">
-            <a [routerLink]="['/sales-report']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon25"></i>
+          <li
+            *hasClaim="[
+              'report_sale_report_product_wise_sale_report',
+              'report_sale_report_customer_wise_sale_report',
+              'report_sale_report_bill_wise_sale_report',
+              'report_sale_report_detailed_sale_report'
+            ]"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/sales-report']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon25"></i> -->
               <p>
-                {{'SIDEBAR.SALES_REPORT' | translate}}
+                {{ "SIDEBAR.SALES_REPORT" | translate }}
               </p>
             </a>
           </li>
-          <li  class="nav-item">
-            <a [routerLink]="['/sale-return-report']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon25"></i>
+          <li class="nav-item nav-p">
+            <a
+              [routerLink]="['/sale-return-report']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon25"></i> -->
               <p>
-                {{'SIDEBAR.SALE_RETURN_REPORT' | translate}}
+                {{ "SIDEBAR.SALE_RETURN_REPORT" | translate }}
               </p>
             </a>
           </li>
-          <li *hasClaim="['report_vat_report_vat_report_summary','report_vat_report_output_statement','report_vat_report_input_statement']" class="nav-item">
-            <a [routerLink]="['/vat-report']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon26"></i>
+          <li
+            *hasClaim="[
+              'report_vat_report_vat_report_summary',
+              'report_vat_report_output_statement',
+              'report_vat_report_input_statement'
+            ]"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/vat-report']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon26"></i> -->
               <p>
-                {{'SIDEBAR.TAX_REPORT' | translate}}
+                {{ "SIDEBAR.TAX_REPORT" | translate }}
               </p>
             </a>
           </li>
-          <li *hasClaim="'report_ledger_report_ledger_report'" class="nav-item">
-            <a [routerLink]="['/ledger-report']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon27"></i>
+          <li
+            *hasClaim="'report_ledger_report_ledger_report'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/ledger-report']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon27"></i> -->
               <p>
-                {{'SIDEBAR.LEDGER_REPORT' | translate}}
+                {{ "SIDEBAR.LEDGER_REPORT" | translate }}
               </p>
             </a>
           </li>
-          <li *hasClaim="['report_stock_report_general_stock_report','report_stock_report_product_wise_stock_report']" class="nav-item">
-            <a [routerLink]="['/stock-report']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon28"></i>
+          <li
+            *hasClaim="[
+              'report_stock_report_general_stock_report',
+              'report_stock_report_product_wise_stock_report'
+            ]"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/stock-report']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon28"></i> -->
               <p>
-                {{'SIDEBAR.STOCK_REPORT' | translate}}
+                {{ "SIDEBAR.STOCK_REPORT" | translate }}
               </p>
             </a>
           </li>
@@ -536,226 +813,405 @@
           </li> -->
         </ul>
 
+        <li class="menu-category">
+          <div>Vouchers</div>
+        </li>
 
-        <li  data-toggle="collapse" data-target="#paymentTransaction"  class="collapsed">
-        <a class="nav-link" [ngClass]="{'active': currentUrl == 'payment-transactions'}">
-          <i class="icon21"></i>
-          <span class="text-left">{{'SIDEBAR.PAYMENT_TRANSACTIONS' | translate}}</span>
-          <span class="fas fa-angle-down rotate-arrow"
-            [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
-        </a>
-      </li>
+        <!-- Vouchers menu -->
 
-      <ul class="sub-menu collapse" id="paymentTransaction" [ngClass]="{'show': currentUrl == 'payment-transactions'}">
-        <li  class="nav-item">
-          <a [routerLink]="['/payment-transactions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-            class="nav-link">
-            <i class="icon2"></i>
-            <p>{{'COMMON.LIST' | translate}}</p>
+        <li
+          *hasClaim="[
+            'voucher_receipt_voucher_list_receipt_voucher',
+            'voucher_payment_voucher_list_payment_voucher'
+          ]"
+          data-toggle="collapse"
+          data-target="#VOUCHERS"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'voucher' }">
+            <i class="icon19"></i>
+            <span>Vouchers</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-      </ul>
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'voucher' }"
+          id="VOUCHERS"
+        >
+          <li
+            *hasClaim="'voucher_payment_voucher_list_payment_voucher'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/paymentVoucher']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon14"></i> -->
+              <p>{{ "SIDEBAR.PAYMENT_VOUCHER" | translate }}</p>
+            </a>
+          </li>
+          <li
+            *hasClaim="'voucher_receipt_voucher_list_receipt_voucher'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/receiptVoucher']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon15"></i> -->
+              <p>{{ "SIDEBAR.RECEIPT_VOUCHER" | translate }}</p>
+            </a>
+          </li>
+        </ul>
 
-        <li *hasClaim="['location_country_list_country','location_state_list_state','location_district_list_district']" data-toggle="collapse" data-target="#locations" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'locations'}">
+        <!-- <li class="nav-item">
+          <a
+            [ngClass]="{ active: currentUrl == 'payment-transactions' }"
+            [routerLink]="['/payment-transactions']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+          >
+            <i class="icon-payment-transactions"></i>
+            <p>{{ "SIDEBAR.PAYMENT_TRANSACTIONS" | translate }}</p>
+          </a>
+        </li> -->
+
+        <!-- <li
+          *hasClaim="[
+            'location_country_list_country',
+            'location_state_list_state',
+            'location_district_list_district'
+          ]"
+          data-toggle="collapse"
+          data-target="#locations"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'locations' }">
             <i class="icon32"></i>
-            <span>{{'SIDEBAR.LOCATIONS' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
-          </a>
-        </li>
-
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'locations'}" id="locations">
-          <li *hasClaim="'location_country_list_country'" class="nav-item">
-            <a [routerLink]="['/country']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon33"></i>
-              <p>{{'SIDEBAR.COUNTRY' | translate}}</p>
-            </a>
-          </li>
-          <li *hasClaim="'location_state_list_state'" class="nav-item">
-            <a [routerLink]="['/state']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon34"></i>
-              <p>{{'SIDEBAR.STATE' | translate}}</p>
-            </a>
-          </li>
-
-          <li *hasClaim="'location_district_list_district'" class="nav-item">
-            <a [routerLink]="['/district']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon35"></i>
-              <p>{{'SIDEBAR.DISTRICT' | translate}}</p>
-            </a>
-          </li>
-        </ul>
-
-
-        <li *hasClaim="['roles_roles_list_roles','roles_roles_create_role']" data-toggle="collapse" data-target="#Roles" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'roles'}">
-            <i class="icon36"></i>
-            <span>{{'SIDEBAR.ROLES' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
-          </a>
-        </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'roles'}" id="Roles">
-          <li *hasClaim="'roles_roles_list_roles'" class="nav-item">
-            <a [routerLink]="['/roles']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
-            </a>
-          </li>
-          <li *hasClaim="'roles_roles_create_role'" class="nav-item">
-            <a [routerLink]="['/roles/manage']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon3"></i>
-              <p>{{'COMMON.ADD_NEW' | translate}}</p>
-            </a>
-          </li>
-        </ul>
-
-
-
-        <li  *hasClaim="['profile_user_list_user',
-        'profile_user_create_user',
-        'profile_user_manage_user_role',
-        'profile_user_list_current_online_user']"
-         data-toggle="collapse" data-target="#Users" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'users'}">
-            <i class="icon37"></i>
-            <span>{{'SIDEBAR.USERS' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.LOCATIONS" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
 
         <ul
-        class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'users'}" id="Users">
-          <li   *hasClaim="'profile_user_list_user'" class="nav-item">
-            <a [routerLink]="['/users']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'locations' }"
+          id="locations"
+        >
+          <li *hasClaim="'location_country_list_country'" class="nav-item">
+            <a
+              [routerLink]="['/country']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <i class="icon33"></i>
+              <p>{{ "SIDEBAR.COUNTRY" | translate }}</p>
             </a>
           </li>
-          <li *hasClaim="'profile_user_create_user'" class="nav-item">
-            <a [routerLink]="['/users/manage']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
+          <li *hasClaim="'location_state_list_state'" class="nav-item">
+            <a
+              [routerLink]="['/state']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <i class="icon34"></i>
+              <p>{{ "SIDEBAR.STATE" | translate }}</p>
+            </a>
+          </li>
+
+          <li *hasClaim="'location_district_list_district'" class="nav-item">
+            <a
+              [routerLink]="['/district']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <i class="icon35"></i>
+              <p>{{ "SIDEBAR.DISTRICT" | translate }}</p>
+            </a>
+          </li>
+        </ul> -->
+        <ng-container  *ngIf="appUserAuth.role === 'Super Admin' || appUserAuth.role === 'Admin'">
+        <li class="menu-category">
+          <div>Account Privilages</div>
+        </li>
+
+     
+
+        <li
+          *hasClaim="[
+            'profile_user_list_user',
+            'profile_user_create_user',
+            'profile_user_manage_user_role',
+            'profile_user_list_current_online_user'
+          ]"
+          data-toggle="collapse"
+          data-target="#Users"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'users' }">
+            <i class="icon37"></i>
+            <span>{{ "SIDEBAR.USERS" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
+          </a>
+        </li>
+
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'users' }"
+          id="Users"
+        >
+          <li *hasClaim="'profile_user_list_user'" class="nav-item nav-p">
+            <a
+              [routerLink]="['/users']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+             
+              <p>Users</p>
+            </a>
+          </li>
+          <!-- <li *hasClaim="'profile_user_create_user'" class="nav-item nav-p">
+            <a
+              [routerLink]="['/users/manage']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
               <i class="icon3"></i>
-              <p>{{'COMMON.ADD_NEW' | translate}}</p>
+              <p>{{ "COMMON.ADD_NEW" | translate }}</p>
             </a>
-          </li>
-          <li *hasClaim="'profile_user_manage_user_role'" class="nav-item">
-            <a [routerLink]="['/roles/users']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon38"></i>
-              <p>{{'SIDEBAR.USER_ROLES' | translate}}</p>
+          </li> -->
+          <!-- <li *hasClaim="'profile_user_manage_user_role'" class="nav-item nav-p">
+            <a
+              [routerLink]="['/roles/users']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+             
+              <p>{{ "SIDEBAR.USER_ROLES" | translate }}</p>
             </a>
-          </li>
-          <li *hasClaim="'profile_user_list_current_online_user'" class="nav-item">
-            <a [routerLink]="['/sessions']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon39"></i>
+          </li> -->
+          <!-- <li
+            *hasClaim="'profile_user_list_current_online_user'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/sessions']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              
               <p>
-                {{'SIDEBAR.CURRENT_ONLINE_USERS' | translate}}
+                {{ "SIDEBAR.CURRENT_ONLINE_USERS" | translate }}
               </p>
             </a>
-          </li>
+          </li> -->
         </ul>
 
+        <!-- devices menu -->
 
-        <li *hasClaim="'device_device_list_device'" data-toggle="collapse" data-target="#Device" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'device'}">
+        <!-- <li
+          *hasClaim="'device_device_list_device'"
+          data-toggle="collapse"
+          data-target="#Device"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'device' }">
             <i class="icon49"></i>
-            <span>{{'SIDEBAR.DEVICE' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.DEVICE" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'device'}" id="Device">
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'device' }"
+          id="Device"
+        >
           <li *hasClaim="'device_device_list_device'" class="nav-item">
-            <a [routerLink]="['/device']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
+            <a
+              [routerLink]="['/device']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
               <i class="icon2"></i>
-              <p>{{'COMMON.LIST' | translate}}</p>
+              <p>{{ "COMMON.LIST" | translate }}</p>
             </a>
           </li>
-        </ul>
-        <li *hasClaim="['profile_business_show_business_profile','settings_year_end_process_view']" data-toggle="collapse" data-target="#Settings" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'settings'}">
+        </ul> -->
+        <li
+          *hasClaim="[
+            'profile_business_show_business_profile',
+            'settings_year_end_process_view'
+          ]"
+          data-toggle="collapse"
+          data-target="#Settings"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'settings' }">
             <i class="icon44"></i>
-            <span>{{'SIDEBAR.SETTINGS' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.SETTINGS" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'settings'}" id="Settings">
-          <li class="nav-item" >
-            <a [routerLink]="['/documents']"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-            class="nav-link">
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'settings' }"
+          id="Settings"
+        >
+          <!-- <li class="nav-item">
+            <a
+              [routerLink]="['/documents']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
               <i class="icon13"></i>
               <p>
-                {{'SIDEBAR.DOCUMENT_NUMBERS' | translate}}
+                {{ "SIDEBAR.DOCUMENT_NUMBERS" | translate }}
               </p>
             </a>
-          </li>
-          <li *hasClaim="'profile_business_show_business_profile'" class="nav-item">
-            <a [routerLink]="['/company-profile']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon45"></i>
-              <p>{{'SIDEBAR.COMPANY_PROFILE' | translate}}</p>
+          </li> -->
+          <li
+            *hasClaim="'profile_business_show_business_profile'"
+            class="nav-item nav-p"
+          >
+            <a
+              [routerLink]="['/company-profile']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              <!-- <i class="icon45"></i> -->
+              <p>{{ "SIDEBAR.COMPANY_PROFILE" | translate }}</p>
             </a>
           </li>
-          <li  class="nav-item">
-            <a [routerLink]="['/company-profile/configurations']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
-              <i class="icon45"></i>
-              <p>{{'SIDEBAR.COMPANY_CONFIGURATIONS' | translate}}</p>
+          <!-- <li class="nav-item nav-p">
+            <a
+              [routerLink]="['/company-profile/configurations']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+             
+              <p>{{ "SIDEBAR.COMPANY_CONFIGURATIONS" | translate }}</p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a [routerLink]="['/settings/financial-year']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
+          </li> -->
+          <!-- <li class="nav-item">
+            <a
+              [routerLink]="['/settings/financial-year']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
               <i class="icon50"></i>
-              <p>{{'SIDEBAR.FINANCIAL_YEAR' | translate}}</p>
+              <p>{{ "SIDEBAR.FINANCIAL_YEAR" | translate }}</p>
             </a>
-          </li>
-          <li *hasClaim="'settings_year_end_process_view'" class="nav-item">
-            <a [routerLink]="['/settings/year-end-process']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
+          </li> -->
+          <!-- <li *hasClaim="'settings_year_end_process_view'" class="nav-item">
+            <a
+              [routerLink]="['/settings/year-end-process']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
               <i class="icon51"></i>
-              <p>{{'SIDEBAR.YEAR_END_PROCESS' | translate}}</p>
+              <p>{{ "SIDEBAR.YEAR_END_PROCESS" | translate }}</p>
             </a>
-          </li>
+          </li> -->
         </ul>
-
-
-        <li *hasClaim="['logs_logs_list_login_audit','logs_logs_list_error_logs']" data-toggle="collapse" data-target="#Logs" class="collapsed">
-          <a class="nav-link" [ngClass]="{'active': currentUrl == 'logs'}">
+        </ng-container>
+        <!-- <li
+          *hasClaim="[
+            'logs_logs_list_login_audit',
+            'logs_logs_list_error_logs'
+          ]"
+          data-toggle="collapse"
+          data-target="#Logs"
+          class="collapsed"
+        >
+          <a class="nav-link" [ngClass]="{ active: currentUrl == 'logs' }">
             <i class="icon46"></i>
-            <span>{{'SIDEBAR.LOGS' | translate}}</span>
-            <span class="fas fa-angle-down rotate-arrow"
-              [ngClass]="{'mr-auto':translationService.getSelectedLanguage()=='ar','ml-auto':translationService.getSelectedLanguage()=='en'}"></span>
+            <span>{{ "SIDEBAR.LOGS" | translate }}</span>
+            <span
+              class="fas fa-angle-down rotate-arrow"
+              [ngClass]="{
+                'mr-auto': translationService.getSelectedLanguage() == 'ar',
+                'ml-auto': translationService.getSelectedLanguage() == 'en'
+              }"
+            ></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" [ngClass]="{'show': currentUrl == 'logs'}" id="Logs">
+        <ul
+          class="sub-menu collapse"
+          [ngClass]="{ show: currentUrl == 'logs' }"
+          id="Logs"
+        >
           <li *hasClaim="'logs_logs_list_login_audit'" class="nav-item">
-            <a [routerLink]="['/login-audit']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
+            <a
+              [routerLink]="['/login-audit']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
               <i class="icon47"></i>
-              <p>{{'SIDEBAR.LOGIN_AUDIT' | translate}}</p>
+              <p>{{ "SIDEBAR.LOGIN_AUDIT" | translate }}</p>
             </a>
           </li>
           <li *hasClaim="'logs_logs_list_error_logs'" class="nav-item">
-            <a [routerLink]="['/logs']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-              class="nav-link">
+            <a
+              [routerLink]="['/logs']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
               <i class="icon48"></i>
-              <p>{{'SIDEBAR.ERROR_LOGS' | translate}}</p>
+              <p>{{ "SIDEBAR.ERROR_LOGS" | translate }}</p>
             </a>
           </li>
-        </ul>
+        </ul> -->
       </ul>
     </div>
   </div>

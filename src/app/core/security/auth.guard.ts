@@ -25,15 +25,26 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.securityService.isLogin()) {
-      let claimType: string = next.data["claimType"];
-      if (claimType) {
-        if (!this.securityService.hasClaim(claimType)) {
-          this.toastr.error(`You don't have right to access this page`);
-          this.router.navigate(['access-denied']);
-          return false;
-        }
-      }
-    } else {
+      // let claimType: string = next.data["claimType"];
+      // if (claimType) {
+      //   if (!this.securityService.hasClaim(claimType)) {
+      //     this.toastr.error(`You don't have right to access this page`);
+      //     this.router.navigate(['access-denied']);
+      //     return false;
+      //   }
+      // }
+      // const userRole = this.securityService.getRole();
+      // if(userRole === 'Branch User'){
+      //   const restrictedPaths = ['product', 'products'];
+      //   const currentPath = this.getFullPath(next);
+      //   if (restrictedPaths.some(restrictedPath => currentPath.includes(restrictedPath))) {
+      //     this.toastr.error(`You don't have the right to access this page`);
+      //     this.router.navigate(['access-denied']);
+      //     return false;
+      //   }
+      // }
+    } 
+    else {
       this.router.navigate(['login'], {
         queryParams: { returnUrl: state.url }
       });
@@ -69,5 +80,12 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       this.router.navigate(['login']);
       return false;
     }
+  }
+  private getFullPath(route: ActivatedRouteSnapshot): string {
+    let path = route.routeConfig?.path || '';
+    if (route.parent) {
+      path = this.getFullPath(route.parent) + '/' + path;
+    }
+    return path.replace(/\/\/+/g, '/').replace(/^\/|\/$/g, '');
   }
 }

@@ -15,6 +15,7 @@ import { BaseComponent } from 'src/app/base.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { UserService } from '../user.service';
 import { UserDataSource } from './user-datasource';
+import { BranchService } from 'src/app/branch/branch.service';
 
 @Component({
   selector: 'app-user-list',
@@ -24,7 +25,7 @@ import { UserDataSource } from './user-datasource';
 export class UserListComponent extends BaseComponent implements OnInit, AfterViewInit {
   dataSource: UserDataSource;
   users: User[] = [];
-  displayedColumns: string[] = ['action', 'email', 'firstName', 'lastName', 'phoneNumber', 'isActive'];
+  displayedColumns: string[] = [ 'email', 'firstName', 'lastName', 'phoneNumber', 'isActive' ,'action'];
   isLoadingResults = true;
   userResource: UserResource;
   loading$: Observable<boolean>;
@@ -38,7 +39,9 @@ export class UserListComponent extends BaseComponent implements OnInit, AfterVie
     private commonDialogService: CommonDialogService,
     private dialog: MatDialog,
     private router: Router,
-    public translationService: TranslationService) {
+    public translationService: TranslationService,
+    private branchService:BranchService
+  ) {
     super();
     this.userResource = new UserResource();
     this.userResource.pageSize = 10;
@@ -46,6 +49,7 @@ export class UserListComponent extends BaseComponent implements OnInit, AfterVie
   }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.dataSource = new UserDataSource(this.userService);
     this.dataSource.loadUsers(this.userResource);
     this.getResourceParameter();

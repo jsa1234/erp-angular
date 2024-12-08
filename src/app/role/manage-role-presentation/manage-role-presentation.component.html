@@ -2,17 +2,17 @@
   <div class="row align-items-center justify-content-between">
     <div class="col-md-auto col-sm-auto">
       <div class="content-header svg-icons" [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon3"></i> <span>{{'ROLES.MANAGE_ROLE' | translate}}</span></h1>
+        <h1>{{'ROLES.MANAGE_ROLE' | translate}}</h1>
       </div>
     </div>
   </div>
   <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> / <a [routerLink]="['/roles']" >{{'SIDEBAR.ROLES' | translate}}</a> / <span>{{'ROLES.MANAGE_ROLE' | translate}}</span>
+      <a [routerLink]="['/']" >{{'SIDEBAR.DASHBOARD' | translate}}</a> <i class="chevron-icon"></i> <a [routerLink]="['/roles']" >{{'SIDEBAR.ROLES' | translate}}</a> <i class="chevron-icon"></i> <span>{{'ROLES.MANAGE_ROLE' | translate}}</span>
     </div>
   </div>
 </div>
-<div class="row" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
+<div class="row details_card m-1 mb-3 p-3 ml-0" [ngClass]="{'form-label-ar':translationService.getSelectedLanguage()=='ar'}">
   <div class="form-group col-md-6">
     <label>{{'ROLES.ROLE_NAME' | translate}}</label>
     <input [(ngModel)]="role.name" type="text" class="form-control">

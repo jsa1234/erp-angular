@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-auto col-sm-auto">
       <button *hasClaim="'purchase_purchase_return_print_purchase_return'" class="btn blue-btn btn-sm m-right-10" (click)="generateInvoice()">
-        <i class="fas fa-receipt"></i>  {{'COMMON.PRINT_INVOICE' | translate}}
+        {{'COMMON.PRINT_INVOICE' | translate}}&nbsp;&nbsp;&nbsp;<i class="fas fa-receipt"></i>  
       </button>
     </div>
   </div>
@@ -15,7 +15,7 @@
 <br>
 <ng-container *ngIf="purchaseReturn">
 <app-comapny-profile-heading [ProfileType]="4" [branchUUID]="purchaseReturn.branchUUID"></app-comapny-profile-heading>
-  <div class="row">
+  <div class="row details_card ml-1 mr-1">
     <div class="col-md-6">
       <div class="invoice-detatable table-responsive"
         [ngClass]="{'invoice-detatable-ar':translationService.getSelectedLanguage()=='ar'}">
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row details_card d-flex align-items-center justify-content-between m-1 mb-5 mt-5">
     <div class="col-md-6">
       <div class="invoice-detatables table-responsive"
         [ngClass]="{'invoice-detatables-ar':translationService.getSelectedLanguage()=='ar'}">
@@ -74,8 +74,8 @@
   <div class="content-header">
     <h1>{{'COMMON.LINE_ITEMS' |translate}}</h1>
   </div>
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover table-striped">
+  <div class="table-responsive details_table">
+    <table class="">
       <thead class="head">
         <tr>
           <th style="width:1%">{{'COMMON.#' | translate}}</th>

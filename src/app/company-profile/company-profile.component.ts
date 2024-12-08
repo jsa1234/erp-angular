@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CompanyProfileService } from './company-profile.service';
 import { ICompany } from '@core/domain-classes/company';
 import { LogoType } from '@core/domain-classes/enums/logo-type';
+import { BranchService } from '../branch/branch.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -30,9 +31,13 @@ export class CompanyProfileComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     private securityService: SecurityService,
-    public translationService: TranslationService) { }
+    public translationService: TranslationService,
+    private branchService:BranchService,
+    public commonServ:CommonService
+  ) { }
 
   ngOnInit(): void {
+    this.branchService.isHeadOfficeSubject$.next(true);
     this.createform();
     // this.getCurrencies();
     this.route.data.subscribe((data: { profile: ICompany }) => {
@@ -55,8 +60,8 @@ export class CompanyProfileComponent implements OnInit {
       mobileCountryCode: [''],
       phoneNo:           [''],
       phoneCountryCode:  [''],
-      email:             [''],
-      website:           [''],
+      email:             ['', [Validators.email]],
+      website:           ['',[Validators.pattern(/^(https?:\/\/)?([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})([\/a-zA-Z0-9.-]*)*\/?$/)]],
       buildingNoEnglish: [''],
       buildingNoArabic:  [''],
       streetEnglish:     [''],
@@ -95,43 +100,23 @@ export class CompanyProfileComponent implements OnInit {
   }
 
 
-  saveCompanyProfile() {
-    if (this.companyProfileForm.invalid) {
-      this.companyProfileForm.markAllAsTouched();
-      return
-    }
-    const companyProfile: ICompany = this.companyProfileForm.getRawValue();
-    this.isLoading = true;
-    this.companyProfileService.updateCompany(companyProfile)
-      .subscribe((companyProfile: ICompany) => {
-        this.isLoading = false;
-        this.securityService.updateProfile(companyProfile);
-        this.toastrService.success(this.translationService.getValue('COMPANY_PROFILE_UPDATED_SUCCESSFULLY'));
-        this.router.navigate(['dashboard']);
-      }, () => this.isLoading = false);
-  }
-
-  // onFileSelect($event) {
-  //   const fileSelected: File = $event.target.files[0];
-  //   if (!fileSelected) {
-  //     return;
+  // saveCompanyProfile() {
+  //   if (this.companyProfileForm.invalid) {
+  //     this.companyProfileForm.markAllAsTouched();
+  //     return
   //   }
-  //   const mimeType = fileSelected.type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(fileSelected);
-  //   // tslint:disable-next-line: variable-name
-  //   reader.onload = (_event) => {
-  //     this.logoSrc = reader.result;
-  //     this.companyProfileForm.patchValue({
-  //       imageData: reader.result.toString(),
-  //       logo: fileSelected.name
-  //     })
-  //     $event.target.value = '';
-  //   }
+  //   const companyProfile: ICompany = this.companyProfileForm.getRawValue();
+  //   this.isLoading = true;
+  //   this.companyProfileService.updateCompany(companyProfile)
+  //     .subscribe((companyProfile: ICompany) => {
+  //       this.isLoading = false;
+  //       this.securityService.updateProfile(companyProfile);
+  //       this.toastrService.success(this.translationService.getValue('COMPANY_PROFILE_UPDATED_SUCCESSFULLY'));
+  //       this.router.navigate(['dashboard']);
+  //     }, () => this.isLoading = false);
   // }
+
+ 
 
 
 onFileSelect(imageType: LogoType, $event: any) {
@@ -152,13 +137,13 @@ onFileSelect(imageType: LogoType, $event: any) {
     if (imageType === this.logoType.MONOCHROME) {
       this.monoChromeSrc = reader.result;
             this.companyProfileForm.patchValue({
-              monochromeImageData: reader.result.toString(),
-        monochromeImagePath: fileSelected.name
+              monochromeImageData: fileSelected,
+              monochromeImagePath: fileSelected.name
       })
     } else if (imageType === this.logoType.POLYCHROME) {
       this.polyChromeSrc = reader.result;
             this.companyProfileForm.patchValue({
-        imageData: this.polyChromeSrc.toString(),
+        imageData: fileSelected,
         logo: fileSelected.name
       })
     }
@@ -168,6 +153,70 @@ onFileSelect(imageType: LogoType, $event: any) {
 
     $event.target.value = '';
   }
+}
+
+// onFileSelect(imageType: LogoType, $event: any) {
+//   const fileSelected: File = $event.target.files[0];
+//   if (!fileSelected) {
+//     return;
+//   }
+
+//   const mimeType = fileSelected.type;
+//   if (mimeType.match(/image\/*/) == null) {
+//     return;
+//   }
+
+//   if (imageType === this.logoType.MONOCHROME) {
+//     this.monoChromeSrc = URL.createObjectURL(fileSelected);  // Create a URL for the image
+//     this.companyProfileForm.patchValue({
+//       monochromeImageData: fileSelected, // Store the file itself, not the Base64 string
+//       monochromeImagePath: fileSelected.name
+//     });
+//   } else if (imageType === this.logoType.POLYCHROME) {
+//     this.polyChromeSrc = URL.createObjectURL(fileSelected);  // Create a URL for the image
+//     this.companyProfileForm.patchValue({
+//       imageData: fileSelected, // Store the file itself, not the Base64 string
+//       logo: fileSelected.name
+//     });
+//   }
+
+//   // Clear the input value
+//   $event.target.value = '';
+// }
+
+saveCompanyProfile() {
+  if (this.companyProfileForm.invalid) {
+    this.companyProfileForm.markAllAsTouched();
+    return;
+  }
+
+  const formData = new FormData();
+  const companyProfile = this.companyProfileForm.getRawValue();
+
+  // Append each form field to FormData
+  for (const key in companyProfile) {
+    if (companyProfile.hasOwnProperty(key)) {
+      // If the key is an image (or file), append the file itself
+      if (key === 'monochromeImageData' || key === 'imageData') {
+        const file = companyProfile[key];
+        if (file instanceof File) {
+          formData.append(key, file, file.name); // Append the file as a form field
+        }
+      } else {
+        // Append other form fields
+        formData.append(key, companyProfile[key]);
+      }
+    }
+  }
+
+  this.isLoading = true;
+  this.companyProfileService.updateCompany(formData)
+    .subscribe((companyProfile: ICompany) => {
+      this.isLoading = false;
+      this.securityService.updateProfile(companyProfile);
+      this.toastrService.success(this.translationService.getValue('Company Profile Updated Succssfully'));
+      this.router.navigate(['dashboard']);
+    }, () => this.isLoading = false);
 }
 
 }

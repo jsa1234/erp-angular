@@ -3,41 +3,100 @@
     <div class="col-md-auto col-sm-auto col">
       <div class="content-header svg-icons"
         [ngClass]="{'content-header-ar':translationService.getSelectedLanguage()=='ar'}">
-        <h1><i class="icon9"></i> <span>{{'SIDEBAR.SUPPLIER' | translate}}</span> </h1>
+        <h1>{{'SIDEBAR.SUPPLIER' | translate}} </h1>
       </div>
     </div>
     <div  class="col-md-auto col-sm-auto col-auto">
-      <button *hasClaim="'account_supplier_create_supplier'" class="btn blue-btn btn-sm m-right-10" [routerLink]="['/supplier/manage/addItem']">
-        <i class="fas fa-plus"></i> {{'SUPPLIER.ADD_SUPPLIER' | translate}}
+      <button *hasClaim="'account_supplier_create_supplier'" 
+      class="btn blue-btn btn-sm m-right-10"
+       [routerLink]="['/supplier/manage/addItem']"
+       >
+        {{'SUPPLIER.ADD_SUPPLIER' | translate}} &nbsp;
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 8V16M16 12H8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="white" stroke-width="1.5"/>
+          </svg>
       </button>
     </div>
   </div>
-  <div class="breadcrump-pages" [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'}">
+  <div class="breadcrump-pages" 
+  [ngClass]="{'breadcrump-pages-ar':translationService.getSelectedLanguage()=='ar'
+
+  }">
     <div class="crumbs-sec">
-      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a> / <span>{{'SIDEBAR.SUPPLIER' | translate}}</span>
+      <a [routerLink]="['/']">{{'SIDEBAR.DASHBOARD' | translate}}</a>
+      <i class="chevron-icon"></i>
+        <span>{{'SIDEBAR.SUPPLIER' | translate}}</span>
     </div>
   </div>
 </div>
-<div class="table-responsive">
-  <table class="table table-bordered table-hover" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows
-    matSortActive="nameEngilsh">
+<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="table-filter-container">
+  <div class="filter-group">
+    <div class="form">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control form-input" placeholder="Search Supplier name ... " [(ngModel)]="NameFilter" />
+    </div>
+    <!-- <label for="choose">Sort by</label>
+    <mat-form-field class="filter-dropdown" #choose>
+      <mat-select class="form-control">
+         <div class="select-item-op">
+        <mat-option  [value]="-1" >
+         Choose
+        </mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+    &nbsp;
+    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="#4A4A4A" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M6 9H9.5M17 9H18M12 8V10M14.5 8V10" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M18 15H12M7 15H6M9.5 14V16" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Filters -->
+  </div>
+<div class="table-container">
+  <table 
+  class="table table-bordered table-hover"
+   mat-table 
+   [dataSource]="dataSource" matSort multiTemplateDataRows
+    matSortActive="nameEnglish"
+    >
     <ng-container matColumnDef="action">
-      <th class="table-column-50" mat-header-cell *matHeaderCellDef>
+      <th class="pr-5" mat-header-cell *matHeaderCellDef>
       </th>
-      <td class="table-column-50" mat-cell *matCellDef="let supplier">
+      <td class="table-column-130" mat-cell *matCellDef="let supplier" >
 
-        <button *hasClaim="['account_supplier_delete_supplier', 'account_supplier_edit_supplier']" class="ml-4"
+        <button
+         *hasClaim="['account_supplier_delete_supplier', 
+        'account_supplier_edit_supplier']"
 
-          mat-icon-button [matMenuTriggerFor]="menu" aria-label="Action">
+          mat-icon-button 
+          [matMenuTriggerFor]="menu" 
+          aria-label="Action"
+          >
           <mat-icon>more_vert</mat-icon>
         </button>
+
+       
         <mat-menu #menu="matMenu">
           <button *hasClaim="'account_supplier_edit_supplier'" (click)="editSupplier(supplier.accountUUID)" mat-menu-item>
-            <mat-icon>edit</mat-icon>
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.1426 4.48828L11.077 3.55377C11.5932 3.03766 12.43 3.03766 12.9461 3.55377C13.4622 4.06989 13.4622 4.90667 12.9461 5.42279L12.0116 6.35729M10.1426 4.48828L4.65332 9.97755C3.95646 10.6744 3.60801 11.0228 3.37075 11.4474C3.13348 11.872 2.89477 12.8746 2.6665 13.8334C3.62523 13.6051 4.62783 13.3664 5.05243 13.1291C5.47703 12.8918 5.82546 12.5434 6.52234 11.8466L12.0116 6.35729M10.1426 4.48828L12.0116 6.35729" stroke="#141B34" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7.3335 13.8333H11.3335" stroke="#141B34" stroke-linecap="round"/>
+              </svg>
             <span>{{'COMMON.EDIT' | translate}}</span>
           </button>
+          <hr>
           <button *hasClaim="'account_supplier_delete_supplier'" mat-menu-item (click)="deleteSupplier(supplier)">
-            <mat-icon>delete</mat-icon>
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 4.16669L12.5869 10.8501C12.4813 12.5576 12.4285 13.4114 12.0005 14.0253C11.7889 14.3288 11.5165 14.5849 11.2005 14.7774C10.5614 15.1667 9.706 15.1667 7.99513 15.1667C6.28208 15.1667 5.42553 15.1667 4.78603 14.7766C4.46987 14.5838 4.19733 14.3272 3.98579 14.0232C3.55792 13.4084 3.5063 12.5534 3.40307 10.8435L3 4.16669" stroke="#141B34" stroke-linecap="round"/>
+              <path d="M2 4.16665H14M10.7038 4.16665L10.2487 3.2278C9.9464 2.60415 9.7952 2.29233 9.53447 2.09785C9.47667 2.05471 9.4154 2.01634 9.35133 1.98311C9.0626 1.83331 8.71607 1.83331 8.023 1.83331C7.31253 1.83331 6.95733 1.83331 6.66379 1.98939C6.59873 2.02399 6.53665 2.06391 6.47819 2.10876C6.21443 2.31111 6.06709 2.63435 5.77241 3.28082L5.36861 4.16665" stroke="#141B34" stroke-linecap="round"/>
+              <path d="M6.3335 11.5V7.5" stroke="#141B34" stroke-linecap="round"/>
+              <path d="M9.6665 11.5V7.5" stroke="#141B34" stroke-linecap="round"/>
+              </svg>
             <span>{{'COMMON.DELETE' | translate}}</span>
           </button>
 
@@ -45,48 +104,54 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="nameEnglish">
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'COMMON.NAME_ENGLISH' | translate}} </th>
-      <td class="table-column-100" mat-cell *matCellDef="let supplier">{{supplier.nameEnglish}}
+      <th class="table-column-100"
+       mat-header-cell 
+       *matHeaderCellDef
+        mat-sort-header>
+        {{'COMMON.NAME_ENGLISH' | translate}} </th>
+      <td class="table-column-100" mat-cell *matCellDef="let supplier">
+        {{supplier.nameEnglish}}
       </td>
     </ng-container>
     <ng-container matColumnDef="nameSecondLanguage">
       <th class="table-column-100 text-right" mat-header-cell *matHeaderCellDef mat-sort-header> {{'COMMON.NAME_ARABIC' | translate}} </th>
-      <td class="table-column-100 text-right" mat-cell *matCellDef="let supplier">{{supplier.nameSecondLanguage}}
+      <td class="table-column-100 text-right" mat-cell *matCellDef="let supplier">
+        {{supplier.nameSecondLanguage}}
       </td>
     </ng-container>
     <ng-container matColumnDef="email">
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'COMMON.EMAIL' | translate}}
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef> {{'COMMON.EMAIL' | translate}}
       </th>
       <td class="table-column-100" mat-cell *matCellDef="let supplier"> {{supplier.email}} </td>
     </ng-container>
     <ng-container matColumnDef="Mobile">
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'COMMON.MOBILE' | translate}}
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef > {{'COMMON.MOBILE' | translate}}
       </th>
       <td class="table-column-100" mat-cell *matCellDef="let supplier">{{supplier.mobileCountryCode}}
         {{supplier.mobile}} </td>
     </ng-container>
     <ng-container matColumnDef="vat">
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header> {{'COMMON.GST_NO' | translate}} </th>
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef > {{'COMMON.GST_NO' | translate}} </th>
       <td class="table-column-100" mat-cell *matCellDef="let supplier"> {{supplier.gstVatNo}} </td>
     </ng-container>
-    <ng-container matColumnDef="reg-no">
+    <!-- <ng-container matColumnDef="reg-no">
       <th class="table-column-100" mat-header-cell *matHeaderCellDef> {{'COMMON.REG_NO' | translate}}</th>
       <td class="table-column-100" mat-cell *matCellDef="let supplier"> {{supplier.regCrNo}}</td>
-    </ng-container>
+    </ng-container> -->
     <ng-container matColumnDef="district">
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'COMMON.DISTRICT' | translate}}</th>
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef >{{'COMMON.DISTRICT' | translate}}</th>
       <td class="table-column-100" mat-cell *matCellDef="let supplier">
      {{translationService.getSelectedLanguage() == 'en'?supplier?.districtObject?.nameEnglish:supplier?.districtObject?.nameSecondLanguage}}
       </td>
     </ng-container>
     <ng-container matColumnDef="state">
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'COMMON.STATE' | translate}}</th>
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef >{{'COMMON.STATE' | translate}}</th>
       <td class="table-column-100" mat-cell *matCellDef="let supplier">
         {{translationService.getSelectedLanguage() == 'en'?supplier?.stateObject?.nameEnglish:supplier?.stateObject?.nameSecondLanguage}}
       </td>
     </ng-container>
     <ng-container matColumnDef="sales-man">
-      <th class="table-column-100" mat-header-cell *matHeaderCellDef mat-sort-header>{{'COMMON.SALESMAN' | translate}}</th>
+      <th class="table-column-100" mat-header-cell *matHeaderCellDef >{{'COMMON.SALESMAN' | translate}}</th>
       <td class="table-column-100" mat-cell *matCellDef="let supplier"> {{supplier.salesMan}} </td>
     </ng-container>
 
@@ -96,7 +161,7 @@
     </ng-container>
     <ng-container matColumnDef="nameEnglish-Search">
       <th mat-header-cell *matHeaderCellDef>
-        <input type="text" placeholder="Name English" class="form-control" [(ngModel)]="NameFilter">
+        <input type="text" placeholder="Supplier Name" class="form-control table-filter" [(ngModel)]="NameFilter">
       </th>
     </ng-container>
     <ng-container matColumnDef="nameSecondLanguage-Search">
@@ -106,48 +171,38 @@
     </ng-container>
     <ng-container matColumnDef="email-Search">
       <th mat-header-cell *matHeaderCellDef>
-        <input type="text" placeholder="Email Address" class="form-control" [(ngModel)]="EmailFilter">
+        <input type="text" placeholder="Email Address" class="form-control table-filter" [(ngModel)]="EmailFilter">
       </th>
     </ng-container>
     <ng-container matColumnDef="mobile-Search">
       <th mat-header-cell *matHeaderCellDef>
-        <input type="text" placeholder="Mobile Number" class="form-control" [(ngModel)]="MobileOrPhoneFilter">
+        <input type="text" placeholder="Mobile Number" class="form-control table-filter" [(ngModel)]="MobileOrPhoneFilter">
       </th>
     </ng-container>
     <ng-container matColumnDef="vat-Search">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>
+        <input type="text" placeholder="GST Number" class="form-control table-filter" [(ngModel)]="GSTFilter">
+      </th>
     </ng-container>
     <ng-container matColumnDef="regNo-Search">
       <th mat-header-cell *matHeaderCellDef>
-        <!-- <input type="text" placeholder="Reg.No" class="form-control" [(ngModel)]="WebsiteFilter"> -->
+        <input type="text" placeholder="Reg.No" class="form-control table-filter" [(ngModel)]="WebsiteFilter"> 
       </th>
     </ng-container>
     <ng-container matColumnDef="district-Search">
       <th mat-header-cell *matHeaderCellDef>
-        <!-- <input type="text" class="form-control" [formControl]="countryControl" [matAutocomplete]="auto">
-        <mat-autocomplete [autoActiveFirstOption]="true" (optionSelected)='CountryFilter = $event.option.value'
-          #auto="matAutocomplete">
-          <mat-option value="">{{'NONE' | translate}}</mat-option>
-          <mat-option *ngFor="let cont of filteredCountryList | async" [value]="cont.countryName">
-            {{cont.countryName}}
-          </mat-option>
-        </mat-autocomplete> -->
+        <input type="text" placeholder="District" class="form-control table-filter" [(ngModel)]="DistrictFilter">
+      
       </th>
     </ng-container>
     <ng-container matColumnDef="state-Search">
       <th mat-header-cell *matHeaderCellDef>
-        <!-- <input type="text" class="form-control" [formControl]="countryControl" [matAutocomplete]="auto">
-        <mat-autocomplete [autoActiveFirstOption]="true" (optionSelected)='CountryFilter = $event.option.value'
-          #auto="matAutocomplete">
-          <mat-option value="">{{'NONE' | translate}}</mat-option>
-          <mat-option *ngFor="let cont of filteredCountryList | async" [value]="cont.countryName">
-            {{cont.countryName}}
-          </mat-option>
-        </mat-autocomplete> -->
       </th>
     </ng-container>
     <ng-container matColumnDef="salesMan-Search">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>
+        <input type="text" placeholder="SalesMan" class="form-control table-filter" [(ngModel)]="SalesmanFilter">
+      </th>
     </ng-container>
 
     <ng-container matColumnDef="footer">
@@ -159,9 +214,13 @@
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <tr mat-header-row *matHeaderRowDef="searchColumns;sticky: true"
+    <!-- <tr
+    
+     mat-header-row *matHeaderRowDef="searchColumns;sticky: true"
       class="example-second-header-row">
-    </tr>
+    </tr> -->
+    
+    
     <tr mat-footer-row *matFooterRowDef="columnsToDisplay;sticky: true"></tr>
   </table>
   <ng-container *ngIf="dataSource.count === 0">
@@ -172,6 +231,4 @@
     </div>
   </ng-container>
 </div>
-<div class="loading-shade" *ngIf="dataSource.loading$ | async">
-  <mat-spinner></mat-spinner>
 </div>

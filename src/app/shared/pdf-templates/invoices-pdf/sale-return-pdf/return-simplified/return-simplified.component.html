@@ -11,7 +11,9 @@
                             <div style="text-align: left;font-size:25px;font-weight:600;font-family: 'Inter', sans-serif;color: #535b61;">
                                 Simplified Tax Return
                             </div>
-                            <div style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">فاتورة ضريبية مبسطة</div>
+                            <!-- <div style="text-align: right;font-size:25px;font-weight:600;font-family: 'Noto Kufi Arabic', sans-serif;color: #535b61;line-height: 25px;">فاتورة ضريبية مبسطة
+
+                            </div> -->
                         </div>
                     </header>
                     <div style="display: grid;grid-template-columns: auto auto;">
@@ -23,21 +25,27 @@
                                         <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
                                             {{salesReturn.docNo}}
                                         </td>
-                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">رقم الفاتورة</th>
+                                        <!-- <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">رقم الفاتورة
+
+                                        </th> -->
                                     </tr>
                                     <tr style="border: none;">
                                         <th style="font-size:14px;text-align: left;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">Invoice Date</th>
                                         <td style="font-size:14px;text-align: center;padding: 8px 12px;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
                                             {{salesReturn.docDate | customDate }}
                                         </td>
-                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">تاريخ الفاتورة</th>
+                                        <!-- <th style="font-size:14px;text-align: right;padding: 8px 12px;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">تاريخ الفاتورة
+
+                                        </th> -->
                                     </tr>
                                     <tr style="border: none;">
                                         <th style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">Reference Invocie Number</th>
                                         <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Inter', sans-serif;border: 1px solid #c9c6c6;">
                                             {{salesReturn?.refInvDate | customDate }}
                                         </td>
-                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">تاريخ التوريد</th>
+                                        <!-- <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;font-family: 'Noto Kufi Arabic', sans-serif;border: 1px solid #c9c6c6;color: #535b61;">تاريخ التوريد
+
+                                        </th> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -50,21 +58,29 @@
                                         <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
                                             {{salesReturn.poNo}}
                                         </td>
-                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">PO عدد</th>
+                                        <!-- <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">
+                                            PO عدد
+                                         </th> -->
                                     </tr>
                                     <tr style="border: none;">
-                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;">D.R Number</th>
+                                        <th style="font-size:14px;text-align: left;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;">D.R Number
+
+                                        </th>
                                         <td style="font-size:14px;text-align: center;padding: 8px 12px;border: 1px solid #c9c6c6;">
                                             {{salesReturn.drNo}}
                                         </td>
-                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">رقم D.R</th>
+                                        <!-- <th style="font-size:14px;text-align: right;padding: 8px 12px;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">رقم D.R
+
+                                        </th> -->
                                     </tr>
                                     <tr style="border: none;">
                                         <th style="font-size:14px;text-align: left;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;">Transaction Mode</th>
                                         <td style="font-size:14px;text-align: center;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;">
                                             {{salesReturn.transactionModeText}}
                                         </td>
-                                        <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">وضع الدفع</th>
+                                        <!-- <th style="font-size:14px;text-align: right;padding: 8px 12px;background-color: #f2f2f2;border: 1px solid #c9c6c6;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">وضع الدفع
+
+                                        </th> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -76,15 +92,17 @@
                             <tbody>
                                 <tr style="border: none;">
                                     <th style="text-align: left;padding: 6px 12px;font-size:18px;border-right: 0;background-color: #f2f2f2;color: #535b61;">Buyer</th>
-                                    <th style="text-align: right;padding: 6px 12px;border-left: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">مشتر</th>
+                                    <!-- <th style="text-align: right;padding: 6px 12px;border-left: 0;font-size:18px;background-color: #f2f2f2;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">مشتر
+
+                                    </th> -->
                                 </tr>
                                 <tr style="border: none;">
                                     <th style="text-align: left;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
                                         {{client?.nameEnglish}}
                                     </th>
-                                    <th style="text-align: right;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
+                                    <!-- <th style="text-align: right;padding: 5px 12px 5px 12px;font-size:15px;border-top: 0;color: #535b61;">
                                         {{client?.nameSecondLanguage}}
-                                    </th>
+                                    </th> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -92,7 +110,9 @@
 
                     <div style="display: grid;grid-template-columns: auto auto;">
                         <div style="font-family: 'Inter', sans-serif;text-align: left;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;">Line Items</div>
-                        <div style="line-height: 25px;text-align: right;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">قائمة المواد</div>
+                        <!-- <div style="line-height: 25px;text-align: right;font-size: 20px;font-weight: bold;margin-bottom: 20px;color: #535b61;font-family: 'Noto Kufi Arabic', sans-serif;">قائمة المواد
+
+                        </div> -->
                     </div>
                     <table style="width: 100%;font-family: 'Inter', sans-serif;border-collapse: collapse;">
                         <thead>
@@ -101,54 +121,66 @@
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                     Nature of Goods Or Services
                                     <br>
-                                    <span style="font-size: 12px;">
+                                    <!-- <span style="font-size: 12px;">
                                         طبيعة البضائع أو الخدمات
-                                    </span>
+                                    </span> -->
                                 </th>
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                     Unit Price
                                     <br>
-                                    <span style="font-size: 12px;">سعر الوحدة</span>
+                                    <!-- <span style="font-size: 12px;">سعر الوحدة
+
+                                    </span> -->
                                 </th>
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                     Quantity
                                     <br>
-                                    <span style="font-size: 12px;">كمية</span>
+                                    <!-- <span style="font-size: 12px;">كمية
+
+                                    </span> -->
                                 </th>
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                    Return Quantity
                                     <br>
-                                    <span style="font-size: 12px;">عودة كمية</span>
+                                    <!-- <span style="font-size: 12px;">عودة كمية
+
+                                    </span> -->
                                 </th>
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                     Discount
                                     <br>
-                                    <span style="font-size: 12px;">تخفيض</span>
+                                    <!-- <span style="font-size: 12px;">تخفيض
+
+                                    </span> -->
                                 </th>
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                     Taxable Amt
                                     <br>
-                                    <span style="font-size: 12px;">
+                                    <!-- <span style="font-size: 12px;">
                                         المبلغ الخاضع للضريبة
-                                    </span>
+                                    </span> -->
                                 </th>
 
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                     Tax Rate
                                     <br>
-                                    <span style="font-size: 12px;">معدل الضريبة</span>
+                                    <!-- <span style="font-size: 12px;">معدل الضريبة
+
+                                    </span> -->
                                 </th>
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: center;color: #535b61;    line-height: 16px;">
                                     Tax Amt
                                     <br>
-                                    <span style="font-size: 12px;">قيمة الضريبة</span>
+                                    <!-- <span style="font-size: 12px;">قيمة الضريبة
+
+                                    </span> -->
                                 </th>
                                 <th style="font-family: 'Noto Kufi Arabic', sans-serif;font-size:14px;background-color: #f2f2f2;padding: 6px 12px;text-align: right;color: #535b61;    line-height: 16px;">
-                                    Item Sub Total (Incl. VAT)
+                                    Item Sub Total (Incl. TAX)
                                     <br>
-                                    <span style="font-size: 12px;">
+                                    <!-- <span style="font-size: 12px;">
                                         المجموع الفرعي للبند
-                                    </span>
+                                    </span> -->
                                 </th>
                             </tr>
                         </thead>
@@ -186,25 +218,25 @@
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>
+                                    <!-- <b>
                                       إجمالي الكمية
-                                    </b>
+                                    </b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
-                                    <b [innerHTML]="salesReturn.totalQuantity"></b>
+                                    <b [innerHTML]="salesReturn.saleReturnDetails[0].returnQuanity"></b>
                                 </td>
                             </tr>
                             <tr style="border: none;">
                                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                                     <b>
-                                        Total (Excluding VAT)
+                                        Total (Excluding TAX)
                                     </b>
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>
+                                    <!-- <b>
                                         الإجمالي (باستثناء ضريبة القيمة المضافة)
-                                    </b>
+                                    </b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                     <b [innerHTML]="salesReturn.subTotal | customCurrency"></b>
@@ -216,7 +248,7 @@
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>تخفيض</b>
+                                <!-- <b>تخفيض</b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                     <b [innerHTML]="salesReturn.totalDiscount | customCurrency"></b>
@@ -225,14 +257,14 @@
                             <tr style="border: none;">
                                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
                                     <b>
-                                        Total Taxable Amt (Excluding VAT)
+                                        Total Taxable Amt (Excluding TAX)
                                     </b>
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>
+                                    <!-- <b>
                                         إجمالي المبلغ الخاضع للضريبة (باستثناء ضريبة القيمة المضافة)
-                                    </b>
+                                    </b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                     <b [innerHTML]="salesReturn.totalTaxableAmount | customCurrency"></b>
@@ -240,13 +272,13 @@
                             </tr>
                             <tr style="border: none;">
                                 <td style="text-align: left;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;" colspan="4">
-                                    <b>Total VAT</b>
+                                    <b>Total TAX</b>
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>
+                                    <!-- <b>
                                         إجمالي ضريبة القيمة المضافة
-                                    </b>
+                                    </b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                     <b [innerHTML]="salesReturn.totalTax | customCurrency"></b>
@@ -258,9 +290,9 @@
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>
+                                    <!-- <b>
                                         إجمالي ضريبة القيمة المضافة
-                                    </b>
+                                    </b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                     <b [innerHTML]="salesReturn.totalExpenses | customCurrency"></b>
@@ -272,9 +304,9 @@
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>
+                                    <!-- <b>
                                       نهاية الجولة
-                                    </b>
+                                    </b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                     <b [innerHTML]="salesReturn.roundOff | customCurrency"></b>
@@ -286,9 +318,9 @@
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;font-family: 'Noto Kufi Arabic', sans-serif;"
                                     colspan="4">
-                                    <b>
+                                    <!-- <b>
                                         إجمالي المبلغ المستحق
-                                    </b>
+                                    </b> -->
                                 </td>
                                 <td style="text-align: right;font-size:14px;background-color: #f2f2f2;padding: 3px 12px;">
                                     <b [innerHTML]="salesReturn?.totalAmount | customCurrency"></b>

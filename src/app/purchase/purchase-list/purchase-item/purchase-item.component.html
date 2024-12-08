@@ -12,89 +12,95 @@
 </div>
 
 <div class="table-responsive">
-    <table mat-table [dataSource]="purchaseOrderItems" class="table table-bordered table-hover">
-        <ng-container matColumnDef="#">
-            <th mat-header-cell *matHeaderCellDef>{{'COMMON.#' |translate}}</th>
-            <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
-        </ng-container>
-        <ng-container matColumnDef="productName">
-            <th mat-header-cell *matHeaderCellDef>{{'COMMON.PRODUCT_NAME' |translate}}</th>
-            <td mat-cell *matCellDef="let element">
-                {{translate.getSelectedLanguage()=='en'?element.productObject?.nameEnglish:element.productObject?.nameSecondLanguage}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="code">
-            <th mat-header-cell *matHeaderCellDef>{{'PRODUCT.CODE' |translate}}</th>
-            <td mat-cell *matCellDef="let element">
-                {{element.productObject?.productCode}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="unitName">
-            <th mat-header-cell *matHeaderCellDef> {{'COMMON.UNIT' | translate}} </th>
-            <td mat-cell *matCellDef="let element">
-                {{translate.getSelectedLanguage()=='en'?element.unitObject?.nameEnglish:element.unitObject?.nameSecondLanguage}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="unitPrice">
-            <th mat-header-cell *matHeaderCellDef>  {{'PRODUCT.UNIT_COST' | translate}} </th>
-            <td mat-cell *matCellDef="let element"  [innerHTML]="element.unitPrice | customCurrency">
+    <div class="row">
+        <div class="col-sm-12 ml-4 mt-3">
+            <table mat-table [dataSource]="purchaseOrderItems" class="table table-bordered table-hover">
+                <ng-container matColumnDef="#">
+                    <th mat-header-cell *matHeaderCellDef>{{'COMMON.#' |translate}}</th>
+                    <td mat-cell *matCellDef="let element; let i = index">{{i+1}}</td>
+                </ng-container>
+                <ng-container matColumnDef="productName">
+                    <th mat-header-cell *matHeaderCellDef>{{'COMMON.PRODUCT_NAME' |translate}}</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{translate.getSelectedLanguage()=='en'?element.productObject?.nameEnglish:element.productObject?.nameSecondLanguage}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="code">
+                    <th mat-header-cell *matHeaderCellDef>{{'PRODUCT.CODE' |translate}}</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.productObject?.productCode}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="unitName">
+                    <th mat-header-cell *matHeaderCellDef> {{'COMMON.UNIT' | translate}} </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{translate.getSelectedLanguage()=='en'?element.unitObject?.nameEnglish:element.unitObject?.nameSecondLanguage}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="unitPrice">
+                    <th mat-header-cell *matHeaderCellDef>  {{'PRODUCT.UNIT_COST' | translate}} </th>
+                    <td mat-cell *matCellDef="let element"  [innerHTML]="element.unitPrice | customCurrency">
+        
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> {{'PRODUCT.QUANTITY' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        {{element.quantity}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="totalDiscount">
+                    <th mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.DISCOUNT' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [innerHTML]="element.discountAmount | customCurrency ">
+                       <!-- ({{element.discountRate}}%) -->
+                    </td>
+                </ng-container>
+        
+                <ng-container matColumnDef="cgst">
+                    <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.CGST' | translate}}  </th>
+                    <td mat-cell *matCellDef="let element" [innerHTML]="element.cgstAmount | customCurrency ">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="sgst">
+                    <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.SGST' | translate}}  </th>
+                    <td mat-cell *matCellDef="let element" [innerHTML]="element.sgstAmount | customCurrency ">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="igst">
+                    <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.IGST' | translate}}  </th>
+                    <td mat-cell *matCellDef="let element" [innerHTML]="element.igstAmount | customCurrency ">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="cess">
+                    <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.CESS' | translate}}  </th>
+                    <td mat-cell *matCellDef="let element" [innerHTML]="element.cessAmount | customCurrency ">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="adnlCess">
+                    <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.ADDITIONAL_CESS' | translate}}  </th>
+                    <td mat-cell *matCellDef="let element" [innerHTML]="element.addnlCessAmount | customCurrency ">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="totalAmount">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.TOTAL' | translate}} </th>
+                    <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element.itemTotalAmount | customCurrency ">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="expDate">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.EXPIRY_DATE' | translate}} </th>
+                    <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element.expiryDate | customDate ">
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="mfgDate">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.MANUFACTURE_DATE' | translate}} </th>
+                    <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element.manufactureDate | customDate ">
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.bg-warning]="row.status===1"></tr>
+            </table>
+        </div>
+    </div>
 
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef class="text-center"> {{'PRODUCT.QUANTITY' | translate}} </th>
-            <td mat-cell *matCellDef="let element" class="text-center">
-                {{element.quantity}}
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="totalDiscount">
-            <th mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.DISCOUNT' | translate}} </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element.discountAmount | customCurrency ">
-               <!-- ({{element.discountRate}}%) -->
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="cgst">
-            <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.CGST' | translate}}  </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element.cgstAmount | customCurrency ">
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="sgst">
-            <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.SGST' | translate}}  </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element.sgstAmount | customCurrency ">
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="igst">
-            <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.IGST' | translate}}  </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element.igstAmount | customCurrency ">
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="cess">
-            <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.CESS' | translate}}  </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element.cessAmount | customCurrency ">
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="adnlCess">
-            <th mat-header-cell *matHeaderCellDef>  {{'PURCHASE_INVOICE.ADDITIONAL_CESS' | translate}}  </th>
-            <td mat-cell *matCellDef="let element" [innerHTML]="element.addnlCessAmount | customCurrency ">
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="totalAmount">
-            <th class="text-right" mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.TOTAL' | translate}} </th>
-            <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element.itemTotalAmount | customCurrency ">
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="expDate">
-            <th class="text-right" mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.EXPIRY_DATE' | translate}} </th>
-            <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element.expiryDate | customDate ">
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="mfgDate">
-            <th class="text-right" mat-header-cell *matHeaderCellDef> {{'PURCHASE_INVOICE.MANUFACTURE_DATE' | translate}} </th>
-            <td class="text-right" mat-cell *matCellDef="let element" [innerHTML]="element.manufactureDate | customDate ">
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.bg-warning]="row.status===1"></tr>
-    </table>
+    
 </div>

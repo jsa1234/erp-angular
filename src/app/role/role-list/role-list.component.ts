@@ -16,7 +16,7 @@ import { RoleService } from '../role.service';
 export class RoleListComponent extends BaseComponent implements OnInit {
 
   roles: Role[] = [];
-  displayedColumns: string[] = ['action', 'name'];
+  displayedColumns: string[] = ['name', 'action'];
   isLoadingResults = true;
 
   constructor(

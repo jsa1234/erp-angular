@@ -11,4 +11,5 @@ export class ProductCategory {
     isUpdate?:           boolean
     allowNonStock:           boolean
     allowZeroPrice?:           boolean
+    isTop?:                boolean
 }
